@@ -1,0 +1,123 @@
+﻿<Window x:Class="InteractServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:local="clr-namespace:InteractServer"
+        Title="Interact Server" WindowState="Maximized"
+        Closing="Window_Closing">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Look at riboon example here: http://www.c-sharpcorner.com/UploadFile/0b73e1/ribbon-control-in-wpf-4-5/ -->
+        <Ribbon Grid.Row="0" x:Name="Ribbon" SelectedIndex="0" SelectionChanged="Ribbon_SelectionChanged">
+            <!-- Help Pane, locatied at the right-hand side -->
+            <Ribbon.HelpPaneContent>
+                <RibbonButton SmallImageSource="pack://application:,,,/Resources/Images/help.png"/>
+            </Ribbon.HelpPaneContent>
+
+            <!-- Quick Access Toolbar - located at the upper-left corner -->
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton x:Name="Save" SmallImageSource="pack://application:,,,/Resources/Images/save.png"/>
+                    <RibbonButton x:Name="Undo" SmallImageSource="pack://application:,,,/Resources/Images/undo.png"/>
+
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+
+            <!-- Application Menu, located at the left-hand side (down arrow) -->
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu KeyTip="F">
+                    <RibbonApplicationMenuItem Header="Options" ImageSource="pack://application:,,,/Resources/Images/settings-4.png"/>
+                    <RibbonApplicationMenuItem Header="Exit" ImageSource="pack://application:,,,/Resources/Images/exit-2.png"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+            <!-- Project Tab -->
+            <RibbonTab Header="Project" KeyTip="P">
+                <RibbonGroup Header="Manage Project">
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/301-file.png" Label="New" KeyTip="N" Click="ButtonNewProject_Click"/>
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/301-file-5.png" Label="Load" KeyTip="L" Click="ButtonLoadProject_Click"/>
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/301-file-1.png" Label="Save" KeyTip="S" Click="ButtonSaveProject_Click"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="Project Settings">
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/settings-8.png" Label="Configure" KeyTip="C" Click="ButtonConfigProject_Click"/>
+
+                </RibbonGroup>
+
+                <RibbonGroup Header="Test Project">
+                    <RibbonButton x:Name="ButtonStartProject" LargeImageSource="pack://application:,,,/Resources/Images/play-button.png" Label="Play" KeyTip="P" Click="ButtonStartProject_Click"/>
+                    <RibbonButton x:Name="ButtonStopProject" IsEnabled="False" LargeImageSource="pack://application:,,,/Resources/Images/stop.png" Label="Stop" KeyTip="S" Click="ButtonStopProject_Click"/>
+
+                </RibbonGroup>
+
+            </RibbonTab>
+            
+            <!-- Screens Tab -->
+            <RibbonTab Header="Screens" KeyTip="M">
+                <RibbonGroup Header="Add Screen">
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/301-file.png" Label="New" KeyTip="N" Click="ButtonCreateScreen_Click"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Test On Selected Clients">
+                    <RibbonButton x:Name="ButtonStartScreen" LargeImageSource="pack://application:,,,/Resources/Images/play-button.png" Label="Play" KeyTip="P" Click="ButtonStartScreen_Click"/>
+                    <RibbonButton x:Name="ButtonStopScreen" IsEnabled="False" LargeImageSource="pack://application:,,,/Resources/Images/stop.png" Label="Stop" KeyTip="S" Click="ButtonStopScreen_Click"/>
+
+                </RibbonGroup>
+            </RibbonTab>
+            
+            <!-- View Tab -->
+            <RibbonTab Header="View" KeyTip="V">
+                <RibbonGroup Header="Performance Views">
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/users-1.png" Label="Clients" KeyTip="C" Click="ButtonClientsView_Click"/>
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/folder-8.png" Label="Log" KeyTip="L" Click="ButtonLogView_Click"/>
+                    <RibbonButton LargeImageSource="pack://application:,,,/Resources/Images/folder-8.png" Label="Explorer" KeyTip="L" Click="ButtonExplorerView_Click"/>
+                    
+                </RibbonGroup>
+            </RibbonTab>
+            
+        </Ribbon>
+
+
+        <ad:DockingManager Grid.Row="1" x:Name="dockingManager">
+            <ad:DockingManager.Theme>
+                <ad:MetroTheme/>
+            </ad:DockingManager.Theme>
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal">
+                    <ad:LayoutAnchorablePane x:Name="dockLeft" DockWidth="300"/>
+                    <ad:LayoutPanel Orientation="Vertical">
+                        <ad:LayoutPanel Orientation="Horizontal">
+                            <ad:LayoutDocumentPane x:Name="dockMain"/>
+                            <ad:LayoutAnchorablePane x:Name="dockRight" DockWidth="300"/>
+                        </ad:LayoutPanel>
+                        <ad:LayoutAnchorablePane x:Name="dockBottom" DockHeight="150"/>
+                    </ad:LayoutPanel>
+                </ad:LayoutPanel>
+                
+
+                <ad:LayoutRoot.LeftSide>
+                    <ad:LayoutAnchorSide>
+                        <ad:LayoutAnchorGroup x:Name="dockLefHidden">
+                            <ad:LayoutAnchorable Title="Autohidden Content">
+                                <TextBox/>
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorGroup>
+                    </ad:LayoutAnchorSide>
+                </ad:LayoutRoot.LeftSide>
+
+            </ad:LayoutRoot>
+
+            
+
+        </ad:DockingManager>
+        
+    </Grid>
+
+
+</Window>

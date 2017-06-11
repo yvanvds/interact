@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InteractClient"
+             x:Class="InteractClient.MainPage"
+             BackgroundColor="DarkSlateGray">
+
+    <Grid x:Name="PageGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="1" x:Name="Logo" Source="connect.png" HorizontalOptions="Center"/>
+        <Label Grid.Row="2" Text="Interact" FontFamily="serif" FontSize="40" TextColor="White" HorizontalTextAlignment="Center"/>
+        <Label Grid.Row="3" Text="One App" FontFamily="serif" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center"/>
+        <Entry Grid.Row="4" x:Name="UserName" Text="Your Name" Placeholder="Your Name" TextColor="White" HorizontalTextAlignment="Center" PlaceholderColor="WhiteSmoke" Margin="50,20,50,0"/>
+        <Button Grid.Row="5" x:Name="ButtonServer" Text="Find a Server" Clicked="ButtonServer_Clicked" Margin="50,10,50,0"/>
+
+        <ListView Grid.Row="6" x:Name="ServerList" ItemsSource="{Binding}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Tapped="Server_Tapped">
+                        <StackLayout Orientation="Horizontal" Margin="50,0,50,0">
+                            <Image Source="plugin.png" HorizontalOptions="Center" HeightRequest="70"/>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                <Label Text="{Binding Name}" TextColor="White" HorizontalTextAlignment="End"/>
+                                <Label Text="{Binding Address}" TextColor="White" HorizontalTextAlignment="End"/>
+                            </StackLayout>
+                            
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+
+
+
+
+
+
+</ContentPage>
