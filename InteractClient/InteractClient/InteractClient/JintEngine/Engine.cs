@@ -38,7 +38,7 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Text", TypeReference.CreateTypeReference(jEngine, typeof(UI.Text)));
         jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(UI.Image)));
         jEngine.SetValue("Entry", TypeReference.CreateTypeReference(jEngine, typeof(UI.Entry)));
-
+        jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));
 
         // Network
         jEngine.SetValue("Server", Server);
@@ -118,7 +118,17 @@ namespace InteractClient.JintEngine
 
     public void Invoke(String functionName, params object[] arguments)
     {
-      Jint().Invoke(functionName, arguments);
+      Device.BeginInvokeOnMainThread(() =>
+      {
+        try
+        {
+          Jint().Invoke(functionName, arguments);
+        }
+        catch (Exception e)
+        {
+          InteractClient.Network.Service.Get().WriteLog("Engine->Invoke: Eror:" + e.Message);
+        }
+      });
     }
 
     public void SetScreenMessage(string message, bool animate)

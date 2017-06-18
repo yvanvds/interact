@@ -275,5 +275,24 @@ namespace InteractServer.Models
     {
       SoundFiles.SendVersionsToClient(ProjectID(), ID);
     }
+
+    public void InitIntellisense()
+    {
+      foreach (ServerScript script in ServerScripts.Resources)
+      {
+        Global.IntelliServerScripts.AddScript(script.Name, script.Content, Intellisense.Scriptcontent.SCRIPT_TYPE.SERVER);
+      }
+
+      foreach(Screen screen in Screens.Resources)
+      {
+        if(screen.ContentObj is ScreenContent.Script)
+        {
+          string content = (screen.ContentObj as ScreenContent.Script).Content;
+          if (screen.Type.Equals("Script")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT);
+          else if (screen.Type.Equals("UtilityScript")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT_UTILITY);
+        }
+        
+      }
+    }
   }
 }

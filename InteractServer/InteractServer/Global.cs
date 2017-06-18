@@ -19,10 +19,16 @@ namespace InteractServer
     public static Managers.ScreenManager ScreenManager;
     public static Managers.ServerScriptManager ServerScriptManager;
 
+    public static Intellisense.Scripts IntelliServerScripts;
+    public static Intellisense.Scripts IntelliClientScripts;
+    public static Intellisense.ServerObjects ServerObjects;
+    public static Intellisense.ClientObjects ClientObjects;
+
     public static ClientPage ClientPage;
     public static PropertiesPage PropertiesPage;
     public static ProjectExplorerPage ProjectExplorerPage;
     public static ProjectConfigPage ProjectConfigPage;
+
 
     public static MainWindow AppWindow;
 
@@ -36,6 +42,11 @@ namespace InteractServer
       ScreenManager = new Managers.ScreenManager();
       ServerScriptManager = new Managers.ServerScriptManager();
       Log = new LogPage();
+
+      IntelliServerScripts = new Intellisense.Scripts();
+      IntelliClientScripts = new Intellisense.Scripts();
+      ServerObjects = new Intellisense.ServerObjects();
+      ClientObjects = new Intellisense.ClientObjects();
 
       ClientPage = new ClientPage();
       PropertiesPage = new PropertiesPage();

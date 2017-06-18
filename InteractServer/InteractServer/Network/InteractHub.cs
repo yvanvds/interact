@@ -72,6 +72,8 @@ namespace InteractServer
     {
       if(JintEngine.Runner.Engine != null)
       {
+        Array.Resize<object>(ref arguments, arguments.Length + 1);
+        arguments[arguments.Length - 1] = Context.ConnectionId;
         JintEngine.Runner.Engine.InvokeMethod(name, arguments);
       }
     }

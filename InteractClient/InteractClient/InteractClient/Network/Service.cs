@@ -98,7 +98,7 @@ namespace InteractClient.Network
       proxy.Invoke("InvokeMethod", method, arguments);
     }
 
-      private void AddMethods()
+    private void AddMethods()
     {
       proxy.On("RequestAcknowledge", () =>
           proxy.Invoke("Acknowledge")
@@ -157,6 +157,11 @@ namespace InteractClient.Network
       proxy.On("UpdateSoundFile", (Guid projectID, int ID, string Content) =>
       {
         Data.Project.List[projectID]?.UpdateSoundFile(ID, Content);
+      });
+
+      proxy.On("InvokeMethod",(string MethodName, object[] arguments) =>
+      {
+        Engine.Instance.Invoke(MethodName, arguments);
       });
     }
   }

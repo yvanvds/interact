@@ -34,7 +34,6 @@ namespace InteractServer.Managers
       }
 
       ServerScript script = Global.ProjectManager.Current.ServerScripts.CreateServerScript(scriptName);
-
       AddAndShow(script);
     }
 
@@ -54,6 +53,7 @@ namespace InteractServer.Managers
       ServerScriptView newView = new ServerScriptView(script);
       List.Add(newView);
       Global.AppWindow.AddDocument(newView.Document);
+
     }
 
     public void Close(ServerScript script)

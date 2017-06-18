@@ -94,6 +94,7 @@ namespace InteractServer.Views
         private BasePage GeneratePageForScreen(Screen screen)
         {
             if (screen.Type.Equals(ScreenType.Script)) return new ScriptPage(this);
+      if (screen.Type.Equals(ScreenType.UtilityScript)) return new ScriptPage(this);
             return null;
         }
 

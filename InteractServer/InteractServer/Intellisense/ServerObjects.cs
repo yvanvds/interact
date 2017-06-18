@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+
+/*
+ * This class is used for intellisense server scripts,
+ * and also to load any added types and objects to
+ * server instances of jint.
+ */
+
+namespace InteractServer.Intellisense
+{
+  public class ServerObjects : ScriptObjects
+  {
+    public ServerObjects()
+    {
+      // we want intellisense for these, but not allow to create new objects of this type
+      AddGlobalObject("Log", "LogPage", typeof(Pages.LogPage), Global.Log);
+      AddGlobalObject("ServerView", "ServerViewType", typeof(StackPanel));
+      AddGlobalObject("Clients", "ClientWrapper", typeof(JintEngine.Clients), Global.NetworkService.ClientWrapper);
+
+      // UI
+      AddScriptType("Button", typeof(JintEngine.UI.Button));
+      AddScriptType("Text", typeof(TextBlock));
+      AddScriptType("Grid", typeof(Grid));
+      AddScriptType("ColumnDefinition", typeof(ColumnDefinition));
+      AddScriptType("RowDefinition", typeof(RowDefinition));
+      AddScriptType("GridLength", typeof(GridLength));
+      AddScriptType("GridUnitType", typeof(GridUnitType));
+
+      // UI values
+      AddScriptType("Thickness", typeof(Thickness));
+
+      AddScriptType("Osc", typeof(JintEngine.Osc));
+      AddScriptType("Timer", typeof(JintEngine.DispatcherTimer));
+      AddScriptType("TimeSpan", typeof(TimeSpan));
+    }
+  }
+}

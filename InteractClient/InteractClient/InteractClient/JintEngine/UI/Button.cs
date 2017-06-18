@@ -14,9 +14,9 @@ namespace InteractClient.JintEngine.UI
             TextColor = Data.Project.Current.ConfigButton.Foreground.Get();
         }
 
-        public void OnClick(String functionName)
+        public void OnClick(String functionName, params object[] arguments)
         {
-            Engine.EventHandler.Register(Id, functionName);
+            Engine.EventHandler.Register(Id, functionName, arguments);
             Clicked += Engine.EventHandler.OnClick;
         }
     }

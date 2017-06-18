@@ -13,5 +13,10 @@ namespace InteractClient.JintEngine.Network
       InteractClient.Network.Service.Get().InvokeMethod(name, arguments);
     }
 
+    public void Log(string message)
+    {
+      InteractClient.Network.Service.Get().WriteLog(message);
+    }
+
   }
 }

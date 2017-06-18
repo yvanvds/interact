@@ -52,7 +52,13 @@ namespace InteractServer.Models
 
       foreach (Screen screen in Resources)
       {
-        if (screen.Name.Equals(Name)) return screen;
+        if (screen.Name.Equals(Name))
+        {
+          string content = (screen.ContentObj as ScreenContent.Script).Content;
+          if (screen.Type.Equals("Script")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT);
+          else if (screen.Type.Equals("UtilityScript")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT_UTILITY);
+          return screen;
+        }
       }
 
       // this probably cannot happen
@@ -63,11 +69,15 @@ namespace InteractServer.Models
     {
       screen.Version++;
       connection.Update(screen);
+      string content = (screen.ContentObj as ScreenContent.Script).Content;
+      if (screen.Type.Equals("Script")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT);
+      else if (screen.Type.Equals("UtilityScript")) Global.IntelliClientScripts.AddScript(screen.Name, content, Intellisense.Scriptcontent.SCRIPT_TYPE.CLIENT_UTILITY);
     }
 
     public void Remove(Screen screen)
     {
       connection.Delete(screen);
+      Global.IntelliClientScripts.RemoveScript(screen.Name);
       refresh();
     }
 

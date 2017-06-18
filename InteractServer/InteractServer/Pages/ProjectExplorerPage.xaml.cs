@@ -149,6 +149,7 @@ namespace InteractServer.Pages
 
       if (group != null)
       {
+        string oldName = resource.Name;
         Dialogs.RenameResource dlg = new Dialogs.RenameResource(group, resource);
         dlg.ShowDialog();
         if (resource is Models.Screen)
@@ -159,6 +160,7 @@ namespace InteractServer.Pages
         {
           ServerScript s = resource as Models.ServerScript;
           Global.ServerScriptManager.RefreshName(s);
+          Global.IntelliServerScripts.RenameScript(oldName, s.Name);
         }
         Refresh();
       }

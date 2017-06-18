@@ -29,6 +29,10 @@ namespace InteractServer.Pages
       InitializeComponent();
       Editor.Text = (view.Screen.ContentObj as ScreenContent.Script).Content;
       Editor.ContentChanged += Editor_ContentChanged;
+      Editor.ServerSide = false;
+
+      Editor.InitIntellisense();
+      Editor.ScriptName = view.Screen.Name;
     }
 
     public ScriptPage(ServerScriptView view) : base(view)
@@ -36,6 +40,10 @@ namespace InteractServer.Pages
       InitializeComponent();
       Editor.Text = view.ServerScript.Content;
       Editor.ContentChanged += Editor_ContentChanged;
+      Editor.ServerSide = true;
+
+      Editor.InitIntellisense();
+      Editor.ScriptName = view.ServerScript.Name;
     }
 
     public override void Save()

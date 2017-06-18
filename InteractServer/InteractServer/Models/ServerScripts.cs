@@ -50,7 +50,11 @@ namespace InteractServer.Models
 
       foreach(ServerScript serverScript in Resources)
       {
-        if (serverScript.Name.Equals(Name)) return serverScript;
+        if (serverScript.Name.Equals(Name))
+        {
+          Global.IntelliServerScripts.AddScript(serverScript.Name, serverScript.Content, Intellisense.Scriptcontent.SCRIPT_TYPE.SERVER);
+          return serverScript;
+        }
       }
 
       return null;
@@ -59,11 +63,13 @@ namespace InteractServer.Models
     public void Save(ServerScript serverScript)
     {
       connection.Update(serverScript);
+      Global.IntelliServerScripts.AddScript(serverScript.Name, serverScript.Content, Intellisense.Scriptcontent.SCRIPT_TYPE.SERVER);
     }
 
     public void Remove(ServerScript serverScript)
     {
       connection.Delete(serverScript);
+      Global.IntelliServerScripts.RemoveScript(serverScript.Name);
       refresh();
     }
 

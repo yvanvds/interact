@@ -24973,6 +24973,7 @@
       "Microsoft.AspNet.SignalR.Client >= 2.2.2",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Newtonsoft.Json >= 10.0.2",
+      "System.Net.Sockets >= 4.3.0",
       "Xamarin.Forms >= 2.3.4.224",
       "rda.SocketsForPCL >= 2.0.2"
     ],
@@ -24983,16 +24984,16 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "E:\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
+      "projectUniqueName": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
       "projectName": "InteractClient.UWP",
-      "projectPath": "E:\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
-      "projectJsonPath": "E:\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\project.json",
+      "projectPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
+      "projectJsonPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\project.json",
       "projectStyle": "ProjectJson",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
-            "E:\\Interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj": {
-              "projectPath": "E:\\Interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj"
+            "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj": {
+              "projectPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj"
             }
           }
         }
@@ -25004,6 +25005,7 @@
       "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
       "Newtonsoft.Json": "10.0.2",
       "rda.SocketsForPCL": "2.0.2",
+      "System.Net.Sockets": "4.3.0",
       "Xamarin.Forms": "2.3.4.224"
     },
     "frameworks": {

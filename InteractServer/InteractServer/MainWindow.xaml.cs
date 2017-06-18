@@ -108,6 +108,7 @@ namespace InteractServer
     {
       Global.ProjectManager.Current.Save();
       Global.ScreenManager.SaveAll();
+      Global.ServerScriptManager.SaveAll();
     }
 
     private void ButtonSaveProject_Click(object sender, RoutedEventArgs e)

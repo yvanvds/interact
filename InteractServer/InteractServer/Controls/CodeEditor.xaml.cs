@@ -27,9 +27,10 @@ namespace InteractServer.Controls
   {
 
     public event EventHandler ContentChanged;
+    public bool ServerSide { get; set; } = false;
 
     private AutocompleteMenu acMenu;
-    private AutoComplete ac;
+    private Intellisense.AutoComplete ac;
 
     public CodeEditor()
     {
@@ -52,9 +53,25 @@ namespace InteractServer.Controls
 
       acMenu = new AutocompleteMenu();
       acMenu.TargetControlWrapper = new ScintillaWrapper(TextArea);
-      ac = new AutoComplete();
-      ac.Build();
-      acMenu.SetAutocompleteItems(ac.items);
+      acMenu.MaximumSize = new System.Drawing.Size(800, 600);
+      acMenu.Colors.BackColor = System.Drawing.Color.Black;
+      acMenu.Colors.ForeColor = System.Drawing.Color.DodgerBlue;
+      acMenu.Colors.HighlightingColor = System.Drawing.Color.DimGray;
+      acMenu.Colors.SelectedBackColor = System.Drawing.Color.DimGray;
+      acMenu.Colors.SelectedBackColor2 = System.Drawing.Color.Black;
+      acMenu.Colors.SelectedForeColor = System.Drawing.Color.DodgerBlue;
+    }
+
+    public void InitIntellisense()
+    {
+      ac = new Intellisense.AutoComplete(TextArea, ServerSide);
+      acMenu.SetAutocompleteItems(ac);
+    }
+
+    public string ScriptName
+    {
+      set => ac.ScriptName = value;
+      get => ac.ScriptName;
     }
 
     public string Text
@@ -255,6 +272,14 @@ namespace InteractServer.Controls
             TextArea.InsertText(TextArea.CurrentPosition, ")");
             break;
           }
+        case ')':
+          {
+            if(TextArea.GetCharAt(TextArea.CurrentPosition) == ')')
+            {
+              TextArea.DeleteRange(TextArea.CurrentPosition, 1);
+            }
+            break;
+          }
         case '"':
           {
             TextArea.InsertText(TextArea.CurrentPosition, "\"");
@@ -268,6 +293,15 @@ namespace InteractServer.Controls
 
         case 13:
           {
+            // update intellisense on return
+            if (ServerSide)
+            {
+              Global.IntelliServerScripts.UpdateScript(ac.ScriptName, TextArea.Text);
+            } else
+            {
+              Global.IntelliClientScripts.UpdateScript(ac.ScriptName, TextArea.Text);
+            }
+
             // if the enter key was pressed between { }
             bool endbraces = false;
 
@@ -330,6 +364,22 @@ namespace InteractServer.Controls
     private void TextArea_TextChanged(object sender, EventArgs e)
     {
       ContentChanged?.Invoke(this, e);
+
+      int start = TextArea.WordStartPosition(TextArea.CurrentPosition, true);
+      char previousChar = (char)TextArea.GetCharAt(start - 1);
+
+      if (TextArea.GetCharAt(TextArea.CurrentPosition - 2) == '.' || previousChar == '.')
+      {
+        acMenu.MinFragmentLength = 0;
+      }
+      else if (TextArea.GetWordFromPosition(TextArea.CurrentPosition - 2).Equals("new"))
+      {
+        acMenu.MinFragmentLength = 0;
+      } else
+      {
+        acMenu.MinFragmentLength = 2;
+      }
+        
     }
   }
 
