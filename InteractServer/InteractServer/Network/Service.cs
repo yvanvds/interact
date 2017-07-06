@@ -82,7 +82,7 @@ namespace InteractServer.Network
 
     public void StartScreen(int screenID)
     {
-      Clients?.All().StartScreen(screenID);
+      Clients?.All.StartScreen(screenID);
     }
 
     public void StartScreen(string clientID, int screenID)
@@ -132,7 +132,7 @@ namespace InteractServer.Network
 
     public void InvokeMethod(string methodName, params object[] arguments)
     {
-      Clients?.All().InvokeMethod(methodName, arguments);
+      Clients?.All.InvokeMethod(methodName, arguments);
     }
 
     public void InvokeMethod(List<string> clients, string methodName, params object[] arguments)
@@ -142,6 +142,7 @@ namespace InteractServer.Network
 
     public void InvokeMethod(string clientID, string methodName, params object[] arguments)
     {
+      if (clientID == null || clientID.Equals("")) return;
       Clients.Client(clientID).InvokeMethod(methodName, arguments);
     }
   }

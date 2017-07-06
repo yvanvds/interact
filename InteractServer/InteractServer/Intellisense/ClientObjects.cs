@@ -19,6 +19,18 @@ namespace InteractServer.Intellisense
       AddScriptType("Image", typeof(Xamarin.Forms.Image));
       AddScriptType("Text", typeof(Xamarin.Forms.Label));
       AddScriptType("Title", typeof(Xamarin.Forms.Label));
+      AddScriptType("Grid", typeof(Xamarin.Forms.Grid));
+      AddScriptType("StackPanel", typeof(Xamarin.Forms.StackLayout));
+
+      AddScriptType("ColumnDefinition", typeof(Xamarin.Forms.ColumnDefinition));
+      AddScriptType("RowDefinition", typeof(Xamarin.Forms.RowDefinition));
+      AddScriptType("GridLength", typeof(Xamarin.Forms.GridLength));
+      AddScriptType("GridUnitType", typeof(Xamarin.Forms.GridUnitType));
+      AddScriptType("Orientation", typeof(Xamarin.Forms.StackOrientation));
+      AddScriptType("Thickness", typeof(Xamarin.Forms.Thickness));
+      AddScriptType("TextAlignment", typeof(Xamarin.Forms.TextAlignment));
+
+      AddScriptType("Color", typeof(Xamarin.Forms.Color));
     }
   }
 }

@@ -40,7 +40,7 @@ namespace InteractServer.Intellisense
           if (endPos < TextArea.CurrentPosition)
           {
             // if this brace is closed before the current position, we are not interested in its contents
-            textPos = endPos;
+            if(textPos < endPos) textPos = endPos;
             level++;
             if (currentPos.Count - 1 < level)
             {

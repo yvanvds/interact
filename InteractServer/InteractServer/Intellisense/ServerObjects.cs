@@ -27,12 +27,14 @@ namespace InteractServer.Intellisense
       AddScriptType("Button", typeof(JintEngine.UI.Button));
       AddScriptType("Text", typeof(TextBlock));
       AddScriptType("Grid", typeof(Grid));
+      AddScriptType("StackPanel", typeof(StackPanel));
+
+      // UI Modifiers
       AddScriptType("ColumnDefinition", typeof(ColumnDefinition));
       AddScriptType("RowDefinition", typeof(RowDefinition));
       AddScriptType("GridLength", typeof(GridLength));
       AddScriptType("GridUnitType", typeof(GridUnitType));
-
-      // UI values
+      AddScriptType("Orientation", typeof(Orientation));
       AddScriptType("Thickness", typeof(Thickness));
 
       AddScriptType("Osc", typeof(JintEngine.Osc));

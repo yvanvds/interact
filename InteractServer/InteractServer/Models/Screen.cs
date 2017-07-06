@@ -34,7 +34,10 @@ namespace InteractServer.Models
     // content in serialized format
     public byte[] Content
     {
-      get { return Encoding.UTF8.GetBytes(ContentObj.Serialize()); }
+      get {
+        //if (ContentObj == null) ContentObj = CreateScreenObj(Type);
+        return Encoding.UTF8.GetBytes(ContentObj.Serialize());
+      }
       set
       {
         if (value != null)
@@ -100,13 +103,14 @@ namespace InteractServer.Models
     public static ScreenContent.Base UnpackScreenObj(string type, string content)
     {
       if (type.Equals(ScreenType.Script)) return new ScreenContent.Script(content);
-
+      if (type.Equals(ScreenType.UtilityScript)) return new ScreenContent.Script(content);
       return null;
     }
 
     public static ScreenContent.Base CreateScreenObj(string type)
     {
       if (type.Equals(ScreenType.Script)) return new ScreenContent.Script("");
+      if (type.Equals(ScreenType.UtilityScript)) return new ScreenContent.Script("");
       return null;
     }
   }

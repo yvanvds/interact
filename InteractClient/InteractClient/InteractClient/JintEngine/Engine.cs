@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace InteractClient.JintEngine
   {
     public static Engine Instance = new Engine();
     public static UI.Eventhandler EventHandler = new UI.Eventhandler();
+    public static SemaphoreSlim ConstructionLock;
 
     private ContentPage activePage;
 
@@ -39,6 +41,19 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(UI.Image)));
         jEngine.SetValue("Entry", TypeReference.CreateTypeReference(jEngine, typeof(UI.Entry)));
         jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));
+        jEngine.SetValue("Grid", TypeReference.CreateTypeReference(jEngine, typeof(Grid)));
+        jEngine.SetValue("StackPanel", TypeReference.CreateTypeReference(jEngine, typeof(StackLayout)));
+
+        // UI Modifiers
+        jEngine.SetValue("ColumnDefinition", TypeReference.CreateTypeReference(jEngine, typeof(ColumnDefinition)));
+        jEngine.SetValue("RowDefinition", TypeReference.CreateTypeReference(jEngine, typeof(RowDefinition)));
+        jEngine.SetValue("GridLength", TypeReference.CreateTypeReference(jEngine, typeof(GridLength)));
+        jEngine.SetValue("GridUnitType", TypeReference.CreateTypeReference(jEngine, typeof(GridUnitType)));
+        jEngine.SetValue("Orientation", TypeReference.CreateTypeReference(jEngine, typeof(StackOrientation)));
+        jEngine.SetValue("Thickness", TypeReference.CreateTypeReference(jEngine, typeof(Thickness)));
+        jEngine.SetValue("TextAlignment", TypeReference.CreateTypeReference(jEngine, typeof(TextAlignment)));
+
+        jEngine.SetValue("Color", TypeReference.CreateTypeReference(jEngine, typeof(Color)));
 
         // Network
         jEngine.SetValue("Server", Server);
@@ -48,6 +63,9 @@ namespace InteractClient.JintEngine
 
     public void StartScreen(int ID)
     {
+      if (ConstructionLock == null) ConstructionLock = new SemaphoreSlim(1);
+      ConstructionLock.Wait(5000);
+
       if (activePage is ConnectedPage)
       {
         ScreenNeedsToStart = true;
@@ -60,7 +78,8 @@ namespace InteractClient.JintEngine
       else if (activePage is ModelPage)
       {
         ModelPage p = activePage as ModelPage;
-        Device.BeginInvokeOnMainThread(() => StartScript(ID));
+        string screenName = Data.Project.Current.GetScreen(ID).Name;
+        Device.BeginInvokeOnMainThread(() => p.StartScript(screenName));
       }
     }
 
@@ -81,8 +100,8 @@ namespace InteractClient.JintEngine
       activePage = page;
       if (page is ModelPage && ScreenNeedsToStart)
       {
-        ScreenNeedsToStart = false;
         StartScript(screenToStart);
+        ScreenNeedsToStart = false;
       }
     }
 
@@ -93,6 +112,7 @@ namespace InteractClient.JintEngine
       if (screen == null)
       {
         InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: screen " + ID + " not found.");
+        ConstructionLock.Release();
         return;
       }
       try
@@ -104,20 +124,23 @@ namespace InteractClient.JintEngine
       }
       catch (Jint.Parser.ParserException e)
       {
-        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Parse Eror on screen " + ID + ":" + e.Message);
+        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Parse Error on screen " + ID + ":" + e.Message);
       }
       catch (Jint.Runtime.JavaScriptException e)
       {
-        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Runtime Eror on screen " + ID + ":" + e.Message);
+        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Runtime Error on screen " + ID + ":" + e.Message);
       }
       catch (Exception e)
       {
-        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Eror on screen " + ID + ":" + e.Message);
+        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Error on screen " + ID + ":" + e.Message);
       }
+
+      ConstructionLock.Release();
     }
 
     public void Invoke(String functionName, params object[] arguments)
     {
+      ConstructionLock.Wait(5000);
       Device.BeginInvokeOnMainThread(() =>
       {
         try
@@ -126,9 +149,10 @@ namespace InteractClient.JintEngine
         }
         catch (Exception e)
         {
-          InteractClient.Network.Service.Get().WriteLog("Engine->Invoke: Eror:" + e.Message);
+          InteractClient.Network.Service.Get().WriteLog("Engine->Invoke: Error:" + e.Message);
         }
       });
+      ConstructionLock.Release();
     }
 
     public void SetScreenMessage(string message, bool animate)

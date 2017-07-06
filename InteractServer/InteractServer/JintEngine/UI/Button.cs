@@ -17,9 +17,9 @@ namespace InteractServer.JintEngine.UI
       Uid = Guid.NewGuid().ToString();
     }
 
-    public void OnClick(String functionName)
+    public void OnClick(String functionName, params object[] arguments)
     {
-      Runner.EventHandler.Register(Uid, functionName);
+      Runner.EventHandler.Register(Uid, functionName, arguments);
       Click += Runner.EventHandler.OnClick;
     }
   }
