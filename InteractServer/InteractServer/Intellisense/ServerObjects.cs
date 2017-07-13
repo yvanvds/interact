@@ -20,14 +20,16 @@ namespace InteractServer.Intellisense
     {
       // we want intellisense for these, but not allow to create new objects of this type
       AddGlobalObject("Log", "LogPage", typeof(Pages.LogPage), Global.Log);
-      AddGlobalObject("ServerView", "ServerViewType", typeof(StackPanel));
+      AddGlobalObject("Root", "GridType", typeof(Implementation.UI.Grid));
       AddGlobalObject("Clients", "ClientWrapper", typeof(JintEngine.Clients), Global.NetworkService.ClientWrapper);
 
       // UI
-      AddScriptType("Button", typeof(JintEngine.UI.Button));
-      AddScriptType("Text", typeof(TextBlock));
-      AddScriptType("Grid", typeof(Grid));
-      AddScriptType("StackPanel", typeof(StackPanel));
+      AddScriptType("Button", typeof(Implementation.UI.Button));
+      AddScriptType("Text", typeof(Implementation.UI.Text));
+      AddScriptType("Title", typeof(Implementation.UI.Title));
+      AddScriptType("Grid", typeof(Implementation.UI.Grid));
+      AddScriptType("Color", typeof(Implementation.UI.Color));
+      //AddScriptType("StackPanel", typeof(StackPanel));
 
       // UI Modifiers
       AddScriptType("ColumnDefinition", typeof(ColumnDefinition));

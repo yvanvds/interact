@@ -11,6 +11,7 @@ namespace InteractServer
   public static class Global
   {
     public static LogPage Log;
+    public static ErrorLogPage ErrorLog;
     public static ClientList Clients;
     public static Network.Network Network;
     public static Network.Multicast Multicast;
@@ -32,7 +33,7 @@ namespace InteractServer
 
     public static MainWindow AppWindow;
 
-    static Global()
+    public static void Init()
     {
       Multicast = new Network.Multicast();
       Network = new Network.Network();
@@ -42,6 +43,7 @@ namespace InteractServer
       ScreenManager = new Managers.ScreenManager();
       ServerScriptManager = new Managers.ServerScriptManager();
       Log = new LogPage();
+      ErrorLog = new ErrorLogPage();
 
       IntelliServerScripts = new Intellisense.Scripts();
       IntelliClientScripts = new Intellisense.Scripts();

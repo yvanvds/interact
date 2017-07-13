@@ -61,7 +61,7 @@ namespace InteractServer.JintEngine
     {
       jint = new Jint.Engine(cfg => cfg.AllowClr());
       Global.ServerObjects.InsertInto(jint);
-      jint.SetValue("ServerView", Runner.pageView.PageRoot);
+      jint.SetValue("Root", Runner.pageView.PageRoot);
 
     }
 
@@ -76,9 +76,13 @@ namespace InteractServer.JintEngine
           jint.Execute((resource as ServerScript).Content);
           Global.Log.AddEntry("Added ServerScript " + (resource as ServerScript).Name);
         }
+        catch (Esprima.ParserException e)
+        {
+          Global.ErrorLog.AddEntry(e.Index, e.LineNumber, e.Message, resource);
+        }
         catch (Exception e)
         {
-          Global.Log.AddEntry("ServerScript " + (resource as ServerScript).Name + " error: " + e.ToString());
+          Global.ErrorLog.AddEntry(0, 0, e.GetType().ToString() +  "ServerScript " + (resource as ServerScript).Name + " error: " + e.ToString());
           return;
         }
 

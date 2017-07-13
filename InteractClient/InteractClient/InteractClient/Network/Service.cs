@@ -93,6 +93,11 @@ namespace InteractClient.Network
       proxy.Invoke("Log", message);
     }
 
+    public void WriteErrorLog(int index, int lineNumber, string message, int resourceID)
+    {
+      proxy.Invoke("ErrorLog", index, lineNumber, message, resourceID);
+    }
+
     public void InvokeMethod(string method, params object[] arguments)
     {
       proxy.Invoke("InvokeMethod", method, arguments);

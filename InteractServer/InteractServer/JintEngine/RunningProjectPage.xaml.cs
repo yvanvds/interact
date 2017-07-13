@@ -23,18 +23,18 @@ namespace InteractServer.JintEngine
   {
     LayoutDocument document; 
 
-    public StackPanel PageRoot = null;
+    public Implementation.UI.Grid PageRoot = null;
 
     public RunningProjectPage()
     {
       InitializeComponent();
 
-      PageRoot = new StackPanel();
-      Content = PageRoot;
+      PageRoot = new Implementation.UI.Grid();
+      Content = PageRoot.InternalObject;
 
-      PageRoot.Margin = new Thickness(5);
+      // PageRoot.Margin = new Thickness(5);
       // set project defaults
-      PageRoot.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigPage.Color);
+      // PageRoot.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigPage.Color);
 
       // add to docking framework
       Frame frame = new Frame();

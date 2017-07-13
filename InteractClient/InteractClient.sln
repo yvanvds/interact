@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractClient.Android", "InteractClient\InteractClient.Android\InteractClient.Android.csproj", "{37EBA7C2-0F3C-44D4-8FE3-20D652B6CC41}"
 EndProject
@@ -11,7 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractClient.UWP", "Inter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractClient.iOS", "InteractClient\InteractClient.iOS\InteractClient.iOS.csproj", "{00C47A0A-BCC0-477E-8243-763EAA12869D}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "InteractShared", "..\Shared\InteractShared\InteractShared.shproj", "{8EBB7D02-7FB6-42DB-B779-C86C607CD1DF}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Shared\InteractShared\InteractShared.projitems*{8ebb7d02-7fb6-42db-b779-c86c607cd1df}*SharedItemsImports = 13
+		..\Shared\InteractShared\InteractShared.projitems*{c7707c51-2682-4485-a7eb-f8eee2783c6c}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|ARM = Ad-Hoc|ARM

@@ -29,7 +29,7 @@ namespace InteractServer
   {
 
     private Timer networkTimer = new Timer();
-    LayoutAnchorable logPane;
+    LayoutAnchorable logPane, errorLogPane;
     LayoutAnchorable clientPane;
     LayoutAnchorable projectExplorerPane;
     LayoutDocument projectConfigPane;
@@ -39,6 +39,7 @@ namespace InteractServer
     {
       InitializeComponent();
 
+      Global.Init();
       Global.AppWindow = this;
 
       Global.Multicast.Join();
@@ -75,12 +76,17 @@ namespace InteractServer
     private void ButtonNewProject_Click(object sender, RoutedEventArgs e)
     {
       CloseProject();
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
       Global.ProjectManager.StartNewProject();
     }
 
     private void ButtonLoadProject_Click(object sender, RoutedEventArgs e)
     {
       CloseProject();
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
+
       Global.ProjectManager.OpenProject();
     }
 
@@ -148,6 +154,9 @@ namespace InteractServer
       Global.ScreenManager.SaveAll();
       Global.ServerScriptManager.SaveAll();
 
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
+
       JintEngine.Runner.Start();
 
       await Task.Run(() => Global.ProjectManager.Current.Run());
@@ -197,6 +206,9 @@ namespace InteractServer
 
       Global.ProjectManager.Current.Save();
       Global.ScreenManager.SaveAll();
+
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
 
       BasePage page = FocusDocument();
       if(page != null)
@@ -256,6 +268,13 @@ namespace InteractServer
       logPane.Title = "Event Log";
       logPane.Content = frame;
       dockBottom.Children.Add(logPane);
+
+      Frame errorFrame = new Frame();
+      errorFrame.Content = Global.ErrorLog;
+      errorLogPane = new LayoutAnchorable();
+      errorLogPane.Title = "Error Log";
+      errorLogPane.Content = errorFrame;
+      dockBottom.Children.Add(errorLogPane);
     }
 
     private void AddClientPane()

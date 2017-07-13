@@ -11,15 +11,16 @@ namespace InteractServer.Intellisense
     public ClientObjects()
     {
       AddGlobalObject("Client", "ClientType", typeof(Xamarin.Forms.ContentPage));
+      AddGlobalObject("Root", "ClientRootType", typeof(Interact.UI.Grid));
       AddGlobalObject("Project", "ProjectType", typeof(FakeClientClasses.ProjectStorage));
       AddGlobalObject("Server", "ServerType", typeof(FakeClientClasses.Server));
 
-      AddScriptType("Button", typeof(Xamarin.Forms.Button));
+      AddScriptType("Button", typeof(Interact.UI.Button));
       AddScriptType("Entry", typeof(Xamarin.Forms.Entry));
-      AddScriptType("Image", typeof(Xamarin.Forms.Image));
-      AddScriptType("Text", typeof(Xamarin.Forms.Label));
-      AddScriptType("Title", typeof(Xamarin.Forms.Label));
-      AddScriptType("Grid", typeof(Xamarin.Forms.Grid));
+      AddScriptType("Image", typeof(Interact.UI.Image));
+      AddScriptType("Text", typeof(Interact.UI.Text));
+      AddScriptType("Title", typeof(Interact.UI.Title));
+      AddScriptType("Grid", typeof(Interact.UI.Grid));
       AddScriptType("StackPanel", typeof(Xamarin.Forms.StackLayout));
 
       AddScriptType("ColumnDefinition", typeof(Xamarin.Forms.ColumnDefinition));
@@ -30,7 +31,7 @@ namespace InteractServer.Intellisense
       AddScriptType("Thickness", typeof(Xamarin.Forms.Thickness));
       AddScriptType("TextAlignment", typeof(Xamarin.Forms.TextAlignment));
 
-      AddScriptType("Color", typeof(Xamarin.Forms.Color));
+      AddScriptType("Color", typeof(Interact.UI.Color));
     }
   }
 }

@@ -279,6 +279,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Implementation\UI\Button.cs" />
+    <Compile Include="Implementation\UI\Color.cs" />
+    <Compile Include="Implementation\UI\Grid.cs" />
+    <Compile Include="Implementation\UI\Text.cs" />
+    <Compile Include="Implementation\UI\Title.cs" />
     <Compile Include="Intellisense\AutoComplete.cs" />
     <Compile Include="Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
@@ -318,6 +323,7 @@
     <Compile Include="Messages.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Clients.cs" />
+    <Compile Include="Models\ErrorLogEntry.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Images.cs" />
     <Compile Include="Models\Screen.cs" />
@@ -337,6 +343,9 @@
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ErrorLogPage.xaml.cs">
+      <DependentUpon>ErrorLogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LogPage.xaml.cs">
       <DependentUpon>LogPage.xaml</DependentUpon>
@@ -415,6 +424,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\ClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ErrorLogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -538,6 +551,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <Import Project="..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

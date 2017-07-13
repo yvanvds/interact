@@ -1,4 +1,5 @@
-﻿using InteractServer.Models;
+﻿using InteractServer.Controls;
+using InteractServer.Models;
 using InteractServer.Pages;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,17 @@ namespace InteractServer.Views
 
     public ServerScript ServerScript { get => script; set => script = value; }
     public LayoutDocument Document { get => document; set => document = value; }
+    public CodeEditor CodeEditor
+    {
+      get
+      {
+        Frame f = Document.Content as Frame;
+        ScriptPage sp = f.Content as ScriptPage;
+
+        if(sp != null) return sp.GetCodeEditor();
+        return null;
+      }
+    }
 
     private BasePage GeneratePageForScript(ServerScript script)
     {

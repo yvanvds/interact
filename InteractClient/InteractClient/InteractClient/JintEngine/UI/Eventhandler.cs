@@ -15,11 +15,21 @@ namespace InteractClient.JintEngine.UI
       public object[] arguments;
     }
 
-    private Dictionary<Guid, Handler> Objects = new Dictionary<Guid, Handler>();
+    private Dictionary<Guid, Handler> OnClickObjects = new Dictionary<Guid, Handler>();
+    private Dictionary<Guid, Handler> OnReleaseObjects = new Dictionary<Guid, Handler>();
 
-    public void Register(Guid ID, String Name, params object[] Arguments)
+    public void RegisterClick(Guid ID, String Name, params object[] Arguments)
     {
-      Objects.Add(ID, new Handler() {
+      OnClickObjects.Add(ID, new Handler() {
+        name = Name,
+        arguments = Arguments
+      });
+    }
+
+    public void RegisterRelease(Guid ID, String Name, params object[] Arguments)
+    {
+      OnReleaseObjects.Add(ID, new Handler()
+      {
         name = Name,
         arguments = Arguments
       });
@@ -27,14 +37,21 @@ namespace InteractClient.JintEngine.UI
 
     public void Clear()
     {
-      Objects.Clear();
+      OnClickObjects.Clear();
+      OnReleaseObjects.Clear();
     }
 
 
     public void OnClick(object sender, EventArgs e)
     {
       Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
-      Engine.Instance.Invoke(Objects[element.Id].name, Objects[element.Id].arguments);
+      Engine.Instance.Invoke(OnClickObjects[element.Id].name, OnClickObjects[element.Id].arguments);
+    }
+
+    public void OnRelease(object sender, EventArgs e)
+    {
+      Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
+      Engine.Instance.Invoke(OnReleaseObjects[element.Id].name, OnReleaseObjects[element.Id].arguments);
     }
   }
 }

@@ -83,6 +83,11 @@ namespace InteractServer
       Global.Log.AddEntry(Global.Clients.Get(Context.ConnectionId).UserName + ": " + message);
     }
 
+    public void ErrorLog(int index, int lineNumber, string message, int resourceID)
+    {
+      Global.ErrorLog.AddEntry(index, lineNumber, message, Global.ProjectManager.Current.Screens.Get(resourceID));
+    }
+
     public override Task OnConnected()
     {
 

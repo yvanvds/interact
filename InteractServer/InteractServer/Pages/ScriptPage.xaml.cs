@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Shared;
 using InteractServer.Models;
 using InteractServer.Views;
+using InteractServer.Controls;
 
 namespace InteractServer.Pages
 {
@@ -79,5 +80,9 @@ namespace InteractServer.Pages
       }
     }
 
+    public CodeEditor GetCodeEditor()
+    {
+      return Editor;
+    }
   }
 }

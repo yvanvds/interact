@@ -37,7 +37,13 @@ namespace InteractServer.Intellisense
         {
           
           int endPos = TextArea.BraceMatch(textPos);
-          if (endPos < TextArea.CurrentPosition)
+
+          if(endPos == -1)
+          {
+            // not a valid pair
+            break;
+          }
+          else if (endPos < TextArea.CurrentPosition)
           {
             // if this brace is closed before the current position, we are not interested in its contents
             if(textPos < endPos) textPos = endPos;

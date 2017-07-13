@@ -32,17 +32,18 @@ namespace InteractClient.JintEngine
       {
         jEngine = new Jint.Engine();
         jEngine.SetValue("Client", activePage as ModelPage);
+        jEngine.SetValue("Root", (activePage as ModelPage).PageRoot);
         jEngine.SetValue("Project", Storage);
 
         // UI
-        jEngine.SetValue("Button", TypeReference.CreateTypeReference(jEngine, typeof(UI.Button)));
-        jEngine.SetValue("Title", TypeReference.CreateTypeReference(jEngine, typeof(UI.Title)));
-        jEngine.SetValue("Text", TypeReference.CreateTypeReference(jEngine, typeof(UI.Text)));
-        jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(UI.Image)));
+        jEngine.SetValue("Button", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Button)));
+        jEngine.SetValue("Title", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Title)));
+        jEngine.SetValue("Text", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Text)));
+        jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Image)));
         jEngine.SetValue("Entry", TypeReference.CreateTypeReference(jEngine, typeof(UI.Entry)));
-        jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));
-        jEngine.SetValue("Grid", TypeReference.CreateTypeReference(jEngine, typeof(Grid)));
-        jEngine.SetValue("StackPanel", TypeReference.CreateTypeReference(jEngine, typeof(StackLayout)));
+        //jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));
+        jEngine.SetValue("Grid", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Grid)));
+        //jEngine.SetValue("StackPanel", TypeReference.CreateTypeReference(jEngine, typeof(StackLayout)));
 
         // UI Modifiers
         jEngine.SetValue("ColumnDefinition", TypeReference.CreateTypeReference(jEngine, typeof(ColumnDefinition)));
@@ -53,7 +54,7 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Thickness", TypeReference.CreateTypeReference(jEngine, typeof(Thickness)));
         jEngine.SetValue("TextAlignment", TypeReference.CreateTypeReference(jEngine, typeof(TextAlignment)));
 
-        jEngine.SetValue("Color", TypeReference.CreateTypeReference(jEngine, typeof(Color)));
+        jEngine.SetValue("Color", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Color)));
 
         // Network
         jEngine.SetValue("Server", Server);
@@ -77,6 +78,7 @@ namespace InteractClient.JintEngine
       }
       else if (activePage is ModelPage)
       {
+        screenToStart = ID;
         ModelPage p = activePage as ModelPage;
         string screenName = Data.Project.Current.GetScreen(ID).Name;
         Device.BeginInvokeOnMainThread(() => p.StartScript(screenName));
@@ -124,11 +126,11 @@ namespace InteractClient.JintEngine
       }
       catch (Jint.Parser.ParserException e)
       {
-        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Parse Error on screen " + ID + ":" + e.Message);
+        InteractClient.Network.Service.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, ID);
       }
       catch (Jint.Runtime.JavaScriptException e)
       {
-        InteractClient.Network.Service.Get().WriteLog("Engine->StartScript: Runtime Error on screen " + ID + ":" + e.Message);
+        InteractClient.Network.Service.Get().WriteErrorLog(0, e.LineNumber, e.Message, ID);
       }
       catch (Exception e)
       {
@@ -146,6 +148,14 @@ namespace InteractClient.JintEngine
         try
         {
           Jint().Invoke(functionName, arguments);
+        }
+        catch (Jint.Parser.ParserException e)
+        {
+          InteractClient.Network.Service.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, screenToStart);
+        }
+        catch (Jint.Runtime.JavaScriptException e)
+        {
+          InteractClient.Network.Service.Get().WriteErrorLog(0, e.LineNumber, e.Message, screenToStart);
         }
         catch (Exception e)
         {

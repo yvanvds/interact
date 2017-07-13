@@ -1,4 +1,5 @@
-﻿using InteractServer.Dialogs;
+﻿using InteractServer.Controls;
+using InteractServer.Dialogs;
 using InteractServer.Models;
 using InteractServer.Views;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Managers
 {
@@ -54,6 +56,18 @@ namespace InteractServer.Managers
       List.Add(newView);
       Global.AppWindow.AddDocument(newView.Document);
 
+    }
+
+    public CodeEditor GetCodeEditor(ServerScript script)
+    {
+      foreach(ServerScriptView view in List)
+      {
+        if(view.ID == script.ID)
+        {
+          return view.CodeEditor;
+        }
+      }
+      return null;
     }
 
     public void Close(ServerScript script)

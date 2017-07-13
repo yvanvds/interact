@@ -60,6 +60,14 @@ namespace InteractServer.Controls
       acMenu.Colors.SelectedBackColor = System.Drawing.Color.DimGray;
       acMenu.Colors.SelectedBackColor2 = System.Drawing.Color.Black;
       acMenu.Colors.SelectedForeColor = System.Drawing.Color.DodgerBlue;
+
+      // for breakpoints and highlighting
+      TextArea.Margins[1].Type = MarginType.Symbol;
+      TextArea.Markers[0].Symbol = MarkerSymbol.Circle;
+      TextArea.Markers[0].SetForeColor(System.Drawing.Color.Red);
+      TextArea.Markers[0].SetBackColor(System.Drawing.Color.Red);
+      TextArea.Markers[1].Symbol = MarkerSymbol.Background;
+      TextArea.Markers[1].SetBackColor(System.Drawing.Color.Red);
     }
 
     public void InitIntellisense()
@@ -83,6 +91,15 @@ namespace InteractServer.Controls
       set
       {
         TextArea.Text = value;
+      }
+    }
+
+    public void HighlightLine(int number, int caretPos = -1)
+    {
+      TextArea.Lines[number-1].MarkerAdd(1);
+      if(caretPos != -1)
+      {
+        TextArea.GotoPosition(caretPos);
       }
     }
 
@@ -363,6 +380,8 @@ namespace InteractServer.Controls
 
     private void TextArea_TextChanged(object sender, EventArgs e)
     {
+      TextArea.MarkerDeleteAll(1);
+
       ContentChanged?.Invoke(this, e);
 
       int start = TextArea.WordStartPosition(TextArea.CurrentPosition, true);
