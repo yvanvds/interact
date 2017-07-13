@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Interact.UI;
 
 namespace InteractServer.Implementation.UI
 {
@@ -12,6 +13,8 @@ namespace InteractServer.Implementation.UI
     private System.Windows.Controls.Grid UIObject = new System.Windows.Controls.Grid();
 
     public override object InternalObject { get { return UIObject; } }
+
+    public override Interact.UI.Color BackgroundColor { set => UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject); }
 
     public Grid()
     {

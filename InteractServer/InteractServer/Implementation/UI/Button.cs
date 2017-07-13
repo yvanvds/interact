@@ -33,5 +33,10 @@ namespace InteractServer.Implementation.UI
       JintEngine.Runner.EventHandler.Register(UIObject.Uid, functionName, arguments);
       UIObject.Click += JintEngine.Runner.EventHandler.OnClick;
     }
+
+    public override void OnRelease(string functionName, params object[] arguments)
+    {
+      throw new NotImplementedException();
+    }
   }
 }
