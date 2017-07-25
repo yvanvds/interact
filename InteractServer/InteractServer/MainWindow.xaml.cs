@@ -71,6 +71,16 @@ namespace InteractServer
     }
 
     //////////////////////////////////////
+    // Application Menu Click Methods
+    //////////////////////////////////////
+
+    private void ProgramOptions_Click(object sender, RoutedEventArgs e)
+    {
+      Windows.ServerOptionsWindow window = new Windows.ServerOptionsWindow();
+      window.ShowDialog();
+    }
+
+    //////////////////////////////////////
     // Project Ribbon Click Methods
     //////////////////////////////////////
     private void ButtonNewProject_Click(object sender, RoutedEventArgs e)
@@ -176,7 +186,7 @@ namespace InteractServer
       ButtonStartProject.IsEnabled = true;
       ButtonStopProject.IsEnabled = false;
 
-      Global.NetworkService.StopCurrentScreen();
+      Global.NetworkService.StopRunningProject();
       JintEngine.Runner.Stop();
     }
 
@@ -361,6 +371,8 @@ namespace InteractServer
 
       return -1;
     }
+
+
 
     private void Ribbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

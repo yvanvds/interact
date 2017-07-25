@@ -2,6 +2,20 @@
   "version": 2,
   "targets": {
     "UAP,Version=v10.0": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -2493,6 +2507,20 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -5039,6 +5067,20 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -7624,6 +7666,20 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -10179,6 +10235,20 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -12773,6 +12843,20 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -15328,6 +15412,20 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "Acr.Settings/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "[8.0.2, 11.0.0)"
+        },
+        "compile": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Acr.Settings.Interface.dll": {},
+          "lib/uap10.0/Acr.Settings.dll": {}
+        }
+      },
       "Esprima/1.0.0-beta-001": {
         "type": "package",
         "dependencies": {
@@ -17923,6 +18021,41 @@
     }
   },
   "libraries": {
+    "Acr.Settings/6.0.1": {
+      "sha512": "RQHook7vBT/yd/x0IBuipVtTlag52RU7RX78UuaCBEuKsRfG2mcbyFWWZIvT9yc7vnJ+gTJ/jGocWDe9nTrjFg==",
+      "type": "package",
+      "path": "acr.settings/6.0.1",
+      "files": [
+        "acr.settings.6.0.1.nupkg.sha512",
+        "acr.settings.nuspec",
+        "lib/MonoAndroid10/Acr.Settings.Interface.dll",
+        "lib/MonoAndroid10/Acr.Settings.Interface.pdb",
+        "lib/MonoAndroid10/Acr.Settings.dll",
+        "lib/MonoAndroid10/Acr.Settings.dll.mdb",
+        "lib/MonoAndroid10/Acr.Settings.pdb",
+        "lib/Xamarin.Mac20/Acr.Settings.Interface.dll",
+        "lib/Xamarin.Mac20/Acr.Settings.Interface.dll.mdb",
+        "lib/Xamarin.Mac20/Acr.Settings.Interface.pdb",
+        "lib/Xamarin.Mac20/Acr.Settings.Mac.dll",
+        "lib/Xamarin.iOS10/Acr.Settings.Interface.dll",
+        "lib/Xamarin.iOS10/Acr.Settings.Interface.dll.mdb",
+        "lib/Xamarin.iOS10/Acr.Settings.Interface.pdb",
+        "lib/Xamarin.iOS10/Acr.Settings.dll",
+        "lib/net45/Acr.Settings.Interface.dll",
+        "lib/net45/Acr.Settings.Interface.pdb",
+        "lib/net45/Acr.Settings.dll",
+        "lib/net45/Acr.Settings.pdb",
+        "lib/portable-net45+win8+wpa81+wp8/Acr.Settings.Interface.dll",
+        "lib/portable-net45+win8+wpa81+wp8/Acr.Settings.Interface.pdb",
+        "lib/portable-net45+win8+wpa81+wp8/Acr.Settings.dll",
+        "lib/portable-net45+win8+wpa81+wp8/Acr.Settings.pdb",
+        "lib/uap10.0/Acr.Settings.Interface.dll",
+        "lib/uap10.0/Acr.Settings.Interface.pdb",
+        "lib/uap10.0/Acr.Settings.dll",
+        "lib/uap10.0/Acr.Settings.pdb",
+        "lib/uap10.0/Acr.Settings.pri"
+      ]
+    },
     "Esprima/1.0.0-beta-001": {
       "sha512": "enz4+NIlORzW2NPQLzDWoqnt134KVzr5rtDZO2FuQUR5Ydshy9LFSO2LrJ5BsdaqERcmr4vQgQFvlhvuPYsEyw==",
       "type": "package",
@@ -24969,6 +25102,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Acr.Settings >= 6.0.1",
       "Jint >= 3.0.0-beta-001",
       "Microsoft.AspNet.SignalR.Client >= 2.2.2",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
@@ -25000,6 +25134,7 @@
       }
     },
     "dependencies": {
+      "Acr.Settings": "6.0.1",
       "Jint": "3.0.0-beta-001",
       "Microsoft.AspNet.SignalR.Client": "2.2.2",
       "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",

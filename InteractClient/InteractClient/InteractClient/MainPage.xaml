@@ -7,29 +7,30 @@
 
   <Grid x:Name="PageGrid" WidthRequest="600">
     <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="80"/>
       <RowDefinition Height="100"/>
-      <RowDefinition Height="100"/>
-      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <Image Grid.Row="1" x:Name="Logo" Source="connect.png" HorizontalOptions="Center"/>
-    <Label Grid.Row="2" Text="Interact" FontSize="40" TextColor="White" HorizontalTextAlignment="Center">
+    <Button Grid.Row="1" x:Name="OptionsButton" Image="settings.png" HorizontalOptions="End" Margin="0,0,10,0" Clicked="OptionsButton_Clicked" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.5"/>
+    <Image Grid.Row="2" x:Name="Logo" Source="connect.png" HorizontalOptions="Center"/>
+    <Label Grid.Row="3" Text="Interact" FontSize="40" TextColor="White" HorizontalTextAlignment="Center">
       <Label.FontFamily>
         <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
       </Label.FontFamily>
 
     </Label>
-    <Label Grid.Row="3" Text="One App" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
+    <Label Grid.Row="4" Text="One App" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
       <Label.FontFamily>
         <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
       </Label.FontFamily>
     </Label>
-    <Entry Grid.Row="4" x:Name="UserName" Text="Your Name" BackgroundColor="Gray" WidthRequest="600" Placeholder="Your Name" TextColor="White" HorizontalTextAlignment="Center" HeightRequest="50" PlaceholderColor="WhiteSmoke" Margin="50,20,50,0"/>
-    <Button Grid.Row="5" x:Name="ButtonServer" Text="Find a Server" Clicked="ButtonServer_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5" HeightRequest="50" WidthRequest="400" Margin="50,10,50,0"/>
+    
+    <Button Grid.Row="5" x:Name="ButtonServer" Text="Refresh Server List" Clicked="ButtonServer_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5" HeightRequest="50" WidthRequest="400" Margin="50,10,50,0"/>
 
     <ListView Grid.Row="6" x:Name="ServerList" ItemsSource="{Binding}" BackgroundColor="DarkSlateGray">
       <ListView.ItemTemplate>

@@ -24,16 +24,29 @@ namespace InteractClient.JintEngine
     // Jint Engine
     private Jint.Engine jEngine = null;
     private ProjectStorage Storage = new ProjectStorage();
-    private Network.Server Server = new Network.Server(); 
+    private Implementation.Network.Server Server = new Implementation.Network.Server();
+    private Implementation.Device.Sensors Sensors;
 
     public Jint.Engine Jint()
     {
       if (jEngine == null)
       {
         jEngine = new Jint.Engine();
-        jEngine.SetValue("Client", activePage as ModelPage);
         jEngine.SetValue("Root", (activePage as ModelPage).PageRoot);
         jEngine.SetValue("Project", Storage);
+
+        if (Sensors == null)
+        {
+          try
+          {
+            Sensors = new Implementation.Device.Sensors();
+            jEngine.SetValue("Sensors", Sensors);
+          }
+          catch (Exception e)
+          {
+            Network.Service.Get().WriteLog("Can't setup sensors:" + e.Message);
+          }
+        }
 
         // UI
         jEngine.SetValue("Button", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Button)));
@@ -58,6 +71,9 @@ namespace InteractClient.JintEngine
 
         // Network
         jEngine.SetValue("Server", Server);
+        jEngine.SetValue("Clients", Project.Current.Clients);
+        jEngine.SetValue("OscSender", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscSender)));
+        jEngine.SetValue("OscReceiver", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscReceiver)));
       }
       return jEngine;
     }
@@ -95,6 +111,12 @@ namespace InteractClient.JintEngine
         EventHandler.Clear();
       }
       InteractClient.Network.Service.Get().GetNextMethod();
+    }
+
+    public void StopRunningProject()
+    {
+      Sensors?.Stop();
+      StopScreen();
     }
 
     public void SetActivePage(ContentPage page)

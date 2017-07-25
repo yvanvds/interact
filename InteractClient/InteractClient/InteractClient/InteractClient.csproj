@@ -65,22 +65,29 @@
     <Compile Include="ConnectedPage.xaml.cs">
       <DependentUpon>ConnectedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\Device\Sensor.cs" />
+    <Compile Include="Implementation\Device\Sensors.cs" />
+    <Compile Include="Interface\CCButton.cs" />
+    <Compile Include="Interface\IoscSender.cs" />
+    <Compile Include="Interface\IoscReceiver.cs" />
+    <Compile Include="Interface\ISensor.cs" />
     <Compile Include="Data\Image.cs" />
     <Compile Include="Data\Screen.cs" />
     <Compile Include="Data\Project.cs" />
     <Compile Include="Data\SoundFile.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="Implementation\Network\Osc.cs" />
+    <Compile Include="Implementation\Network\Client.cs" />
+    <Compile Include="Implementation\Network\Clients.cs" />
+    <Compile Include="Implementation\Network\OscReceiver.cs" />
+    <Compile Include="Implementation\Network\OscSender.cs" />
+    <Compile Include="Implementation\Network\Server.cs" />
     <Compile Include="Implementation\UI\Button.cs" />
     <Compile Include="Implementation\UI\Color.cs" />
     <Compile Include="Implementation\UI\Grid.cs" />
     <Compile Include="Implementation\UI\Image.cs" />
     <Compile Include="Implementation\UI\Text.cs" />
     <Compile Include="Implementation\UI\Title.cs" />
-    <Compile Include="JintEngine\Cocos\CCView.cs" />
-    <Compile Include="JintEngine\Cocos\GameScene.cs" />
     <Compile Include="JintEngine\Engine.cs" />
-    <Compile Include="JintEngine\Network\Server.cs" />
     <Compile Include="JintEngine\ProjectStorage.cs" />
     <Compile Include="JintEngine\Sound\Sound.cs" />
     <Compile Include="JintEngine\UI\Entry.cs" />
@@ -93,6 +100,9 @@
     <Compile Include="Network\Network.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\Service.cs" />
+    <Compile Include="OptionsPage.xaml.cs">
+      <DependentUpon>OptionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,12 +124,6 @@
     </Reference>
     <Reference Include="box2d, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CocosSharp.1.7.1.0\lib\portable-net45+win+wpa81+wp81\box2d.dll</HintPath>
-    </Reference>
-    <Reference Include="CocosSharp, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CocosSharp.1.7.1.0\lib\portable-net45+win+wpa81+wp81\CocosSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="CocosSharp.Forms, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CocosSharp.Forms.1.7.1.0\lib\portable-net45+win+wpa81+wp81\CocosSharp.Forms.dll</HintPath>
     </Reference>
     <Reference Include="jint, Version=2.10.4.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\jint.2.10.4\lib\portable40-net40+sl5+win8+wp8+wpa81\jint.dll</HintPath>
@@ -162,7 +166,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="JintEngine\Network\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OptionsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="..\..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

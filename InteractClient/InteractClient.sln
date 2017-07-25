@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractClient.Android", "InteractClient\InteractClient.Android\InteractClient.Android.csproj", "{37EBA7C2-0F3C-44D4-8FE3-20D652B6CC41}"
 EndProject
@@ -202,6 +202,8 @@ Global
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.AppStore|x86.Build.0 = Release|x86
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.AppStore|x86.Deploy.0 = Release|x86
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|Any CPU.Build.0 = Debug|x86
+		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|ARM.ActiveCfg = Debug|ARM
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|ARM.Build.0 = Debug|ARM
 		{25C4A24C-F4A7-46AD-950E-F14E41EBEBAE}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -242,7 +244,9 @@ Global
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.AppStore|x64.ActiveCfg = AppStore|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.AppStore|x86.ActiveCfg = AppStore|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|ARM.ActiveCfg = Debug|iPhone
+		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|ARM.Build.0 = Debug|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|iPhone.Build.0 = Debug|iPhone
 		{00C47A0A-BCC0-477E-8243-763EAA12869D}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator

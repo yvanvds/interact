@@ -279,6 +279,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Implementation\Network\Client.cs" />
+    <Compile Include="Implementation\Network\Clients.cs" />
+    <Compile Include="Implementation\Network\OscReceiver.cs" />
+    <Compile Include="Implementation\Network\OscSender.cs" />
+    <Compile Include="Implementation\Network\Server.cs" />
     <Compile Include="Implementation\UI\Button.cs" />
     <Compile Include="Implementation\UI\Color.cs" />
     <Compile Include="Implementation\UI\Grid.cs" />
@@ -308,7 +313,6 @@
     <Compile Include="Intellisense\Scripts.cs" />
     <Compile Include="Intellisense\ScriptObjects.cs" />
     <Compile Include="Intellisense\ServerObjects.cs" />
-    <Compile Include="JintEngine\Clients.cs" />
     <Compile Include="JintEngine\DispatcherTimer.cs" />
     <Compile Include="JintEngine\Engine.cs" />
     <Compile Include="JintEngine\Osc.cs" />
@@ -387,6 +391,9 @@
     <Compile Include="Utils\TrulyObservableCollection.cs" />
     <Compile Include="Views\ScreenView.cs" />
     <Compile Include="Views\ServerScriptView.cs" />
+    <Compile Include="Windows\ServerOptionsWindow.xaml.cs">
+      <DependentUpon>ServerOptionsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\CodeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -448,6 +455,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ScriptPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ServerOptionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

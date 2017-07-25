@@ -9,7 +9,13 @@
     <Import_RootNamespace>InteractShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Network\Osc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Sensors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Client.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Clients.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\OscReceiver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\OscSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\Server.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Grid.cs" />
@@ -17,5 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\Text.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Title.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\View.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\SensorValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\SensorVector.cs" />
   </ItemGroup>
 </Project>

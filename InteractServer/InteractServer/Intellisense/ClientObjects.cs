@@ -9,11 +9,16 @@ namespace InteractServer.Intellisense
   public class ClientObjects : ScriptObjects
   {
     public ClientObjects()
-    {
-      AddGlobalObject("Client", "ClientType", typeof(Xamarin.Forms.ContentPage));
+    {    
       AddGlobalObject("Root", "ClientRootType", typeof(Interact.UI.Grid));
       AddGlobalObject("Project", "ProjectType", typeof(FakeClientClasses.ProjectStorage));
-      AddGlobalObject("Server", "ServerType", typeof(FakeClientClasses.Server));
+      AddGlobalObject("Server", "ServerType", typeof(Interact.Network.Server));
+      AddGlobalObject("Clients", "ClientsType", typeof(Interact.Network.Clients));
+      AddGlobalObject("Client", "ClientType", typeof(Interact.Network.Client));
+
+      // Device
+      AddGlobalObject("Sensors", "SensorsType", typeof(Interact.Device.Sensors));
+      AddScriptType("Sensor", typeof(Interact.Device.Sensor));
 
       AddScriptType("Button", typeof(Interact.UI.Button));
       AddScriptType("Entry", typeof(Xamarin.Forms.Entry));
@@ -21,17 +26,10 @@ namespace InteractServer.Intellisense
       AddScriptType("Text", typeof(Interact.UI.Text));
       AddScriptType("Title", typeof(Interact.UI.Title));
       AddScriptType("Grid", typeof(Interact.UI.Grid));
-      AddScriptType("StackPanel", typeof(Xamarin.Forms.StackLayout));
-
-      AddScriptType("ColumnDefinition", typeof(Xamarin.Forms.ColumnDefinition));
-      AddScriptType("RowDefinition", typeof(Xamarin.Forms.RowDefinition));
-      AddScriptType("GridLength", typeof(Xamarin.Forms.GridLength));
-      AddScriptType("GridUnitType", typeof(Xamarin.Forms.GridUnitType));
-      AddScriptType("Orientation", typeof(Xamarin.Forms.StackOrientation));
-      AddScriptType("Thickness", typeof(Xamarin.Forms.Thickness));
-      AddScriptType("TextAlignment", typeof(Xamarin.Forms.TextAlignment));
 
       AddScriptType("Color", typeof(Interact.UI.Color));
+
+      AddScriptType("SensorVector", typeof(Interact.Utility.SensorVector));
     }
   }
 }

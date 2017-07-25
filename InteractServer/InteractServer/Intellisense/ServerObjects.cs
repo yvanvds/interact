@@ -18,10 +18,15 @@ namespace InteractServer.Intellisense
   {
     public ServerObjects()
     {
+      //AddScriptType("SensorType", typeof(Interact.SensorType));
+      //AddScriptType("Vector", typeof(Interact.Utility.Vector));
+
+
       // we want intellisense for these, but not allow to create new objects of this type
-      AddGlobalObject("Log", "LogPage", typeof(Pages.LogPage), Global.Log);
+      //AddGlobalObject("Log", "LogPage", typeof(Pages.LogPage), Global.Log);
       AddGlobalObject("Root", "GridType", typeof(Implementation.UI.Grid));
-      AddGlobalObject("Clients", "ClientWrapper", typeof(JintEngine.Clients), Global.NetworkService.ClientWrapper);
+      AddGlobalObject("Server", "ServerInstance", typeof(Implementation.Network.Server));
+      AddGlobalObject("Clients", "ClientWrapper", typeof(Implementation.Network.Clients));
 
       // UI
       AddScriptType("Button", typeof(Implementation.UI.Button));
@@ -29,17 +34,9 @@ namespace InteractServer.Intellisense
       AddScriptType("Title", typeof(Implementation.UI.Title));
       AddScriptType("Grid", typeof(Implementation.UI.Grid));
       AddScriptType("Color", typeof(Implementation.UI.Color));
-      //AddScriptType("StackPanel", typeof(StackPanel));
 
-      // UI Modifiers
-      AddScriptType("ColumnDefinition", typeof(ColumnDefinition));
-      AddScriptType("RowDefinition", typeof(RowDefinition));
-      AddScriptType("GridLength", typeof(GridLength));
-      AddScriptType("GridUnitType", typeof(GridUnitType));
-      AddScriptType("Orientation", typeof(Orientation));
-      AddScriptType("Thickness", typeof(Thickness));
-
-      AddScriptType("Osc", typeof(JintEngine.Osc));
+      AddScriptType("OscSender", typeof(Implementation.Network.OscSender));
+      AddScriptType("OscReceiver", typeof(Implementation.Network.OscReceiver));
       AddScriptType("Timer", typeof(JintEngine.DispatcherTimer));
       AddScriptType("TimeSpan", typeof(TimeSpan));
     }

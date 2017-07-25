@@ -10,6 +10,6 @@ namespace Interact.UI
     public abstract void Add(View view, int Column, int Row);
     public abstract void Remove(View view);
 
-    public abstract Color BackgroundColor { set; }
+    public abstract Color BackgroundColor { get;  set; }
   }
 }

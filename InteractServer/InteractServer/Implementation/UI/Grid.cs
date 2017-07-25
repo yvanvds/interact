@@ -11,14 +11,29 @@ namespace InteractServer.Implementation.UI
   public class Grid : Interact.UI.Grid
   {
     private System.Windows.Controls.Grid UIObject = new System.Windows.Controls.Grid();
+    private Color backgroundColor;
 
     public override object InternalObject { get { return UIObject; } }
 
-    public override Interact.UI.Color BackgroundColor { set => UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject); }
+    public override Interact.UI.Color BackgroundColor
+    {
+      set
+      {
+        UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject);
+        backgroundColor = new Color((System.Windows.Media.Color)value.InternalObject);
+      }
+      get
+      {
+        return backgroundColor;
+      }
+    }
+
+    
 
     public Grid()
     {
       UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigPage.Color);
+      backgroundColor = new Color(Global.ProjectManager.Current.ConfigPage.Color);
     }
 
     public override void Init(int Columns, int Rows, bool fillScreen = false)

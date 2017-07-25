@@ -25,5 +25,9 @@ namespace Interact.UI
 
     public abstract void SetColor(int r, int g, int b, int a);
 
+    public abstract int R { get; }
+    public abstract int G { get; }
+    public abstract int B { get; }
+    public abstract int A { get; }
   }
 }

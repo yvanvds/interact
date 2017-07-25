@@ -17,8 +17,6 @@ namespace InteractServer.Network
     public IDisposable SignalR { get; set; }
     public IHubConnectionContext<dynamic> Clients { get; set; }
 
-    public JintEngine.Clients ClientWrapper = new JintEngine.Clients();
-
     public void Start()
     {
       try
@@ -43,6 +41,11 @@ namespace InteractServer.Network
     public void RequestAcknowledge()
     {
       Clients?.All.requestAcknowledge();
+    }
+
+    public void StopRunningProject()
+    {
+      Clients?.All.StopRunningProject();
     }
 
     public void StopCurrentScreen()
@@ -78,6 +81,11 @@ namespace InteractServer.Network
     {
       Clients.Client(clientID).UpdateScreen(projectID, screenID, screenData);
       Global.Log.AddEntry("Screen " + screenID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");
+    }
+
+    public void SendClientInfo(string targetClientID, string IP, string Key, string UserName)
+    {
+      Clients.Client(targetClientID).AddClient(IP, Key, UserName, targetClientID == Key ? true : false);
     }
 
     public void StartScreen(int screenID)

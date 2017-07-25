@@ -2732,11 +2732,11 @@ namespace InteractClient.Droid
 			// aapt resource value: 0x7f02010a
 			public const int notification_icon_background = 2130837770;
 			
-			// aapt resource value: 0x7f02010e
-			public const int notification_template_icon_bg = 2130837774;
-			
 			// aapt resource value: 0x7f02010f
-			public const int notification_template_icon_low_bg = 2130837775;
+			public const int notification_template_icon_bg = 2130837775;
+			
+			// aapt resource value: 0x7f020110
+			public const int notification_template_icon_low_bg = 2130837776;
 			
 			// aapt resource value: 0x7f02010b
 			public const int notification_tile_bg = 2130837771;
@@ -2746,6 +2746,9 @@ namespace InteractClient.Droid
 			
 			// aapt resource value: 0x7f02010d
 			public const int plugin = 2130837773;
+			
+			// aapt resource value: 0x7f02010e
+			public const int settings = 2130837774;
 			
 			static Drawable()
 			{

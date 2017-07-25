@@ -191,6 +191,8 @@ namespace InteractServer.Models
       SendScreenVersionsToClients();
       SendImageVersionsToClients();
       SendSoundFileVersionsToClients();
+      SendClientListToClients();
+
       Screen screen = Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
       screen.RunOnSelectedClients();
     }
@@ -200,10 +202,11 @@ namespace InteractServer.Models
       // First send current project to clients
       MakeCurrentOnClients();
 
-      // update screens
+      // update resources
       SendScreenVersionsToClients();
       SendImageVersionsToClients();
       SendSoundFileVersionsToClients();
+      SendClientListToClients();
 
       // and run this task
       screen.RunOnSelectedClients();
@@ -274,6 +277,25 @@ namespace InteractServer.Models
     public void SendSoundFileVersionsToClient(string ID)
     {
       SoundFiles.SendVersionsToClient(ProjectID(), ID);
+    }
+
+    public void SendClientListToClients()
+    {
+      foreach(string key in Global.Clients.List.Keys)
+      {
+        SendClientListToClient(key);
+      }
+    }
+
+    public void SendClientListToClient(string ID)
+    {
+      foreach(var client in Global.Clients.List)
+      {
+        Global.Clients.Get(ID).QueueMethod(() =>
+        {
+          Global.NetworkService.SendClientInfo(ID, client.Value.IpAddress, client.Key, client.Value.UserName);
+        });
+      }
     }
 
     public void InitIntellisense()

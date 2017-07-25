@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InteractClient.OptionsPage"
+             BackgroundColor="DarkSlateGray">
+
+  <StackLayout Orientation="Vertical">
+    <Grid Margin="10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="40"/>
+        <RowDefinition Height="40"/>
+        <RowDefinition Height="*"/>
+
+      </Grid.RowDefinitions>
+
+      <Label Grid.Row="0" Grid.Column="0" Text="ID" TextColor="White" VerticalTextAlignment="Center" />
+      <Entry x:Name="IDEntry" Grid.Row="0" Grid.Column="1" BackgroundColor="Gray" TextColor="White" TextChanged="IDEntry_TextChanged"/>
+
+      <Label Grid.Row="1" Grid.Column="0" Text="Token" TextColor="White" VerticalTextAlignment="Center"/>
+      <Entry x:Name="TokenEntry" Grid.Row="1" Grid.Column="1" BackgroundColor="Gray" TextColor="White" TextChanged="TokenEntry_TextChanged"/>
+
+      
+    </Grid>
+
+    <Button x:Name="Back" Text="Back" Grid.Row="3" Grid.Column="1" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5" HeightRequest="50" Clicked="Back_Clicked" Margin="10"/>
+
+  </StackLayout>
+  
+</ContentPage>

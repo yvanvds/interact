@@ -29,7 +29,10 @@ namespace InteractServer
     {
       App.Current.Dispatcher.Invoke((Action)delegate
       {
-        Global.Clients.List[Context.ConnectionId]?.ConfirmPresence(Context.Request.Environment["server.RemoteIpAddress"].ToString());
+        if(Global.Clients.List.ContainsKey(Context.ConnectionId))
+        {
+          Global.Clients.List[Context.ConnectionId]?.ConfirmPresence(Context.Request.Environment["server.RemoteIpAddress"].ToString());
+        }
       });
     }
 
@@ -74,13 +77,23 @@ namespace InteractServer
       {
         Array.Resize<object>(ref arguments, arguments.Length + 1);
         arguments[arguments.Length - 1] = Context.ConnectionId;
-        JintEngine.Runner.Engine.InvokeMethod(name, arguments);
+        JintEngine.Runner.Engine?.InvokeMethod(name, arguments);
       }
+    }
+
+    public void InvokeMethod(string clientID, string method, params object[] arguments)
+    {
+      Global.NetworkService.InvokeMethod(clientID, method, arguments);
+    }
+
+    public void StartScreen(string clientID, int screenID)
+    {
+      Global.NetworkService.StartScreen(clientID, screenID);
     }
 
     public void Log(string message)
     {
-      Global.Log.AddEntry(Global.Clients.Get(Context.ConnectionId).UserName + ": " + message);
+      Global.Log.AddEntry(Global.Clients.Get(Context.ConnectionId)?.UserName + ": " + message);
     }
 
     public void ErrorLog(int index, int lineNumber, string message, int resourceID)

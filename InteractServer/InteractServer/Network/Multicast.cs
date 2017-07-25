@@ -13,39 +13,40 @@ using Shared;
 
 namespace InteractServer.Network
 {
-    public class Multicast
+  public class Multicast
+  {
+    UdpSocketMulticastClient receiver;
+
+    public Multicast()
     {
-        UdpSocketMulticastClient receiver;
+      receiver = new UdpSocketMulticastClient();
+      receiver.TTL = 5;
 
-        public Multicast()
+      receiver.MessageReceived += async (sender, args) =>
+      {
+        var data = Encoding.UTF8.GetString(args.ByteData, 0, args.ByteData.Length);
+
+        if (data.Equals("INTERACT ID REQUEST"))
         {
-            receiver = new UdpSocketMulticastClient();
-            receiver.TTL = 5;
+          var writer = Global.Network.GetWriter();
+          writer.Write((Byte)NetworkMessage.Acknowledge);
+          writer.Write(Properties.Settings.Default.ServerName);
+          writer.Write(Properties.Settings.Default.NetworkToken);
 
-            receiver.MessageReceived += async (sender, args) =>
-            {
-                var data = Encoding.UTF8.GetString(args.ByteData, 0, args.ByteData.Length);
-
-                if(data.Equals("INTERACT ID REQUEST"))
-                {
-                    var writer = Global.Network.GetWriter();
-                    writer.Write((Byte)NetworkMessage.Acknowledge);
-                    writer.Write("default server name");
-
-                    await Global.Network.SendUdp(args.RemoteAddress, writer);
-                }   
-            };
+          await Global.Network.SendUdp(args.RemoteAddress, writer);
         }
-
-        public async void Disconnect()
-        {
-            await receiver.DisconnectAsync();
-            receiver.Dispose();
-        }
-
-        public async void Join()
-        {
-            await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
-        }
+      };
     }
+
+    public async void Disconnect()
+    {
+      await receiver.DisconnectAsync();
+      receiver.Dispose();
+    }
+
+    public async void Join()
+    {
+      await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
+    }
+  }
 }

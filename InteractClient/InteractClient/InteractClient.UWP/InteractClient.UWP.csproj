@@ -90,14 +90,58 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <EmbeddedResource Include="Osc\Strings.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\CCButtonRenderer.cs" />
+    <Compile Include="Implementation\OscReceiverImplementation.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Osc\Comms\OscListener.cs" />
+    <Compile Include="Osc\Comms\OscPacketFormat.cs" />
+    <Compile Include="Osc\Comms\OscReader.cs" />
+    <Compile Include="Osc\Comms\OscReceiver.cs" />
+    <Compile Include="Osc\Comms\OscSender.cs" />
+    <Compile Include="Osc\Comms\OscSocket.cs" />
+    <Compile Include="Osc\Comms\OscWriter.cs" />
+    <Compile Include="Osc\Core\DefaulttimeProvider.cs" />
+    <Compile Include="Osc\Core\IOscTimeProvider.cs" />
+    <Compile Include="Osc\Core\OscAddress.cs" />
+    <Compile Include="Osc\Core\OscAddressManager.cs" />
+    <Compile Include="Osc\Core\OscAddressPart.cs" />
+    <Compile Include="Osc\Core\OscAddressPartType.cs" />
+    <Compile Include="Osc\Core\OscAddressRegexCache.cs" />
+    <Compile Include="Osc\Core\OscAddressType.cs" />
+    <Compile Include="Osc\Core\OscBundle.cs" />
+    <Compile Include="Osc\Core\OscBundleInvokeMode.cs" />
+    <Compile Include="Osc\Core\OscLiteralEvent.cs" />
+    <Compile Include="Osc\Core\OscMessage.cs" />
+    <Compile Include="Osc\Core\OscPacket.cs" />
+    <Compile Include="Osc\Core\OscPacketError.cs" />
+    <Compile Include="Osc\Core\OscPacketInvokeAction.cs" />
+    <Compile Include="Osc\Core\OscPatternEvent.cs" />
+    <Compile Include="Osc\Core\UnknownAddressEventArgs.cs" />
+    <Compile Include="Osc\DataTypes\OscColor.cs" />
+    <Compile Include="Osc\DataTypes\OscImpulse.cs" />
+    <Compile Include="Osc\DataTypes\OscMidiMessage.cs" />
+    <Compile Include="Osc\DataTypes\OscNull.cs" />
+    <Compile Include="Osc\DataTypes\OscSymbol.cs" />
+    <Compile Include="Osc\DataTypes\OscTimeTag.cs" />
+    <Compile Include="Osc\EnumHelper.cs" />
+    <Compile Include="Osc\Helper.cs" />
+    <Compile Include="Osc\Strings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +152,8 @@
     <None Include="InteractClient.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="connect.png" />
+    <Content Include="plugin.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -134,12 +180,12 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="settings.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

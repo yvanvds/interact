@@ -9,7 +9,7 @@ namespace InteractClient.Implementation.UI
 {
   public class Button : Interact.UI.Button
   {
-    private Xamarin.Forms.Button UIObject = new Xamarin.Forms.Button();
+    private Interface.CCButton UIObject = new Interface.CCButton();
 
     public Button()
     {
@@ -29,13 +29,13 @@ namespace InteractClient.Implementation.UI
     public override void OnClick(string functionName, params object[] arguments)
     {
       JintEngine.Engine.EventHandler.RegisterClick(UIObject.Id, functionName, arguments);
-      UIObject.Clicked += JintEngine.Engine.EventHandler.OnClick;
+      UIObject.Pressed += JintEngine.Engine.EventHandler.OnClick;
     }
 
     public override void OnRelease(string functionName, params object[] arguments)
     {
       JintEngine.Engine.EventHandler.RegisterRelease(UIObject.Id, functionName, arguments);
-      UIObject.Unfocused += JintEngine.Engine.EventHandler.OnRelease;
+      UIObject.Released += JintEngine.Engine.EventHandler.OnRelease;
     }
   }
 }

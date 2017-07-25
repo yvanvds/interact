@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Interact.Network
 {
-  public abstract class Osc
+  public abstract class OscSender
   {
-    protected Rug.Osc.OscSender sender;
-    public string BaseAddress { get; set; }
+    public bool AllowDouble { get; set; } = true;
 
     public abstract void Init(int port);
     public abstract void Init(string address, int port);

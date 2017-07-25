@@ -45,7 +45,8 @@ namespace InteractClient.JintEngine.UI
     public void OnClick(object sender, EventArgs e)
     {
       Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
-      Engine.Instance.Invoke(OnClickObjects[element.Id].name, OnClickObjects[element.Id].arguments);
+      
+      Engine.Instance.Invoke(OnClickObjects[element.Id].name, (e as Interface.PressedEventArgs).Pressure, OnClickObjects[element.Id].arguments);
     }
 
     public void OnRelease(object sender, EventArgs e)

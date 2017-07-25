@@ -11,10 +11,12 @@ namespace InteractClient.Implementation.UI
   public class Grid : Interact.UI.Grid
   {
     private Xamarin.Forms.Grid UIObject = new Xamarin.Forms.Grid();
+    private Color backgroundColor;
 
     public Grid()
     {
       UIObject.BackgroundColor = Data.Project.Current.ConfigPage.Color.Get();
+      backgroundColor = new Color(UIObject.BackgroundColor);
     }
 
     public override object InternalObject { get
@@ -23,7 +25,17 @@ namespace InteractClient.Implementation.UI
       }
     }
 
-    public override Interact.UI.Color BackgroundColor { set => UIObject.BackgroundColor = (Xamarin.Forms.Color)(value.InternalObject); }
+    public override Interact.UI.Color BackgroundColor {
+      set
+      {
+        UIObject.BackgroundColor = (Xamarin.Forms.Color)(value.InternalObject);
+        backgroundColor = new Color(UIObject.BackgroundColor);
+      }
+      get
+      {
+        return backgroundColor;
+      }
+    }
 
     public override void Add(Interact.UI.View view, int Column, int Row)
     {

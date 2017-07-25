@@ -33,10 +33,12 @@ namespace InteractClient.Network
 
     public Server ConnectedServer = null;
 
+
     public async Task ConnectAsync(Server server)
     {
       ConnectedServer = server;
       connection = new HubConnection("http://" + server.Address + ":" + Constants.TcpPort + "/signalr");
+      connection.Closed += Disconnect;
       proxy = connection.CreateHubProxy("InteractHub");
       AddMethods();
 
@@ -56,6 +58,7 @@ namespace InteractClient.Network
     public void Disconnect()
     {
       ConnectedServer = null;
+
       if (connection != null)
       {
         connection.Stop();
@@ -103,6 +106,16 @@ namespace InteractClient.Network
       proxy.Invoke("InvokeMethod", method, arguments);
     }
 
+    public void InvokeMethod(string clientID, string method, params object[] arguments)
+    {
+      proxy.Invoke("InvokeMethod", clientID, method, arguments);
+    }
+
+    public void StartScreen(string clientID, int screenID)
+    {
+      proxy.Invoke("StartScreen", clientID, screenID);
+    }
+
     private void AddMethods()
     {
       proxy.On("RequestAcknowledge", () =>
@@ -134,6 +147,11 @@ namespace InteractClient.Network
           }
       );
 
+      proxy.On("StopRunningProject", () =>
+      {
+        Engine.Instance.StopRunningProject();
+      });
+
       proxy.On("StartScreen", (int ID) =>
           Engine.Instance.StartScreen(ID)
       );
@@ -164,10 +182,16 @@ namespace InteractClient.Network
         Data.Project.List[projectID]?.UpdateSoundFile(ID, Content);
       });
 
-      proxy.On("InvokeMethod",(string MethodName, object[] arguments) =>
+      proxy.On("AddClient", (string IP, string ID, string Name, bool local) =>
       {
-        Engine.Instance.Invoke(MethodName, arguments);
+        Data.Project.Current.Clients.Add(IP, ID, Name, local);
+        GetNextMethod();
       });
+
+      proxy.On("InvokeMethod", (string MethodName, object[] arguments) =>
+       {
+         Engine.Instance.Invoke(MethodName, arguments);
+       });
     }
   }
 }

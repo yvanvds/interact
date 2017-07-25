@@ -33,7 +33,7 @@
             <!-- Application Menu, located at the left-hand side (down arrow) -->
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu KeyTip="F">
-                    <RibbonApplicationMenuItem Header="Options" ImageSource="pack://application:,,,/Resources/Images/settings-4.png"/>
+                    <RibbonApplicationMenuItem Header="Options" ImageSource="pack://application:,,,/Resources/Images/settings-4.png" KeyTip="O" Click="ProgramOptions_Click" />
                     <RibbonApplicationMenuItem Header="Exit" ImageSource="pack://application:,,,/Resources/Images/exit-2.png"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
