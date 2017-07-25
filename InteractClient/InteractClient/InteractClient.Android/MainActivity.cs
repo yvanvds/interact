@@ -20,8 +20,7 @@ namespace InteractClient.Droid
       base.OnCreate(bundle);
 
       global::Xamarin.Forms.Forms.Init(this, bundle);
-      Xamarin.Forms.DependencyService.Register<Implementation.OscImplementation>();
-      Xamarin.Forms.DependencyService.Register<Implementation.OscReceiverImplementation>();
+      
       Xamarin.Forms.DependencyService.Register<Implementation.SensorImplementation>();
       LoadApplication(new App());
     }

@@ -18,7 +18,7 @@ namespace InteractClient.Implementation.Device
 
     public override SensorValue CurrentValue => _CurrentValue;
 
-    private IoscSender sender = null;
+    private Network.OscSender sender;
     private string Address;
     private bool initDone = false;
     private SensorType Type;
@@ -45,7 +45,7 @@ namespace InteractClient.Implementation.Device
     public override void Route(string IPAddress, int port, string OscAddress)
     {
       initDone = false;
-      sender = DependencyService.Get<IoscSender>();
+      sender = new Network.OscSender();
       sender.Init(IPAddress, port);
       this.Address = OscAddress;
       initDone = true;
@@ -60,11 +60,11 @@ namespace InteractClient.Implementation.Device
       if (value is SensorVector)
       {
         SensorVector vector = _CurrentValue as SensorVector;
-        sender?.Send(Address, vector.X, vector.Y, vector.Z);
+        sender?.Send(Address, (float)vector.X, (float)vector.Y, (float)vector.Z);
       }
       else
       {
-        sender?.Send(Address, _CurrentValue.Value);
+        sender?.Send(Address, (float)_CurrentValue.Value);
       }
     }
 

@@ -7,17 +7,13 @@ using Xamarin.Forms;
 
 namespace InteractClient.Implementation.Network
 {
-  // this class acts as a fudge for the actual osc implementation in every platform
-  // osc is not done in xamarin.forms because it requires Windows.Net.IPAddress which
-  // is not yet implemented.
-
   public class OscSender : Interact.Network.OscSender
   {
-    Interface.IoscSender sender;
+    Osc.OscSender sender;
 
     public OscSender()
     {
-      sender = DependencyService.Get<Interface.IoscSender>();
+      sender = new Osc.OscSender();
     }
 
     public override void Init(int port)
@@ -32,7 +28,22 @@ namespace InteractClient.Implementation.Network
 
     public override void Send(string address, params object[] arguments)
     {
-      sender.Send(address, arguments);
+      object[] o = new object[arguments.Count()];
+      for (int i = 0; i < arguments.Count(); i++)
+      {
+        if (arguments[i] is double)
+        {
+          double d = (double)arguments[i];
+          o[i] = (float)d;
+        }
+        else
+        {
+          o[i] = arguments[i];
+        }
+
+      }
+
+      sender.Send(new Osc.OscMessage(address, arguments));
     }
   }
 }

@@ -21,28 +21,20 @@ namespace InteractServer.Implementation.Network
       Stop();
     }
 
-    public override void Init(int port)
-    {
-      if (receiver == null) receiver = new Rug.Osc.OscReceiver(port);
-      else Global.Log.AddEntry("OscReceiver was already initialized.");
-    }
-
     public override void Register(string address, string callbackFunction)
     {
       Routes[address] = callbackFunction;
     }
 
-    public override void Start()
+    public override void Start(int port)
     {
-      if (started) return;
-      if (receiver == null) Global.Log.AddEntry("OscReceiver must call Init before Start");
-      else
-      {
-        receiver.Connect();
-        cancellationTokenSource = new CancellationTokenSource();
-        task = Task.Run(() => ParseAsync(cancellationTokenSource.Token));
-        started = true;
-      }
+      if (receiver == null) receiver = new Rug.Osc.OscReceiver(port);
+      else return;
+
+      receiver.Connect();
+      cancellationTokenSource = new CancellationTokenSource();
+      task = Task.Run(() => ParseAsync(cancellationTokenSource.Token));
+      started = true;
     }
 
     public override void Stop()

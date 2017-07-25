@@ -23,8 +23,6 @@ namespace InteractClient.iOS
     public override bool FinishedLaunching(UIApplication app, NSDictionary options)
     {
       global::Xamarin.Forms.Forms.Init();
-      Xamarin.Forms.DependencyService.Register<Implementation.OscSenderImplementation>();
-      Xamarin.Forms.DependencyService.Register<Implementation.OscReceiverImplementation>();
       Xamarin.Forms.DependencyService.Register<Implementation.SensorImplementation>();
       LoadApplication(new App());
 

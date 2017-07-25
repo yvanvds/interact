@@ -90,11 +90,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <EmbeddedResource Include="Osc\Strings.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -102,46 +97,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Implementation\CCButtonRenderer.cs" />
-    <Compile Include="Implementation\OscReceiverImplementation.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Osc\Comms\OscListener.cs" />
-    <Compile Include="Osc\Comms\OscPacketFormat.cs" />
-    <Compile Include="Osc\Comms\OscReader.cs" />
-    <Compile Include="Osc\Comms\OscReceiver.cs" />
-    <Compile Include="Osc\Comms\OscSender.cs" />
-    <Compile Include="Osc\Comms\OscSocket.cs" />
-    <Compile Include="Osc\Comms\OscWriter.cs" />
-    <Compile Include="Osc\Core\DefaulttimeProvider.cs" />
-    <Compile Include="Osc\Core\IOscTimeProvider.cs" />
-    <Compile Include="Osc\Core\OscAddress.cs" />
-    <Compile Include="Osc\Core\OscAddressManager.cs" />
-    <Compile Include="Osc\Core\OscAddressPart.cs" />
-    <Compile Include="Osc\Core\OscAddressPartType.cs" />
-    <Compile Include="Osc\Core\OscAddressRegexCache.cs" />
-    <Compile Include="Osc\Core\OscAddressType.cs" />
-    <Compile Include="Osc\Core\OscBundle.cs" />
-    <Compile Include="Osc\Core\OscBundleInvokeMode.cs" />
-    <Compile Include="Osc\Core\OscLiteralEvent.cs" />
-    <Compile Include="Osc\Core\OscMessage.cs" />
-    <Compile Include="Osc\Core\OscPacket.cs" />
-    <Compile Include="Osc\Core\OscPacketError.cs" />
-    <Compile Include="Osc\Core\OscPacketInvokeAction.cs" />
-    <Compile Include="Osc\Core\OscPatternEvent.cs" />
-    <Compile Include="Osc\Core\UnknownAddressEventArgs.cs" />
-    <Compile Include="Osc\DataTypes\OscColor.cs" />
-    <Compile Include="Osc\DataTypes\OscImpulse.cs" />
-    <Compile Include="Osc\DataTypes\OscMidiMessage.cs" />
-    <Compile Include="Osc\DataTypes\OscNull.cs" />
-    <Compile Include="Osc\DataTypes\OscSymbol.cs" />
-    <Compile Include="Osc\DataTypes\OscTimeTag.cs" />
-    <Compile Include="Osc\EnumHelper.cs" />
-    <Compile Include="Osc\Helper.cs" />
-    <Compile Include="Osc\Strings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
