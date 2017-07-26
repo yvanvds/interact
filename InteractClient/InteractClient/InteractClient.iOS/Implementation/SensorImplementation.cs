@@ -28,18 +28,22 @@ namespace InteractClient.iOS.Implementation
     {
       motionManager = new CMMotionManager();
       locationManager = new CLLocationManager();
-      locationManager.PausesLocationUpdatesAutomatically = false;
-      if(UIDevice.CurrentDevice.CheckSystemVersion(8,0))
-      {
-        locationManager.RequestAlwaysAuthorization();
-      }
-      if(UIDevice.CurrentDevice.CheckSystemVersion(9,0))
-      {
-        locationManager.AllowsBackgroundLocationUpdates = true;
-      }
 
-      locationManager.DesiredAccuracy = CLLocation.AccuracyBest;
-      locationManager.HeadingFilter = 1;
+      if (locationManager != null)
+      {
+        locationManager.PausesLocationUpdatesAutomatically = false;
+        if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+        {
+          locationManager.RequestAlwaysAuthorization();
+        }
+        if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
+        {
+          locationManager.AllowsBackgroundLocationUpdates = true;
+        }
+
+        locationManager.DesiredAccuracy = CLLocation.AccuracyBest;
+        locationManager.HeadingFilter = 1;
+      }
 
       sensorStatus = new Dictionary<SensorType, bool>
       {
@@ -60,7 +64,7 @@ namespace InteractClient.iOS.Implementation
       switch(sensorType)
       {
         case SensorType.AcceleroMeter: 
-          if(motionManager.AccelerometerAvailable)
+          if(motionManager != null && motionManager.AccelerometerAvailable)
           {
             motionManager.AccelerometerUpdateInterval = (double)interval / ms;
             motionManager.StartAccelerometerUpdates(NSOperationQueue.CurrentQueue, OnAccelerometerChanged);
@@ -70,7 +74,7 @@ namespace InteractClient.iOS.Implementation
           }
           break;
         case SensorType.Gyroscope:
-          if(motionManager.GyroAvailable)
+          if(motionManager != null && motionManager.GyroAvailable)
           {
             motionManager.GyroUpdateInterval = (double)interval / ms;
             motionManager.StartGyroUpdates(NSOperationQueue.CurrentQueue, OnGyroscopeChanged);
@@ -81,7 +85,7 @@ namespace InteractClient.iOS.Implementation
           }
           break;
         case SensorType.MagnetoMeter:
-          if (motionManager.MagnetometerAvailable)
+          if (motionManager != null && motionManager.MagnetometerAvailable)
           {
             motionManager.MagnetometerUpdateInterval = (double)interval / ms;
             motionManager.StartMagnetometerUpdates(NSOperationQueue.CurrentQueue, OnMagnometerChanged);
@@ -92,7 +96,7 @@ namespace InteractClient.iOS.Implementation
           }
           break;
         case SensorType.Compass:
-          if (CLLocationManager.HeadingAvailable)
+          if (locationManager != null && CLLocationManager.HeadingAvailable)
           {
             locationManager.StartUpdatingHeading();
             locationManager.UpdatedHeading += OnHeadingChanged;

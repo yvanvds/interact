@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "Acr.Settings": "6.0.1",
-    "Jint": "3.0.0-beta-001",
+    "Jint": "2.10.4",
     "Microsoft.AspNet.SignalR.Client": "2.2.2",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "10.0.2",

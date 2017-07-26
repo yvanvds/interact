@@ -10,6 +10,8 @@ namespace InteractClient.Implementation.UI
   public class Button : Interact.UI.Button
   {
     private Interface.CCButton UIObject = new Interface.CCButton();
+    private Color backgroundColor;
+    private Color textColor;
 
     public Button()
     {
@@ -21,9 +23,22 @@ namespace InteractClient.Implementation.UI
 
     public override object InternalObject => UIObject;
 
-    public override void SetColor(Interact.UI.Color color)
-    {
-      UIObject.BackgroundColor = (Xamarin.Forms.Color)(color.InternalObject);
+    public override Interact.UI.Color BackgroundColor {
+      get => backgroundColor;
+      set
+      {
+        UIObject.BackgroundColor = (Xamarin.Forms.Color)(value.InternalObject);
+        backgroundColor = new Color(UIObject.BackgroundColor);
+      }
+    }
+
+    public override Interact.UI.Color TextColor {
+      get => textColor;
+      set
+      {
+        UIObject.TextColor = (Xamarin.Forms.Color)(value.InternalObject);
+        textColor = new Color(UIObject.TextColor);
+      }
     }
 
     public override void OnClick(string functionName, params object[] arguments)

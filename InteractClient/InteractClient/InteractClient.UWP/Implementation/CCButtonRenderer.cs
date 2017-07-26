@@ -22,9 +22,19 @@ namespace InteractClient.UWP.Implementation
 
       if(Control != null)
       {
+        Control.ClickMode = Windows.UI.Xaml.Controls.ClickMode.Press;
+        Control.Click += Control_Click;
         Control.PointerPressed += Control_PointerPressed;
         Control.PointerReleased += Control_PointerReleased;
         Control.PointerMoved += Control_PointerMoved;
+      }
+    }
+
+    private void Control_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+    {
+      if(ccButton != null)
+      {
+        ccButton.OnPressed(1);
       }
     }
 

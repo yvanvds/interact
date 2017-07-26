@@ -16,23 +16,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -2521,23 +2507,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -5081,23 +5053,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -7680,23 +7638,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -10249,23 +10193,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -12857,23 +12787,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -15426,23 +15342,9 @@
           "lib/uap10.0/Acr.Settings.dll": {}
         }
       },
-      "Esprima/1.0.0-beta-001": {
+      "jint/2.10.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Esprima.dll": {}
-        }
-      },
-      "jint/3.0.0-beta-001": {
-        "type": "package",
-        "dependencies": {
-          "Esprima": "1.0.0-beta-001",
           "NETStandard.Library": "1.6.0",
           "System.Diagnostics.Contracts": "4.0.1",
           "System.Dynamic.Runtime": "4.0.11",
@@ -18056,26 +17958,16 @@
         "lib/uap10.0/Acr.Settings.pri"
       ]
     },
-    "Esprima/1.0.0-beta-001": {
-      "sha512": "enz4+NIlORzW2NPQLzDWoqnt134KVzr5rtDZO2FuQUR5Ydshy9LFSO2LrJ5BsdaqERcmr4vQgQFvlhvuPYsEyw==",
+    "jint/2.10.4": {
+      "sha512": "PJ20tSyhW0AafikDa2CpiGv5c5DZ9Q20v7EXRiCLl+G+MNoMpggAeW0T03S/xUk6rj1zl29HbfpsVWlcq6DEDA==",
       "type": "package",
-      "path": "esprima/1.0.0-beta-001",
+      "path": "jint/2.10.4",
       "files": [
-        "esprima.1.0.0-beta-001.nupkg.sha512",
-        "esprima.nuspec",
-        "lib/net45/Esprima.dll",
-        "lib/netstandard1.3/Esprima.dll"
-      ]
-    },
-    "jint/3.0.0-beta-001": {
-      "sha512": "Nq49cjzcmPxmjfkRTP8ZohC+auZjK9iaR9vB5x4ADhJc0RAJn/Jd3d+iVJLQWBt9kFgmsAL/BS0UpXUeiRdJUQ==",
-      "type": "package",
-      "path": "jint/3.0.0-beta-001",
-      "files": [
-        "jint.3.0.0-beta-001.nupkg.sha512",
+        "jint.2.10.4.nupkg.sha512",
         "jint.nuspec",
         "lib/net45/jint.dll",
-        "lib/netstandard1.3/jint.dll"
+        "lib/netstandard1.3/jint.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/jint.dll"
       ]
     },
     "Microsoft.AspNet.SignalR.Client/2.2.2": {
@@ -25103,7 +24995,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Acr.Settings >= 6.0.1",
-      "Jint >= 3.0.0-beta-001",
+      "Jint >= 2.10.4",
       "Microsoft.AspNet.SignalR.Client >= 2.2.2",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Newtonsoft.Json >= 10.0.2",
@@ -25135,7 +25027,7 @@
     },
     "dependencies": {
       "Acr.Settings": "6.0.1",
-      "Jint": "3.0.0-beta-001",
+      "Jint": "2.10.4",
       "Microsoft.AspNet.SignalR.Client": "2.2.2",
       "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
       "Newtonsoft.Json": "10.0.2",

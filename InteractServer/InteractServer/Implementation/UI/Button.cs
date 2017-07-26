@@ -11,6 +11,8 @@ namespace InteractServer.Implementation.UI
   public class Button : Interact.UI.Button
   {
     private System.Windows.Controls.Button UIObject = new System.Windows.Controls.Button();
+    private Color backgroundColor;
+    private Color textColor;
 
     public Button()
     {
@@ -23,9 +25,24 @@ namespace InteractServer.Implementation.UI
 
     public override object InternalObject => UIObject;
 
-    public override void SetColor(Interact.UI.Color color)
+    public override Interact.UI.Color TextColor
     {
-      UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)(color.InternalObject));
+      set
+      {
+        UIObject.Foreground = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject);
+        textColor = new Color((System.Windows.Media.Color)value.InternalObject);
+      }
+      get => textColor;
+    }
+
+    public override Interact.UI.Color BackgroundColor
+    {
+      set
+      {
+        UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject);
+        backgroundColor = new Color((System.Windows.Media.Color)value.InternalObject);
+      }
+      get => backgroundColor;
     }
 
     public override void OnClick(string functionName, params object[] arguments)

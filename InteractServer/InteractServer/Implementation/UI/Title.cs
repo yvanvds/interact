@@ -10,6 +10,8 @@ namespace InteractServer.Implementation.UI
   public class Title : Interact.UI.Text
   {
     private System.Windows.Controls.TextBlock UIObject = new System.Windows.Controls.TextBlock();
+    private Color backgroundColor;
+    private Color textColor;
 
     public Title()
     {
@@ -24,5 +26,25 @@ namespace InteractServer.Implementation.UI
     public override string Content { get => UIObject.Text; set => UIObject.Text = value; }
 
     public override object InternalObject => UIObject;
+
+    public override Interact.UI.Color TextColor
+    {
+      set
+      {
+        UIObject.Foreground = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject);
+        textColor = new Color((System.Windows.Media.Color)value.InternalObject);
+      }
+      get => textColor;
+    }
+
+    public override Interact.UI.Color BackgroundColor
+    {
+      set
+      {
+        UIObject.Background = new SolidColorBrush((System.Windows.Media.Color)value.InternalObject);
+        backgroundColor = new Color((System.Windows.Media.Color)value.InternalObject);
+      }
+      get => backgroundColor;
+    }
   }
 }

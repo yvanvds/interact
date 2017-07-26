@@ -12,6 +12,7 @@ namespace Interact.UI
 
     public abstract void OnRelease(string functionName, params object[] arguments);
 
-    public abstract void SetColor(Color color);
+    public abstract Color TextColor { get; set; }
+    public abstract Color BackgroundColor { get; set; }
   }
 }

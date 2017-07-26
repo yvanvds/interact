@@ -39,8 +39,8 @@ namespace InteractClient.JintEngine
         {
           try
           {
-            Sensors = new Implementation.Device.Sensors();
-            jEngine.SetValue("Sensors", Sensors);
+            //Sensors = new Implementation.Device.Sensors();
+            //jEngine.SetValue("Sensors", Sensors);
           }
           catch (Exception e)
           {
