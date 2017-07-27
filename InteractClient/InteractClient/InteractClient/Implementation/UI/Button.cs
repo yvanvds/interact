@@ -14,6 +14,9 @@ namespace InteractClient.Implementation.UI
     private Color textColor;
     private float pressure;
 
+    private Network.OscSender OscSender = null;
+    private string OscAddress;
+
     class Handler
     {
       public string name;
@@ -76,13 +79,22 @@ namespace InteractClient.Implementation.UI
     private void OnClickEvent(object sender, EventArgs e)
     {
       pressure = (e as Interface.PressedEventArgs).Pressure;
+      OscSender?.Send(OscAddress, pressure);
       JintEngine.Engine.Instance.Invoke(OnClickHandler.name, OnClickHandler.arguments);
     }
 
     private void OnReleaseEvent(object sender, EventArgs e)
     {
       pressure = 0;
+      OscSender?.Send(OscAddress, pressure);
       JintEngine.Engine.Instance.Invoke(OnReleaseHandler.name, OnReleaseHandler.arguments);
+    }
+
+    public override void SendOSC(string destination, int port, string address)
+    {
+      OscSender = new Network.OscSender();
+      OscSender.Init(destination, port);
+      OscAddress = address;
     }
   }
 }

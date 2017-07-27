@@ -14,6 +14,9 @@ namespace InteractServer.Implementation.UI
     private System.Windows.Controls.Slider UIObject = new System.Windows.Controls.Slider();
     private Color backgroundColor;
 
+    private Network.OscSender OscSender = null;
+    private string OscAddress;
+
     class Handler
     {
       public string name;
@@ -50,13 +53,19 @@ namespace InteractServer.Implementation.UI
         arguments = arguments
       };
       UIObject.ValueChanged += OnChangeEvent;
-      JintEngine.Runner.EventHandler.RegisterChanged(UIObject.Uid, functionName, arguments);
-      UIObject.MouseDoubleClick += JintEngine.Runner.EventHandler.OnValueChanged;
     }
 
     private void OnChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
+      OscSender?.Send(OscAddress, (float)UIObject.Value);
       JintEngine.Runner.Engine.InvokeMethod(OnChangeHandler.name, OnChangeHandler.arguments);
+    }
+
+    public override void SendOSC(string destination, int port, string address)
+    {
+      OscSender = new Network.OscSender();
+      OscSender.Init(destination, port);
+      OscAddress = address;
     }
   }
 }

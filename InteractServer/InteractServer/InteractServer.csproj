@@ -320,7 +320,6 @@
     <Compile Include="JintEngine\RunningProjectPage.xaml.cs">
       <DependentUpon>RunningProjectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="JintEngine\UI\Eventhandler.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\ProjectManager.cs" />
     <Compile Include="Managers\ServerScriptManager.cs" />
@@ -561,6 +560,9 @@
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JintEngine\UI\" />
   </ItemGroup>
   <Import Project="..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

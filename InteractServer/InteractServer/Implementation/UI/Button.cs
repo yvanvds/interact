@@ -14,7 +14,11 @@ namespace InteractServer.Implementation.UI
     private System.Windows.Controls.Button UIObject = new System.Windows.Controls.Button();
     private Color backgroundColor;
     private Color textColor;
+    private float pressure;
+
     private DependencyPropertyDescriptor descriptor;
+    private Network.OscSender OscSender = null;
+    private string OscAddress;
 
     class Handler
     {
@@ -37,13 +41,26 @@ namespace InteractServer.Implementation.UI
 
     private void IsPressedChanged(object sender, EventArgs e) 
     {
-      if (UIObject.IsPressed && OnClickHandler != null)
+      if(UIObject.IsPressed)
       {
-        JintEngine.Runner.Engine.InvokeMethod(OnClickHandler.name, OnClickHandler.arguments);
-      } else if (!UIObject.IsPressed && OnReleaseHandler != null)
+        pressure = 1;
+        OscSender?.Send(OscAddress, pressure);
+
+        if (OnClickHandler != null)
+        {
+          JintEngine.Runner.Engine.InvokeMethod(OnClickHandler.name, OnClickHandler.arguments);
+        }
+      } else
       {
-        JintEngine.Runner.Engine.InvokeMethod(OnReleaseHandler.name, OnReleaseHandler.arguments);
+        pressure = 0;
+        OscSender?.Send(OscAddress, pressure);
+
+        if (OnReleaseHandler != null)
+        {
+          JintEngine.Runner.Engine.InvokeMethod(OnReleaseHandler.name, OnReleaseHandler.arguments);
+        }
       }
+      OscSender?.Send(OscAddress, pressure);
     }
 
     public override string Content { get => UIObject.Content as string; set => UIObject.Content = value; }
@@ -71,7 +88,7 @@ namespace InteractServer.Implementation.UI
     }
 
     // Pressurre cannot be detected in WPF
-    public override float Pressure => 0;
+    public override float Pressure => pressure;
 
     public override void OnClick(string functionName, params object[] args)
     {
@@ -89,6 +106,13 @@ namespace InteractServer.Implementation.UI
         name = functionName,
         arguments = args
       };
+    }
+
+    public override void SendOSC(string destination, int port, string address)
+    {
+      OscSender = new Network.OscSender();
+      OscSender.Init(destination, port);
+      OscAddress = address;
     }
   }
 }

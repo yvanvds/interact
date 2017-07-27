@@ -13,5 +13,6 @@ namespace Interact.UI
     public abstract Color BackgroundColor { get; set; }
 
     public abstract void OnChange(string functionName, params object[] arguments);
+    public abstract void SendOSC(string destination, int port, string address);
   }
 }

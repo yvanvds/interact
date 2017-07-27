@@ -14,7 +14,6 @@ namespace InteractServer.JintEngine
   static public class Runner
   {
     static public Engine Engine = null;
-    static public UI.Eventhandler EventHandler = null;
 
     static public RunningProjectPage pageView = null;
 
@@ -22,7 +21,6 @@ namespace InteractServer.JintEngine
     {
       Stop();
 
-      EventHandler = new UI.Eventhandler();
       pageView = new RunningProjectPage();
       Engine = new Engine();
 
@@ -32,12 +30,6 @@ namespace InteractServer.JintEngine
 
     static public void Stop()
     {
-      if (EventHandler != null)
-      {
-        EventHandler.Clear();
-        EventHandler = null;
-      }
-
       if (pageView != null)
       {
         pageView.Dispose();

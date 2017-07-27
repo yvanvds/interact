@@ -10,8 +10,9 @@ namespace Interact.UI
     public abstract float Pressure { get; }
 
     public abstract void OnClick(string functionName, params object[] arguments);
-
     public abstract void OnRelease(string functionName, params object[] arguments);
+
+    public abstract void SendOSC(string destination, int port, string address);
 
     public abstract Color TextColor { get; set; }
     public abstract Color BackgroundColor { get; set; }

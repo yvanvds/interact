@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interact.UI;
+using Xamarin.Forms;
 
 namespace InteractClient.Implementation.UI
 {
@@ -12,7 +13,16 @@ namespace InteractClient.Implementation.UI
     private Xamarin.Forms.Slider UIObject = new Xamarin.Forms.Slider();
     private Color backgroundColor;
 
+    private Network.OscSender OscSender = null;
+    private string OscAddress;
 
+    class Handler
+    {
+      public string name;
+      public object[] arguments;
+    }
+
+    Handler OnChangeHandler;
 
     public override double Minimum { get => UIObject.Minimum; set => UIObject.Minimum = value; }
     public override double Maximum { get => UIObject.Maximum; set => UIObject.Maximum = value; }
@@ -32,8 +42,26 @@ namespace InteractClient.Implementation.UI
 
     public override void OnChange(string functionName, params object[] arguments)
     {
-      JintEngine.Engine.EventHandler.RegisterChanged(UIObject.Id, functionName, arguments);
-      UIObject.ValueChanged += JintEngine.Engine.EventHandler.OnValueChanged;
+      OnChangeHandler = new Handler()
+      {
+        name = functionName,
+        arguments = arguments
+      };
+      UIObject.ValueChanged += OnChangeEvent;
+    }
+
+    private void OnChangeEvent(object sender, ValueChangedEventArgs e)
+    {
+      Value = e.NewValue;
+      OscSender?.Send(OscAddress, (float)Value);
+      JintEngine.Engine.Instance.Invoke(OnChangeHandler.name, OnChangeHandler.arguments);
+    }
+
+    public override void SendOSC(string destination, int port, string address)
+    {
+      OscSender = new Network.OscSender();
+      OscSender.Init(destination, port);
+      OscAddress = address;
     }
   }
 }
