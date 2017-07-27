@@ -13,6 +13,6 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <AuthenticationMode>Universal</AuthenticationMode>
-    <RemoteDebugMachine>192.168.1.110</RemoteDebugMachine>
+    <RemoteDebugMachine>192.168.1.106</RemoteDebugMachine>
   </PropertyGroup>
 </Project>

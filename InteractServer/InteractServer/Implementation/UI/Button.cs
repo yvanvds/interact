@@ -70,6 +70,9 @@ namespace InteractServer.Implementation.UI
       get => backgroundColor;
     }
 
+    // Pressurre cannot be detected in WPF
+    public override float Pressure => 0;
+
     public override void OnClick(string functionName, params object[] args)
     {
       OnClickHandler = new Handler
@@ -77,8 +80,6 @@ namespace InteractServer.Implementation.UI
         name = functionName,
         arguments = args
       };
-      //JintEngine.Runner.EventHandler.RegisterClick(UIObject.Uid, functionName, arguments);
-      //UIObject.Click += JintEngine.Runner.EventHandler.OnClick;
     }
 
     public override void OnRelease(string functionName, params object[] args)
@@ -88,8 +89,6 @@ namespace InteractServer.Implementation.UI
         name = functionName,
         arguments = args
       };
-      //JintEngine.Runner.EventHandler.RegisterRelease(UIObject.Uid, functionName, arguments);
-      //UIObject.IsPressed += JintEngine.Runner.EventHandler.OnRelease;
     }
   }
 }

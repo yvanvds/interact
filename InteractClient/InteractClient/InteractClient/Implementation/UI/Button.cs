@@ -12,6 +12,16 @@ namespace InteractClient.Implementation.UI
     private Interface.CCButton UIObject = new Interface.CCButton();
     private Color backgroundColor;
     private Color textColor;
+    private float pressure;
+
+    class Handler
+    {
+      public string name;
+      public object[] arguments;
+    }
+
+    Handler OnClickHandler;
+    Handler OnReleaseHandler;
 
     public Button()
     {
@@ -41,16 +51,38 @@ namespace InteractClient.Implementation.UI
       }
     }
 
+    public override float Pressure => pressure;
+
     public override void OnClick(string functionName, params object[] arguments)
     {
-      JintEngine.Engine.EventHandler.RegisterClick(UIObject.Id, functionName, arguments);
-      UIObject.Pressed += JintEngine.Engine.EventHandler.OnClick;
+      OnClickHandler = new Handler()
+      {
+        name = functionName,
+        arguments = arguments
+      };
+      UIObject.Pressed += OnClickEvent;
     }
 
     public override void OnRelease(string functionName, params object[] arguments)
     {
-      JintEngine.Engine.EventHandler.RegisterRelease(UIObject.Id, functionName, arguments);
-      UIObject.Released += JintEngine.Engine.EventHandler.OnRelease;
+      OnReleaseHandler = new Handler()
+      {
+        name = functionName,
+        arguments = arguments
+      };
+      UIObject.Released += OnReleaseEvent;
+    }
+
+    private void OnClickEvent(object sender, EventArgs e)
+    {
+      pressure = (e as Interface.PressedEventArgs).Pressure;
+      JintEngine.Engine.Instance.Invoke(OnClickHandler.name, OnClickHandler.arguments);
+    }
+
+    private void OnReleaseEvent(object sender, EventArgs e)
+    {
+      pressure = 0;
+      JintEngine.Engine.Instance.Invoke(OnReleaseHandler.name, OnReleaseHandler.arguments);
     }
   }
 }

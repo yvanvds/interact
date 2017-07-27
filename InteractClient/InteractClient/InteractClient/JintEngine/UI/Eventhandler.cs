@@ -64,6 +64,7 @@ namespace InteractClient.JintEngine.UI
     public void OnRelease(object sender, EventArgs e)
     {
       Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
+      
       Engine.Instance.Invoke(OnReleaseObjects[element.Id].name, OnReleaseObjects[element.Id].arguments);
     }
 

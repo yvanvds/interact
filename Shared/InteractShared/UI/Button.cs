@@ -7,6 +7,7 @@ namespace Interact.UI
   public abstract class Button : View
   {
     public abstract string Content { get; set; }
+    public abstract float Pressure { get; }
 
     public abstract void OnClick(string functionName, params object[] arguments);
 
@@ -14,5 +15,7 @@ namespace Interact.UI
 
     public abstract Color TextColor { get; set; }
     public abstract Color BackgroundColor { get; set; }
+
+
   }
 }
