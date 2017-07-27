@@ -52,6 +52,7 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Button", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Button)));
         jEngine.SetValue("Title", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Title)));
         jEngine.SetValue("Text", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Text)));
+        jEngine.SetValue("Slider", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Slider)));
         jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Image)));
         jEngine.SetValue("Entry", TypeReference.CreateTypeReference(jEngine, typeof(UI.Entry)));
         //jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));

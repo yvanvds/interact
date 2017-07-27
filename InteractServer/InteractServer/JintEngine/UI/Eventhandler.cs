@@ -16,11 +16,31 @@ namespace InteractServer.JintEngine.UI
       public object[] arguments;
     }
 
-    private Dictionary<String, Handler> Objects = new Dictionary<string, Handler>();
+    private Dictionary<String, Handler> OnClickObjects = new Dictionary<string, Handler>();
+    private Dictionary<String, Handler> OnReleaseObjects = new Dictionary<string, Handler>();
+    private Dictionary<String, Handler> OnChangedObjects = new Dictionary<string, Handler>();
 
-    public void Register(String ID, String name, params object[] Arguments)
+    public void RegisterClick(String ID, String name, params object[] Arguments)
     {
-      Objects.Add(ID, new Handler()
+      OnClickObjects.Add(ID, new Handler()
+      {
+        name = name,
+        arguments = Arguments
+      });
+    }
+
+    public void RegisterRelease(String ID, String name, params object[] Arguments)
+    {
+      OnReleaseObjects.Add(ID, new Handler()
+      {
+        name = name,
+        arguments = Arguments
+      });
+    }
+
+    public void RegisterChanged(String ID, String name, params object[] Arguments)
+    {
+      OnChangedObjects.Add(ID, new Handler()
       {
         name = name,
         arguments = Arguments
@@ -29,13 +49,27 @@ namespace InteractServer.JintEngine.UI
 
     public void Clear()
     {
-      Objects.Clear();
+      OnClickObjects.Clear();
+      OnReleaseObjects.Clear();
+      OnChangedObjects.Clear();
     }
 
     public void OnClick(object sender, EventArgs e)
     {
       System.Windows.Controls.Control control = sender as System.Windows.Controls.Control;
-      JintEngine.Runner.Engine.InvokeMethod(Objects[control.Uid].name, Objects[control.Uid].arguments);
+      JintEngine.Runner.Engine.InvokeMethod(OnClickObjects[control.Uid].name, OnClickObjects[control.Uid].arguments);
+    }
+
+    public void OnRelease(object sender, EventArgs e)
+    {
+      System.Windows.Controls.Control control = sender as System.Windows.Controls.Control;
+      JintEngine.Runner.Engine.InvokeMethod(OnReleaseObjects[control.Uid].name, OnClickObjects[control.Uid].arguments);
+    }
+
+    public void OnValueChanged(object sender, EventArgs e)
+    {
+      System.Windows.Controls.Control control = sender as System.Windows.Controls.Control;
+      JintEngine.Runner.Engine.InvokeMethod(OnChangedObjects[control.Uid].name, OnClickObjects[control.Uid].arguments);
     }
   }
 }

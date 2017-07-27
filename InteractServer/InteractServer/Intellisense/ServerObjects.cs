@@ -32,6 +32,7 @@ namespace InteractServer.Intellisense
       AddScriptType("Button", typeof(Implementation.UI.Button));
       AddScriptType("Text", typeof(Implementation.UI.Text));
       AddScriptType("Title", typeof(Implementation.UI.Title));
+      AddScriptType("Slider", typeof(Implementation.UI.Slider));
       AddScriptType("Grid", typeof(Implementation.UI.Grid));
       AddScriptType("Color", typeof(Implementation.UI.Color));
 

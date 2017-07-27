@@ -26,6 +26,7 @@ namespace InteractServer.Intellisense
       AddScriptType("Text", typeof(Interact.UI.Text));
       AddScriptType("Title", typeof(Interact.UI.Title));
       AddScriptType("Grid", typeof(Interact.UI.Grid));
+      AddScriptType("Slider", typeof(Interact.UI.Slider));
 
       AddScriptType("Color", typeof(Interact.UI.Color));
 

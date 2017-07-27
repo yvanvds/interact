@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Interact.UI;
+using System.ComponentModel;
 
 namespace InteractServer.Implementation.UI
 {
@@ -13,12 +14,36 @@ namespace InteractServer.Implementation.UI
     private System.Windows.Controls.Button UIObject = new System.Windows.Controls.Button();
     private Color backgroundColor;
     private Color textColor;
+    private DependencyPropertyDescriptor descriptor;
+
+    class Handler
+    {
+      public string name;
+      public object[] arguments;
+    }
+
+    private Handler OnClickHandler;
+    private Handler OnReleaseHandler;
 
     public Button()
     {
       UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Background);
       UIObject.Foreground = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Foreground);
       UIObject.Uid = Guid.NewGuid().ToString();
+
+      descriptor = DependencyPropertyDescriptor.FromProperty(System.Windows.Controls.Button.IsPressedProperty, typeof(System.Windows.Controls.Button));
+      descriptor.AddValueChanged(UIObject, new EventHandler(IsPressedChanged));
+    }
+
+    private void IsPressedChanged(object sender, EventArgs e) 
+    {
+      if (UIObject.IsPressed && OnClickHandler != null)
+      {
+        JintEngine.Runner.Engine.InvokeMethod(OnClickHandler.name, OnClickHandler.arguments);
+      } else if (!UIObject.IsPressed && OnReleaseHandler != null)
+      {
+        JintEngine.Runner.Engine.InvokeMethod(OnReleaseHandler.name, OnReleaseHandler.arguments);
+      }
     }
 
     public override string Content { get => UIObject.Content as string; set => UIObject.Content = value; }
@@ -45,15 +70,26 @@ namespace InteractServer.Implementation.UI
       get => backgroundColor;
     }
 
-    public override void OnClick(string functionName, params object[] arguments)
+    public override void OnClick(string functionName, params object[] args)
     {
-      JintEngine.Runner.EventHandler.Register(UIObject.Uid, functionName, arguments);
-      UIObject.Click += JintEngine.Runner.EventHandler.OnClick;
+      OnClickHandler = new Handler
+      {
+        name = functionName,
+        arguments = args
+      };
+      //JintEngine.Runner.EventHandler.RegisterClick(UIObject.Uid, functionName, arguments);
+      //UIObject.Click += JintEngine.Runner.EventHandler.OnClick;
     }
 
-    public override void OnRelease(string functionName, params object[] arguments)
+    public override void OnRelease(string functionName, params object[] args)
     {
-      throw new NotImplementedException();
+      OnReleaseHandler = new Handler
+      {
+        name = functionName,
+        arguments = args
+      };
+      //JintEngine.Runner.EventHandler.RegisterRelease(UIObject.Uid, functionName, arguments);
+      //UIObject.IsPressed += JintEngine.Runner.EventHandler.OnRelease;
     }
   }
 }

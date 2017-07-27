@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace InteractClient.JintEngine.UI
 {
@@ -17,6 +18,7 @@ namespace InteractClient.JintEngine.UI
 
     private Dictionary<Guid, Handler> OnClickObjects = new Dictionary<Guid, Handler>();
     private Dictionary<Guid, Handler> OnReleaseObjects = new Dictionary<Guid, Handler>();
+    private Dictionary<Guid, Handler> OnChangedObjects = new Dictionary<Guid, Handler>();
 
     public void RegisterClick(Guid ID, String Name, params object[] Arguments)
     {
@@ -35,10 +37,20 @@ namespace InteractClient.JintEngine.UI
       });
     }
 
+    public void RegisterChanged(Guid ID, string Name, params object[] Arguments)
+    {
+      OnChangedObjects.Add(ID, new Handler()
+      {
+        name = Name,
+        arguments = Arguments
+      });
+    }
+
     public void Clear()
     {
       OnClickObjects.Clear();
       OnReleaseObjects.Clear();
+      OnChangedObjects.Clear();
     }
 
 
@@ -53,6 +65,12 @@ namespace InteractClient.JintEngine.UI
     {
       Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
       Engine.Instance.Invoke(OnReleaseObjects[element.Id].name, OnReleaseObjects[element.Id].arguments);
+    }
+
+    public void OnValueChanged(object sender, ValueChangedEventArgs e)
+    {
+      Xamarin.Forms.Element element = sender as Xamarin.Forms.Element;
+      Engine.Instance.Invoke(OnChangedObjects[element.Id].name, OnChangedObjects[element.Id].arguments);
     }
   }
 }

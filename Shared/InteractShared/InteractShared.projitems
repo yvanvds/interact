@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Grid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Slider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Text.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Title.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\View.cs" />

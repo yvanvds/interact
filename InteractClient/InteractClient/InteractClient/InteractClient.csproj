@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Implementation\Device\Sensor.cs" />
     <Compile Include="Implementation\Device\Sensors.cs" />
+    <Compile Include="Implementation\UI\Slider.cs" />
     <Compile Include="Interface\CCButton.cs" />
     <Compile Include="Interface\ISensor.cs" />
     <Compile Include="Data\Image.cs" />
