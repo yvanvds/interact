@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Interact.UI;
 using System.Windows.Media;
+using System.Windows;
 
 namespace InteractServer.Implementation.UI
 {
@@ -12,6 +13,13 @@ namespace InteractServer.Implementation.UI
   {
     private System.Windows.Controls.Slider UIObject = new System.Windows.Controls.Slider();
     private Color backgroundColor;
+
+    class Handler
+    {
+      public string name;
+      public object[] arguments;
+    }
+    private Handler OnChangeHandler;
 
     public Slider()
     {
@@ -36,8 +44,19 @@ namespace InteractServer.Implementation.UI
 
     public override void OnChange(string functionName, params object[] arguments)
     {
+      OnChangeHandler = new Handler()
+      {
+        name = functionName,
+        arguments = arguments
+      };
+      UIObject.ValueChanged += OnChangeEvent;
       JintEngine.Runner.EventHandler.RegisterChanged(UIObject.Uid, functionName, arguments);
       UIObject.MouseDoubleClick += JintEngine.Runner.EventHandler.OnValueChanged;
+    }
+
+    private void OnChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+      JintEngine.Runner.Engine.InvokeMethod(OnChangeHandler.name, OnChangeHandler.arguments);
     }
   }
 }
