@@ -60,6 +60,7 @@ namespace InteractClient.UWP
 
         Xamarin.Forms.Forms.Init(e);
         Xamarin.Forms.DependencyService.Register<Implementation.SensorImplementation>();
+        Xamarin.Forms.DependencyService.Register<Implementation.ArduinoImplementation>();
 
         if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
         {

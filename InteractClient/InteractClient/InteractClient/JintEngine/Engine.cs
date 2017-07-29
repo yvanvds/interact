@@ -26,6 +26,7 @@ namespace InteractClient.JintEngine
     private ProjectStorage Storage = new ProjectStorage();
     private Implementation.Network.Server Server = new Implementation.Network.Server();
     private Implementation.Device.Sensors Sensors;
+    private Implementation.Device.Arduino Arduino;
 
     public Jint.Engine Jint()
     {
@@ -46,6 +47,17 @@ namespace InteractClient.JintEngine
           {
             Network.Service.Get().WriteLog("Can't setup sensors:" + e.Message);
           }
+        }
+
+        if(Arduino == null)
+        {
+          Arduino = new Implementation.Device.Arduino(); 
+        }
+
+        if (Arduino.IsImplemented())
+        {
+          Arduino.Start();
+          jEngine.SetValue("Arduino", Arduino);
         }
 
         // UI
@@ -75,6 +87,9 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Clients", Project.Current.Clients);
         jEngine.SetValue("OscSender", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscSender)));
         jEngine.SetValue("OscReceiver", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscReceiver)));
+
+        jEngine.SetValue("PinMode", TypeReference.CreateTypeReference(jEngine, typeof(Interact.Device.Arduino.PinMode)));
+        jEngine.SetValue("PinState", TypeReference.CreateTypeReference(jEngine, typeof(Interact.Device.Arduino.PinState)));
       }
       return jEngine;
     }
@@ -83,6 +98,9 @@ namespace InteractClient.JintEngine
     {
       if (ConstructionLock == null) ConstructionLock = new SemaphoreSlim(1);
       ConstructionLock.Wait(5000);
+
+      Arduino?.AllowJintOutput(false);
+      Arduino?.RemoveSignalHandlers();
 
       if (activePage is ConnectedPage)
       {
@@ -95,6 +113,7 @@ namespace InteractClient.JintEngine
       }
       else if (activePage is ModelPage)
       {
+        
         screenToStart = ID;
         ModelPage p = activePage as ModelPage;
         string screenName = Data.Project.Current.GetScreen(ID).Name;
@@ -110,6 +129,7 @@ namespace InteractClient.JintEngine
         Device.BeginInvokeOnMainThread(() => p.Pop());
         jEngine = null;
         EventHandler.Clear();
+        Arduino?.RemoveSignalHandlers();
       }
       InteractClient.Network.Service.Get().GetNextMethod();
     }
@@ -117,6 +137,7 @@ namespace InteractClient.JintEngine
     public void StopRunningProject()
     {
       Sensors?.Stop();
+      Arduino?.Stop();
       StopScreen();
     }
 
@@ -161,6 +182,8 @@ namespace InteractClient.JintEngine
       }
 
       ConstructionLock.Release();
+
+      Arduino?.AllowJintOutput(true);
     }
 
     public void Invoke(String functionName, params object[] arguments)

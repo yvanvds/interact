@@ -19,6 +19,9 @@ namespace InteractServer.Intellisense
       // Device
       AddGlobalObject("Sensors", "SensorsType", typeof(Interact.Device.Sensors));
       AddScriptType("Sensor", typeof(Interact.Device.Sensor));
+      AddGlobalObject("Arduino", "ArduinoType", typeof(Interact.Device.Arduino));
+      AddEnum("PinMode", typeof(Interact.Device.Arduino.PinMode));
+      AddEnum("PinState", typeof(Interact.Device.Arduino.PinState));
 
       AddScriptType("Button", typeof(Interact.UI.Button));
       AddScriptType("Entry", typeof(Xamarin.Forms.Entry));
@@ -31,6 +34,9 @@ namespace InteractServer.Intellisense
       AddScriptType("Color", typeof(Interact.UI.Color));
 
       AddScriptType("SensorVector", typeof(Interact.Utility.SensorVector));
+
+      AddScriptType("OscSender", typeof(Interact.Network.OscSender));
+      AddScriptType("OscReceiver", typeof(Interact.Network.OscReceiver));
     }
   }
 }

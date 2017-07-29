@@ -27,6 +27,7 @@ namespace InteractServer.Intellisense
 
     protected Dictionary<string, GlobalObject> Objects = new Dictionary<string, GlobalObject>();
     protected Dictionary<string, ScriptType> Types = new Dictionary<string, ScriptType>();
+    protected Dictionary<string, ScriptType> Enums = new Dictionary<string, ScriptType>();
 
     public ScriptObjects()
     {
@@ -45,6 +46,11 @@ namespace InteractServer.Intellisense
     protected void AddScriptType(string typeName, Type type)
     {
       Types.Add(typeName, new ScriptType() { type = type });
+    }
+
+    protected void AddEnum(string enumName, Type type)
+    {
+      Enums.Add(enumName, new ScriptType() { type = type });
     }
 
     public string GetGlobalObjectType(string key)
@@ -67,6 +73,11 @@ namespace InteractServer.Intellisense
       {
         if(entry.Value.canCreate) engine.SetValue(entry.Key, TypeReference.CreateTypeReference(engine, entry.Value.type));
       }
+
+      foreach (KeyValuePair<string, ScriptType> entry in Enums)
+      {
+        engine.SetValue(entry.Key, TypeReference.CreateTypeReference(engine, entry.Value.type));
+      }
     }
 
     public void AddTypes(List<AutocompleteItem> list)
@@ -84,6 +95,11 @@ namespace InteractServer.Intellisense
     public bool HasType(string typeName)
     {
       return Types.ContainsKey(typeName);
+    }
+
+    public bool HasEnum(string enumName)
+    {
+      return Enums.ContainsKey(enumName);
     }
 
     public void GetTypeMethods(List<string> objParts, List<AutocompleteItem> list)
@@ -160,6 +176,13 @@ namespace InteractServer.Intellisense
       }
     }
 
-
+    public void GetEnumValues(string obj, List<AutocompleteItem> list)
+    {
+      string[] result = Enums[obj].type.GetEnumNames();
+      foreach(string s in result)
+      {
+        list.Add(new MethodAutocompleteItem(s));
+      }
+    }
   }
 }

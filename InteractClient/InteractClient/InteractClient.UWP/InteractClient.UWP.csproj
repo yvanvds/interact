@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\ArduinoImplementation.cs" />
     <Compile Include="Implementation\CCButtonRenderer.cs" />
     <Compile Include="Implementation\SensorImplementation.cs" />
     <Compile Include="MainPage.xaml.cs">

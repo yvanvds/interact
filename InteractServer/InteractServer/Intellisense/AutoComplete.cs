@@ -83,6 +83,8 @@ namespace InteractServer.Intellisense
       char previousChar = (char)TextArea.GetCharAt(start - 1);
       string previousToken = TextArea.GetWordFromPosition(start - 2);
 
+      // don't show anything if the previous character is a semicolon
+      if (previousChar == ';') return result;
 
       // show type or object members
       if (TextArea.GetCharAt(TextArea.CurrentPosition - 1) == '.' || previousChar == '.')
@@ -130,10 +132,28 @@ namespace InteractServer.Intellisense
               return result;
             }
           }
-
-
+        } else
+        {
+          // might be an enum
+          if (ServerSide)
+          {
+            if (Global.ServerObjects.HasEnum(objParts.Last()))
+            {
+              Global.ServerObjects.GetEnumValues(objParts.Last(), result);
+              return result;
+            }
+          } else
+          {
+            if(Global.ClientObjects.HasEnum(objParts.Last()))
+            {
+              Global.ClientObjects.GetEnumValues(objParts.Last(), result);
+              return result;
+            }
+          }
         }
       }
+
+
 
       // show registered types
       if (previousChar == ' ')

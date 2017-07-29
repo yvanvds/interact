@@ -42,12 +42,19 @@ namespace InteractClient.Implementation.Network
 
     public override void StartScreen(string screenName)
     {
+      Data.Screen screen = Data.Project.Current.GetScreen(screenName);
+      if(screen == null)
+      {
+        InteractClient.Network.Service.Get().WriteLog("Error: the screen to start does not exist.");
+        return;
+      }
+
       if(local)
       {
-        JintEngine.Engine.Instance.StartScreen(Data.Project.Current.GetScreen(screenName).ID);
+        JintEngine.Engine.Instance.StartScreen(screen.ID);
       } else
       {
-        InteractClient.Network.Service.Get().StartScreen(ID, Data.Project.Current.GetScreen(screenName).ID);
+        InteractClient.Network.Service.Get().StartScreen(ID, screen.ID);
       }
     }
   }

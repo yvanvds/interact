@@ -7,6 +7,7 @@
     "Newtonsoft.Json": "10.0.2",
     "rda.SocketsForPCL": "2.0.2",
     "System.Net.Sockets": "4.3.0",
+    "Windows-Remote-Arduino": "1.4.0",
     "Xamarin.Forms": "2.3.4.224"
   },
   "frameworks": {

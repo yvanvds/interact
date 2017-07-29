@@ -36,5 +36,19 @@ namespace InteractClient
     {
       Settings.Current.Set<String>("NetworkToken", this.FindByName<Entry>("TokenEntry").Text);
     }
+
+    private void ArduinoButton_Clicked(object sender, EventArgs e)
+    {
+      switch(Device.RuntimePlatform)
+      {
+        case Device.Windows:
+        case Device.WinPhone:
+          Navigation.PushAsync(new ArduinoPage());
+          break;
+        default:
+          DisplayAlert("Alert", "Arduino connections are not available on this platform", "OK");
+          break;
+      }
+    }
   }
 }

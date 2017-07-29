@@ -62,13 +62,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ArduinoPage.xaml.cs">
+      <DependentUpon>ArduinoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConnectedPage.xaml.cs">
       <DependentUpon>ConnectedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\Device\Arduino.cs" />
     <Compile Include="Implementation\Device\Sensor.cs" />
     <Compile Include="Implementation\Device\Sensors.cs" />
     <Compile Include="Implementation\UI\Slider.cs" />
     <Compile Include="Interface\CCButton.cs" />
+    <Compile Include="Interface\IArduino.cs" />
     <Compile Include="Interface\ISensor.cs" />
     <Compile Include="Data\Image.cs" />
     <Compile Include="Data\Screen.cs" />
@@ -185,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="OptionsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ArduinoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

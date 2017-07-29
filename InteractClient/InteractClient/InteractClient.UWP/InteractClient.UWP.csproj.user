@@ -5,7 +5,7 @@
     <UseEmulator>false</UseEmulator>
     <RemoteDebugMachine>192.168.1.110</RemoteDebugMachine>
     <AuthenticationMode>Universal</AuthenticationMode>
-    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <UseEmulator>false</UseEmulator>

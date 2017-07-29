@@ -17,7 +17,7 @@ namespace Interact.Device
     public abstract void Send(SensorValue value);
 
     public abstract void Start(int delay);
-    public abstract void Stop();
+    public abstract void Stop (         );
   }
 
   public abstract class Sensors

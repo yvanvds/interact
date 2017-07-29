@@ -9,6 +9,7 @@
     <Import_RootNamespace>InteractShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Arduino.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device\Sensors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumerations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Client.cs" />

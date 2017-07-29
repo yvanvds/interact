@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InteractClient.ArduinoPage"
+             BackgroundColor="DarkSlateGray">
+  <ContentPage.Content>
+    <ScrollView Orientation="Vertical">
+      <Grid Margin="20, 20, 10, 10">
+
+        <Grid.RowDefinitions>
+          <RowDefinition Height="100"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="80"/>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="0,30,0,0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="If configured, this device can be connected to an Arduino for extra sensor capabilities." TextColor="White"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Text="Connection" TextColor="White" VerticalTextAlignment="End" />
+        <Picker Grid.Row="2" Grid.Column="0" x:Name="ConnectionMethodPicker">
+          <Picker.Items>
+            <x:String>BlueTooth</x:String>
+            <x:String>USB</x:String>
+            <x:String>Network</x:String>
+          </Picker.Items>
+          <Picker.SelectedIndex>1</Picker.SelectedIndex>
+        </Picker>
+
+        <Label Grid.Row="1" Grid.Column="1" Text="Baud rate" TextColor="White" VerticalTextAlignment="End" />
+        <Picker Grid.Row="2" Grid.Column="1" x:Name="BaudRatePicker" >
+          <Picker.Items>
+            <x:String>300</x:String>
+            <x:String>1200</x:String>
+            <x:String>2400</x:String>
+            <x:String>4800</x:String>
+            <x:String>9600</x:String>
+            <x:String>19200</x:String>
+            <x:String>38400</x:String>
+            <x:String>57600</x:String>
+            <x:String>115200</x:String>
+          </Picker.Items>
+          <Picker.SelectedIndex>7</Picker.SelectedIndex>
+        </Picker>
+
+        <Label Grid.Row="3" Grid.Column="0" VerticalTextAlignment="End" Text="Network settings" TextColor="White" />
+        <Entry Grid.Row="4" Grid.Column="0" Placeholder="Host Name or IP" x:Name="NetworkHostNameEntry" IsEnabled="False"/>
+        <Entry Grid.Row="4" Grid.Column="1" Placeholder="Port" x:Name="NetworkPortEntry" IsEnabled="False" />
+
+        <Label Grid.Row="5" Grid.Column="0" VerticalTextAlignment="End" TextColor="White" Text="Devices discovered" x:Name="DevicesText"/>
+        <Picker Grid.Row="6" Grid.Column="0" x:Name="DevicePicker" />
+
+        <Label Grid.Row="7" Grid.ColumnSpan="2" x:Name="ConnectMessage" TextColor="White" />
+
+        <Grid Grid.Row="8" Grid.ColumnSpan="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          
+          <Button Grid.Column="0" x:Uid="Connect" x:Name="ConnectButton" Clicked="ConnectButton_Clicked"  Text="Connect" TextColor="White" />
+          <Button Grid.Column="1" x:Uid="RefreshBtn"  x:Name="RefreshButton" Clicked="RefreshButton_Clicked"  Text="Refresh" TextColor="White" />
+          <Button Grid.Column="2" x:Uid="Cancel" x:Name="CancelButton" Clicked="CancelButton_Clicked" IsEnabled="False" Text="Cancel" TextColor="White"/>
+        </Grid>
+        <Button Grid.Row="9" Grid.ColumnSpan="2" TextColor="White" x:Name="ClearButton" Clicked="ClearButton_Clicked" Text="Clear Current Connection"/>
+        <Button Grid.Row="10" Grid.ColumnSpan="2" TextColor="White" x:Name="BackButton" Clicked="BackButton_Clicked" Text="Back"></Button>
+      </Grid>
+    </ScrollView>
+  </ContentPage.Content>
+</ContentPage>

@@ -562,6 +562,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Implementation\Device\" />
     <Folder Include="JintEngine\UI\" />
   </ItemGroup>
   <Import Project="..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />

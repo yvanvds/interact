@@ -54,7 +54,9 @@ namespace InteractServer.JintEngine
 
     public Engine()
     {
-      jint = new Jint.Engine(cfg => cfg.AllowClr());
+      jint = new Jint.Engine(cfg => {
+        cfg.AllowClr();
+      });
       Global.ServerObjects.InsertInto(jint);
       jint.SetValue("Root", Runner.pageView.PageRoot);
 

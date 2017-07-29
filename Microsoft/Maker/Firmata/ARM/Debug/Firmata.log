@@ -1,0 +1,106 @@
+﻿  pch.cpp
+  BluetoothSerial.cpp
+  DfRobotBleSerial.cpp
+  Firmata.cpp
+  NetworkSerial.cpp
+  USBSerial.cpp
+DfRobotBleSerial.cpp(297): warning C4973: 'Windows::Devices::Bluetooth::IBluetoothLEDevice::GetGattService': marked as deprecated
+  DfRobotBleSerial.cpp(297): note: Message: 'Use GetGattServicesForUuidAsync instead of GetGattService.  For more information, see MSDN.'
+DfRobotBleSerial.cpp(298): warning C4973: 'Windows::Devices::Bluetooth::GenericAttributeProfile::IGattDeviceService::GetCharacteristics': marked as deprecated
+  DfRobotBleSerial.cpp(298): note: Message: 'Use GetCharacteristicsForUuidAsync instead of GetCharacteristics.  For more information, see MSDN.'
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(212): error C2653: 'Serial': is not a class or namespace name (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(213): error C3699: '^': cannot use this indirection on type 'IStream' (compiling source file Firmata.cpp)
+  e:\interact\interact\microsoft\maker\firmata\Firmata.h(213): note: compiler replacing '^' with '*' to continue parsing (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(391): error C2653: 'Serial': is not a class or namespace name (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(391): error C3699: '^': cannot use this indirection on type 'IStream' (compiling source file Firmata.cpp)
+  e:\interact\interact\microsoft\maker\firmata\Firmata.h(391): note: compiler replacing '^' with '*' to continue parsing (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(440): error C3986: 'begin': signature of public member contains native type 'IStream' (compiling source file Firmata.cpp)
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream' (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(440): error C3987: 'begin': signature of public member contains native type 'IStream *' (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(211): error C3986: 'begin': signature of public member contains native type 'IStream' (compiling source file Firmata.cpp)
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream' (compiling source file Firmata.cpp)
+e:\interact\interact\microsoft\maker\firmata\Firmata.h(211): error C3987: 'begin': signature of public member contains native type 'IStream *' (compiling source file Firmata.cpp)
+Firmata.cpp(80): error C2039: 'available': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(87): error C2511: 'void Microsoft::Maker::Firmata::UwpFirmata::begin(Microsoft::Maker::Serial::IStream ^)': overloaded member function not found in 'Microsoft::Maker::Firmata::UwpFirmata'
+  e:\interact\interact\microsoft\maker\firmata\Firmata.h(177): note: see declaration of 'Microsoft::Maker::Firmata::UwpFirmata'
+Firmata.cpp(90): error C2597: illegal reference to non-static member 'Microsoft::Maker::Firmata::UwpFirmata::_firmata_stream'
+Firmata.cpp(93): error C2227: left of '->lock' must point to class/struct/union/generic type
+Firmata.cpp(97): error C2227: left of '->connectionReady' must point to class/struct/union/generic type
+Firmata.cpp(99): error C2352: 'Microsoft::Maker::Firmata::UwpFirmata::onConnectionEstablished': illegal call of non-static member function
+  e:\interact\interact\microsoft\maker\firmata\Firmata.h(416): note: see declaration of 'Microsoft::Maker::Firmata::UwpFirmata::onConnectionEstablished'
+Firmata.cpp(104): error C2227: left of '->ConnectionEstablished' must point to class/struct/union/generic type
+Firmata.cpp(104): error C2671: 'Microsoft::Maker::Firmata::UwpFirmata::begin': static member functions do not have 'this' pointers
+Firmata.cpp(105): error C2227: left of '->ConnectionFailed' must point to class/struct/union/generic type
+Firmata.cpp(105): error C2671: 'Microsoft::Maker::Firmata::UwpFirmata::begin': static member functions do not have 'this' pointers
+Firmata.cpp(109): error C2227: left of '->ConnectionLost' must point to class/struct/union/generic type
+Firmata.cpp(109): error C2671: 'Microsoft::Maker::Firmata::UwpFirmata::begin': static member functions do not have 'this' pointers
+Firmata.cpp(110): error C2227: left of '->unlock' must point to class/struct/union/generic type
+Firmata.cpp(114): error C2597: illegal reference to non-static member 'Microsoft::Maker::Firmata::UwpFirmata::FirmataConnectionFailed'
+Firmata.cpp(115): error C2227: left of '->unlock' must point to class/struct/union/generic type
+Firmata.cpp(142): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(143): error C2039: 'end': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(154): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(171): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(172): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(173): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(174): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(185): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(186): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(187): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(188): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(195): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(196): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(205): error C2039: 'read': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(258): error C2039: 'read': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(376): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(377): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(378): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(379): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(390): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(391): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(392): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(393): error C2039: 'flush': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(418): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(419): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(426): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(448): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(449): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(454): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(457): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(465): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(466): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
+Firmata.cpp(519): error C2039: 'write': is not a member of 'IStream'
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\objidlbase.h(2259): note: see declaration of 'IStream'
