@@ -25,56 +25,8 @@ namespace InteractServer.Intellisense
 
     public IEnumerable<AutocompleteItem> Build()
     {
-      // gather positional info (between which braces is the cursor?
-      List<int> currentPos = new List<int>();
-      currentPos.Add(0);
-      int level = 0;
-
-      int textPos = 0;
-      while(textPos < TextArea.CurrentPosition)
-      {
-        if(TextArea.GetCharAt(textPos).Equals('{'))
-        {
-          
-          int endPos = TextArea.BraceMatch(textPos);
-
-          if(endPos == -1)
-          {
-            // not a valid pair
-            break;
-          }
-          else if (endPos < TextArea.CurrentPosition)
-          {
-            // if this brace is closed before the current position, we are not interested in its contents
-            if(textPos < endPos) textPos = endPos;
-            level++;
-            if (currentPos.Count - 1 < level)
-            {
-              currentPos.Add(0);
-            }
-            else
-            {
-              currentPos[level]++;
-            }
-            level--;
-          } else
-          {
-            textPos++;
-            level++;
-            if(currentPos.Count-1 < level)
-            {
-              currentPos.Add(0);
-            } else
-            {
-              currentPos[level]++;
-            }
-          }
-        } else
-        {
-          textPos++;
-        }
-      }
-      int[] braceLevel = currentPos.GetRange(0, level + 1).ToArray();
+      // gather positional info (between which braces is the cursor?)
+      int[] braceLevel = BraceLevel('{');
 
       // build result list
       List<AutocompleteItem> result = new List<AutocompleteItem>();
@@ -90,20 +42,8 @@ namespace InteractServer.Intellisense
       if (TextArea.GetCharAt(TextArea.CurrentPosition - 1) == '.' || previousChar == '.')
       {
         // find first part of chain
-        int startPos = TextArea.WordStartPosition(start - 2, true);
-        List<string> objParts = new List<string>();
-        while(true)
-        {
-          objParts.Add(TextArea.GetWordFromPosition(startPos));
-          if(TextArea.GetCharAt(startPos - 1) == '.')
-          {
-            startPos = TextArea.WordStartPosition(startPos - 2, true);
-          } else
-          {
-            break;
-          }
-        }
-
+        List<string> objParts = GetObjectParts(start);
+        
         // get type
         string Type = ServerSide ? Global.IntelliServerScripts.GetObjectType(objParts.Last(), braceLevel, ScriptName) : Global.IntelliClientScripts.GetObjectType(objParts.Last(), braceLevel, ScriptName);
 
@@ -174,13 +114,68 @@ namespace InteractServer.Intellisense
         return result;
       }
 
-      // show keywords
-      //foreach (var item in keywords)
-      //{
-      //  result.Add(new AutocompleteItem(item));
-      //}
+      // check if between parentheses
+      int parPos = GetParenthesesStartPos();
+      if(parPos != 0)
+      {
+        // count comma's to know which argument this is
+        int pos = TextArea.CurrentPosition;
+        int currentArg = 0;
+        int parentheses = 0;
+        while(pos != parPos)
+        {
+          pos--;
+          int c = TextArea.GetCharAt(pos);
+          if(c.Equals(')'))
+          {
+            parentheses++;
+          } else if(c.Equals('('))
+          {
+            parentheses--;
+          }
+          else if(c.Equals(','))
+          {
+            currentArg++;
+          }
+        }
 
-      // show script function and object names
+        // find first part of chain
+        List<string> objParts = GetObjectParts(parPos);
+
+        // get type
+        string Type = ServerSide ? Global.IntelliServerScripts.GetObjectType(objParts.Last(), braceLevel, ScriptName) : Global.IntelliClientScripts.GetObjectType(objParts.Last(), braceLevel, ScriptName);
+
+        // might be an engine-injected object?
+        if (Type == null)
+        {
+          Type = ServerSide ? Global.ServerObjects.GetGlobalObjectType(objParts.Last()) : Global.ClientObjects.GetGlobalObjectType(objParts.Last());
+        }
+
+        if (Type != null)
+        {
+          objParts[objParts.Count - 1] = Type;
+
+          if (ServerSide)
+          {
+            if (Global.ServerObjects.HasType(Type))
+            {
+              Global.ServerObjects.GetMethodArgs(objParts, currentArg, result);
+              return result;
+            }
+          }
+          else
+          {
+            if (Global.ClientObjects.HasType(Type))
+            {
+              Global.ClientObjects.GetMethodArgs(objParts, currentArg, result);
+              return result;
+            }
+          }
+        }
+      }
+
+
+      // else show known script function and object names
       if(ServerSide)
       {
         Global.IntelliServerScripts.AddObjects(result, braceLevel, ScriptName);
@@ -192,13 +187,103 @@ namespace InteractServer.Intellisense
       }
 
       return result;
+    }
 
-      //foreach (var item in snippets)
-      //{
-      //  items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
-      //}
+    private int[] BraceLevel(char braceType)
+    {
+      List<int> currentPos = new List<int>();
+      currentPos.Add(0);
+      int level = 0;
 
-      //items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+      int textPos = 0;
+      while (textPos < TextArea.CurrentPosition)
+      {
+        if (TextArea.GetCharAt(textPos).Equals(braceType))
+        {
+
+          int endPos = TextArea.BraceMatch(textPos);
+
+          if (endPos == -1)
+          {
+            // not a valid pair
+            break;
+          }
+          else if (endPos < TextArea.CurrentPosition)
+          {
+            // if this brace is closed before the current position, we are not interested in its contents
+            if (textPos < endPos) textPos = endPos;
+            level++;
+            if (currentPos.Count - 1 < level)
+            {
+              currentPos.Add(0);
+            }
+            else
+            {
+              currentPos[level]++;
+            }
+            level--;
+          }
+          else
+          {
+            textPos++;
+            level++;
+            if (currentPos.Count - 1 < level)
+            {
+              currentPos.Add(0);
+            }
+            else
+            {
+              currentPos[level]++;
+            }
+          }
+        }
+        else
+        {
+          textPos++;
+        }
+      }
+      return currentPos.GetRange(0, level + 1).ToArray();
+    }
+
+    private List<string> GetObjectParts(int pos)
+    {
+      // find first part of chain
+      int startPos = TextArea.WordStartPosition(pos - 2, true);
+      List<string> objParts = new List<string>();
+      while (true)
+      {
+        objParts.Add(TextArea.GetWordFromPosition(startPos));
+        if (TextArea.GetCharAt(startPos - 1) == '.')
+        {
+          startPos = TextArea.WordStartPosition(startPos - 2, true);
+        }
+        else
+        {
+          break;
+        }
+      }
+      return objParts;
+    }
+
+    public int GetParenthesesStartPos()
+    {
+      int pos = TextArea.CurrentPosition - 1;
+      while(pos > 0)
+      {
+        if(TextArea.GetCharAt(pos).Equals('('))
+        {
+          int endPos = TextArea.BraceMatch(pos);
+          if(endPos >= TextArea.CurrentPosition)
+          {
+            // this means we're inside this Parentheses block
+            return pos;
+          }
+        }
+        pos--;
+      }
+
+      // not within a Parenthese block
+      return 0;
     }
 
     IEnumerator<AutocompleteItem> IEnumerable<AutocompleteItem>.GetEnumerator()
@@ -264,5 +349,9 @@ namespace InteractServer.Intellisense
         return Text;
       }
     }
+
+    
   }
+
+
 }

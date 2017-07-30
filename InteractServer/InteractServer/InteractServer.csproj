@@ -290,6 +290,7 @@
     <Compile Include="Implementation\UI\Slider.cs" />
     <Compile Include="Implementation\UI\Text.cs" />
     <Compile Include="Implementation\UI\Title.cs" />
+    <Compile Include="Intellisense\ArgumentsHintAutocompleteItem.cs" />
     <Compile Include="Intellisense\AutoComplete.cs" />
     <Compile Include="Controls\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
@@ -552,6 +553,9 @@
     <Resource Include="Resources\Images\play-button.png" />
     <Resource Include="Resources\Images\stop.png" />
     <Resource Include="Resources\Images\settings-8.png" />
+    <Resource Include="Resources\Icons\Method_32x.png" />
+    <Resource Include="Resources\Icons\Property_32x.png" />
+    <Resource Include="Resources\Icons\Ellipsis_16x.png" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />

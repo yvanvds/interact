@@ -17,6 +17,7 @@ using InteractServer.Utils;
 using Shared;
 using InteractServer.Views;
 using AutocompleteMenuNS;
+using System.IO;
 
 namespace InteractServer.Controls
 {
@@ -32,6 +33,9 @@ namespace InteractServer.Controls
     private AutocompleteMenu acMenu;
     private Intellisense.AutoComplete ac;
 
+    // intellisense icons
+    static System.Windows.Forms.ImageList imgList = null;
+
     public CodeEditor()
     {
       InitializeComponent();
@@ -45,11 +49,23 @@ namespace InteractServer.Controls
       TextArea.TabWidth = 2;
       TextArea.CharAdded += CharAdded;
       TextArea.UseTabs = false;
+      
 
       InitSyntaxColoring();
       InitNumberMargin();
       InitBookmarkMargin();
       InitCodeFolding();
+
+      if(imgList == null)
+      {
+        imgList = new System.Windows.Forms.ImageList();
+        Stream methodImage = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/Method_32x.png")).Stream;
+        imgList.Images.Add(new System.Drawing.Bitmap(methodImage));
+        Stream propertyImage = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/Property_32x.png")).Stream;
+        imgList.Images.Add(new System.Drawing.Bitmap(propertyImage));
+        Stream ellipsisImage = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/Ellipsis_16x.png")).Stream;
+        imgList.Images.Add(new System.Drawing.Bitmap(ellipsisImage));
+      }
 
       acMenu = new AutocompleteMenu();
       acMenu.TargetControlWrapper = new ScintillaWrapper(TextArea);
@@ -60,6 +76,8 @@ namespace InteractServer.Controls
       acMenu.Colors.SelectedBackColor = System.Drawing.Color.DimGray;
       acMenu.Colors.SelectedBackColor2 = System.Drawing.Color.Black;
       acMenu.Colors.SelectedForeColor = System.Drawing.Color.DodgerBlue;
+      acMenu.ImageList = imgList;
+      acMenu.Selected += AcMenu_Selected;
 
       // for breakpoints and highlighting
       TextArea.Margins[1].Type = MarginType.Symbol;
@@ -68,6 +86,18 @@ namespace InteractServer.Controls
       TextArea.Markers[0].SetBackColor(System.Drawing.Color.Red);
       TextArea.Markers[1].Symbol = MarkerSymbol.Background;
       TextArea.Markers[1].SetBackColor(System.Drawing.Color.Red);
+    }
+
+    private void AcMenu_Selected(object sender, SelectedEventArgs e)
+    {
+      if(e.Item.ImageIndex == 0)
+      {
+        // method was added, move cursor back one position to get into the arguments
+        acMenu.MinFragmentLength = 0;
+        TextArea.CurrentPosition--;
+        TextArea.SetEmptySelection(TextArea.CurrentPosition);
+        acMenu.Update();
+      }
     }
 
     public void InitIntellisense()
@@ -379,7 +409,7 @@ namespace InteractServer.Controls
     }
 
     private void TextArea_TextChanged(object sender, EventArgs e)
-    {
+   {
       TextArea.MarkerDeleteAll(1);
 
       ContentChanged?.Invoke(this, e);
@@ -390,6 +420,11 @@ namespace InteractServer.Controls
       if (TextArea.GetCharAt(TextArea.CurrentPosition - 2) == '.' || previousChar == '.')
       {
         acMenu.MinFragmentLength = 0;
+      } 
+      else if(ac?.GetParenthesesStartPos() > 0)
+      {
+        acMenu.MinFragmentLength = 0;
+        
       }
       else if (TextArea.GetWordFromPosition(TextArea.CurrentPosition - 2).Equals("new"))
       {
