@@ -9,6 +9,9 @@ namespace InteractClient.Implementation.UI
 {
   public class Button : Interact.UI.Button
   {
+    
+    #region Declarations
+
     private Interface.CCButton UIObject = new Interface.CCButton();
     private Color backgroundColor;
     private Color textColor;
@@ -17,6 +20,7 @@ namespace InteractClient.Implementation.UI
     private Network.OscSender OscSender = null;
     private string OscAddress;
 
+    // Stores handlers for javascript callbacks
     class Handler
     {
       public string name;
@@ -26,15 +30,18 @@ namespace InteractClient.Implementation.UI
     Handler OnClickHandler;
     Handler OnReleaseHandler;
 
+#endregion
+
     public Button()
     {
       UIObject.BackgroundColor = Data.Project.Current.ConfigButton.Background.Get();
       UIObject.TextColor = Data.Project.Current.ConfigButton.Foreground.Get();
     }
 
-    public override string Content { get => UIObject.Text; set => UIObject.Text = value; }
-
     public override object InternalObject => UIObject;
+
+    #region Appearance
+    public override string Content { get => UIObject.Text; set => UIObject.Text = value; }
 
     public override Interact.UI.Color BackgroundColor {
       get => backgroundColor;
@@ -53,7 +60,9 @@ namespace InteractClient.Implementation.UI
         textColor = new Color(UIObject.TextColor);
       }
     }
+    #endregion
 
+    #region Interaction
     public override float Pressure => pressure;
 
     public override void OnClick(string functionName, params object[] arguments)
@@ -96,5 +105,7 @@ namespace InteractClient.Implementation.UI
       OscSender.Init(destination, port);
       OscAddress = address;
     }
+
+#endregion
   }
 }

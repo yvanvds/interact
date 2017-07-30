@@ -13,7 +13,6 @@ namespace InteractClient.JintEngine
   class Engine
   {
     public static Engine Instance = new Engine();
-    public static UI.Eventhandler EventHandler = new UI.Eventhandler();
     public static SemaphoreSlim ConstructionLock;
 
     private ContentPage activePage;
@@ -66,20 +65,9 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Text", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Text)));
         jEngine.SetValue("Slider", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Slider)));
         jEngine.SetValue("Image", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Image)));
-        jEngine.SetValue("Entry", TypeReference.CreateTypeReference(jEngine, typeof(UI.Entry)));
-        //jEngine.SetValue("CCView", TypeReference.CreateTypeReference(jEngine, typeof(Cocos.CCView)));
         jEngine.SetValue("Grid", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Grid)));
-        //jEngine.SetValue("StackPanel", TypeReference.CreateTypeReference(jEngine, typeof(StackLayout)));
-
-        // UI Modifiers
-        jEngine.SetValue("ColumnDefinition", TypeReference.CreateTypeReference(jEngine, typeof(ColumnDefinition)));
-        jEngine.SetValue("RowDefinition", TypeReference.CreateTypeReference(jEngine, typeof(RowDefinition)));
-        jEngine.SetValue("GridLength", TypeReference.CreateTypeReference(jEngine, typeof(GridLength)));
-        jEngine.SetValue("GridUnitType", TypeReference.CreateTypeReference(jEngine, typeof(GridUnitType)));
-        jEngine.SetValue("Orientation", TypeReference.CreateTypeReference(jEngine, typeof(StackOrientation)));
-        jEngine.SetValue("Thickness", TypeReference.CreateTypeReference(jEngine, typeof(Thickness)));
-        jEngine.SetValue("TextAlignment", TypeReference.CreateTypeReference(jEngine, typeof(TextAlignment)));
-
+        
+        
         jEngine.SetValue("Color", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.UI.Color)));
 
         // Network
@@ -128,7 +116,6 @@ namespace InteractClient.JintEngine
         ModelPage p = activePage as ModelPage;
         Device.BeginInvokeOnMainThread(() => p.Pop());
         jEngine = null;
-        EventHandler.Clear();
         Arduino?.RemoveSignalHandlers();
       }
       InteractClient.Network.Service.Get().GetNextMethod();

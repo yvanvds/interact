@@ -11,6 +11,7 @@ namespace InteractServer.Intellisense
     public ClientObjects()
     {    
       AddGlobalObject("Root", "ClientRootType", typeof(Interact.UI.Grid));
+      AddGlobalObject("Values", "ValuesType", typeof(Interact.Values));
       AddGlobalObject("Project", "ProjectType", typeof(FakeClientClasses.ProjectStorage));
       AddGlobalObject("Server", "ServerType", typeof(Interact.Network.Server));
       AddGlobalObject("Clients", "ClientsType", typeof(Interact.Network.Clients));

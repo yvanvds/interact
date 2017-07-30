@@ -72,6 +72,7 @@
     <Compile Include="Implementation\Device\Sensor.cs" />
     <Compile Include="Implementation\Device\Sensors.cs" />
     <Compile Include="Implementation\UI\Slider.cs" />
+    <Compile Include="Implementation\Values.cs" />
     <Compile Include="Interface\CCButton.cs" />
     <Compile Include="Interface\IArduino.cs" />
     <Compile Include="Interface\ISensor.cs" />
@@ -93,9 +94,6 @@
     <Compile Include="Implementation\UI\Title.cs" />
     <Compile Include="JintEngine\Engine.cs" />
     <Compile Include="JintEngine\ProjectStorage.cs" />
-    <Compile Include="JintEngine\Sound\Sound.cs" />
-    <Compile Include="JintEngine\UI\Entry.cs" />
-    <Compile Include="JintEngine\UI\Eventhandler.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -177,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +185,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="JintEngine\Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="OptionsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

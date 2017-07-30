@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Network\OscReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\OscSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Server.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Base\InteractiveView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Grid.cs" />
@@ -24,8 +25,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\Slider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Text.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Title.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\View.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Base\View.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\SensorValue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\SensorVector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values.cs" />
   </ItemGroup>
 </Project>

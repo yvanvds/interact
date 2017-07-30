@@ -46,7 +46,6 @@ namespace InteractClient
       {
         Device.BeginInvokeOnMainThread(() =>
         {
-          Engine.EventHandler.Clear();
           Engine.Instance.StartScript(screen.ID);
         }
         );

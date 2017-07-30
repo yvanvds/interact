@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Interact.Device.Arduino" Collapsed="true">
+    <Position X="0.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAEAEACAAAAAQAAAAQAAAAAAAIABcIAAAAAAEAQA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Device\Arduino.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Device.Sensor" Collapsed="true">
+    <Position X="12.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAECAAAAAAAEAAAAAAAAAAAAAAJAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Device\Sensors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Device.Sensors" Collapsed="true">
+    <Position X="12.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAAAgAEAACIQIAAAAAiAgAAADBEAAAAIgQEAhIAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Device\Sensors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Network.Client" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgAAAAACAgAQAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Network\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Network.Clients" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAIAAAACAAAgAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Network\Clients.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Network.OscReceiver" Collapsed="true">
+    <Position X="6.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Network\OscReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Network.OscSender" Collapsed="true">
+    <Position X="3.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEACAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Network\OscSender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Network.Server" Collapsed="true">
+    <Position X="0.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAACAAAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Network\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Button">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAIAAAAAABCAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Color" Collapsed="true">
+    <Position X="8.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAKAEAAQA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Color.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Grid">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Image">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Slider">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Slider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Text">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.Title">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Title.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.UI.View">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\UI\Base\View.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Utility.SensorValue" Collapsed="true">
+    <Position X="3.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Utility\SensorValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Interact.Utility.SensorVector" Collapsed="true">
+    <Position X="3.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAYAE=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Utility\SensorVector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.App" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.ArduinoPage" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIQAAEAAgABIAQIAAQAAAAAAEAAQECAAAQAAAgCAA=</HashCode>
+      <FileName>ArduinoPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.ConnectedPage" Collapsed="true">
+    <Position X="23.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAACAAAAAAABAAAAABBAAAIAAAAA=</HashCode>
+      <FileName>ConnectedPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Global" Collapsed="true">
+    <Position X="20.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Global.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.MainPage" Collapsed="true">
+    <Position X="23.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAEAgAAAAAAIAAAAAAEAAAAAAABQEBAAAAAAA=</HashCode>
+      <FileName>MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.ModelPage" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAACAAAAAAACAAAAAAAAAAMAAAAA=</HashCode>
+      <FileName>ModelPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.OptionsPage" Collapsed="true">
+    <Position X="20.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAgQAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OptionsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Data.Image" Collapsed="true">
+    <Position X="22" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAgAAgAAAAAEAAAQAAABAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Data.Project" Collapsed="true">
+    <Position X="25.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAIAAAAIgBAAQCCAIAAQyAAIABAACMAAQIEAAAI=</HashCode>
+      <FileName>Data\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Data.Screencontent" Collapsed="true">
+    <Position X="18.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Data.Screen" Collapsed="true">
+    <Position X="16.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAgAAgAAAAAAAAAQAAABAAAAAAQAAIAAAAAA=</HashCode>
+      <FileName>Data\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Data.SoundFile" Collapsed="true">
+    <Position X="15" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAgAAAgAAgAAAAAAAAAQAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\SoundFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Device.Arduino" Collapsed="true">
+    <Position X="0.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIIIQEAGACABCAgQAAAAQgABAAAAIAhcICAAAABEAQA=</HashCode>
+      <FileName>Implementation\Device\Arduino.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Device.Sensor" Collapsed="true">
+    <Position X="12.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAAECAAAAAAAEIAAAgAAAAACAACJQAAAAABAEA=</HashCode>
+      <FileName>Implementation\Device\Sensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Device.Sensors" Collapsed="true">
+    <Position X="12.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAGAgCEAAGYQIRAAACmAwABAHBEAEII8oQkAhIAgAI=</HashCode>
+      <FileName>Implementation\Device\Sensors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Network.Client" Collapsed="true">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgIAAAICAgAQAAABEAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\Network\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Network.Clients" Collapsed="true">
+    <Position X="9.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAQAAAAIAAAACAAAgAQAAAAAAAAAAAAAAABAAAI=</HashCode>
+      <FileName>Implementation\Network\Clients.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Network.OscReceiver" Collapsed="true">
+    <Position X="6.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAEAAAgAACAABAAAAJAAAAABAAAA=</HashCode>
+      <FileName>Implementation\Network\OscReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Network.OscSender" Collapsed="true">
+    <Position X="3.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Implementation\Network\OscSender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.Network.Server" Collapsed="true">
+    <Position X="0.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAACAAAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\Network\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Button">
+    <Position X="1" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="InteractClient.Implementation.UI.Button.Handler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Implementation\UI\Button.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CEAgAAEAAgAACAAIAAAACABCCAAAACgSAAAAAgAACAA=</HashCode>
+      <FileName>Implementation\UI\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Color" Collapsed="true">
+    <Position X="8.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAKAEAAQA=</HashCode>
+      <FileName>Implementation\UI\Color.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Grid" Collapsed="true">
+    <Position X="3.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgAAEAAAAAAAAAAAAABAAACAAAAAgAAAACAAAAAAA=</HashCode>
+      <FileName>Implementation\UI\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Image" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\UI\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Slider" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAgAAGAAQAACAAAAAAAAAAACAAAAAgQgAAgAAAAAAA=</HashCode>
+      <FileName>Implementation\UI\Slider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Text" Collapsed="true">
+    <Position X="10" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAAgAAAAAIAAAACAAACAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\UI\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Implementation.UI.Title" Collapsed="true">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAAgAAAAAIAAAACAAACAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\UI\Title.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Interface.PressedEventArgs" Collapsed="true">
+    <Position X="23.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interface\CCButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Interface.CCButton" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAEAAAAEAAAAAAAAEAAA=</HashCode>
+      <FileName>Interface\CCButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Interface.SensorValueChangedEventArgs" Collapsed="true">
+    <Position X="20.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Interface\ISensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.JintEngine.Engine" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgCKAgABIAAAAAAAAgAAgAIEIAAIAQAAAAkAAEgA=</HashCode>
+      <FileName>JintEngine\Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.JintEngine.ProjectStorage" Collapsed="true">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQBAAAA=</HashCode>
+      <FileName>JintEngine\ProjectStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.JintEngine.Sound.Sound" Collapsed="true">
+    <Position X="25.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JintEngine\Sound\Sound.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.JintEngine.UI.Entry" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JintEngine\UI\Entry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.JintEngine.UI.Eventhandler" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAABAAAAAAAAAAABiAEAAAAEAAQAAEABAAAA=</HashCode>
+      <FileName>JintEngine\UI\Eventhandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Network.Multicast" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAhgAAAAAAAQAABAAAAABAAAEAAAAAA=</HashCode>
+      <FileName>Network\Multicast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Network.Network" Collapsed="true">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAABECAAgABAAAAAAIAAAABAAQgAQAAgAAAAEAA=</HashCode>
+      <FileName>Network\Network.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Network.Server" Collapsed="true">
+    <Position X="22" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAQAAAAAEAACABAAAAAAAAA=</HashCode>
+      <FileName>Network\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Network.Service" Collapsed="true">
+    <Position X="23.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAAAAhAAEEBgAgQgAhACACAAEAAAIABAAA=</HashCode>
+      <FileName>Network\Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.OscBundle" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAQAAAAAAAAAAAAIAAAACAAEAIAAAAIAABAIAA=</HashCode>
+      <FileName>Osc\OscBundle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.OscMessage" Collapsed="true">
+    <Position X="2.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAAAAAAAAEAAAAAAAAACAAAAACIAAZAAAIAAA=</HashCode>
+      <FileName>Osc\OscMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.OscPacket" Collapsed="true">
+    <Position X="1.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Osc\OscPacket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.OscReceiver" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAQAAAAAAAAQAAAAJAAAEAAAAgA=</HashCode>
+      <FileName>Osc\OscReceiver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.OSCMessageReceivedArgs" Collapsed="true">
+    <Position X="20.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Osc\OscReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.OscSender" Collapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAEAAAAAACAAACAAAAAACAAAAAAA=</HashCode>
+      <FileName>Osc\OscSender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscBlob" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAIAAgAAAEAAAAAAAAACAAAAQAQAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscBlob.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.Color" Collapsed="true">
+    <Position X="20.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAgAAAAAAAAAAAAAAABAAAAAAABAAAAA=</HashCode>
+      <FileName>Osc\Values\OscColor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscColor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscColor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscFalse" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAEAAAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscFalse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscFloat" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAIAAgAAAEAAAAAAAAACAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscFloat.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscImpulse" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Osc\Values\OscImpulse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscInt" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAQIAAgAAAEAAAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscInt.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.MidiMessage" Collapsed="true">
+    <Position X="25.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAAAAAEAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Osc\Values\OscMidi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscMidi" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscMidi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscNull" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAEAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Osc\Values\OscNull.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscString" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAIAAgAAAEAAAAAAAAACAAAAQAQAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscString.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscTimeTag" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAgAAAFAAgAAAAIAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscTimeTag.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscTrue" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAEAAAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Osc\Values\OscTrue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InteractClient.Osc.Values.OscValue" Collapsed="true">
+    <Position X="22" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Osc\Values\OscValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Constants" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.JsonObject" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\JsonObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.Background" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.Button" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.Color" Collapsed="true">
+    <Position X="22" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAKAEAAQA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\Color.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.ConfigValues" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\ConfigValues.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.Text" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Project.Title" Collapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Project\Title.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="InteractClient.Interface.IArduino" Collapsed="true">
+    <Position X="15" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAFAAAAAABAAAgACAUIAAAQAAAABEBABAQAAEAAA=</HashCode>
+      <FileName>Interface\IArduino.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="InteractClient.Interface.ISensor" Collapsed="true">
+    <Position X="16.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAEAAAAAAAAAAAAAAAIBAAAAAAAAA=</HashCode>
+      <FileName>Interface\ISensor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="InteractClient.Osc.Values.IOscValue" Collapsed="true">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Osc\Values\IOscValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="InteractClient.Osc.Values.IOscValue&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Osc\Values\IOscValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Interact.SensorType" Collapsed="true">
+    <Position X="18.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAAAgAEAACIQIAAAAAiAgAAADBEAAAAAgQEAhIAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Interact.SensorValueType" Collapsed="true">
+    <Position X="20.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAiAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Interact.SensorDelay" Collapsed="true">
+    <Position X="16.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAIAAAAAkAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>E:\Interact\interact\Shared\InteractShared\Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Shared.NetworkMessage" Collapsed="true">
+    <Position X="15" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAABQAEAAAAAAAAEgARAAAAIAAAAABAIAAAIAAA=</HashCode>
+      <FileName>E:\Interact\interact\InteractServer\InteractServer\Shared\Enumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="InteractClient.Interface.ArduinoReadyEventHandler" Collapsed="true">
+    <Position X="20.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IArduino.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="InteractClient.Interface.ArduinoFailedEventHandler" Collapsed="true">
+    <Position X="18.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IArduino.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="InteractClient.Interface.ArduinoDigitalPinEventHandler" Collapsed="true">
+    <Position X="16.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Interface\IArduino.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="InteractClient.Interface.ArduinoAnalogPinEventHandler" Collapsed="true">
+    <Position X="15" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IArduino.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="InteractClient.Interface.SensorValueChangedEventHandler" Collapsed="true">
+    <Position X="22" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Interface\ISensor.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

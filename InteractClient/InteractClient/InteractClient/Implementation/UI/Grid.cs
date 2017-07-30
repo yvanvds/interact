@@ -19,11 +19,7 @@ namespace InteractClient.Implementation.UI
       backgroundColor = new Color(UIObject.BackgroundColor);
     }
 
-    public override object InternalObject { get
-      {
-        return UIObject;
-      }
-    }
+    public override object InternalObject => UIObject;
 
     public override Interact.UI.Color BackgroundColor {
       set
@@ -35,13 +31,6 @@ namespace InteractClient.Implementation.UI
       {
         return backgroundColor;
       }
-    }
-
-    public override void Add(Interact.UI.View view, int Column, int Row)
-    {
-      Xamarin.Forms.Grid.SetColumn(view.InternalObject as Xamarin.Forms.View, Column);
-      Xamarin.Forms.Grid.SetRow(view.InternalObject as Xamarin.Forms.View, Row);
-      UIObject.Children.Add(view.InternalObject as Xamarin.Forms.View);
     }
 
     public override void Init(int Columns, int Rows, bool fillScreen = false)
@@ -57,6 +46,13 @@ namespace InteractClient.Implementation.UI
       {
         UIObject.RowDefinitions.Add(new RowDefinition());
       }
+    }
+
+    public override void Add(Interact.UI.View view, int Column, int Row)
+    {
+      Xamarin.Forms.Grid.SetColumn(view.InternalObject as Xamarin.Forms.View, Column);
+      Xamarin.Forms.Grid.SetRow(view.InternalObject as Xamarin.Forms.View, Row);
+      UIObject.Children.Add(view.InternalObject as Xamarin.Forms.View);
     }
 
     public override void Remove(Interact.UI.View view)
