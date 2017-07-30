@@ -31,6 +31,10 @@ namespace InteractClient.Osc.Values
       {
         return new OscFloat((float)obj);
       }
+      else if (obj.GetType() == typeof(double))
+      {
+        return new OscFloat(Convert.ToSingle(obj));
+      }
       else if (obj.GetType() == typeof(DateTime))
       {
         return new OscTimeTag((DateTime)obj);
@@ -57,7 +61,8 @@ namespace InteractClient.Osc.Values
       }
       else
       {
-        throw new ArgumentException(obj.GetType() + " is not a legal OSC Value type");
+        Network.Service.Get().WriteLog("OSC Error: " + obj.GetType() + " is not a legal OSC Value type");
+        return new OscNull();
       }
     }
 

@@ -28,8 +28,10 @@ namespace InteractClient.UWP.Implementation
     private IList<byte> i2cPins;
     private bool isI2cEnabled = false;
 
-    Dictionary<string, DeviceInformation> connections = new Dictionary<string, DeviceInformation>();
-    
+    private bool AnalogCallbackEnabled = false;
+    private bool DigitalCallbackEnabled = false;
+
+    private Dictionary<string, DeviceInformation> connections = new Dictionary<string, DeviceInformation>();
 
     public event ArduinoReadyEventHandler DeviceReady;
     public event ArduinoFailedEventHandler DeviceConnectionFailed;
@@ -53,15 +55,11 @@ namespace InteractClient.UWP.Implementation
           break;
       }
 
-      
-
       if (task != null)
       {
         await task.ContinueWith(listTask =>
         {
           var result = listTask.Result;
-         
-
           foreach(DeviceInformation device in result)
           {
             output.Add(device.Name);
@@ -94,7 +92,6 @@ namespace InteractClient.UWP.Implementation
         await task.ContinueWith(listTask =>
         {
           var result = listTask.Result;
-
           foreach (DeviceInformation device in result)
           {
             connections.Add(device.Name, device);
@@ -103,8 +100,9 @@ namespace InteractClient.UWP.Implementation
       }
     }
 
-    public void Connect(string interfaceType, string deviceName)
+    public void Connect(string interfaceType, string deviceName, uint baudRate)
     {
+      Disconnect();
       if(!connections.ContainsKey(deviceName)) return;
 
       switch(interfaceType)
@@ -119,26 +117,22 @@ namespace InteractClient.UWP.Implementation
       }
 
       arduino = new RemoteDevice(connection);
-      return;
-    }
-
-    public void Connect(string hostname, ushort port)
-    {
-      connection = new NetworkSerial(new Windows.Networking.HostName(hostname), port);
-      arduino = new RemoteDevice(connection);
-    }
-
-    public void Begin(uint baudRate)
-    {
       arduino.DeviceReady += OnDeviceReady;
       arduino.DeviceConnectionFailed += OnConnectionFailed;
-      arduino.AnalogPinUpdated += OnAnalogPinUpdated;
-      arduino.DigitalPinUpdated += OnDigitalPinUpdated;
-
       connection.begin(baudRate, SerialConfig.SERIAL_8N1);
     }
 
-    public void Reset()
+    public void Connect(string hostname, ushort port, uint baudRate)
+    {
+      Disconnect();
+      connection = new NetworkSerial(new Windows.Networking.HostName(hostname), port);
+      arduino = new RemoteDevice(connection);
+      arduino.DeviceReady += OnDeviceReady;
+      arduino.DeviceConnectionFailed += OnConnectionFailed;
+      connection.begin(baudRate, SerialConfig.SERIAL_8N1);
+    }
+
+    public void Disconnect()
     {
       if(connection != null)
       {
@@ -149,11 +143,52 @@ namespace InteractClient.UWP.Implementation
 
       if(arduino != null)
       {
+        EnableAnalogCallback(false);
+        EnableDigitalCallback(false);
         arduino.Dispose();
       }
 
       connection = null;
       arduino = null;
+    }
+
+    public void EnableAnalogCallback(bool value)
+    {
+      if(value == true)
+      {
+        if (!AnalogCallbackEnabled)
+        {
+          arduino.AnalogPinUpdated += OnAnalogPinUpdated;
+          AnalogCallbackEnabled = true;
+        }
+      } else
+      {
+        if(AnalogCallbackEnabled)
+        {
+          arduino.AnalogPinUpdated -= OnAnalogPinUpdated;
+          AnalogCallbackEnabled = false;
+        }
+      }
+    }
+
+    public void EnableDigitalCallback(bool value)
+    {
+      if (value == true)
+      {
+        if (!DigitalCallbackEnabled)
+        {
+          arduino.DigitalPinUpdated += OnDigitalPinUpdated;
+          DigitalCallbackEnabled = true;
+        }
+      }
+      else
+      {
+        if (DigitalCallbackEnabled)
+        {
+          arduino.DigitalPinUpdated -= OnDigitalPinUpdated;
+          DigitalCallbackEnabled = false;
+        }
+      }
     }
 
     public void SetDigitalPinMode(byte pin, Interact.Device.Arduino.PinMode mode)

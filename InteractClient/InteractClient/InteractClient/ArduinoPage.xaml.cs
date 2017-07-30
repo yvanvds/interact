@@ -187,9 +187,9 @@ namespace InteractClient
       RefreshDeviceList();
     }
 
-    private void RefreshButton_Clicked(object sender, EventArgs e)
+    private async Task RefreshButton_Clicked(object sender, EventArgs e)
     {
-      RefreshDeviceList();
+      await RefreshDeviceList();
     }
 
     private void CancelButton_Clicked(object sender, EventArgs e)
@@ -214,16 +214,18 @@ namespace InteractClient
       }
 
       uint baudRate = Convert.ToUInt32((BaudRatePicker.SelectedItem as string));
+      arduino.DeviceReady += OnDeviceReady;
+      arduino.DeviceConnectionFailed += OnConnectionFailed;
 
       switch (ConnectionMethodPicker.SelectedItem as string)
       {
         default:
         case "Bluetooth":
-          arduino.Connect("Bluetooth", device);
+          arduino.Connect("Bluetooth", device, baudRate);
           break;
 
         case "USB":
-          arduino.Connect("USB", device);
+          arduino.Connect("USB", device, baudRate);
           break;
 
         case "Network":
@@ -243,13 +245,9 @@ namespace InteractClient
             return;
           }
 
-          arduino.Connect(host, portnum);
+          arduino.Connect(host, portnum, baudRate);
           break;
       }
-
-      arduino.DeviceReady += OnDeviceReady;
-      arduino.DeviceConnectionFailed += OnConnectionFailed;
-      arduino.Begin(baudRate);
 
       timerShouldRun = true;
       Device.StartTimer(TimeSpan.FromSeconds(30), () =>
@@ -333,7 +331,7 @@ namespace InteractClient
     {
       if (arduino != null)
       {
-        arduino.Reset();
+        arduino.Disconnect();
       }
 
       if (cancelTokenSource != null)
@@ -353,7 +351,7 @@ namespace InteractClient
       Navigation.PopAsync();
     }
 
-    private void ClearButton_Clicked(object sender, EventArgs e)
+    private async Task ClearButton_Clicked(object sender, EventArgs e)
     {
       Settings.Current.Set<string>("ArduinoInterface", "");
       Settings.Current.Set<string>("ArduinoDevice", "");
@@ -361,7 +359,7 @@ namespace InteractClient
       Settings.Current.Set<string>("ArduinoHost", "");
       Settings.Current.Set<ushort>("ArduinoPort", 0);
 
-      RefreshDeviceList();
+      await RefreshDeviceList();
     }
   }
 }

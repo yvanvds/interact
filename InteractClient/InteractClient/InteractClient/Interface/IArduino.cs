@@ -20,9 +20,12 @@ namespace InteractClient.Interface
     Task RenewDeviceList(string interfaceType);
     void ListPinConfiguration();
 
-    void Connect(string interfaceType, string deviceName);
-    void Connect(string hostname, ushort port);
-    void Begin(uint baudRate);
+    void Connect(string interfaceType, string deviceName, uint baudRate);
+    void Connect(string hostname, ushort port, uint baudRate);
+    void Disconnect();
+
+    void EnableAnalogCallback(bool value);
+    void EnableDigitalCallback(bool value);
 
     void SetDigitalPinMode(byte pin, PinMode mode);
     PinMode GetDigitalPinMode(byte pin);
@@ -36,7 +39,5 @@ namespace InteractClient.Interface
     event ArduinoFailedEventHandler DeviceConnectionFailed;
     event ArduinoDigitalPinEventHandler DigitalPinSignal;
     event ArduinoAnalogPinEventHandler AnalogPinSignal;
-
-    void Reset();
   }
 }

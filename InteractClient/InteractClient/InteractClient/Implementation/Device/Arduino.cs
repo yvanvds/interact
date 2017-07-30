@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Interact.Device;
+﻿
 using InteractClient.Interface;
 using Xamarin.Forms;
 using Acr.Settings;
-using System.Threading;
 
 namespace InteractClient.Implementation.Device
 {
@@ -58,12 +52,11 @@ namespace InteractClient.Implementation.Device
 
           await device.RenewDeviceList(savedInterface);
 
-          device.Connect(savedInterface, savedDevice);
           device.DeviceReady += OnDeviceReadyEvent;
           device.DeviceConnectionFailed += OnConnectionFailedEvent;
           device.DigitalPinSignal += OnDigitalPinEvent;
           device.AnalogPinSignal += OnAnalogPinEvent;
-          device.Begin(savedBaudRate);
+          device.Connect(savedInterface, savedDevice, savedBaudRate);
           started = true;
           return;
 
@@ -74,12 +67,11 @@ namespace InteractClient.Implementation.Device
           ushort savedPort = Settings.Current.Get<ushort>("ArduinoPort");
           uint savedBaudRate = Settings.Current.Get<uint>("ArduinoBaudRate");
 
-          device.Connect(savedHost, savedPort);
           device.DeviceReady += OnDeviceReadyEvent;
           device.DeviceConnectionFailed += OnConnectionFailedEvent;
           device.DigitalPinSignal += OnDigitalPinEvent;
           device.AnalogPinSignal += OnAnalogPinEvent;
-          device.Begin(savedBaudRate);
+          device.Connect(savedHost, savedPort, savedBaudRate);
           started = true;
           return;
         }
@@ -147,7 +139,7 @@ namespace InteractClient.Implementation.Device
     {
       AllowJintOutput(false);
       RemoveSignalHandlers();
-      device.Reset();
+      device.Disconnect();
       started = false;
     }
 
@@ -193,16 +185,21 @@ namespace InteractClient.Implementation.Device
 
     public override void OnAnalogPinUpdate(string functionName)
     {
+      device.EnableAnalogCallback(true);
       OnAnalogPinUpdateHandler = functionName;
     }
 
     public override void OnDigitalPinUpdate(string functionName)
     {
+      device.EnableDigitalCallback(true);
       OnDigitalPinUpdateHandler = functionName;
     }
 
     public override void SendOSC(string destination, int port, string address)
     {
+      device.EnableAnalogCallback(true);
+      device.EnableDigitalCallback(true);
+
       OscSender = new Network.OscSender();
       OscSender.Init(destination, port);
       OscAddress = address;

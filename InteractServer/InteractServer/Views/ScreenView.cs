@@ -48,7 +48,7 @@ namespace InteractServer.Views
 
     public void DetachfromParent()
     {
-      Document.Parent.RemoveChild(Document);
+      Document.Parent?.RemoveChild(Document);
     }
 
 
