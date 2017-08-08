@@ -54,7 +54,7 @@ namespace InteractClient
                 }
               }
 
-              if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth"))
+              if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth") || savedInterface.Equals("DfRobot"))
               {
                 string savedDevice = Settings.Current.Get<string>("ArduinoDevice");
                 for (int i = 0; i < DevicePicker.Items.Count; i++)
@@ -171,6 +171,31 @@ namespace InteractClient
 
           break;
 
+        case "DfRobot":
+          DevicePicker.IsVisible = true;
+          DevicesText.IsVisible = true;
+          NetworkHostNameEntry.IsEnabled = false;
+          NetworkPortEntry.IsEnabled = false;
+          BaudRatePicker.IsEnabled = true;
+          NetworkHostNameEntry.Text = "";
+          NetworkPortEntry.Text = "";
+
+          cancelTokenSource = new CancellationTokenSource();
+          cancelTokenSource.Token.Register(() => OnConnectionCancelled());
+
+          result = await arduino.GetDeviceList("DfRobot", cancelTokenSource.Token);
+          if (result.Count > 0)
+          {
+            DevicePicker.ItemsSource = result;
+          }
+          else
+          {
+            ConnectMessage.Text = "No items found.";
+            DevicePicker.IsVisible = false;
+          }
+
+          break;
+
         case "Network":
           DevicePicker.IsVisible = false;
           DevicesText.IsVisible = false;
@@ -226,6 +251,10 @@ namespace InteractClient
 
         case "USB":
           arduino.Connect("USB", device, baudRate);
+          break;
+
+        case "DfRobot":
+          arduino.Connect("DfRobot", device, baudRate);
           break;
 
         case "Network":

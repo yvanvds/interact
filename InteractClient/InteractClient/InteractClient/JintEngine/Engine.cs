@@ -22,7 +22,7 @@ namespace InteractClient.JintEngine
 
     // Jint Engine
     private Jint.Engine jEngine = null;
-    private ProjectStorage Storage = new ProjectStorage();
+    private Implementation.Values Values  = new Implementation.Values();
     private Implementation.Network.Server Server = new Implementation.Network.Server();
     private Implementation.Device.Sensors Sensors;
     private Implementation.Device.Arduino Arduino;
@@ -33,7 +33,7 @@ namespace InteractClient.JintEngine
       {
         jEngine = new Jint.Engine();
         jEngine.SetValue("Root", (activePage as ModelPage).PageRoot);
-        jEngine.SetValue("Project", Storage);
+        jEngine.SetValue("Values", Values);
 
         if (Sensors == null)
         {

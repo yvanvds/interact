@@ -33,6 +33,7 @@
             <x:String>BlueTooth</x:String>
             <x:String>USB</x:String>
             <x:String>Network</x:String>
+            <x:String>DfRobot</x:String>
           </Picker.Items>
           <Picker.SelectedIndex>1</Picker.SelectedIndex>
         </Picker>

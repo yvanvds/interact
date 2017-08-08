@@ -41,6 +41,12 @@ namespace Interact.Device
     public abstract PinMode GetAnalogPinMode(int pin);
     public abstract void SetAnalogPinMode(int pin, PinMode mode);
 
+    // Stepsize sets the minimal deviation from the last sent value before the 
+    // output is handled. This only works with analog pins because digital pins only 
+    // output 0 and 1.
+    public abstract int GetStepSize(int pin);
+    public abstract void SetStepSize(int pin);
+
     public abstract void OnDeviceReady(string functionName);
     public abstract void OnConnectionFailed(string functionName);
 

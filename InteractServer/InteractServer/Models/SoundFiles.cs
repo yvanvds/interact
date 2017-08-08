@@ -15,7 +15,7 @@ namespace InteractServer.Models
         public SoundFiles(SQLiteConnection connection)
         {
             Name = "SoundFiles";
-            Icon = @"/InteractServer;component/Resources/Images/page_sound.gif";
+            Icon = @"/InteractServer;component/Resources/Icons/Soundfile_32x.png";
             this.connection = connection;
             connection.CreateTable<SoundFile>();
 

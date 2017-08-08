@@ -211,11 +211,12 @@ namespace InteractServer.Pages
       }
       else if (resource is Models.SoundFile)
       {
-        OpenFileDialog dlg = new OpenFileDialog();
-        dlg.CheckFileExists = true;
-        dlg.Filter = "Sound Files|*.mp3;*.ogg;*.wav;";
-        dlg.Multiselect = false;
-
+        OpenFileDialog dlg = new OpenFileDialog()
+        {
+          CheckFileExists = true,
+          Filter = "Sound Files|*.mp3;*.ogg;*.wav;",
+          Multiselect = false
+        };
         if (dlg.ShowDialog() == true)
         {
           (resource as Models.SoundFile).Replace(dlg.FileName);

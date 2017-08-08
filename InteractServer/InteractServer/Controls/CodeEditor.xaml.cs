@@ -299,7 +299,6 @@ namespace InteractServer.Controls
 
     private void CharAdded(object sender, CharAddedEventArgs e)
     {
-
       switch (e.Char)
       {
         case '{':
@@ -405,7 +404,6 @@ namespace InteractServer.Controls
             break;
           }
       }
-
     }
 
     private void TextArea_TextChanged(object sender, EventArgs e)

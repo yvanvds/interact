@@ -35,6 +35,9 @@ namespace InteractClient.Interface
     void SetAnalogPinMode(byte pin, PinMode mode);
     PinMode GetAnalogPinMode(byte pin);
 
+    int GetStepSize(int pin);
+    void SetStepSize(int pin, int size);
+
     event ArduinoReadyEventHandler DeviceReady;
     event ArduinoFailedEventHandler DeviceConnectionFailed;
     event ArduinoDigitalPinEventHandler DigitalPinSignal;

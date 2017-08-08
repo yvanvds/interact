@@ -10,7 +10,7 @@
       Title="Properties">
 
     <xctk:PropertyGrid x:Name="PropGrid" Grid.Column="0" Margin="0" 
-                           AutoGenerateProperties="True"
+                           AutoGenerateProperties="True" Background="#2a2a2a" BorderBrush="Transparent"
                            >
         <xctk:PropertyGrid.EditorDefinitions>
 

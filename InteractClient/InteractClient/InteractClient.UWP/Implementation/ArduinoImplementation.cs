@@ -5,8 +5,6 @@ using Microsoft.Maker.Serial;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
@@ -33,6 +31,10 @@ namespace InteractClient.UWP.Implementation
 
     private Dictionary<string, DeviceInformation> connections = new Dictionary<string, DeviceInformation>();
 
+    // both are needed to keep track of steps
+    private Dictionary<string, int> stepSize;
+    private Dictionary<string, int> lastValue;
+
     public event ArduinoReadyEventHandler DeviceReady;
     public event ArduinoFailedEventHandler DeviceConnectionFailed;
     public event ArduinoDigitalPinEventHandler DigitalPinSignal;
@@ -52,6 +54,9 @@ namespace InteractClient.UWP.Implementation
 
         case "USB":
           task = UsbSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>(token);
+          break;
+        case "DfRobot":
+          task = DfRobotBleSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>(token);
           break;
       }
 
@@ -85,6 +90,9 @@ namespace InteractClient.UWP.Implementation
         case "USB":
           task = UsbSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>();
           break;
+        case "DfRobot":
+          task = DfRobotBleSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>();
+          break;
       }
 
       if (task != null)
@@ -114,6 +122,11 @@ namespace InteractClient.UWP.Implementation
         case "USB":
           connection = new UsbSerial(connections[deviceName]);
           break;
+
+        case "DfRobot":
+          connection = new DfRobotBleSerial(connections[deviceName]);
+          break;
+        
       }
 
       arduino = new RemoteDevice(connection);
@@ -347,6 +360,10 @@ namespace InteractClient.UWP.Implementation
 
     private void OnAnalogPinUpdated(string pin, ushort value)
     {
+      if(stepSize.ContainsKey(pin))
+      {
+        if (Math.Abs(value - lastValue[pin]) < stepSize[pin]) return;
+      }
       AnalogPinSignal(pin, value);
     }
 
@@ -368,6 +385,25 @@ namespace InteractClient.UWP.Implementation
     private Interact.Device.Arduino.PinState Convert(PinState state)
     {
       return (Interact.Device.Arduino.PinState)state;
+    }
+
+    public int GetStepSize(int pin)
+    {
+      if(stepSize.ContainsKey("A" + pin))
+      {
+        return stepSize["A" + pin];
+      }
+
+      return 0;
+    }
+
+    public void SetStepSize(int pin, int size)
+    {
+      stepSize["A" + pin] = size;
+      if(!lastValue.ContainsKey("A" + pin))
+      {
+        lastValue["A + pin"] = 0;
+      }
     }
   }
 }

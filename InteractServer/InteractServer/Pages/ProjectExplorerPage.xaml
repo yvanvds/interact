@@ -8,28 +8,52 @@
       xmlns:local="clr-namespace:InteractServer.Models"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Explorer" Loaded="Page_Loaded">
+      Title="Explorer" Loaded="Page_Loaded"
+      Background="#1a1a1a"
+      >
 
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <Border Grid.Row="0" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+    <Border Grid.Row="0" Background="#1a1a1a" BorderBrush="#2a2a2a" BorderThickness="1">
       <StackPanel Margin="10">
-        <Label x:Name="ProjectName" Content="No project Loaded"/>
+        <Label x:Name="ProjectName" Content="No project Loaded" Foreground="White"/>
       </StackPanel>
     </Border>
 
     <TreeView Grid.Row="1" x:Name="Explorer"
                   MouseDoubleClick="Explorer_MouseDoubleClick"
-                  >
+                  Background="#2a2a2a" BorderThickness="0">
       <TreeView.Resources>
         <utils:ImageToBitmapSourceConverter x:Key="ImageConverter"/>
+
+          <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                      Color="Transparent" />
+          <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                      Color="Black" />
+          <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                      Color="Transparent" />
+          <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                      Color="Black" />
 
 
         <HierarchicalDataTemplate DataType="{x:Type local:ProjectResourceGroup}" ItemsSource="{Binding Resources}">
           <StackPanel Orientation="Horizontal">
+            <StackPanel.Style>
+              <Style TargetType="StackPanel">
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                  </DataTrigger>
+                  <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
+                    <Setter Property="Background" Value="Green"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </StackPanel.Style>
+            
             <StackPanel.ContextMenu>
               <ContextMenu StaysOpen="True">
                 <MenuItem Header="Add ..." Click="AddResource_Click"/>
@@ -37,8 +61,8 @@
             </StackPanel.ContextMenu>
 
             <Image Source="{Binding Icon}" Margin="0,0,5,0"/>
-            <TextBlock Text="{Binding Name}" />
-            <TextBlock Text="{Binding Count}" Foreground="Blue"/>
+            <TextBlock Text="{Binding Name}" Foreground="White" />
+            <TextBlock Text="{Binding Count}" Foreground="GreenYellow"/>
           </StackPanel>
         </HierarchicalDataTemplate>
 
@@ -50,7 +74,8 @@
                 <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
               </ContextMenu>
             </StackPanel.ContextMenu>
-            <TextBlock Text="{Binding Name}">
+            <TextBlock Text="{Binding Name}" Foreground="White">
+              
               <TextBlock.ToolTip>
                 <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
                                     Stretch="None"/>
@@ -67,7 +92,19 @@
                 <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
               </ContextMenu>
             </StackPanel.ContextMenu>
-            <TextBlock Text="{Binding Name}">
+            <TextBlock Text="{Binding Name}" Foreground="White">
+              <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                      <Setter Property="Background" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
+                      <Setter Property="Background" Value="Green"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </TextBlock.Style>
               <TextBlock.ToolTip>
                 <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
                                     Stretch="None"/>
@@ -86,7 +123,7 @@
                 <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
               </ContextMenu>
             </StackPanel.ContextMenu>
-            <TextBlock Text="{Binding Name}">
+            <TextBlock Text="{Binding Name}"  Foreground="White">
               <TextBlock.ToolTip>
                 <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
                                     Stretch="None"/>
@@ -110,7 +147,7 @@
                 <ImageBrush ImageSource="/InteractServer;component/Resources/Images/play-button.png"/>
               </Button.Background>
             </Button>
-            <TextBlock Text="{Binding Name}">
+            <TextBlock Text="{Binding Name}" Foreground="White">
               <TextBlock.ToolTip>
                 <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
                                     Stretch="None"/>
@@ -126,6 +163,8 @@
           <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}">
 
           </Setter>
+
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         </Style>
       </TreeView.ItemContainerStyle>
 

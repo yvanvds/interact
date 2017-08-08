@@ -1,23 +1,11 @@
 ﻿using InteractServer.Models;
-using InteractServer.Network;
 using InteractServer.Pages;
-using InteractServer.Views;
-using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using MetroRadiance.UI;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer
@@ -38,6 +26,10 @@ namespace InteractServer
     public MainWindow()
     {
       InitializeComponent();
+
+      ThemeService.Current.ChangeTheme(Theme.Dark);
+      var accent = Colors.GreenYellow.ToAccent();
+      ThemeService.Current.ChangeAccent(accent);
 
       Global.Init();
       Global.AppWindow = this;
@@ -170,8 +162,8 @@ namespace InteractServer
       JintEngine.Runner.Start();
 
       await Task.Run(() => Global.ProjectManager.Current.Run());
-      ButtonStartProject.IsEnabled = false;
-      ButtonStopProject.IsEnabled = true;
+      //ButtonStartProject.IsEnabled = false;
+      //ButtonStopProject.IsEnabled = true;
       
     }
 
@@ -183,8 +175,8 @@ namespace InteractServer
         return;
       }
 
-      ButtonStartProject.IsEnabled = true;
-      ButtonStopProject.IsEnabled = false;
+      //ButtonStartProject.IsEnabled = true;
+      //ButtonStopProject.IsEnabled = false;
 
       Global.NetworkService.StopRunningProject();
       JintEngine.Runner.Stop();
@@ -228,8 +220,8 @@ namespace InteractServer
           Screen screen = page.ScreenView.Screen;
           if (screen != null)
           {
-            ButtonStartScreen.IsEnabled = false;
-            ButtonStopScreen.IsEnabled = true;
+            //ButtonStartScreen.IsEnabled = false;
+            //ButtonStopScreen.IsEnabled = true;
             await Task.Run(() => Global.ProjectManager.Current.TestScreen(screen));
             return;
           }
@@ -246,8 +238,8 @@ namespace InteractServer
         return;
       }
 
-      ButtonStartScreen.IsEnabled = true;
-      ButtonStopScreen.IsEnabled = false;
+      //ButtonStartScreen.IsEnabled = true;
+      //ButtonStopScreen.IsEnabled = false;
 
       Global.NetworkService.StopCurrentScreen();
     }
@@ -372,7 +364,10 @@ namespace InteractServer
       return -1;
     }
 
-
+    private void Exit_Click(object sender, RoutedEventArgs e)
+    {
+      
+    }
 
     private void Ribbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

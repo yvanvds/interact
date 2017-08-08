@@ -37,10 +37,10 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="{Binding DateTime}" Grid.Column="0"
+                <TextBlock Text="{Binding DateTime}" Grid.Column="0" Foreground="Gray"
                        FontWeight="Bold" Margin="5,0,5,0"/>
 
-                <TextBlock Text="{Binding Message}" Grid.Column="1"
+                <TextBlock Text="{Binding Message}" Grid.Column="1" Foreground="White"
                        TextWrapping="Wrap"/>
             </Grid>
         </DataTemplate>

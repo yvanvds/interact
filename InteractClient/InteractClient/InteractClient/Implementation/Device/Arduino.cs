@@ -45,7 +45,7 @@ namespace InteractClient.Implementation.Device
 
       if (savedInterface != null)
       {
-        if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth"))
+        if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth") || savedInterface.Equals("DfRobot"))
         {
           string savedDevice = Settings.Current.Get<string>("ArduinoDevice");
           uint savedBaudRate = Settings.Current.Get<uint>("ArduinoBaudRate");

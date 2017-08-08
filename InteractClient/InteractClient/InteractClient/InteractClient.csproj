@@ -93,7 +93,6 @@
     <Compile Include="Implementation\UI\Text.cs" />
     <Compile Include="Implementation\UI\Title.cs" />
     <Compile Include="JintEngine\Engine.cs" />
-    <Compile Include="JintEngine\ProjectStorage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

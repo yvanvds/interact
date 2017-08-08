@@ -15,7 +15,7 @@ namespace InteractServer.Models
     public Screens(SQLiteConnection connection)
     {
       Name = "Screens"; // the name is shown in the tree view
-      Icon = @"/InteractServer;component/Resources/Images/page.gif";
+      Icon = @"/InteractServer;component/Resources/Icons/Phone_32x.png";
       this.connection = connection;
       connection.CreateTable<Screen>();
 

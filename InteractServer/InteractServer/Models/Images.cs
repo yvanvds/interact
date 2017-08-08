@@ -15,7 +15,7 @@ namespace InteractServer.Models
         public Images(SQLiteConnection connection)
         {
             Name = "Images";
-            Icon = @"/InteractServer;component/Resources/Images/image.gif";
+            Icon = @"/InteractServer;component/Resources/Icons/image_32x.png";
             this.connection = connection;
             connection.CreateTable<Image>();
 

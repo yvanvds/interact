@@ -15,7 +15,7 @@ namespace InteractServer.Models
     public ServerScripts(SQLiteConnection connection)
     {
       Name = "ServerScripts";
-      Icon = @"/InteractServer;component/Resources/Images/page.gif";
+      Icon = @"/InteractServer;component/Resources/Icons/Code_24x.png";
       this.connection = connection;
       connection.CreateTable<ServerScript>();
 
