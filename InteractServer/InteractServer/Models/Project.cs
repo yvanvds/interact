@@ -23,6 +23,9 @@ namespace InteractServer.Models
     public string FileName { get; set; }
     private int Version { get; set; } = 0;
 
+    private bool running = false;
+    public bool Running { get => running; }
+
     // objects for project configuration
     public ProjectPart.ConfigValues Config = new ProjectPart.ConfigValues();
     public ProjectPart.UI.Button ConfigButton = new ProjectPart.UI.Button();
@@ -187,6 +190,8 @@ namespace InteractServer.Models
 
     public void Run()
     {
+      running = true;
+
       MakeCurrentOnClients();
       SendScreenVersionsToClients();
       SendImageVersionsToClients();
@@ -197,8 +202,16 @@ namespace InteractServer.Models
       screen.RunOnSelectedClients();
     }
 
+    public void Stop()
+    {
+      running = false;
+      // the actual project stop happens in jint
+    }
+
     public void TestScreen(Screen screen)
     {
+      running = true;
+
       // First send current project to clients
       MakeCurrentOnClients();
 

@@ -170,6 +170,7 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.AeroLite" />
     <Reference Include="Rug.Osc, Version=1.2.5.17694, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rug.Osc.1.2.5\lib\Rug.Osc.dll</HintPath>
     </Reference>
@@ -284,6 +285,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands.cs" />
     <Compile Include="Implementation\Network\Client.cs" />
     <Compile Include="Implementation\Network\Clients.cs" />
     <Compile Include="Implementation\Network\OscReceiver.cs" />
@@ -618,6 +620,9 @@
     <Resource Include="Resources\Icons\Explorer_16x.png" />
     <Resource Include="Resources\Icons\Log_16x.png" />
     <Resource Include="Resources\Icons\Phone_32x.png" />
+    <Resource Include="Resources\Icons\Copy_16x.png" />
+    <Resource Include="Resources\Icons\Cut_16x.png" />
+    <Resource Include="Resources\Icons\Paste_16x.png" />
     <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

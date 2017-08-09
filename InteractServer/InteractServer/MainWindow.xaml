@@ -3,13 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:adcustom="clr-namespace:Xceed.Wpf.AvalonDock.Themes"
+        xmlns:self="clr-namespace:InteractServer.Commands"
         xmlns:local="clr-namespace:InteractServer"
         Title="Interact Server" WindowState="Maximized"
         Background="#2a2a2a"
         Closing="Window_Closing">
 
+  <Window.CommandBindings>
+    <CommandBinding Command="self:CustomCommands.AppOptions" Executed="AppOptions_Executed" CanExecute="AppOptions_CanExecute"/>
+    <CommandBinding Command="self:CustomCommands.Exit" Executed="Exit_Executed" CanExecute="Exit_CanExecute"/>
+
+    <CommandBinding Command="ApplicationCommands.New" Executed="NewProject_Executed" CanExecute="NewProject_CanExecute"/>
+    <CommandBinding Command="ApplicationCommands.Open" Executed="OpenProject_Executed" CanExecute="OpenProject_CanExecute"/>
+    <CommandBinding Command="ApplicationCommands.Save" Executed="SaveProject_Executed" CanExecute="SaveProject_CanExecute"/>
+    <CommandBinding Command="self:CustomCommands.ProjectStart" Executed="StartProject_Executed" CanExecute="StartProject_CanExecute"/>
+    <CommandBinding Command="self:CustomCommands.ProjectStop" Executed="StopProject_Executed" CanExecute="StopProject_CanExecute"/>
+    <CommandBinding Command="self:CustomCommands.ProjectOptions" Executed="ProjectOptions_Executed" CanExecute="ProjectOptions_CanExecute"/>
+    
+    
+    
+  </Window.CommandBindings>
+  
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
@@ -17,13 +34,13 @@
     <Menu Grid.Row="0" Background="#1a1a1a" Foreground="White">
 
       <MenuItem Header="_Application" Template="{DynamicResource DarkMenuItem}">
-        <MenuItem Header="_Options" Click="ProgramOptions_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Options" Command="self:CustomCommands.AppOptions" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageOptions}"/>
           </MenuItem.Icon>
         </MenuItem>
         <Separator/>
-        <MenuItem Header="_Exit" Click="Exit_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Exit" Command="self:CustomCommands.Exit" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageExit}"/>
           </MenuItem.Icon>
@@ -31,38 +48,44 @@
       </MenuItem>
 
       <MenuItem Header="_Project" Template="{DynamicResource DarkMenuItem}">
-        <MenuItem Header="_New" Click="ButtonNewProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_New" Command="ApplicationCommands.New" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageNew}"/>
           </MenuItem.Icon>
         </MenuItem>
-        <MenuItem Header="_Open" Click="ButtonLoadProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Open" Command="ApplicationCommands.Open" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageOpen}"/>
           </MenuItem.Icon>
         </MenuItem>
-        <MenuItem Header="_Save" Click="ButtonSaveProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Save" Command="ApplicationCommands.Save" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageSaveAll}"/>
           </MenuItem.Icon>
         </MenuItem>
         <Separator/>
-        <MenuItem Header="_Start" Click="ButtonStartProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Start" Command="self:CustomCommands.ProjectStart" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
           <Image Source="{StaticResource ImageRun}"/>
           </MenuItem.Icon>
         </MenuItem>
-        <MenuItem Header="_Stop" Click="ButtonStopProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Stop" Command="self:CustomCommands.ProjectStop" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageStop}"/>
           </MenuItem.Icon>
         </MenuItem>
         <Separator/>
-        <MenuItem Header="_Project Options" Click="ButtonConfigProject_Click" Template="{DynamicResource MenuItemBlackInside}">
+        <MenuItem Header="_Project Options" Command="self:CustomCommands.ProjectOptions" Template="{DynamicResource MenuItemBlackInside}">
           <MenuItem.Icon>
             <Image Source="{StaticResource ImageOptions}"/>
           </MenuItem.Icon>
         </MenuItem>
+      </MenuItem>
+
+      <MenuItem Header="_Edit" Template="{DynamicResource DarkMenuItem}">
+        <MenuItem Command="Cut" Template="{DynamicResource MenuItemBlackInside}" />
+        <MenuItem Command="Copy" Template="{DynamicResource MenuItemBlackInside}" />
+        <MenuItem Command="Paste" Template="{DynamicResource MenuItemBlackInside}" />
       </MenuItem>
 
       <MenuItem Header="_Window" Template="{DynamicResource DarkMenuItem}">
@@ -83,11 +106,45 @@
         </MenuItem>
       </MenuItem>
     </Menu>
-    
+
+    <ToolBarTray Grid.Row="1" Background="#1a1a1a">
+      <ToolBar>
+        <Button Command="ApplicationCommands.New" ToolTip="Start a new Project">
+          <Image Source="Resources/Icons/NewProject_16x.png"/>
+        </Button>
+        <Button Command="ApplicationCommands.Open" ToolTip="Open an existing Project">
+          <Image Source="Resources/Icons/Open_16x.png"/>
+        </Button>
+        <Button Command="ApplicationCommands.Save" ToolTip="Save the current Project">
+          <Image Source="Resources/Icons/SaveAll_16x.png"/>
+        </Button>
+      </ToolBar>
+      
+      <ToolBar>
+        <Button Command="self:CustomCommands.ProjectStart" ToolTip="Run the current Project">
+          <Image Source="Resources/Icons/Run_16x.png"/>
+        </Button>
+        <Button Command="self:CustomCommands.ProjectStop" ToolTip="Stop a running Project">
+          <Image Source="Resources/Icons/Stop_16x.png"/>
+        </Button>
+      </ToolBar>
+
+      <ToolBar>
+        <Button Command="Cut" ToolTip="Cut">
+          <Image Source="Resources/Icons/Cut_16x.png"/>
+        </Button>
+        <Button Command="Copy" ToolTip="Copy">
+          <Image Source="Resources/Icons/Copy_16x.png"/>
+        </Button>
+        <Button Command="Paste" ToolTip="Paste">
+          <Image Source="Resources/Icons/Paste_16x.png"/>
+        </Button>
+      </ToolBar>
+      
+    </ToolBarTray>
 
 
-
-    <ad:DockingManager Grid.Row="1" x:Name="dockingManager">
+    <ad:DockingManager Grid.Row="2" x:Name="dockingManager">
       <ad:DockingManager.Theme>
         <adcustom:BlackTheme/>
       </ad:DockingManager.Theme>

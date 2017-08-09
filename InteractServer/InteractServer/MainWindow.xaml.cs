@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Xceed.Wpf.AvalonDock.Layout;
 
@@ -62,35 +63,10 @@ namespace InteractServer
       networkTimer.Enabled = false;
     }
 
-    //////////////////////////////////////
-    // Application Menu Click Methods
-    //////////////////////////////////////
-
-    private void ProgramOptions_Click(object sender, RoutedEventArgs e)
-    {
-      Windows.ServerOptionsWindow window = new Windows.ServerOptionsWindow();
-      window.ShowDialog();
-    }
 
     //////////////////////////////////////
     // Project Ribbon Click Methods
     //////////////////////////////////////
-    private void ButtonNewProject_Click(object sender, RoutedEventArgs e)
-    {
-      CloseProject();
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-      Global.ProjectManager.StartNewProject();
-    }
-
-    private void ButtonLoadProject_Click(object sender, RoutedEventArgs e)
-    {
-      CloseProject();
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-
-      Global.ProjectManager.OpenProject();
-    }
 
     private void CloseProject()
     {
@@ -119,68 +95,6 @@ namespace InteractServer
       Global.ServerScriptManager.SaveAll();
     }
 
-    private void ButtonSaveProject_Click(object sender, RoutedEventArgs e)
-    {
-      SaveProject();
-    }
-
-    private void ButtonConfigProject_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-      dockMain.Children.Add(projectConfigPane);
-      projectConfigPane.IsActive = true;
-      Global.ProjectConfigPage.LinkProject(Global.ProjectManager.Current);
-    }
-
-    private async void ButtonStartProject_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-      Screen screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
-      if (screen == null)
-      {
-        Messages.NoStartupScreenSet();
-        return;
-      }
-
-      Global.ProjectManager.Current.Save();
-      Global.ScreenManager.SaveAll();
-      Global.ServerScriptManager.SaveAll();
-
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-
-      JintEngine.Runner.Start();
-
-      await Task.Run(() => Global.ProjectManager.Current.Run());
-      //ButtonStartProject.IsEnabled = false;
-      //ButtonStopProject.IsEnabled = true;
-      
-    }
-
-    private void ButtonStopProject_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-      //ButtonStartProject.IsEnabled = true;
-      //ButtonStopProject.IsEnabled = false;
-
-      Global.NetworkService.StopRunningProject();
-      JintEngine.Runner.Stop();
-    }
 
     //////////////////////////////////////
     // Screen Ribbon Click Methods
@@ -369,11 +283,140 @@ namespace InteractServer
       
     }
 
-    private void Ribbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
+#region Commands
 
+    private void NewProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
     }
 
+    private void NewProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      CloseProject();
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
+      Global.ProjectManager.StartNewProject();
+    }
+
+    private void OpenProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
+    }
+
+    private void OpenProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      CloseProject();
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
+      Global.ProjectManager.OpenProject();
+    }
+
+    private void SaveProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = Global.ProjectManager != null && Global.ProjectManager.Current != null;
+    }
+
+    private void SaveProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      SaveProject();
+    }
+
+    private void Exit_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
+    }
+
+    private void Exit_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      Application.Current.Shutdown();
+    }
+
+    private void AppOptions_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
+    }
+
+    private void AppOptions_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      Windows.ServerOptionsWindow window = new Windows.ServerOptionsWindow();
+      window.ShowDialog();
+    }
+
+    private void ProjectOptions_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = Global.ProjectManager != null && Global.ProjectManager.Current != null;
+    }
+
+    private void ProjectOptions_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      dockMain.Children.Add(projectConfigPane);
+      projectConfigPane.IsActive = true;
+      Global.ProjectConfigPage.LinkProject(Global.ProjectManager.Current);
+    }
+
+    private void StartProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      if(Global.ProjectManager == null)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      if (Global.ProjectManager.Current == null)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      Screen screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
+      if (screen == null)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      if(Global.ProjectManager.Current.Running)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      e.CanExecute = true;
+    }
+
+    private async void StartProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      Global.ProjectManager.Current.Save();
+      Global.ScreenManager.SaveAll();
+      Global.ServerScriptManager.SaveAll();
+
+      Global.Log.Clear();
+      Global.ErrorLog.Clear();
+
+      JintEngine.Runner.Start();
+
+      await Task.Run(() => Global.ProjectManager.Current.Run());
+    }
+
+    private void StopProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+    {
+      if(Global.ProjectManager == null || Global.ProjectManager.Current == null)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      e.CanExecute = Global.ProjectManager.Current.Running;
+    }
+
+    private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    {
+      Global.NetworkService.StopRunningProject();
+      JintEngine.Runner.Stop();
+      Global.ProjectManager.Current.Stop();
+    }
+
+    #endregion
 
   }
 }
