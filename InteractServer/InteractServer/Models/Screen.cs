@@ -69,7 +69,7 @@ namespace InteractServer.Models
 
     public void SendToClient(string clientID)
     {
-      Global.NetworkService.SendScreen(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+      Global.Sender.SendScreen(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
     }
 
     public void SendToSelectedClients()
@@ -82,7 +82,7 @@ namespace InteractServer.Models
           clients.Add(key);
         }
       }
-      Global.NetworkService.SendScreen(clients, ID, Serialize());
+      Global.Sender.SendScreen(clients, ID, Serialize());
     }
 
     public void RunOnSelectedClients()
@@ -94,7 +94,7 @@ namespace InteractServer.Models
         {
           Global.Clients.Get(key).QueueMethod(() =>
           {
-            Global.NetworkService.StartScreen(key, ID);
+            Global.Sender.StartScreen(key, ID);
           });
         }
       }

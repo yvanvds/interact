@@ -15,7 +15,7 @@ namespace InteractServer.Models
         public Images(SQLiteConnection connection)
         {
             Name = "Images";
-            Icon = @"/InteractServer;component/Resources/Icons/image_32x.png";
+            Icon = @"/InteractServer;component/Resources/Icons/image_16x.png";
             this.connection = connection;
             connection.CreateTable<Image>();
 
@@ -99,7 +99,7 @@ namespace InteractServer.Models
             {
                 Global.Clients.Get(clientID).QueueMethod(() =>
                 {
-                    Global.NetworkService.SendImageVersion(clientID, ProjectID, image.ID, image.Version);
+                    Global.Sender.SendImageVersion(clientID, ProjectID, image.ID, image.Version);
                 });
             }
         }

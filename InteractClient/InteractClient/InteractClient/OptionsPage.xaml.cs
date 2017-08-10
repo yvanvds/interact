@@ -24,6 +24,7 @@ namespace InteractClient
 
     private void Back_Clicked(object sender, EventArgs e)
     {
+      Global.LookForServers = true;
       Navigation.PopAsync();
     }
 

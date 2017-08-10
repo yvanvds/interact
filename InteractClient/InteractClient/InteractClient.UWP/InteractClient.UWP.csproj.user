@@ -15,4 +15,8 @@
     <AuthenticationMode>Universal</AuthenticationMode>
     <RemoteDebugMachine>192.168.1.106</RemoteDebugMachine>
   </PropertyGroup>
+  <PropertyGroup>
+    <SplashScreenSource>E:\Interact\interact\InteractClient\InteractClient\InteractClient.UWP\connect.png</SplashScreenSource>
+    <AppIconSource>E:\Interact\interact\InteractClient\InteractClient\InteractClient.UWP\connect.png</AppIconSource>
+  </PropertyGroup>
 </Project>

@@ -99,7 +99,7 @@
     <Compile Include="ModelPage.cs" />
     <Compile Include="Network\Multicast.cs" />
     <Compile Include="Network\Network.cs" />
-    <Compile Include="Network\Server.cs" />
+    <Compile Include="Network\ServerList.cs" />
     <Compile Include="Network\Service.cs" />
     <Compile Include="OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>

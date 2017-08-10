@@ -381,7 +381,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate>
-          <Border Background="{TemplateBinding Background}"
+          <Border Background="Green"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Padding="0,3,0,0">

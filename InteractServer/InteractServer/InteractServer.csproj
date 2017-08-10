@@ -109,14 +109,8 @@
     <Reference Include="jint, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
       <HintPath>..\packages\jint.3.0.0-beta-001\lib\net45\jint.dll</HintPath>
     </Reference>
-    <Reference Include="MetroRadiance, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroRadiance.2.4.0\lib\net46\MetroRadiance.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroRadiance.Chrome, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroRadiance.Chrome.2.2.0\lib\net46\MetroRadiance.Chrome.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroRadiance.Core, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroRadiance.Core.2.4.0\lib\net46\MetroRadiance.Core.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -184,12 +178,6 @@
     <Reference Include="Sockets.Plugin.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Splat, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Splat.0.1.0\lib\Net45\Splat.dll</HintPath>
-    </Reference>
-    <Reference Include="Splat.Portable, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Splat.0.1.0\lib\Net45\Splat.Portable.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -238,7 +226,10 @@
     </Reference>
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -347,10 +338,9 @@
     <Compile Include="Models\ServerScripts.cs" />
     <Compile Include="Models\SoundFile.cs" />
     <Compile Include="Models\SoundFiles.cs" />
-    <Compile Include="Network\InteractHub.cs" />
+    <Compile Include="Network\SignalReceiver.cs" />
     <Compile Include="Network\Multicast.cs" />
-    <Compile Include="Network\Network.cs" />
-    <Compile Include="Network\Service.cs" />
+    <Compile Include="Network\SignalSender.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
@@ -390,7 +380,6 @@
     <Compile Include="Shared\Project\Title.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="Theme\BlackTheme.cs" />
     <Compile Include="Utils\Editor.cs" />
     <Compile Include="Utils\HeaderToImageConverter.cs" />
     <Compile Include="Utils\ImageToBitmapSourceConverter.cs" />
@@ -465,14 +454,6 @@
     <Page Include="Pages\ScriptPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Theme\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\ServerOptionsWindow.xaml">
       <SubType>Designer</SubType>
@@ -568,41 +549,6 @@
     <EmbeddedResource Include="Resources\templates\modelScript.json" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Theme\Images\DockAnchorableBottom.png" />
-    <Resource Include="Theme\Images\DockAnchorableLeft.png" />
-    <Resource Include="Theme\Images\DockAnchorableRight.png" />
-    <Resource Include="Theme\Images\DockAnchorableTop.png" />
-    <Resource Include="Theme\Images\DockDocumentAsAnchorableBottom.png" />
-    <Resource Include="Theme\Images\DockDocumentAsAnchorableLeft.png" />
-    <Resource Include="Theme\Images\DockDocumentAsAnchorableRight.png" />
-    <Resource Include="Theme\Images\DockDocumentAsAnchorableTop.png" />
-    <Resource Include="Theme\Images\DockDocumentBottom.png" />
-    <Resource Include="Theme\Images\DockDocumentInside.png" />
-    <Resource Include="Theme\Images\DockDocumentLeft.png" />
-    <Resource Include="Theme\Images\DockDocumentRight.png" />
-    <Resource Include="Theme\Images\DockDocumentTop.png" />
-    <Resource Include="Theme\Images\DockPaneEmpty.png" />
-    <Resource Include="Theme\Images\DockPaneLargeEmpty.png" />
-    <Resource Include="Theme\Images\HTabGroup.png" />
-    <Resource Include="Theme\Images\Locked.png" />
-    <Resource Include="Theme\Images\PinAutoHide.png" />
-    <Resource Include="Theme\Images\PinAutoHide_Black.png" />
-    <Resource Include="Theme\Images\PinAutoHide_Dark.png" />
-    <Resource Include="Theme\Images\PinClose.png" />
-    <Resource Include="Theme\Images\PinClose_Black.png" />
-    <Resource Include="Theme\Images\PinClose_Dark.png" />
-    <Resource Include="Theme\Images\PinDocMenu.png" />
-    <Resource Include="Theme\Images\PinDocMenu_Black.png" />
-    <Resource Include="Theme\Images\PinMaximize.png" />
-    <Resource Include="Theme\Images\PinMaximize_Black.png" />
-    <Resource Include="Theme\Images\PinMaximize_Dark.png" />
-    <Resource Include="Theme\Images\PinMenu.png" />
-    <Resource Include="Theme\Images\PinMenu_Black.png" />
-    <Resource Include="Theme\Images\PinMenu_Dark.png" />
-    <Resource Include="Theme\Images\PinRestore.png" />
-    <Resource Include="Theme\Images\PinRestore_Black.png" />
-    <Resource Include="Theme\Images\PinRestore_Dark.png" />
-    <Resource Include="Theme\Images\VTabGroup.png" />
     <Resource Include="Resources\Images\play-button.png" />
     <Resource Include="Resources\Images\stop.png" />
     <Resource Include="Resources\Images\settings-8.png" />
@@ -619,10 +565,48 @@
     <Resource Include="Resources\Icons\Stop_16x.png" />
     <Resource Include="Resources\Icons\Explorer_16x.png" />
     <Resource Include="Resources\Icons\Log_16x.png" />
-    <Resource Include="Resources\Icons\Phone_32x.png" />
     <Resource Include="Resources\Icons\Copy_16x.png" />
     <Resource Include="Resources\Icons\Cut_16x.png" />
     <Resource Include="Resources\Icons\Paste_16x.png" />
+    <Resource Include="Resources\Icons\PinAutoHide.png" />
+    <Resource Include="Resources\Icons\PinClose.png" />
+    <Resource Include="Resources\Icons\PinDocMenu.png" />
+    <Resource Include="Resources\Icons\PinMaximize.png" />
+    <Resource Include="Resources\Icons\PinMenu.png" />
+    <Resource Include="Resources\Icons\PinRestore.png" />
+    <Resource Include="Resources\Icons\PinAutoHide_Black.png" />
+    <Resource Include="Resources\Icons\PinAutoHide_Dark.png" />
+    <Resource Include="Resources\Icons\PinClose_Black.png" />
+    <Resource Include="Resources\Icons\PinClose_Dark.png" />
+    <Resource Include="Resources\Icons\PinDocMenu_Black.png" />
+    <Resource Include="Resources\Icons\PinMaximize_Black.png" />
+    <Resource Include="Resources\Icons\PinMaximize_Dark.png" />
+    <Resource Include="Resources\Icons\PinMenu_Black.png" />
+    <Resource Include="Resources\Icons\PinMenu_Dark.png" />
+    <Resource Include="Resources\Icons\PinRestore_Black.png" />
+    <Resource Include="Resources\Icons\PinRestore_Dark.png" />
+    <Resource Include="Resources\Icons\DockAnchorableBottom.png" />
+    <Resource Include="Resources\Icons\DockAnchorableLeft.png" />
+    <Resource Include="Resources\Icons\DockAnchorableRight.png" />
+    <Resource Include="Resources\Icons\DockAnchorableTop.png" />
+    <Resource Include="Resources\Icons\DockDocumentAsAnchorableBottom.png" />
+    <Resource Include="Resources\Icons\DockDocumentAsAnchorableLeft.png" />
+    <Resource Include="Resources\Icons\DockDocumentAsAnchorableRight.png" />
+    <Resource Include="Resources\Icons\DockDocumentAsAnchorableTop.png" />
+    <Resource Include="Resources\Icons\DockDocumentBottom.png" />
+    <Resource Include="Resources\Icons\DockDocumentInside.png" />
+    <Resource Include="Resources\Icons\DockDocumentLeft.png" />
+    <Resource Include="Resources\Icons\DockDocumentRight.png" />
+    <Resource Include="Resources\Icons\DockDocumentTop.png" />
+    <Resource Include="Resources\Icons\DockPaneEmpty.png" />
+    <Resource Include="Resources\Icons\DockPaneLargeEmpty.png" />
+    <Resource Include="Resources\Icons\HTabGroup.png" />
+    <Resource Include="Resources\Icons\Locked.png" />
+    <Resource Include="Resources\Icons\VTabGroup.png" />
+    <Resource Include="Resources\Icons\SoundFile_16x.png" />
+    <Resource Include="Resources\Icons\Image_16x.png" />
+    <Resource Include="Resources\Icons\Phone_16x.png" />
+    <Resource Include="Resources\Icons\Code_16x.png" />
     <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -637,6 +621,7 @@
   <ItemGroup>
     <Folder Include="Implementation\Device\" />
     <Folder Include="JintEngine\UI\" />
+    <Folder Include="Theme\" />
   </ItemGroup>
   <Import Project="..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

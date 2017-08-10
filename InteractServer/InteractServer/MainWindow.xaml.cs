@@ -1,6 +1,6 @@
 ﻿using InteractServer.Models;
 using InteractServer.Pages;
-using MetroRadiance.UI;
+using MahApps.Metro.Controls;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -14,7 +14,7 @@ namespace InteractServer
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class MainWindow : Window
+  public partial class MainWindow : MetroWindow
   {
 
     private Timer networkTimer = new Timer();
@@ -28,16 +28,12 @@ namespace InteractServer
     {
       InitializeComponent();
 
-      ThemeService.Current.ChangeTheme(Theme.Dark);
-      var accent = Colors.GreenYellow.ToAccent();
-      ThemeService.Current.ChangeAccent(accent);
-
       Global.Init();
       Global.AppWindow = this;
 
-      Global.Multicast.Join();
+      Global.Multicast.Start();
       //Global.Network.Start();
-      Global.NetworkService.Start();
+      Global.Sender.Start();
 
       networkTimer.Elapsed += new ElapsedEventHandler(OnNetworkTimerEvent);
       networkTimer.Interval = 10000;
@@ -48,18 +44,23 @@ namespace InteractServer
       AddPropertiesPane();
       AddProjectExplorerPane();
       AddProjectConfigPane();
+
+      // set focus panes
+      clientPane.IsActive = true;
     }
+
+
 
     private static void OnNetworkTimerEvent(object source, ElapsedEventArgs e)
     {
       Global.Clients.Update();
-      Global.NetworkService.RequestAcknowledge();
+      Global.Sender.RequestAcknowledge();
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
       CloseProject();
-      Global.Multicast.Disconnect();
+      Global.Multicast.Stop();
       networkTimer.Enabled = false;
     }
 
@@ -70,6 +71,12 @@ namespace InteractServer
 
     private void CloseProject()
     {
+      if (Global.ProjectManager != null && Global.ProjectManager.Current != null && Global.ProjectManager.Current.Running)
+      {
+        Global.Sender.StopRunningProject();
+        JintEngine.Runner.Stop();
+        Global.ProjectManager.Current.Stop();
+      }
 
       if (Global.ScreenManager.NeedsSaving() || Global.ProjectManager.Current != null && Global.ProjectManager.Current.Tainted())
       {
@@ -83,6 +90,8 @@ namespace InteractServer
           SaveProject();
         }
       }
+
+
 
       // remove all open documents
       Global.ScreenManager.Clear();
@@ -155,7 +164,7 @@ namespace InteractServer
       //ButtonStartScreen.IsEnabled = true;
       //ButtonStopScreen.IsEnabled = false;
 
-      Global.NetworkService.StopCurrentScreen();
+      Global.Sender.StopCurrentScreen();
     }
 
     //////////////////////////////////////
@@ -411,7 +420,7 @@ namespace InteractServer
 
     private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
     {
-      Global.NetworkService.StopRunningProject();
+      Global.Sender.StopRunningProject();
       JintEngine.Runner.Stop();
       Global.ProjectManager.Current.Stop();
     }

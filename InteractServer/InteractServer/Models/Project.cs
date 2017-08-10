@@ -237,7 +237,7 @@ namespace InteractServer.Models
     {
       Global.Clients.List[ID].QueueMethod(() =>
       {
-        Global.NetworkService.SetCurrentProject(ID, ProjectID(), Version);
+        Global.Sender.SetCurrentProject(ID, ProjectID(), Version);
       });
     }
 
@@ -250,7 +250,7 @@ namespace InteractServer.Models
       values.Add("ConfigTitle", ConfigTitle.Serialize());
       values.Add("ConfigText", ConfigText.Serialize());
 
-      Global.NetworkService.SendProjectConfig(clientID, ProjectID(), values);
+      Global.Sender.SendProjectConfig(clientID, ProjectID(), values);
     }
 
     public void SendScreenVersionsToClients()
@@ -306,7 +306,7 @@ namespace InteractServer.Models
       {
         Global.Clients.Get(ID).QueueMethod(() =>
         {
-          Global.NetworkService.SendClientInfo(ID, client.Value.IpAddress, client.Key, client.Value.UserName);
+          Global.Sender.SendClientInfo(ID, client.Value.IpAddress, client.Key, client.Value.UserName);
         });
       }
     }

@@ -23,6 +23,7 @@ namespace InteractClient.Implementation.UI
     }
 
     public override string Content { get => UIObject.Text; set => UIObject.Text = value; }
+    public override double FontSize { get => UIObject.FontSize; set => UIObject.FontSize = value; }
 
     public override object InternalObject => UIObject;
 

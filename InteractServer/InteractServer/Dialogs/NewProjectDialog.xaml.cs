@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace InteractServer.Dialogs
     /// <summary>
     /// Interaction logic for NewProjectDialog.xaml
     /// </summary>
-    public partial class NewProjectDialog : Window
+    public partial class NewProjectDialog : MetroWindow
     {
         private bool ValidFolder;
         private String DiskName, ProjectName, FolderName;

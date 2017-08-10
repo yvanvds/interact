@@ -2,491 +2,1565 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InteractServer"
-             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite" x:Class="InteractServer.App"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite" 
+              xmlns:xprop="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"   
+  xmlns:avalonDockConverters="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
+  xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="InteractServer.App"
+  xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Xceed.Wpf.AvalonDock"
              StartupUri="MainWindow.xaml">
   <Application.Resources>
 
-    <BitmapImage x:Key="ImageOptions" UriSource="Resources/Icons/Settings_16x.png"/>
-    <BitmapImage x:Key="ImageExit" UriSource="Resources/Icons/Exit_16x.png"/>
-    <BitmapImage x:Key="ImageOpen" UriSource="Resources/Icons/Open_16x.png"/>
-    <BitmapImage x:Key="ImageNew" UriSource="Resources/Icons/NewProject_16x.png"/>
-    <BitmapImage x:Key="ImageSaveAll" UriSource="Resources/Icons/SaveAll_16x.png"/>
-    <BitmapImage x:Key="ImageRun" UriSource="Resources/Icons/Run_16x.png"/>
-    <BitmapImage x:Key="ImageStop" UriSource="Resources/Icons/Stop_16x.png"/>
-    <BitmapImage x:Key="ImageLog" UriSource="Resources/Icons/Log_16x.png"/>
-    <BitmapImage x:Key="ImageExplorer" UriSource="Resources/Icons/Explorer_16x.png"/>
-    <BitmapImage x:Key="ImagePhone" UriSource="Resources/Icons/Phone_32x.png"/>
-
-    <!-- Dark Menu Bar -->
-
-    <ControlTemplate x:Key="DarkMenuItem" TargetType="{x:Type MenuItem}">
-      <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#1a1a1a" SnapsToDevicePixels="True">
-        <Grid VerticalAlignment="Center">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
-          <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16"/>
-          <Path x:Name="GlyphPanel" Data="M0,5.1L1.7,5.2 3.4,7.1 8,0.4 9.2,0 3.3,10.8z" Fill="{TemplateBinding Foreground}" FlowDirection="LeftToRight" Margin="3" Visibility="Collapsed" VerticalAlignment="Center"/>
-          <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-          <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Placement="Bottom">
-            <Border x:Name="SubMenuBorder" BorderBrush="#1a1a1a" BorderThickness="1" Background="#1a1a1a" Padding="2">
-              <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
-                <Grid RenderOptions.ClearTypeHint="Enabled">
-                  <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
-                    <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" Height="{Binding ActualHeight, ElementName=SubMenuBorder}" Width="{Binding ActualWidth, ElementName=SubMenuBorder}"/>
-                  </Canvas>
-                  <Rectangle Fill="#1a1a1a" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1"/>
-                  <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
-                </Grid>
-              </ScrollViewer>
-            </Border>
-          </Popup>
-        </Grid>
-      </Border>
-      <ControlTemplate.Triggers>
-        <Trigger Property="IsSuspendingPopupAnimation" Value="True">
-          <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
-        </Trigger>
-        <Trigger Property="Icon" Value="{x:Null}">
-          <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-        </Trigger>
-        <Trigger Property="IsChecked" Value="True">
-          <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
-          <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-        </Trigger>
-        <Trigger Property="IsHighlighted" Value="True">
-          <Setter Property="Background" TargetName="templateRoot" Value="#3a3a3a"/>
-          <Setter Property="BorderBrush" TargetName="templateRoot" Value="Transparent"/>
-          <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="White"/>
-        </Trigger>
-        <Trigger Property="IsPressed" Value="True">
-          <Setter Property="Background" TargetName="templateRoot" Value="#FFC2E4F6"/>
-          <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF2C628B"/>
-          <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF1E395B"/>
-          <Setter Property="Fill" TargetName="GlyphPanel" Value="#FF1E395B"/>
-        </Trigger>
-        <Trigger Property="IsEnabled" Value="False">
-          <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF9A9A9A"/>
-          <Setter Property="Fill" TargetName="GlyphPanel" Value="#FF9A9A9A"/>
-        </Trigger>
-        <Trigger Property="CanContentScroll" SourceName="SubMenuScrollViewer" Value="False">
-          <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}"/>
-          <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
-        </Trigger>
-      </ControlTemplate.Triggers>
-    </ControlTemplate>
 
 
-    <ControlTemplate x:Key="MenuItemBlackInside" TargetType="{x:Type MenuItem}">
-      <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-        <Grid Margin="-1">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto"/>
-            <ColumnDefinition Width="13"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto"/>
-            <ColumnDefinition Width="20"/>
-          </Grid.ColumnDefinitions>
-          <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16"/>
-          <Border x:Name="GlyphPanel" BorderBrush="#FF3C7FB1" BorderThickness="1" Background="#1a1a1a" HorizontalAlignment="Center" Height="22" Margin="-1,0,0,0" Visibility="Hidden" VerticalAlignment="Center" Width="22">
-            <Path x:Name="Glyph" Data="M0,5.1L1.7,5.2 3.4,7.1 8,0.4 9.2,0 3.3,10.8z" Fill="#FF0C12A1" FlowDirection="LeftToRight" Height="11" Width="9"/>
-          </Border>
-          <ContentPresenter x:Name="menuHeaderContainer" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="2" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-          <TextBlock x:Name="menuGestureText" Grid.Column="4" Margin="{TemplateBinding Padding}" Opacity="0.7" Text="{TemplateBinding InputGestureText}" VerticalAlignment="Center"/>
-        </Grid>
-      </Border>
-      <ControlTemplate.Triggers>
-        <Trigger Property="Icon" Value="{x:Null}">
-          <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-        </Trigger>
-        <Trigger Property="IsChecked" Value="True">
-          <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
-          <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-        </Trigger>
-        <Trigger Property="IsHighlighted" Value="True">
-          <Setter Property="Background" TargetName="templateRoot" Value="#3a3a3a"/>
-          <Setter Property="BorderBrush" TargetName="templateRoot" Value="Transparent"/>
-          <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="White"/>
-        </Trigger>
-        <Trigger Property="IsEnabled" Value="False">
-          <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF9A9A9A"/>
-          <Setter Property="Fill" TargetName="Glyph" Value="#FF9A9A9A"/>
-        </Trigger>
-      </ControlTemplate.Triggers>
-    </ControlTemplate>
+    <ResourceDictionary>
 
-    <!-- Dark Toolbar -->
+      <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+      </ResourceDictionary.MergedDictionaries>
 
-    <SolidColorBrush x:Key="ToolBarHorizontalBackground" Color="#1a1a1a"/>
-    <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="#1a1a1a"/>
-    <SolidColorBrush x:Key="ToolBarButtonHover" Color="#3a3a3a"/>
-    <SolidColorBrush x:Key="ToolBarGripper" Color="#2a2a2a"/>
-    <Style x:Key="ToolBarVerticalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
-      <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonVerticalBackground}"/>
-      <Setter Property="MinHeight" Value="0"/>
-      <Setter Property="MinWidth" Value="0"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type ToggleButton}">
-            <Border x:Name="Bd" SnapsToDevicePixels="true" CornerRadius="0,0,0,0" Background="{TemplateBinding Background}">
-              <Canvas Width="7" VerticalAlignment="Bottom" SnapsToDevicePixels="true" Margin="2,7,2,2" Height="6" HorizontalAlignment="Right">
-                <Path Data="M 1.5 1 L 1.5 6" Stroke="White"/>
-                <Path Data="M 0.5 0 L 0.5 5" Stroke="{TemplateBinding Foreground}"/>
-                <Path Data="M 3.5 0.5 L 7 3.5 L 4 6.5 Z" Fill="White"/>
-                <Path Data="M 3 -0.5 L 6 2.5 L 3 5.5 Z" Fill="{TemplateBinding Foreground}"/>
-              </Canvas>
-            </Border>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-              </Trigger>
-              <Trigger Property="IsKeyboardFocused" Value="true">
-                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-              </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{StaticResource ToolBarGripper}"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-          <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    <SolidColorBrush x:Key="ToolBarVerticalBackground" Color="#3a3a3a"/>
-    <SolidColorBrush x:Key="ToolBarToggleButtonHorizontalBackground" Color="#3a3a3a"/>
-    <Style x:Key="ToolBarHorizontalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
-      <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonHorizontalBackground}"/>
-      <Setter Property="MinHeight" Value="0"/>
-      <Setter Property="MinWidth" Value="0"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type ToggleButton}">
-            <Border x:Name="Bd" SnapsToDevicePixels="true" CornerRadius="0,0,0,0" Background="{TemplateBinding Background}">
-              <Canvas Width="6" VerticalAlignment="Bottom" SnapsToDevicePixels="true" Margin="7,2,2,2" Height="7" HorizontalAlignment="Right">
-                <Path Data="M 1 1.5 L 6 1.5" Stroke="#3a3a3a"/>
-                <Path Data="M 0 0.5 L 5 0.5" Stroke="{TemplateBinding Foreground}"/>
-                <Path Data="M 0.5 4 L 6.5 4 L 3.5 7 Z" Fill="White"/>
-                <Path Data="M -0.5 3 L 5.5 3 L 2.5 6 Z" Fill="{TemplateBinding Foreground}"/>
-              </Canvas>
-            </Border>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-              </Trigger>
-              <Trigger Property="IsKeyboardFocused" Value="true">
-                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-              </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{StaticResource ToolBarGripper}"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-          <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    <SolidColorBrush x:Key="ToolBarMenuBorder" Color="#808080"/>
-    <SolidColorBrush x:Key="ToolBarSubMenuBackground" Color="#FDFDFD"/>
-    <Style x:Key="ToolBarThumbStyle" TargetType="{x:Type Thumb}">
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type Thumb}">
-            <Border SnapsToDevicePixels="True" Padding="{TemplateBinding Padding}" Background="Transparent">
-              <Rectangle>
-                <Rectangle.Fill>
-                  <DrawingBrush ViewboxUnits="Absolute" ViewportUnits="Absolute" Viewport="0,0,4,4" Viewbox="0,0,4,4" TileMode="Tile">
-                    <DrawingBrush.Drawing>
-                      <DrawingGroup>
-                        <GeometryDrawing Brush="White" Geometry="M 1 1 L 1 3 L 3 3 L 3 1 z"/>
-                        <GeometryDrawing Brush="{StaticResource ToolBarGripper}" Geometry="M 0 0 L 0 2 L 2 2 L 2 0 z"/>
-                      </DrawingGroup>
-                    </DrawingBrush.Drawing>
-                  </DrawingBrush>
-                </Rectangle.Fill>
-              </Rectangle>
-            </Border>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Cursor" Value="SizeAll"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <Style x:Key="ToolBarMainPanelBorderStyle" TargetType="{x:Type Border}">
-      <Setter Property="Margin" Value="0,0,11,0"/>
-      <Setter Property="CornerRadius" Value="3,3,3,3"/>
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-          <Setter Property="CornerRadius" Value="0,0,0,0"/>
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-    <Style TargetType="{x:Type ToolBar}">
-      <Setter Property="Background" Value="{StaticResource ToolBarHorizontalBackground}"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type ToolBar}">
-            <Grid x:Name="Grid" Margin="3,1,1,1" SnapsToDevicePixels="true">
-              <Grid x:Name="OverflowGrid" HorizontalAlignment="Right">
-                <ToggleButton x:Name="OverflowButton" ClickMode="Press" FocusVisualStyle="{x:Null}" IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" IsEnabled="{TemplateBinding HasOverflowItems}" Style="{StaticResource ToolBarHorizontalOverflowButtonStyle}"/>
-                <Popup x:Name="OverflowPopup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsOverflowOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom" StaysOpen="false">
-                  <Themes:SystemDropShadowChrome x:Name="Shdw" Color="Transparent">
-                    <Border x:Name="ToolBarSubMenuBorder" BorderBrush="{StaticResource ToolBarMenuBorder}" BorderThickness="1" Background="{StaticResource ToolBarSubMenuBackground}" RenderOptions.ClearTypeHint="Enabled">
-                      <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" KeyboardNavigation.DirectionalNavigation="Cycle" FocusVisualStyle="{x:Null}" Focusable="true" Margin="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle" WrapWidth="200"/>
-                    </Border>
-                  </Themes:SystemDropShadowChrome>
-                </Popup>
-              </Grid>
-              <Border x:Name="MainPanelBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" Style="{StaticResource ToolBarMainPanelBorderStyle}">
-                <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
-                  <Thumb x:Name="ToolBarThumb" Margin="-3,-1,0,0" Padding="6,5,1,6" Style="{StaticResource ToolBarThumbStyle}" Width="10"/>
-                  <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" HorizontalAlignment="Center" Margin="4,0,4,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-                  <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Margin="0,1,2,2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                </DockPanel>
+
+
+      <BitmapImage x:Key="ImageOptions" UriSource="Resources/Icons/Settings_16x.png"/>
+      <BitmapImage x:Key="ImageExit" UriSource="Resources/Icons/Exit_16x.png"/>
+      <BitmapImage x:Key="ImageOpen" UriSource="Resources/Icons/Open_16x.png"/>
+      <BitmapImage x:Key="ImageNew" UriSource="Resources/Icons/NewProject_16x.png"/>
+      <BitmapImage x:Key="ImageSaveAll" UriSource="Resources/Icons/SaveAll_16x.png"/>
+      <BitmapImage x:Key="ImageRun" UriSource="Resources/Icons/Run_16x.png"/>
+      <BitmapImage x:Key="ImageStop" UriSource="Resources/Icons/Stop_16x.png"/>
+      <BitmapImage x:Key="ImageLog" UriSource="Resources/Icons/Log_16x.png"/>
+      <BitmapImage x:Key="ImageExplorer" UriSource="Resources/Icons/Explorer_16x.png"/>
+      <BitmapImage x:Key="ImagePhone" UriSource="Resources/Icons/Phone_32x.png"/>
+
+      <SolidColorBrush x:Key="ColorDark" Color="#1a1a1a"/>
+      <SolidColorBrush x:Key="ColorLessDark" Color="#3a3a3a"/>
+      <SolidColorBrush x:Key="ColorText" Color="White"/>
+      <SolidColorBrush x:Key="ColorHighLight1" Color="Green"/>
+      <SolidColorBrush x:Key="ColorHighLight2" Color="GreenYellow"/>
+      <SolidColorBrush x:Key="ColorDebug" Color="Magenta"/>
+
+
+      <avalonDockConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+      <avalonDockConverters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+      <avalonDockConverters:AnchorSideToOrientationConverter x:Key="AnchorSideToOrientationConverter"/>
+      <avalonDockConverters:AnchorSideToAngleConverter x:Key="AnchorSideToAngleConverter"/>
+      <avalonDockConverters:NullToDoNothingConverter x:Key="NullToDoNothingConverter"/>
+      <avalonDockConverters:LayoutItemFromLayoutModelConverter x:Key="LayoutItemFromLayoutModelConverter"/>
+      <avalonDockConverters:ActivateCommandLayoutItemFromLayoutModelConverter x:Key="ActivateCommandLayoutItemFromLayoutModelConverter"/>
+
+      <Style x:Key="AvalonDock_ThemeMetro_ToolButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ToggleButton">
+              <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter/>
               </Border>
-            </Grid>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsOverflowOpen" Value="true">
-                <Setter Property="IsEnabled" TargetName="ToolBarThumb" Value="false"/>
-              </Trigger>
-              <Trigger Property="Header" Value="{x:Null}">
-                <Setter Property="Visibility" TargetName="ToolBarHeader" Value="Collapsed"/>
-              </Trigger>
-              <Trigger Property="ToolBarTray.IsLocked" Value="true">
-                <Setter Property="Visibility" TargetName="ToolBarThumb" Value="Collapsed"/>
-              </Trigger>
-              <Trigger Property="HasDropShadow" SourceName="OverflowPopup" Value="true">
-                <Setter Property="Margin" TargetName="Shdw" Value="0,0,5,5"/>
-                <Setter Property="SnapsToDevicePixels" TargetName="Shdw" Value="true"/>
-                <Setter Property="Color" TargetName="Shdw" Value="#71000000"/>
-              </Trigger>
-              <Trigger Property="Orientation" Value="Vertical">
-                <Setter Property="Margin" TargetName="Grid" Value="1,3,1,1"/>
-                <Setter Property="Style" TargetName="OverflowButton" Value="{StaticResource ToolBarVerticalOverflowButtonStyle}"/>
-                <Setter Property="Height" TargetName="ToolBarThumb" Value="10"/>
-                <Setter Property="Width" TargetName="ToolBarThumb" Value="Auto"/>
-                <Setter Property="Margin" TargetName="ToolBarThumb" Value="-1,-3,0,0"/>
-                <Setter Property="Padding" TargetName="ToolBarThumb" Value="5,6,6,1"/>
-                <Setter Property="Margin" TargetName="ToolBarHeader" Value="0,0,0,4"/>
-                <Setter Property="Margin" TargetName="PART_ToolBarPanel" Value="1,0,2,2"/>
-                <Setter Property="DockPanel.Dock" TargetName="ToolBarThumb" Value="Top"/>
-                <Setter Property="DockPanel.Dock" TargetName="ToolBarHeader" Value="Top"/>
-                <Setter Property="HorizontalAlignment" TargetName="OverflowGrid" Value="Stretch"/>
-                <Setter Property="VerticalAlignment" TargetName="OverflowGrid" Value="Bottom"/>
-                <Setter Property="Placement" TargetName="OverflowPopup" Value="Right"/>
-                <Setter Property="Margin" TargetName="MainPanelBorder" Value="0,0,0,11"/>
-                <Setter Property="Background" Value="{StaticResource ToolBarVerticalBackground}"/>
-              </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-          <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="AvalonDock_ThemeMetro_ButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="Button">
+              <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter/>
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="{x:Type xcad:DockingManager}">
+        <Setter Property="GridSplitterWidth" Value="5"/>
+        <Setter Property="GridSplitterHeight" Value="5"/>
+        <Setter Property="DocumentPaneControlStyle">
+          <Setter.Value>
+            <Style TargetType="{x:Type xcad:LayoutDocumentPaneControl}">
+              <Setter Property="BorderBrush" Value="{x:Null}"/>
+              <Setter Property="Background">
+                <Setter.Value>
+                  <ImageBrush ImageSource="/Resources/Images/connect.png" Stretch="None" AlignmentX="Center" AlignmentY="Center" />
+                </Setter.Value>
+              </Setter>
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type xcad:LayoutDocumentPaneControl}">
+                    <Grid ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local" Background="{DynamicResource ColorDark}">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                      </Grid.RowDefinitions>
+                      <Border Background="Transparent" Grid.RowSpan="2"/>
+                      <Grid Panel.ZIndex="1" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type xcad:LayoutDocumentPaneControl}}, Path=Model.ShowHeader, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <xcad:DocumentPaneTabPanel x:Name="HeaderPanel" Grid.Column="0" Margin="2,0,2,0" FlowDirection="LeftToRight" IsItemsHost="True" Grid.Row="0" KeyboardNavigation.TabIndex="1"/>
+                        <xcad:DropDownButton
+                                x:Name="MenuDropDownButton"
+                                Style="{StaticResource AvalonDock_ThemeMetro_ToolButtonStyle}"
+                                Focusable="False"
+                                VerticalAlignment="Center"
+                                Grid.Column="1">
+                          <xcad:DropDownButton.DropDownContextMenu>
+                            <xcad:ContextMenuEx
+                                        ItemsSource="{Binding Model.ChildrenSorted, RelativeSource={RelativeSource TemplatedParent}}">
+                              <xcad:ContextMenuEx.ItemContainerStyle>
+                                <Style TargetType="{x:Type xcad:MenuItemEx}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                                  <Setter Property="HeaderTemplate" Value="{Binding Path=Root.Manager.DocumentPaneMenuItemHeaderTemplate}"/>
+                                  <Setter Property="HeaderTemplateSelector" Value="{Binding Path=Root.Manager.DocumentPaneMenuItemHeaderTemplateSelector}"/>
+                                  <Setter Property="IconTemplate" Value="{Binding Path=Root.Manager.IconContentTemplate}"/>
+                                  <Setter Property="IconTemplateSelector" Value="{Binding Path=Root.Manager.IconContentTemplateSelector}"/>
+                                  <Setter Property="Command" Value="{Binding Path=., Converter={StaticResource ActivateCommandLayoutItemFromLayoutModelConverter}}"/>
+                                </Style>
+                              </xcad:ContextMenuEx.ItemContainerStyle>
+                            </xcad:ContextMenuEx>
+                          </xcad:DropDownButton.DropDownContextMenu>
+                          <Image Source="Resources/Icons/PinDocMenu.png"/>
+                        </xcad:DropDownButton>
+                      </Grid>
+                      <Border x:Name="ContentPanel" 
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch"  
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Grid.Column="0"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                Grid.Row="1" 
+                                KeyboardNavigation.TabIndex="2" 
+                                KeyboardNavigation.TabNavigation="Cycle"
+                                Padding="0,1,0,2">
+                        <ContentPresenter x:Name="PART_SelectedContentHost" 
+                                              ContentSource="SelectedContent" 
+                                              Margin="0,2,0,2"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                      </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsMouseOver" SourceName="MenuDropDownButton" Value="True">
+                        <Setter Property="Content" TargetName="MenuDropDownButton">
+                          <Setter.Value>
+                            <Image Source="Resources/Icons/PinDocMenu_Black.png"/>
+                          </Setter.Value>
+                        </Setter>
+                      </Trigger>
+                      <Trigger Property="IsChecked" SourceName="MenuDropDownButton" Value="True">
+                        <Setter Property="Content" TargetName="MenuDropDownButton">
+                          <Setter.Value>
+                            <Image Source="Resources/Icons/PinDocMenu_Black.png"/>
+                          </Setter.Value>
+                        </Setter>
+                      </Trigger>
+                      <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                      </Trigger>
+                      <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Model.ChildrenCount}" Value="0">
+                        <Setter Property="Visibility" Value="Collapsed" TargetName="MenuDropDownButton" />
+                      </DataTrigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+
+              <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                  <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource ColorHighlight2}"/>
+                    <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
+                    <Setter Property="Padding" Value="4"/>
+                    <Setter Property="Margin" Value="2,0,2,0"/>
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                          <Grid SnapsToDevicePixels="true"
+                                       Margin="0,4,4,4">
+                            <Border x:Name="Bd" 
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+   				                          BorderThickness="0,3,0,0" 
+							              Background="{TemplateBinding Background}" 
+							              Padding="{TemplateBinding Padding}">
+                            </Border>
+                            <ContentPresenter 
+								            x:Name="Content" 
+                                            Margin="2"
+								            ContentSource="Header" 
+                                            HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                            VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                            RecognizesAccessKey="True" 
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                          </Grid>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="Selector.IsSelected"
+								            Value="true">
+                              <Setter Property="BorderBrush"
+									        Value="{DynamicResource ColorText}" />
+                              <Setter Property="Panel.ZIndex" 
+                                            Value="1" />
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                              <Setter Property="BorderBrush"
+									        Value="{DynamicResource ColorHighlight1}" />
+                              <Setter Property="Foreground" Value="{DynamicResource ColorText}"/>
+                              <Setter Property="Panel.ZIndex" 
+                                            Value="1" />
+                            </DataTrigger>
+
+                            <MultiTrigger>
+                              <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="Selector.IsSelected" Value="false"/>
+                              </MultiTrigger.Conditions>
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight2}"/>
+                              <Setter Property="Foreground" Value="{DynamicResource ColorText}"/>
+                              <Setter Property="Panel.ZIndex" Value="0" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ItemTemplate">
+                <Setter.Value>
+                  <DataTemplate>
+                    <xcad:LayoutDocumentTabItem Model="{Binding}"/>
+                  </DataTemplate>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ItemTemplate">
+                <Setter.Value>
+                  <DataTemplate>
+                    <xcad:LayoutDocumentTabItem Model="{Binding}"/>
+                  </DataTemplate>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ContentTemplate">
+                <Setter.Value>
+                  <DataTemplate>
+                    <xcad:LayoutDocumentControl Model="{Binding}"/>
+                  </DataTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </Setter.Value>
+        </Setter>
+
+        <Setter Property="AnchorablePaneControlStyle">
+          <Setter.Value>
+            <Style TargetType="{x:Type xcad:LayoutAnchorablePaneControl}">
+              <Setter Property="Foreground" Value="{Binding Model.Root.Manager.Foreground, RelativeSource={RelativeSource Self}}"/>
+              <Setter Property="Background" Value="{Binding Model.Root.Manager.Background, RelativeSource={RelativeSource Self}}"/>
+              <Setter Property="TabStripPlacement" Value="Bottom"/>
+              <Setter Property="Padding" Value="0"/>
+              <Setter Property="BorderThickness" Value="0"/>
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorablePaneControl}">
+                    <Grid ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <Border Background="Transparent" Grid.RowSpan="2"/>
+                      <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="0" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Cycle">
+                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentTemplate="{TemplateBinding SelectedContentTemplate}" Content="{TemplateBinding SelectedContent}" ContentStringFormat="{TemplateBinding SelectedContentStringFormat}" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                      </Border>
+                      <xcad:AnchorablePaneTabPanel x:Name="HeaderPanel"  FlowDirection="LeftToRight" IsItemsHost="True" Margin="2,0,2,2" Grid.Row="1" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                      </Trigger>
+                      <DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource Self}}" Value="1">
+                        <Setter Property="Margin" Value="0" TargetName="HeaderPanel"/>
+                      </DataTrigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                  <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource ColorText}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
+                    <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                          <Grid SnapsToDevicePixels="True">
+                            <Border x:Name="Bd" 
+							              BorderBrush="{TemplateBinding BorderBrush}"
+                                          Margin="4"
+   				                          BorderThickness="0,2,0,0" 
+							              Background="{TemplateBinding Background}" 
+							              Padding="{TemplateBinding Padding}">
+                              <ContentPresenter 
+								            x:Name="Content" 
+								            ContentSource="Header" 
+                                            HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                            VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                            RecognizesAccessKey="True" 
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                          </Grid>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorText}" />
+                              <Setter Property="Panel.ZIndex" Value="1"/>
+                              <Setter Property="Margin" Value="0,-1,-1,-2"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}" />
+                              <Setter Property="Foreground" Value="{DynamicResource ColorText}"/>
+                              <Setter Property="Panel.ZIndex" Value="1" />
+                            </DataTrigger>
+                            <MultiTrigger>
+                              <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                              </MultiTrigger.Conditions>
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+                              <Setter Property="Panel.ZIndex" Value="0"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Items.Count, FallbackValue=1, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="1">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ItemTemplate">
+                <Setter.Value>
+                  <DataTemplate>
+                    <xcad:LayoutAnchorableTabItem Model="{Binding}"/>
+                  </DataTemplate>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="ContentTemplate">
+                <Setter.Value>
+                  <DataTemplate>
+                    <xcad:LayoutAnchorableControl Model="{Binding}"/>
+                  </DataTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorSideTemplate">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorSideControl}">
+              <ItemsControl>
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" MinWidth="4" MinHeight="4">
+                      <StackPanel.Orientation>
+                        <Binding Path="Model.Side" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xcad:LayoutAnchorSideControl}}">
+                          <Binding.Converter>
+                            <xcad:AnchorSideToOrientationConverter/>
+                          </Binding.Converter>
+                        </Binding>
+                      </StackPanel.Orientation>
+                    </StackPanel>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorGroupTemplate">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorGroupControl}">
+              <ItemsControl>
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.LayoutTransform>
+                  <RotateTransform>
+                    <RotateTransform.Angle>
+                      <Binding Path="Model.Parent.Side" RelativeSource="{RelativeSource TemplatedParent}">
+                        <Binding.Converter>
+                          <xcad:AnchorSideToAngleConverter/>
+                        </Binding.Converter>
+                      </Binding>
+                    </RotateTransform.Angle>
+                  </RotateTransform>
+                </ItemsControl.LayoutTransform>
+              </ItemsControl>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorTemplate">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorControl}">
+              <Border x:Name="Bd" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0,2,0,0" Margin="4" Padding="2">
+                <ContentPresenter 
+                  TextElement.Foreground="{DynamicResource ColorText}"
+                  ContentTemplate="{Binding AnchorableHeaderTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xcad:DockingManager}}}" 
+                  ContentTemplateSelector="{Binding AnchorableHeaderTemplateSelector, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
+                  Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}"/>
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="Side" Value="Right">
+                  <Setter Property="BorderThickness" Value="0,0,0,2" TargetName="Bd"/>
+                </Trigger>
+                <Trigger Property="Side" Value="Bottom">
+                  <Setter Property="BorderThickness" Value="0,2,0,0" TargetName="Bd"/>
+                </Trigger>
+                <Trigger Property="Side" Value="Top">
+                  <Setter Property="BorderThickness" Value="0,0,0,2" TargetName="Bd"/>
+                </Trigger>
+                <MultiTrigger>
+                  <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="true"/>
+                    <Condition Property="Selector.IsSelected" Value="false"/>
+                  </MultiTrigger.Conditions>
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+                </MultiTrigger>
+                <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="true">
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}"/>
+                </DataTrigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="DocumentHeaderTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorableHeaderTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="icon" Stretch="Uniform">
+                  <Image.Source>
+                    <Binding Path="IconSource">
+                      <Binding.Converter>
+                        <xcad:NullToDoNothingConverter/>
+                      </Binding.Converter>
+                    </Binding>
+                  </Image.Source>
+                </Image>
+                <TextBlock x:Name="title" Grid.Column="1" Margin="4,0,0,0" Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+              </Grid>
+              <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IconSource}" Value="{x:Null}">
+                  <Setter Property="Margin" TargetName="title" Value="0"/>
+                </DataTrigger>
+              </DataTemplate.Triggers>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="DocumentTitleTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorableTitleTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="AnchorableContextMenu">
+          <Setter.Value>
+            <ContextMenu>
+              <MenuItem Command="{Binding FloatCommand}" Header="Float"/>
+              <MenuItem Command="{Binding DockCommand}" Header="Dock"/>
+              <MenuItem Command="{Binding DockAsDocumentCommand}" Header="Dock as Tabbed Document"/>
+              <MenuItem Command="{Binding AutoHideCommand}" Header="Auto Hide"/>
+              <MenuItem Command="{Binding HideCommand}" Header="Hide">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+              </MenuItem>
+            </ContextMenu>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="DocumentContextMenu">
+          <Setter.Value>
+            <ContextMenu>
+              <MenuItem Command="{Binding CloseCommand}" Header="Close">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+              </MenuItem>
+              <MenuItem Command="{Binding CloseAllButThisCommand}" Header="Close All But This"/>
+              <MenuItem Command="{Binding CloseAllCommand}" Header="Close All"/>
+              <MenuItem Command="{Binding FloatCommand}" Header="Float"/>
+              <MenuItem Command="{Binding DockAsDocumentCommand}" Header="Dock as Tabbed Document"/>
+              <MenuItem Command="{Binding NewHorizontalTabGroupCommand}" Header="New Horizontal Tab Group">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+                <MenuItem.Icon>
+                  <Image Source="Resources/Icons/HTabGroup.png" Stretch="Uniform" Width="14"/>
+                </MenuItem.Icon>
+              </MenuItem>
+              <MenuItem Command="{Binding NewVerticalTabGroupCommand}" Header="New Vertical Tab Group">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+                <MenuItem.Icon>
+                  <Image Source="Resources/Icons/VTabGroup.png" Stretch="Uniform" Width="14"/>
+                </MenuItem.Icon>
+              </MenuItem>
+              <MenuItem Command="{Binding MoveToNextTabGroupCommand}" Header="Move To Next Tab Group">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+              </MenuItem>
+              <MenuItem Command="{Binding MoveToPreviousTabGroupCommand}" Header="Move To Previous Tab Group">
+                <MenuItem.Visibility>
+                  <Binding Mode="OneWay" Path="IsEnabled" RelativeSource="{RelativeSource Self}">
+                    <Binding.Converter>
+                      <xcad:BoolToVisibilityConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </MenuItem.Visibility>
+              </MenuItem>
+            </ContextMenu>
+          </Setter.Value>
+        </Setter>
 
 
-    <ControlTemplate x:Key="ScrollViewerDark" TargetType="{x:Type ScrollViewer}">
-      <Grid x:Name="Grid" Background="{TemplateBinding Background}">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Rectangle x:Name="Corner" Grid.Column="1" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1"/>
-        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
-        <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Background="#2a2a2a" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
-        <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Background="#2a2a2a" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
-      </Grid>
-    </ControlTemplate>
+        <Setter Property="DocumentPaneMenuItemHeaderTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
 
 
+        <Setter Property="IconContentTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <Image Stretch="Uniform">
+                <Image.Source>
+                  <Binding Path="IconSource">
+                    <Binding.Converter>
+                      <xcad:NullToDoNothingConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </Image.Source>
+              </Image>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
 
-    <SolidColorBrush x:Key="ScrollBar.Static.Background" Color="Black"/>
-    <SolidColorBrush x:Key="ScrollBar.Static.Border" Color="#3a3a3a"/>
-    <Style x:Key="FocusVisual">
-      <Setter Property="Control.Template">
-        <Setter.Value>
-          <ControlTemplate>
-            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <SolidColorBrush x:Key="ScrollBar.MouseOver.Background" Color="#FFBDE6FD"/>
-    <SolidColorBrush x:Key="ScrollBar.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="ScrollBar.Pressed.Background" Color="#FFC2E4F6"/>
-    <SolidColorBrush x:Key="ScrollBar.Pressed.Border" Color="#FF2C628B"/>
-    <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
-      <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-      <Setter Property="BorderThickness" Value="1"/>
-      <Setter Property="HorizontalContentAlignment" Value="Center"/>
-      <Setter Property="VerticalContentAlignment" Value="Center"/>
-      <Setter Property="Padding" Value="1"/>
 
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type RepeatButton}">
-            <Border x:Name="border" BorderBrush="{StaticResource ScrollBar.Static.Border}" BorderThickness="1" Background="{StaticResource ScrollBar.Static.Background}" SnapsToDevicePixels="true">
-              <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" TargetName="border" Value="{StaticResource ScrollBar.MouseOver.Background}"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ScrollBar.MouseOver.Border}"/>
-              </Trigger>
-              <Trigger Property="IsPressed" Value="true">
-                <Setter Property="Background" TargetName="border" Value="{StaticResource ScrollBar.Pressed.Background}"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ScrollBar.Pressed.Border}"/>
-              </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
-      <Setter Property="OverridesDefaultStyle" Value="true"/>
-      <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="Focusable" Value="false"/>
-      <Setter Property="IsTabStop" Value="false"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type RepeatButton}">
-            <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
-      <Setter Property="OverridesDefaultStyle" Value="true"/>
-      <Setter Property="IsTabStop" Value="false"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type Thumb}">
-            <Themes:ScrollChrome RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsDragging}" SnapsToDevicePixels="true" Themes:ScrollChrome.ScrollGlyph="VerticalGripper"/>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
-      <Setter Property="OverridesDefaultStyle" Value="true"/>
-      <Setter Property="IsTabStop" Value="false"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type Thumb}">
-            <Themes:ScrollChrome RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsDragging}" SnapsToDevicePixels="true" Themes:ScrollChrome.ScrollGlyph="HorizontalGripper"/>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-    <Style TargetType="{x:Type ScrollBar}">
-      <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
-      <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-      <Setter Property="Background" Value="{StaticResource ScrollBar.Static.Background}"/>
-      <Setter Property="BorderBrush" Value="{StaticResource ScrollBar.Static.Border}"/>
-      <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-      <Setter Property="BorderThickness" Value="1,0"/>
-      <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
-      <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type ScrollBar}">
-            <Grid x:Name="Bg" SnapsToDevicePixels="true">
-              <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}"/>
-                <RowDefinition Height="0.00001*"/>
-                <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}"/>
-              </Grid.RowDefinitions>
-              <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Row="1"/>
-              <RepeatButton Command="{x:Static ScrollBar.LineUpCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}">
-                <Path Data="M 0,4 C0,4 0,6 0,6 0,6 3.5,2.5 3.5,2.5 3.5,2.5 7,6 7,6 7,6 7,4 7,4 7,4 3.5,0.5 3.5,0.5 3.5,0.5 0,4 0,4 z" Fill="{TemplateBinding TextElement.Foreground}" Margin="3,4,3,3" Stretch="Uniform"/>
-              </RepeatButton>
-              <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
-                <Track.DecreaseRepeatButton>
-                  <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
-                </Track.DecreaseRepeatButton>
-                <Track.IncreaseRepeatButton>
-                  <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
-                </Track.IncreaseRepeatButton>
-                <Track.Thumb>
-                  <Thumb Style="{StaticResource ScrollBarThumbVertical}"/>
-                </Track.Thumb>
-              </Track>
-              <RepeatButton Command="{x:Static ScrollBar.LineDownCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="2" Style="{StaticResource ScrollBarButton}">
-                <Path Data="M 0,2.5 C0,2.5 0,0.5 0,0.5 0,0.5 3.5,4 3.5,4 3.5,4 7,0.5 7,0.5 7,0.5 7,2.5 7,2.5 7,2.5 3.5,6 3.5,6 3.5,6 0,2.5 0,2.5 z" Fill="{TemplateBinding TextElement.Foreground}" Margin="3,4,3,3" Stretch="Uniform"/>
-              </RepeatButton>
-            </Grid>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-      <Style.Triggers>
-        <Trigger Property="Orientation" Value="Horizontal">
-          <Setter Property="Width" Value="Auto"/>
-          <Setter Property="MinWidth" Value="0"/>
-          <Setter Property="Height" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
-          <Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
-          <Setter Property="BorderThickness" Value="0,1"/>
-          <Setter Property="Template">
-            <Setter.Value>
-              <ControlTemplate TargetType="{x:Type ScrollBar}">
-                <Grid x:Name="Bg" SnapsToDevicePixels="true">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:DockingManager}">
+              <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                <Grid FlowDirection="LeftToRight">
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}"/>
-                    <ColumnDefinition Width="0.00001*"/>
-                    <ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                   </Grid.ColumnDefinitions>
-                  <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1"/>
-                  <RepeatButton Command="{x:Static ScrollBar.LineLeftCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}">
-                    <Path Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z" Fill="{TemplateBinding TextElement.Foreground}" Margin="3" Stretch="Uniform"/>
-                  </RepeatButton>
-                  <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
-                    <Track.DecreaseRepeatButton>
-                      <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
-                    </Track.DecreaseRepeatButton>
-                    <Track.IncreaseRepeatButton>
-                      <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
-                    </Track.IncreaseRepeatButton>
-                    <Track.Thumb>
-                      <Thumb Style="{StaticResource ScrollBarThumbHorizontal}"/>
-                    </Track.Thumb>
-                  </Track>
-                  <RepeatButton Grid.Column="2" Command="{x:Static ScrollBar.LineRightCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Style="{StaticResource ScrollBarButton}">
-                    <Path Data="M 1.81,7 C1.81,7 0,7 0,7 0,7 3.18,3.5 3.18,3.5 3.18,3.5 0,0 0,0 0,0 1.81,0 1.81,0 1.81,0 5,3.5 5,3.5 5,3.5 1.81,7 1.81,7 z" Fill="{TemplateBinding TextElement.Foreground}" Margin="3" Stretch="Uniform"/>
-                  </RepeatButton>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <ContentPresenter Content="{TemplateBinding LayoutRootPanel}" Grid.Column="1" Grid.Row="1"/>
+                  <ContentPresenter Content="{TemplateBinding RightSidePanel}" Grid.Column="2" Grid.Row="1"/>
+                  <ContentPresenter Content="{TemplateBinding LeftSidePanel}" Grid.Column="0" Grid.Row="1"/>
+                  <ContentPresenter Content="{TemplateBinding TopSidePanel}" Grid.Column="1" Grid.Row="0"/>
+                  <ContentPresenter Content="{TemplateBinding BottomSidePanel}" Grid.Column="1" Grid.Row="2"/>
+                  <ContentPresenter x:Name="PART_AutoHideArea" Content="{TemplateBinding AutoHideWindow}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
                 </Grid>
-              </ControlTemplate>
-            </Setter.Value>
-          </Setter>
-        </Trigger>
-      </Style.Triggers>
-    </Style>
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
 
-    <!-- Dark Scroll Bar -->
+      <Style TargetType="xcad:AnchorablePaneTitle">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate>
+              <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="0,3,0,0">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <xcad:DropDownControlArea 
+                                DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                DropDownContextMenuDataContext="{Binding Path=LayoutItem, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ContentPresenter 
+                                    x:Name="Header"            
+                                    Margin="2,0,0,0"
+                                    TextElement.Foreground="{DynamicResource ColorText}"
+                                    Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}" 
+                                    ContentTemplate="{Binding Model.Root.Manager.AnchorableTitleTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                    ContentTemplateSelector="{Binding Model.Root.Manager.AnchorableTitleTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"/>
+                  </xcad:DropDownControlArea>
 
+
+                  <xcad:DropDownButton
+                                x:Name="MenuDropDownButton"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource AvalonDock_ThemeMetro_ToolButtonStyle}"
+                                Focusable="False"
+                                Grid.Column="1"
+                                DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                DropDownContextMenuDataContext="{Binding Path=LayoutItem, RelativeSource={RelativeSource TemplatedParent}}"
+                                ToolTip="{x:Static xprop:Resources.Anchorable_CxMenu_Hint}">
+                    <Image x:Name="PART_ImgMenuPin" Source="Resources/Icons/PinMenu.png"/>
+                  </xcad:DropDownButton>
+
+                  <Button x:Name="PART_AutoHidePin" 
+                                Grid.Column="2" 
+                                Focusable="False"
+                                Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Command="{Binding Path=LayoutItem.AutoHideCommand, RelativeSource={RelativeSource TemplatedParent}}" 
+                                Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                ToolTip="{x:Static xprop:Resources.Anchorable_BtnAutoHide_Hint}"
+                                    >
+                    <Image x:Name="PART_ImgAutoHidePin" Source="Resources/Icons/PinAutoHide.png"/>
+                  </Button>
+                  <Button x:Name="PART_HidePin" 
+                                Grid.Column="3" 
+                                Focusable="False"
+                                Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Command="{Binding Path=LayoutItem.HideCommand, RelativeSource={RelativeSource TemplatedParent}}" 
+                                Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                ToolTip="{x:Static xprop:Resources.Anchorable_BtnClose_Hint}"
+                                    >
+                    <Image x:Name="PART_ImgHidePin" Source="Resources/Icons/PinClose.png"/>
+                  </Button>
+
+                </Grid>
+              </Border>
+              <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding Model.IsAutoHidden, RelativeSource={RelativeSource Mode=Self}}" Value="True">
+                  <Setter Property="LayoutTransform" TargetName="PART_AutoHidePin">
+                    <Setter.Value>
+                      <RotateTransform Angle="90"/>
+                    </Setter.Value>
+                  </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="True">
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}" />
+                  <Setter Property="BorderThickness" Value="0,3,0,0"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgAutoHidePin" Value="Resources/Icons/PinAutoHide_Black.png"/>
+                  <Setter Property="Source" TargetName="PART_ImgHidePin" Value="Resources/Icons/PinClose_Black.png"/>
+                  <Setter Property="Source" TargetName="PART_ImgMenuPin" Value="Resources/Icons/PinMenu_Black.png"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" SourceName="MenuDropDownButton" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgMenuPin" Value="Resources/Icons/PinMenu_Dark.png"/>
+                </Trigger>
+                <Trigger Property="IsChecked" SourceName="MenuDropDownButton" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgMenuPin" Value="Resources/Icons/PinMenu_Dark.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_AutoHidePin" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgAutoHidePin" Value="Resources/Icons/PinAutoHide_Dark.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_HidePin" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgHidePin" Value="Resources/Icons/PinClose_Dark.png"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="{x:Type xcad:OverlayWindow}" TargetType="{x:Type xcad:OverlayWindow}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:OverlayWindow}">
+              <Canvas x:Name="PART_DropTargetsContainer" Opacity="0.9">
+                <Path x:Name="PART_PreviewBox" Fill="#001100" StrokeThickness="2" Stroke="{DynamicResource ColorHighLight1}"/>
+                <Grid x:Name="PART_DockingManagerDropTargets" >
+                  <Image x:Name="PART_DockingManagerDropTargetLeft" VerticalAlignment="Center" HorizontalAlignment="Left" Source="Resources/Icons/DockAnchorableLeft.PNG" Stretch="None" />
+                  <Image x:Name="PART_DockingManagerDropTargetRight" VerticalAlignment="Center" HorizontalAlignment="Right" Source="Resources/Icons/DockAnchorableRight.PNG" Stretch="None" />
+                  <Image x:Name="PART_DockingManagerDropTargetBottom" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="Resources/Icons/DockAnchorableBottom.PNG" Stretch="None" />
+                  <Image x:Name="PART_DockingManagerDropTargetTop" VerticalAlignment="Top" HorizontalAlignment="Center" Source="Resources/Icons/DockAnchorableTop.PNG" Stretch="None"/>
+                </Grid>
+                <Grid x:Name="PART_AnchorablePaneDropTargets">
+                  <Grid Width="112" Height="112" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.ColumnSpan="3" Grid.RowSpan="3" Source="Resources/Icons/DockPaneEmpty.png" Stretch="None" Margin="0,0.5,0,-0.5"/>
+                    <Border Name="PART_AnchorablePaneDropTargetTop" Grid.Column="1" Grid.Row="0" Margin="0,3.5,0, 0">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableTop.png"  Stretch="UniformToFill" />
+                    </Border>
+                    <Border Name="PART_AnchorablePaneDropTargetRight" Grid.Column="2" Grid.Row="1" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableRight.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_AnchorablePaneDropTargetBottom" Grid.Column="1" Grid.Row="2" Margin="0,-0.5,0,0">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableBottom.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_AnchorablePaneDropTargetLeft" Grid.Column="0" Grid.Row="1" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableLeft.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_AnchorablePaneDropTargetInto" Grid.Column="1" Grid.Row="1" Margin="0,0.5,0,0">
+                      <Image Source="Resources/Icons/DockDocumentInside.png"  Stretch="UniformToFill"/>
+                    </Border>
+                  </Grid>
+                </Grid>
+                <Grid x:Name="PART_DocumentPaneDropTargets">
+                  <Grid Width="112" Height="112" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.ColumnSpan="3" Grid.RowSpan="3" Source="Resources/Icons/DockPaneEmpty.PNG"  Stretch="None"/>
+                    <Border Name="PART_DocumentPaneDropTargetTop" Grid.Column="1" Grid.Row="0" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentTop.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetRight" Grid.Column="2" Grid.Row="1" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentRight.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetBottom" Grid.Column="1" Grid.Row="2" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentBottom.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetLeft" Grid.Column="0" Grid.Row="1" Margin="2">
+                      <Image Source="Resources/Icons/DockDocumentLeft.png"  Stretch="UniformToFill"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetInto" Grid.Column="1" Grid.Row="1">
+                      <Image Source="Resources/Icons/DockDocumentInside.png"  Stretch="UniformToFill"/>
+                    </Border>
+                  </Grid>
+                </Grid>
+
+                <Grid x:Name="PART_DocumentPaneFullDropTargets">
+                  <Grid Width="184" Height="184" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.ColumnSpan="5" Grid.RowSpan="5" Source="Resources/Icons/DockPaneLargeEmpty.PNG"  Stretch="None"/>
+                    <Border Name="PART_DocumentPaneFullDropTargetTop" Grid.Column="2" Grid.Row="1">
+                      <Image Source="Resources/Icons/DockDocumentTop.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneFullDropTargetRight" Grid.Column="3" Grid.Row="2">
+                      <Image Source="Resources/Icons/DockDocumentRight.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneFullDropTargetBottom" Grid.Column="2" Grid.Row="3">
+                      <Image Source="Resources/Icons/DockDocumentBottom.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneFullDropTargetLeft" Grid.Column="1" Grid.Row="2">
+                      <Image Source="Resources/Icons/DockDocumentLeft.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneFullDropTargetInto" Grid.Column="2" Grid.Row="2">
+                      <Image Source="Resources/Icons/DockDocumentInside.png"  Stretch="UniformToFill"/>
+                    </Border>
+
+                    <Border Name="PART_DocumentPaneDropTargetTopAsAnchorablePane" Grid.Column="2" Grid.Row="0">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableTop.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetRightAsAnchorablePane" Grid.Column="4" Grid.Row="2">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableRight.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetBottomAsAnchorablePane" Grid.Column="2" Grid.Row="4">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableBottom.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+                    <Border Name="PART_DocumentPaneDropTargetLeftAsAnchorablePane" Grid.Column="0" Grid.Row="2">
+                      <Image Source="Resources/Icons/DockDocumentAsAnchorableLeft.png"  Stretch="UniformToFill" Margin="2"/>
+                    </Border>
+
+                  </Grid>
+                </Grid>
+
+              </Canvas>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="{x:Type xcad:LayoutAnchorableFloatingWindowControl}" TargetType="{x:Type xcad:LayoutAnchorableFloatingWindowControl}">
+        <Setter Property="Background" Value="{DynamicResource ColorDark}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="shell:WindowChrome.WindowChrome">
+          <Setter.Value>
+            <shell:WindowChrome
+                    CornerRadius="0"
+                    ResizeBorderThickness="10"
+                    CaptionHeight="24"
+                    GlassFrameThickness="0"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorableFloatingWindowControl}">
+              <Grid>
+                <Border x:Name="WindowBorder" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                  <Grid >
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="24"/>
+                      <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border x:Name="Header" 
+                                        Padding="2,0,2,0"
+                                        TextElement.Foreground="{DynamicResource ColorText}"
+                                        Background="{DynamicResource ColorDark}">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*"/>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Visibility="{Binding Path=Model.IsSinglePane, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}">
+                          <xcad:DropDownControlArea 
+                                                DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                                DropDownContextMenuDataContext="{Binding Path=SingleContentLayoutItem, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ContentPresenter
+                                                      Content="{Binding Model.SinglePane.SelectedContent, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                      ContentTemplate="{Binding Model.Root.Manager.AnchorableTitleTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      ContentTemplateSelector="{Binding Model.Root.Manager.AnchorableTitleTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"/>
+                          </xcad:DropDownControlArea>
+                        </Border>
+
+                        <xcad:DropDownButton
+                                            x:Name="SinglePaneContextMenu"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Visibility="{Binding Path=Model.IsSinglePane, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ToolButtonStyle}"
+                                            Focusable="False"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                            DropDownContextMenuDataContext="{Binding Path=SingleContentLayoutItem, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Anchorable_CxMenu_Hint}">
+                          <Image x:Name="PART_ImgPinMenu" Stretch="None" Source="Resources/Icons/PinMenu.png" Width="13"/>
+                        </xcad:DropDownButton>
+
+                        <Button 
+                                            x:Name="PART_PinMaximize"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Command="{x:Static shell:SystemCommands.MaximizeWindowCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Window_Maximize}"
+                                            Grid.Column="2">
+                          <Image x:Name="PART_ImgPinMaximize" Source="Resources/Icons/PinMaximize.png" Width="13"/>
+                        </Button>
+
+                        <Button 
+                                            x:Name="PART_PinRestore"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Command="{x:Static shell:SystemCommands.RestoreWindowCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Window_Restore}"
+                                            Grid.Column="2">
+                          <Image  x:Name="PART_ImgPinRestore" Source="Resources/Icons/PinRestore.png" Width="13"/>
+                        </Button>
+
+                        <Button 
+                                            x:Name="PART_PinClose"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Command="{Binding HideWindowCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Anchorable_BtnClose_Hint}"
+                                            Grid.Column="3">
+                          <Image x:Name="PART_ImgPinClose" Source="Resources/Icons/PinClose.png" Width="13"/>
+                        </Button>
+                      </Grid>
+                    </Border>
+                    <ContentPresenter
+                                    Content="{TemplateBinding Content}" Grid.Row="1"/>
+                  </Grid>
+                </Border>
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="WindowState" Value="Maximized">
+                  <Setter Property="Padding" Value="3" TargetName="WindowBorder"/>
+                </Trigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Model.SinglePane.SelectedContent.IsActive}" Value="True">
+                  <Setter Property="Background" Value="{DynamicResource ColorHighlight1}" TargetName="Header"/>
+                  <Setter Property="TextElement.Foreground" Value="{DynamicResource ColorDark}" TargetName="Header"/>
+                  <Setter Property="Source" TargetName="PART_ImgPinClose" Value="Resources/Icons/PinClose_Dark.png"/>
+                  <Setter Property="Source" TargetName="PART_ImgPinRestore" Value="Resources/Icons/PinRestore_Dark.png"/>
+                  <Setter Property="Source" TargetName="PART_ImgPinMaximize" Value="Resources/Icons/PinMaximize_Dark.png"/>
+                  <Setter Property="Source" TargetName="PART_ImgPinMenu" Value="Resources/Icons/PinMenu_Dark.png"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" SourceName="SinglePaneContextMenu" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMenu" Value="Resources/Icons/PinMenu_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsChecked" SourceName="SinglePaneContextMenu" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMenu" Value="Resources/Icons/PinMenu_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinMaximize" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMaximize" Value="Resources/Icons/PinMaximize_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinRestore" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinRestore" Value="Resources/Icons/PinRestore_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinClose" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinClose" Value="Resources/Icons/PinClose_Black.png"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+
+      <Style x:Key="{x:Type xcad:NavigatorWindow}" TargetType="{x:Type xcad:NavigatorWindow}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:NavigatorWindow}">
+              <Grid>
+                <Border x:Name="WindowBorder" BorderThickness="0"
+                                Background="White"
+                                BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="54"/>
+                      <RowDefinition Height="*"/>
+                      <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5">
+                      <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                      </Grid.RowDefinitions>
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                                            Source="{Binding SelectedDocument.LayoutElement.IconSource, Converter={StaticResource NullToDoNothingConverter}}"
+                                            Stretch="None"
+                                            Visibility="{Binding SelectedDocument.LayoutElement.IconSource, Converter={StaticResource BoolToVisibilityConverter} }"/>
+                        <TextBlock Text="{Binding SelectedDocument.LayoutElement.Title}" TextTrimming="CharacterEllipsis" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" Margin="4,0,0,0"/>
+                      </Grid>
+                      <TextBlock Text="{Binding SelectedDocument.LayoutElement.Description}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Border Grid.Row="1" 
+                                        BorderThickness="0,1,0,0"
+                                        Background="{DynamicResource ColorLessDark}"
+                                        MinHeight="200" >
+                      <Grid  Margin="5">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Margin="5">
+                          <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                          </Grid.RowDefinitions>
+                          <TextBlock Text="Active Tool Windows" FontWeight="Bold" Margin="0,3,0,4"/>
+                          <ListBox Grid.Row="1" 
+                                                     ItemsSource="{Binding Anchorables}"
+                                                     SelectedItem="{Binding SelectedAnchorable, Mode=TwoWay}" 
+                                                     ItemContainerStyle="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemStyle}"
+                                                     Background="Transparent" 
+                                                     BorderThickness="0"
+                                                     MaxHeight="400">
+                            <ListBox.ItemTemplate>
+                              <DataTemplate>
+                                <Grid>
+                                  <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="150"/>
+                                  </Grid.ColumnDefinitions>
+                                  <Image Source="{Binding LayoutElement.IconSource, Converter={StaticResource NullToDoNothingConverter}}" Stretch="None"/>
+                                  <TextBlock Text="{Binding LayoutElement.Title}" TextTrimming="CharacterEllipsis" Grid.Column="1" Margin="4,0,0,0"/>
+                                </Grid>
+                              </DataTemplate>
+                            </ListBox.ItemTemplate>
+                          </ListBox>
+                        </Grid>
+                        <Grid Grid.Column="1" Margin="5">
+                          <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                          </Grid.RowDefinitions>
+                          <TextBlock Text="Active Files" FontWeight="Bold" Margin="0,3,0,4"/>
+                          <ListBox 
+                                                Grid.Row="1" 
+                                                ItemsSource="{Binding Documents}" 
+                                                SelectedItem="{Binding SelectedDocument, Mode=TwoWay}" 
+                                                ItemContainerStyle="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemStyle}"
+                                                Background="Transparent" 
+                                                BorderThickness="0" 
+                                                MaxHeight="400">
+                            <ListBox.ItemTemplate>
+                              <DataTemplate>
+                                <Grid>
+                                  <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="150"/>
+                                  </Grid.ColumnDefinitions>
+                                  <Image Source="{Binding LayoutElement.IconSource, Converter={StaticResource NullToDoNothingConverter}}" Stretch="None"/>
+                                  <TextBlock Text="{Binding LayoutElement.Title}" TextTrimming="CharacterEllipsis" Grid.Column="1" Margin="4,0,0,0"/>
+                                </Grid>
+                              </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical"/>
+                              </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                          </ListBox>
+                        </Grid>
+                      </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="2" Margin="5">
+                      <TextBlock Text="{Binding SelectedDocument.LayoutElement.ToolTip}" VerticalAlignment="Center"/>
+                    </Grid>
+                  </Grid>
+                </Border>
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!--LayoutGridResizerControl-->
+      <Style x:Key="{x:Type xcad:LayoutGridResizerControl}" TargetType="{x:Type xcad:LayoutGridResizerControl}">
+        <Setter Property="Background" Value="{DynamicResource ColorLessDark}"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutGridResizerControl}">
+              <Border Background="{TemplateBinding Background}" Margin="2"/>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="{x:Type xcad:LayoutDocumentControl}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutDocumentControl}">
+              <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter Content="{Binding LayoutItem.View, RelativeSource={RelativeSource TemplatedParent}}"
+                                       ContentTemplate="{Binding LayoutItem.View.ContentTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                       ContentTemplateSelector="{Binding LayoutItem.View.ContentTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" />
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+
+      <Style TargetType="{x:Type xcad:LayoutDocumentTabItem}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutDocumentTabItem}">
+              <xcad:DropDownControlArea 
+                            DropDownContextMenu="{Binding Root.Manager.DocumentContextMenu}"
+                            DropDownContextMenuDataContext="{Binding LayoutItem, RelativeSource={RelativeSource TemplatedParent}}" >
+                <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="0,2,0,1">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="2" Background="Transparent"/>
+                    <ContentPresenter Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}" 
+                                              ContentTemplate="{Binding DocumentHeaderTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
+                                              ContentTemplateSelector="{Binding DocumentHeaderTemplateSelector, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"/>
+                    <!-- Close button should be moved out to the container style -->
+                    <Button 
+                                    x:Name="DocumentCloseButton" 
+                                    Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Grid.Column="1" 
+                                    Margin="5,0,0,0" 
+                                    Visibility="Hidden" 
+                                    Command="{Binding Path=LayoutItem.CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                    ToolTip="{x:Static xprop:Resources.Document_Close}">
+                      <Image x:Name="PART_ImgPinClose" 
+                                           Source="Images/PinClose.png"/>
+                    </Button>
+                  </Grid>
+                </Border>
+              </xcad:DropDownControlArea>
+              <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=IsSelected}" Value="true">
+                  <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=IsLastFocusedDocument}" Value="true">
+                  <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />
+                  <Setter Property="Source" Value="Resources/Icons/PinClose_Dark.png" TargetName="PART_ImgPinClose"  />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=IsActive}" Value="true">
+                  <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />
+                  <Setter Property="Source" Value="Resources/Icons/PinClose_Dark.png" TargetName="PART_ImgPinClose"  />
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />
+                </Trigger>
+                <DataTrigger Binding="{Binding Path=CanClose}" Value="false">
+                  <Setter Property="Visibility" Value="Collapsed" TargetName="DocumentCloseButton"  />
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" SourceName="DocumentCloseButton" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinClose" Value="Resources/Icons/PinClose_Black.png"/>
+                </Trigger>
+
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="{x:Type xcad:LayoutAnchorableTabItem}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorableTabItem}">
+              <xcad:DropDownControlArea 
+                            DropDownContextMenu="{Binding Root.Manager.AnchorableContextMenu}"
+                            DropDownContextMenuDataContext="{Binding LayoutItem, RelativeSource={RelativeSource TemplatedParent}}">
+                <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                  <Grid>
+                    <ContentPresenter Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}" 
+                                          ContentTemplate="{Binding AnchorableHeaderTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
+                                          ContentTemplateSelector="{Binding AnchorableHeaderTemplateSelector, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"/>
+                    <xcad:DropDownControlArea 
+                                Grid.Column="0"
+                                DropDownContextMenu="{Binding Model.Root.Manager.AnchorableContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                DropDownContextMenuDataContext="{Binding Path=Model, RelativeSource={RelativeSource TemplatedParent}}"/>
+                  </Grid>
+                </Border>
+              </xcad:DropDownControlArea>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="{x:Type xcad:LayoutAnchorableControl}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutAnchorableControl}">
+              <Border 
+                        x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                  <Border x:Name="Header">
+                    <xcad:AnchorablePaneTitle 
+                                    Model="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}"/>
+                  </Border>
+                  <ContentPresenter 
+                                Grid.Row="1"
+                                FlowDirection="{TemplateBinding FlowDirection}"
+                                Content="{Binding LayoutItem.View, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+                  <ContentPresenter 
+                                Content="{Binding Model.Content, RelativeSource={RelativeSource TemplatedParent}}" 
+                                ContentTemplate="{Binding LayoutItemTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
+                                ContentTemplateSelector="{Binding LayoutItemTemplateSelector, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
+                                Grid.Row="1"/>
+                </Grid>
+              </Border>
+              <ControlTemplate.Triggers>
+                <MultiDataTrigger>
+                  <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Model.IsFloating}" Value="True"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Model.Parent.IsDirectlyHostedInFloatingWindow}" Value="True"/>
+                  </MultiDataTrigger.Conditions>
+                  <Setter Property="Visibility" Value="Collapsed" TargetName="Header"/>
+                </MultiDataTrigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+
+      <Style x:Key="{x:Type xcad:LayoutDocumentFloatingWindowControl}" TargetType="{x:Type xcad:LayoutDocumentFloatingWindowControl}">
+        <Setter Property="Background" Value="{DynamicResource ColorDark}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorDebug}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="shell:WindowChrome.WindowChrome">
+          <Setter.Value>
+            <shell:WindowChrome
+                    CornerRadius="0"
+                    ResizeBorderThickness="10"
+                    CaptionHeight="24"
+                    GlassFrameThickness="0"
+                    ShowSystemMenu="False"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type xcad:LayoutDocumentFloatingWindowControl}">
+              <Grid>
+                <Border x:Name="WindowBorder" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="24"/>
+                      <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="bd" Width="5" VerticalAlignment="Stretch" Background="{DynamicResource ColorText}"/>
+
+                    <Border x:Name="Header"
+                                        Padding="2,0,2,0"
+                                        Grid.Column="1">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*"/>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter
+                                            Content="{Binding Model.RootDocument, RelativeSource={RelativeSource TemplatedParent}}" 
+                                            ContentTemplate="{Binding Model.Root.Manager.DocumentTitleTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ContentTemplateSelector="{Binding Model.Root.Manager.DocumentTitleTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+
+                        <xcad:DropDownButton
+                                            x:Name="ContextMenuDropdownButton"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ToolButtonStyle}"
+                                            Focusable="False"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            DropDownContextMenu="{Binding Model.Root.Manager.DocumentContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                            DropDownContextMenuDataContext="{Binding Path=RootDocumentLayoutItem, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Document_CxMenu_Hint}">
+                          <Image x:Name="PART_ImgPinMenu" Stretch="None" Source="Resources/Icons/Resources/Icons//PinMenu.png" Width="13"/>
+                        </xcad:DropDownButton>
+
+                        <Button 
+                                            x:Name="PART_PinMaximize"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            Command="{x:Static shell:SystemCommands.MaximizeWindowCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Window_Maximize}"
+                                            Grid.Column="2">
+                          <Image x:Name="PART_ImgPinMaximize" Source="Resources/Icons/PinMaximize.png" Width="13" />
+                        </Button>
+
+                        <Button 
+                                            x:Name="PART_PinRestore"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            Command="{x:Static shell:SystemCommands.RestoreWindowCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Window_Restore}"
+                                            Grid.Column="2">
+                          <Image x:Name="PART_ImgPinRestore" Source="Resources/Icons/PinRestore.png" Width="13" />
+                        </Button>
+
+                        <Button 
+                                            x:Name="PART_PinClose"
+                                            shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Focusable="False"
+                                            Style="{StaticResource AvalonDock_ThemeMetro_ButtonStyle}"
+                                            Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Command="{Binding Path=RootDocumentLayoutItem.CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{x:Static xprop:Resources.Document_Close}"
+                                            Grid.Column="3">
+                          <Image x:Name="PART_ImgPinClose" Source="Resources/Icons/PinClose.png" Width="13" />
+                        </Button>
+                      </Grid>
+                    </Border>
+                    <ContentPresenter Content="{TemplateBinding Content}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                  </Grid>
+                </Border>
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="WindowState" Value="Maximized">
+                  <Setter Property="Padding" Value="3" TargetName="WindowBorder"/>
+                </Trigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Model.RootDocument.IsActive}" Value="True">
+                  <Setter 
+                                TargetName="bd"
+                                Property="Background"
+								Value="{DynamicResource ColorHighlight1}" />
+                  <Setter 
+                                TargetName="Header"
+                                Property="Background"
+								Value="{DynamicResource ColorHighlight1}" />
+                  <Setter 
+                                TargetName="Header"
+                                Property="TextElement.Foreground"
+								Value="{DynamicResource ColorDark}" />
+                </DataTrigger>
+
+                <Trigger Property="IsMouseOver" SourceName="ContextMenuDropdownButton" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMenu" Value="Resources/Icons/PinMenu_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsChecked" SourceName="ContextMenuDropdownButton" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMenu" Value="Resources/Icons/PinMenu_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinMaximize" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinMaximize" Value="Resources/Icons/PinMaximize_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinRestore" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinRestore" Value="Resources/Icons/PinRestore_Black.png"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" SourceName="PART_PinClose" Value="True">
+                  <Setter Property="Source" TargetName="PART_ImgPinClose" Value="Resources/Icons/PinClose_Black.png"/>
+                </Trigger>
+
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="{x:Type xcad:LayoutAutoHideWindowControl}" TargetType="{x:Type xcad:LayoutAutoHideWindowControl}">
+        <Setter Property="Background" Value="{DynamicResource ColorDark}"/>
+      </Style>
+
+      <Style x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemFocusVisual">
+        <Setter Property="Control.Template">
+          <Setter.Value>
+            <ControlTemplate>
+              <Rectangle RadiusY="2" RadiusX="2" Stroke="#8E6EA6F5" StrokeThickness="1"/>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <LinearGradientBrush x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemHoverFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFF1FBFF" Offset="0"/>
+        <GradientStop Color="#FFD5F1FE" Offset="1"/>
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFD9F4FF" Offset="0"/>
+        <GradientStop Color="#FF9BDDFB" Offset="1"/>
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedInactiveFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFEEEDED" Offset="0"/>
+        <GradientStop Color="#FFDDDDDD" Offset="1"/>
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedHoverFill" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFEAF9FF" Offset="0"/>
+        <GradientStop Color="#FFC9EDFD" Offset="1"/>
+      </LinearGradientBrush>
+
+      <Style x:Key="AvalonDock_ThemeMetro_NavigatorWindowListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemFocusVisual}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5,0,5,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ListBoxItem">
+              <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="true">
+                <Border x:Name="InnerBorder" BorderThickness="1" >
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition MaxHeight="11"/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Rectangle x:Name="UpperHighlight" Fill="#75FFFFFF" Visibility="Collapsed"/>
+                    <ContentPresenter Grid.RowSpan="2" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                  </Grid>
+                </Border>
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                  <Setter Property="Background" Value="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedFill}"/>
+                  <Setter Property="BorderBrush" Value="#FF98DDFB"/>
+                  <Setter Property="BorderBrush" TargetName="InnerBorder" Value="#80FFFFFF"/>
+                  <Setter Property="Visibility" TargetName="UpperHighlight" Value="Visible"/>
+                  <Setter Property="Fill" TargetName="UpperHighlight" Value="#40FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="true">
+                  <Setter Property="Background" Value="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedFill}"/>
+                  <Setter Property="BorderBrush" Value="#FF98DDFB"/>
+                  <Setter Property="BorderBrush" TargetName="InnerBorder" Value="#80FFFFFF"/>
+                  <Setter Property="Visibility" TargetName="UpperHighlight" Value="Visible"/>
+                  <Setter Property="Fill" TargetName="UpperHighlight" Value="#40FFFFFF"/>
+                </Trigger>
+                <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true"/>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource AvalonDock_ThemeMetro_NavigatorWindowListBoxItemSelectedHoverFill}"/>
+                            <Setter Property="BorderBrush" Value="#FF98DDFB"/>
+                        </MultiTrigger>
+                <Trigger Property="IsEnabled" Value="false">
+                  <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+
+    </ResourceDictionary>
 
   </Application.Resources>
 </Application>

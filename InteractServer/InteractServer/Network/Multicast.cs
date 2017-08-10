@@ -16,11 +16,20 @@ namespace InteractServer.Network
   public class Multicast
   {
     UdpSocketMulticastClient receiver;
+    UdpSocketClient sender;
 
-    public Multicast()
+    private bool connected = false;
+    public bool Connected { get; }
+
+    public async void Start()
     {
+      if (connected) return;
+      connected = true;
+
       receiver = new UdpSocketMulticastClient();
       receiver.TTL = 5;
+
+      sender = new UdpSocketClient();
 
       receiver.MessageReceived += async (sender, args) =>
       {
@@ -28,25 +37,32 @@ namespace InteractServer.Network
 
         if (data.Equals("INTERACT ID REQUEST"))
         {
-          var writer = Global.Network.GetWriter();
+          var stream = new MemoryStream();
+          var writer = new BinaryWriter(stream, Encoding.UTF8);
           writer.Write((Byte)NetworkMessage.Acknowledge);
           writer.Write(Properties.Settings.Default.ServerName);
           writer.Write(Properties.Settings.Default.NetworkToken);
+          writer.Write((Byte)NetworkMessage.EndOfMessage);
+          writer.Flush();
 
-          await Global.Network.SendUdp(args.RemoteAddress, writer);
+          await this.sender.SendToAsync(stream.GetBuffer(), args.RemoteAddress, Constants.UdpPort);
         }
       };
+
+      await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
     }
 
-    public async void Disconnect()
+    public async void Stop()
     {
+      if (!connected) return;
+
       await receiver.DisconnectAsync();
       receiver.Dispose();
-    }
 
-    public async void Join()
-    {
-      await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
+      await sender.DisconnectAsync();
+      sender.Dispose();
+
+      connected = false;
     }
   }
 }

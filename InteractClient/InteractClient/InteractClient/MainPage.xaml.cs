@@ -13,7 +13,7 @@ namespace InteractClient
   {
     Multicast multicast;
     Network.Network network;
-    Service hub;
+    Signaler hub;
 
     public MainPage()
     {
@@ -22,7 +22,7 @@ namespace InteractClient
 
       multicast = Multicast.Get();
       network = Network.Network.Get();
-      hub = Network.Service.Get();
+      hub = Network.Signaler.Get();
 
       //this.FindByName<Entry>("UserName").Text = Settings.Current.Get<String>("UserName");
     }
@@ -31,16 +31,40 @@ namespace InteractClient
     {
       base.OnAppearing();
       Global.CurrentPage = this;
-      Server.Servers.Clear();
+      Global.LookForServers = true;
+
+      Network.ServerList.Servers.Clear();
       UpdateServerList();
+      Logo.RotateTo(1000, 3000);
       multicast.RequestServerList();
+
+      Device.StartTimer(TimeSpan.FromSeconds(30), () =>
+      {
+        if(Global.LookForServers == true)
+        {
+          Network.ServerList.Servers.Clear();
+          UpdateServerList();
+          Logo.RotateTo(1000, 3000);
+          multicast.RequestServerList();
+        } else
+        {
+          if(!Signaler.Get().Connected)
+          {
+            Navigation.PopToRootAsync();
+            Network.ServerList.Servers.Clear();
+            UpdateServerList();
+            Global.LookForServers = true;
+          }
+        }
+        return true;
+      });
     }
 
     public void UpdateServerList()
     {
       ServerList.ItemsSource = null;
-      ServerList.ItemsSource = Server.Servers;
-      if (Server.Servers.Count > 0)
+      ServerList.ItemsSource = Network.ServerList.Servers;
+      if (Network.ServerList.Servers.Count > 0)
       {
         PageGrid.RowDefinitions[0].Height = 0;
       }
@@ -52,7 +76,7 @@ namespace InteractClient
 
     private void ButtonServer_Clicked(object sender, EventArgs e)
     {
-      Server.Servers.Clear();
+      Network.ServerList.Servers.Clear();
       UpdateServerList();
       multicast.RequestServerList();
       Logo.RotateTo(1000, 3000);
@@ -64,8 +88,9 @@ namespace InteractClient
       if (sender is ViewCell)
       {
         ViewCell cell = sender as ViewCell;
-        Server server = cell.BindingContext as Server;
+        ServerList server = cell.BindingContext as ServerList;
         await Logo.RotateTo(500, 3000);
+        Global.LookForServers = false;
         await hub.ConnectAsync(server);
       }
     }
@@ -77,6 +102,7 @@ namespace InteractClient
 
     private void OptionsButton_Clicked(object sender, EventArgs e)
     {
+      Global.LookForServers = false;
       Navigation.PushAsync(new OptionsPage());
     }
   }

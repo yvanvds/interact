@@ -5,6 +5,7 @@ using Microsoft.Maker.Serial;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
@@ -32,8 +33,8 @@ namespace InteractClient.UWP.Implementation
     private Dictionary<string, DeviceInformation> connections = new Dictionary<string, DeviceInformation>();
 
     // both are needed to keep track of steps
-    private Dictionary<string, int> stepSize;
-    private Dictionary<string, int> lastValue;
+    private Dictionary<string, int> stepSize = new Dictionary<string, int>();
+    private Dictionary<string, int> lastValue = new Dictionary<string, int>();
 
     public event ArduinoReadyEventHandler DeviceReady;
     public event ArduinoFailedEventHandler DeviceConnectionFailed;
@@ -149,9 +150,16 @@ namespace InteractClient.UWP.Implementation
     {
       if(connection != null)
       {
-        connection.ConnectionEstablished -= OnDeviceReady;
-        connection.ConnectionFailed -= OnConnectionFailed;
-        connection.end();
+        try
+        {
+          connection.ConnectionEstablished -= OnDeviceReady;
+          connection.ConnectionFailed -= OnConnectionFailed;
+          connection.end();
+        } catch(SEHException)
+        {
+          
+        }
+        
       }
 
       if(arduino != null)
@@ -208,7 +216,7 @@ namespace InteractClient.UWP.Implementation
     {
       if(disabledPins.Contains(pin))
       {
-        Network.Service.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
+        Network.Signaler.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
         return;
       }
 
@@ -225,13 +233,13 @@ namespace InteractClient.UWP.Implementation
     {
       if (disabledPins.Contains(pin))
       {
-        Network.Service.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
+        Network.Signaler.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
         return Convert(PinState.LOW);
       }
 
       if(arduino.getPinMode(pin) != PinMode.OUTPUT)
       {
-        Network.Service.Get().WriteLog("Arduino: Pin " + (int)pin + " is not in output mode.");
+        Network.Signaler.Get().WriteLog("Arduino: Pin " + (int)pin + " is not in output mode.");
         return Convert(PinState.LOW);
       }
 
@@ -242,13 +250,13 @@ namespace InteractClient.UWP.Implementation
     {
       if (disabledPins.Contains(pin))
       {
-        Network.Service.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
+        Network.Signaler.Get().WriteLog("Arduino: Pin " + (int)pin + " is disabled.");
         return;
       }
 
       if (arduino.getPinMode(pin) != PinMode.OUTPUT)
       {
-        Network.Service.Get().WriteLog("Arduino: Pin " + (int)pin + " is not in output mode.");
+        Network.Signaler.Get().WriteLog("Arduino: Pin " + (int)pin + " is not in output mode.");
         return;
       }
 
@@ -303,7 +311,7 @@ namespace InteractClient.UWP.Implementation
       HardwareProfile hardware = arduino.DeviceHardwareProfile;
       if(hardware == null)
       {
-        InteractClient.Network.Service.Get().WriteLog("Arduino Error: No Hardware Profile found.");
+        InteractClient.Network.Signaler.Get().WriteLog("Arduino Error: No Hardware Profile found.");
         return;
       }
 
@@ -314,13 +322,13 @@ namespace InteractClient.UWP.Implementation
       pwmPins = hardware.PwmPins;
       i2cPins = hardware.I2cPins;
 
-      Network.Service.Get().WriteLog("Arduino Configuration: ");
-      Network.Service.Get().WriteLog("  Digital  Pins: " + digitalPins.Count);
-      Network.Service.Get().WriteLog("  Analog   Pins: " + analogPins.Count);
-      Network.Service.Get().WriteLog("  Disabled Pins: " + disabledPins.Count);
-      Network.Service.Get().WriteLog("  PWM      Pins: " + pwmPins.Count);
-      Network.Service.Get().WriteLog("  i2c      Pins: " + i2cPins.Count);
-      Network.Service.Get().WriteLog("  Analog Pin Offset: " + analogOffset);
+      Network.Signaler.Get().WriteLog("Arduino Configuration: ");
+      Network.Signaler.Get().WriteLog("  Digital  Pins: " + digitalPins.Count);
+      Network.Signaler.Get().WriteLog("  Analog   Pins: " + analogPins.Count);
+      Network.Signaler.Get().WriteLog("  Disabled Pins: " + disabledPins.Count);
+      Network.Signaler.Get().WriteLog("  PWM      Pins: " + pwmPins.Count);
+      Network.Signaler.Get().WriteLog("  i2c      Pins: " + i2cPins.Count);
+      Network.Signaler.Get().WriteLog("  Analog Pin Offset: " + analogOffset);
 
       //ListPinConfiguration();
     }
@@ -329,27 +337,27 @@ namespace InteractClient.UWP.Implementation
     {
       foreach(var pin in digitalPins)
       {
-        Network.Service.Get().WriteLog("Digital: " + pin);
+        Network.Signaler.Get().WriteLog("Digital: " + pin);
       }
 
       foreach (var pin in analogPins)
       {
-        Network.Service.Get().WriteLog("Analog: " + pin);
+        Network.Signaler.Get().WriteLog("Analog: " + pin);
       }
 
       foreach (var pin in pwmPins)
       {
-        Network.Service.Get().WriteLog("PWM: " + pin);
+        Network.Signaler.Get().WriteLog("PWM: " + pin);
       }
 
       foreach (var pin in i2cPins)
       {
-        Network.Service.Get().WriteLog("i2c: " + pin);
+        Network.Signaler.Get().WriteLog("i2c: " + pin);
       }
 
       foreach (var pin in disabledPins)
       {
-        Network.Service.Get().WriteLog("Disabled: " + pin);
+        Network.Signaler.Get().WriteLog("Disabled: " + pin);
       }
     }
 
@@ -363,6 +371,7 @@ namespace InteractClient.UWP.Implementation
       if(stepSize.ContainsKey(pin))
       {
         if (Math.Abs(value - lastValue[pin]) < stepSize[pin]) return;
+        else lastValue[pin] = value;
       }
       AnalogPinSignal(pin, value);
     }

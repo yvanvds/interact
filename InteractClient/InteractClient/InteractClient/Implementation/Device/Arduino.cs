@@ -2,6 +2,7 @@
 using InteractClient.Interface;
 using Xamarin.Forms;
 using Acr.Settings;
+using System;
 
 namespace InteractClient.Implementation.Device
 {
@@ -77,7 +78,7 @@ namespace InteractClient.Implementation.Device
         }
       }
 
-      InteractClient.Network.Service.Get().WriteLog("No Arduino Configured");
+      InteractClient.Network.Signaler.Get().WriteLog("No Arduino Configured");
     }
 
     public void AllowJintOutput(bool value)
@@ -208,6 +209,16 @@ namespace InteractClient.Implementation.Device
     public override void StopOSC()
     {
       OscSender = null;
+    }
+
+    public override int GetStepSize(int pin)
+    {
+      return device.GetStepSize(pin);
+    }
+
+    public override void SetStepSize(int pin, int size)
+    {
+      device.SetStepSize(pin, size);
     }
   }
 }

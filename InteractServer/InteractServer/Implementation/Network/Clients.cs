@@ -21,13 +21,13 @@ namespace InteractServer.Implementation.Network
 
     public override void Invoke(string MethodName, params object[] arguments)
     {
-      Global.NetworkService.InvokeMethod(MethodName, arguments);
+      Global.Sender.InvokeMethod(MethodName, arguments);
     }
 
     public override void StartScreen(string screenName)
     {
       int ID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
-      Global.NetworkService.StartScreen(ID);
+      Global.Sender.StartScreen(ID);
     }
 
     public override Interact.Network.Client GetLocal()

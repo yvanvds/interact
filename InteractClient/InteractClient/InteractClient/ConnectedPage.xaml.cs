@@ -34,20 +34,20 @@ namespace InteractClient
             base.OnAppearing();
             Global.CurrentPage = this;
             Engine.Instance.SetActivePage(this);
-            SetActivity("Connected To " + InteractClient.Network.Service.Get().ConnectedServer?.Name, false);
+            SetActivity("Connected To " + InteractClient.Network.Signaler.Get().ConnectedServer?.Name, false);
         }
 
 
 
         private void DisconnectButton_Clicked(object sender, EventArgs e)
         {
-            Network.Service.Get().Disconnect();
+            Network.Signaler.Get().Disconnect();
             Navigation.PopToRootAsync();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            Network.Service.Get().Disconnect();
+            Network.Signaler.Get().Disconnect();
             return base.OnBackButtonPressed();
         }
 

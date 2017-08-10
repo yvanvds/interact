@@ -70,7 +70,7 @@ namespace InteractClient.iOS.Implementation
             motionManager.StartAccelerometerUpdates(NSOperationQueue.CurrentQueue, OnAccelerometerChanged);
           } else
           {
-            Network.Service.Get().WriteLog("Sensor: AcceleroMeter not available.");
+            Network.Signaler.Get().WriteLog("Sensor: AcceleroMeter not available.");
           }
           break;
         case SensorType.Gyroscope:
@@ -81,7 +81,7 @@ namespace InteractClient.iOS.Implementation
           }
           else
           {
-            Network.Service.Get().WriteLog("Sensor: Gyroscope not available.");
+            Network.Signaler.Get().WriteLog("Sensor: Gyroscope not available.");
           }
           break;
         case SensorType.MagnetoMeter:
@@ -92,7 +92,7 @@ namespace InteractClient.iOS.Implementation
           }
           else
           {
-            Network.Service.Get().WriteLog("Sensor: Magnetometer not available.");
+            Network.Signaler.Get().WriteLog("Sensor: Magnetometer not available.");
           }
           break;
         case SensorType.Compass:
@@ -103,7 +103,7 @@ namespace InteractClient.iOS.Implementation
           }
           else
           {
-            Network.Service.Get().WriteLog("Sensor: Compass not available.");
+            Network.Signaler.Get().WriteLog("Sensor: Compass not available.");
           }
           break;
       }

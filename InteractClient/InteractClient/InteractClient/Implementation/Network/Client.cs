@@ -36,7 +36,7 @@ namespace InteractClient.Implementation.Network
         JintEngine.Engine.Instance.Invoke(MethodName, arguments);
       } else
       {
-        InteractClient.Network.Service.Get().InvokeMethod(ID, MethodName, arguments);
+        InteractClient.Network.Signaler.Get().InvokeMethod(ID, MethodName, arguments);
       }
     }
 
@@ -45,7 +45,7 @@ namespace InteractClient.Implementation.Network
       Data.Screen screen = Data.Project.Current.GetScreen(screenName);
       if(screen == null)
       {
-        InteractClient.Network.Service.Get().WriteLog("Error: the screen to start does not exist.");
+        InteractClient.Network.Signaler.Get().WriteLog("Error: the screen to start does not exist.");
         return;
       }
 
@@ -54,7 +54,7 @@ namespace InteractClient.Implementation.Network
         JintEngine.Engine.Instance.StartScreen(screen.ID);
       } else
       {
-        InteractClient.Network.Service.Get().StartScreen(ID, screen.ID);
+        InteractClient.Network.Signaler.Get().StartScreen(ID, screen.ID);
       }
     }
   }

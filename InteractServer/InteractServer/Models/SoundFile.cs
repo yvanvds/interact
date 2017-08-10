@@ -85,7 +85,7 @@ namespace InteractServer.Models
 
         public void SendToClient(string clientID)
         {
-            Global.NetworkService.SendSoundFile(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+            Global.Sender.SendSoundFile(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
         }
 
         public BlockAlignReductionStream GetStream()

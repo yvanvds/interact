@@ -45,7 +45,7 @@ namespace Interact.Device
     // output is handled. This only works with analog pins because digital pins only 
     // output 0 and 1.
     public abstract int GetStepSize(int pin);
-    public abstract void SetStepSize(int pin);
+    public abstract void SetStepSize(int pin, int size);
 
     public abstract void OnDeviceReady(string functionName);
     public abstract void OnConnectionFailed(string functionName);

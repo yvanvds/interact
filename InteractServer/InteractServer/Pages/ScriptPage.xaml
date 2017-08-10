@@ -8,11 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ScriptPage">
-  <ScrollViewer Template="{DynamicResource ScrollViewerDark}">
-    
   
     <Grid>
         <control:CodeEditor x:Name="Editor" Width="Auto"/>
     </Grid>
-  </ScrollViewer>
+
 </local:BasePage>

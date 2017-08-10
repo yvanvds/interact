@@ -39,14 +39,14 @@ namespace InteractClient.Data
         // request project data if not on the same version
         if (Current.Version != Version)
         {
-          Network.Service.Get().WriteLog("Project->SetCurrent: project " + ID.ToString() + " found. Requested update.");
-          Network.Service.Get().GetProjectConfig(ID);
+          Network.Signaler.Get().WriteLog("Project->SetCurrent: project " + ID.ToString() + " found. Requested update.");
+          Network.Signaler.Get().GetProjectConfig(ID);
           Current.Version = Version; // might be better to do this with the actual update, but then we have to resend the version, which feels wrong because the update will be done in many parts
         }
         else
         {
-          Network.Service.Get().WriteLog("Project->SetCurrent: project " + ID.ToString() + " found and up to date.");
-          Network.Service.Get().GetNextMethod();
+          Network.Signaler.Get().WriteLog("Project->SetCurrent: project " + ID.ToString() + " found and up to date.");
+          Network.Signaler.Get().GetNextMethod();
         }
         return;
       }
@@ -54,8 +54,8 @@ namespace InteractClient.Data
       // create new project
       Current = new Project { ID = ID, Version = Version };
       List.Add(ID, Current);
-      Network.Service.Get().WriteLog("Project->SetCurrent: new project added with ID " + ID.ToString());
-      Network.Service.Get().GetProjectConfig(ID);
+      Network.Signaler.Get().WriteLog("Project->SetCurrent: new project added with ID " + ID.ToString());
+      Network.Signaler.Get().GetProjectConfig(ID);
 
     }
 
@@ -66,7 +66,7 @@ namespace InteractClient.Data
         if (screen.ID == ID)
         {
           screen.Deserialize(content);
-          Network.Service.Get().WriteLog("Project->UpdateScreen: screen " + ID + " updated.");
+          Network.Signaler.Get().WriteLog("Project->UpdateScreen: screen " + ID + " updated.");
           goto next;
         }
       }
@@ -75,10 +75,10 @@ namespace InteractClient.Data
       Screen s = new Screen();
       s.Deserialize(content);
       Screens.Add(s);
-      Network.Service.Get().WriteLog("Project->UpdateScreen: new screen " + ID + " added.");
+      Network.Signaler.Get().WriteLog("Project->UpdateScreen: new screen " + ID + " added.");
 
       next:
-      Network.Service.Get().GetNextMethod();
+      Network.Signaler.Get().GetNextMethod();
     }
 
     public void UpdateImage(int ID, string content)
@@ -88,7 +88,7 @@ namespace InteractClient.Data
         if (image.ID == ID)
         {
           image.Deserialize(content);
-          Network.Service.Get().WriteLog("Project->UpdateImage: image " + image.Name + " updated.");
+          Network.Signaler.Get().WriteLog("Project->UpdateImage: image " + image.Name + " updated.");
           goto next;
         }
       }
@@ -96,10 +96,10 @@ namespace InteractClient.Data
       Image newImage = new Image();
       newImage.Deserialize(content);
       Images.Add(newImage);
-      Network.Service.Get().WriteLog("Project->UpdateImage: new image " + newImage.Name + " added.");
+      Network.Signaler.Get().WriteLog("Project->UpdateImage: new image " + newImage.Name + " added.");
 
       next:
-      Network.Service.Get().GetNextMethod();
+      Network.Signaler.Get().GetNextMethod();
     }
 
     public void UpdateSoundFile(int ID, string content)
@@ -109,7 +109,7 @@ namespace InteractClient.Data
         if (sf.ID == ID)
         {
           sf.Deserialize(content);
-          Network.Service.Get().WriteLog("Project->UpdateSoundFile: sound " + sf.Name + " updated.");
+          Network.Signaler.Get().WriteLog("Project->UpdateSoundFile: sound " + sf.Name + " updated.");
           goto next;
         }
       }
@@ -117,10 +117,10 @@ namespace InteractClient.Data
       SoundFile newSF = new SoundFile();
       newSF.Deserialize(content);
       SoundFiles.Add(newSF);
-      Network.Service.Get().WriteLog("Project->UpdateSoundFile: new sound " + newSF.Name + " added.");
+      Network.Signaler.Get().WriteLog("Project->UpdateSoundFile: new sound " + newSF.Name + " added.");
 
       next:
-      Network.Service.Get().GetNextMethod();
+      Network.Signaler.Get().GetNextMethod();
     }
 
     public void SetScreenVersion(Guid projectID, int screenID, int Version)
@@ -131,21 +131,21 @@ namespace InteractClient.Data
         {
           if (screen.Version == Version)
           {
-            Network.Service.Get().WriteLog("Project->SetScreenVersion: screen " + screenID + " is on the right version.");
-            Network.Service.Get().GetNextMethod();
+            Network.Signaler.Get().WriteLog("Project->SetScreenVersion: screen " + screenID + " is on the right version.");
+            Network.Signaler.Get().GetNextMethod();
           }
           else
           {
-            Network.Service.Get().WriteLog("Project->SetScreenVersion: Screen " + screenID + " needs an update.");
-            Network.Service.Get().GetScreen(projectID, screenID);
+            Network.Signaler.Get().WriteLog("Project->SetScreenVersion: Screen " + screenID + " needs an update.");
+            Network.Signaler.Get().GetScreen(projectID, screenID);
           }
           return;
         }
       }
 
       // screen not found, so ask for it anyway
-      Network.Service.Get().WriteLog("Project->SetScreenVersion: Screen not found. Requesting content for screen " + screenID + ".");
-      Network.Service.Get().GetScreen(projectID, screenID);
+      Network.Signaler.Get().WriteLog("Project->SetScreenVersion: Screen not found. Requesting content for screen " + screenID + ".");
+      Network.Signaler.Get().GetScreen(projectID, screenID);
 
     }
 
@@ -157,21 +157,21 @@ namespace InteractClient.Data
         {
           if (image.Version == Version)
           {
-            Network.Service.Get().WriteLog("Project->SetImageVersion: image " + image.Name + " is on the right version.");
-            Network.Service.Get().GetNextMethod();
+            Network.Signaler.Get().WriteLog("Project->SetImageVersion: image " + image.Name + " is on the right version.");
+            Network.Signaler.Get().GetNextMethod();
           }
           else
           {
-            Network.Service.Get().WriteLog("Project->SetImageVerison: image " + image.Name + " needs an update.");
-            Network.Service.Get().GetImage(projectID, imageID);
+            Network.Signaler.Get().WriteLog("Project->SetImageVerison: image " + image.Name + " needs an update.");
+            Network.Signaler.Get().GetImage(projectID, imageID);
           }
           return;
         }
       }
 
       // image not found, so ask for it anyway
-      Network.Service.Get().WriteLog("Project->SetImageVersion: Image not found. Requesting content for image" + imageID + ".");
-      Network.Service.Get().GetImage(projectID, imageID);
+      Network.Signaler.Get().WriteLog("Project->SetImageVersion: Image not found. Requesting content for image" + imageID + ".");
+      Network.Signaler.Get().GetImage(projectID, imageID);
     }
 
     public void SetSoundFileVersion(Guid projectID, int sfID, int Version)
@@ -182,21 +182,21 @@ namespace InteractClient.Data
         {
           if (soundfile.Version == Version)
           {
-            Network.Service.Get().WriteLog("Project->SetSoundFileVersion: sound " + soundfile.Name + " is on the right version.");
-            Network.Service.Get().GetNextMethod();
+            Network.Signaler.Get().WriteLog("Project->SetSoundFileVersion: sound " + soundfile.Name + " is on the right version.");
+            Network.Signaler.Get().GetNextMethod();
           }
           else
           {
-            Network.Service.Get().WriteLog("Project->SetSoundFileVersion: sound " + soundfile.Name + " needs an update.");
-            Network.Service.Get().GetSoundFile(projectID, soundfile.ID);
+            Network.Signaler.Get().WriteLog("Project->SetSoundFileVersion: sound " + soundfile.Name + " needs an update.");
+            Network.Signaler.Get().GetSoundFile(projectID, soundfile.ID);
           }
           return;
         }
       }
 
       // image not found, so ask for it anyway
-      Network.Service.Get().WriteLog("Project->SetSoundFileVersion: File not found. Requesting content for file " + sfID + ".");
-      Network.Service.Get().GetSoundFile(projectID, sfID);
+      Network.Signaler.Get().WriteLog("Project->SetSoundFileVersion: File not found. Requesting content for file " + sfID + ".");
+      Network.Signaler.Get().GetSoundFile(projectID, sfID);
     }
 
     public Screen GetScreen(int ID)
@@ -290,8 +290,8 @@ namespace InteractClient.Data
         ConfigText.DeSerialize(values["ConfigText"]);
       }
 
-      Network.Service.Get().WriteLog("Project->SetConfig: Project Configuration set.");
-      Network.Service.Get().GetNextMethod();
+      Network.Signaler.Get().WriteLog("Project->SetConfig: Project Configuration set.");
+      Network.Signaler.Get().GetNextMethod();
     }
   }
 }

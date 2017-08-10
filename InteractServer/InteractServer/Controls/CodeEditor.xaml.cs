@@ -40,6 +40,10 @@ namespace InteractServer.Controls
     {
       InitializeComponent();
 
+      // h scroll is done manually
+      TextArea.ScrollWidth = 1;
+      TextArea.ScrollWidthTracking = false;
+
       //TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
       TextArea.WrapMode = ScintillaNET.WrapMode.None;
       TextArea.IndentationGuides = ScintillaNET.IndentView.LookBoth;
@@ -180,21 +184,23 @@ namespace InteractServer.Controls
     /// </summary>
     private const int FORE_COLOR = 0xB7B7B7;
 
+    private const int LINE_NUMBER_COLOR = 0x00aeef;
+
     /// <summary>
     /// change this to whatever margin you want the line numbers to show in
     /// </summary>
-    private const int NUMBER_MARGIN = 1;
+    private const int NUMBER_MARGIN = 0;
 
     /// <summary>
     /// change this to whatever margin you want the bookmarks/breakpoints to show in
     /// </summary>
-    private const int BOOKMARK_MARGIN = 2;
-    private const int BOOKMARK_MARKER = 2;
+    private const int BOOKMARK_MARGIN = 1;
+    private const int BOOKMARK_MARKER = 1;
 
     /// <summary>
     /// change this to whatever margin you want the code folding tree (+/-) to show in
     /// </summary>
-    private const int FOLDING_MARGIN = 3;
+    private const int FOLDING_MARGIN = 2;
 
     /// <summary>
     /// set this true to show circular buttons for code folding (the [+] and [-] buttons on the margin)
@@ -205,7 +211,7 @@ namespace InteractServer.Controls
     {
 
       TextArea.Styles[ScintillaNET.Style.LineNumber].BackColor = Editor.IntToColor(BACK_COLOR);
-      TextArea.Styles[ScintillaNET.Style.LineNumber].ForeColor = Editor.IntToColor(FORE_COLOR);
+      TextArea.Styles[ScintillaNET.Style.LineNumber].ForeColor = Editor.IntToColor(LINE_NUMBER_COLOR);
       TextArea.Styles[ScintillaNET.Style.IndentGuide].ForeColor = Editor.IntToColor(FORE_COLOR);
       TextArea.Styles[ScintillaNET.Style.IndentGuide].BackColor = Editor.IntToColor(BACK_COLOR);
 
@@ -213,28 +219,24 @@ namespace InteractServer.Controls
       nums.Width = 30;
       nums.Type = MarginType.Number;
       nums.Sensitive = true;
-      nums.Mask = 0;
+      //nums.Mask = 1 << NUMBER_MARGIN;
 
       TextArea.MarginClick += TextArea_MarginClick;
     }
 
     private void InitBookmarkMargin()
     {
-
-      //TextArea.SetFoldMarginColor(true, IntToColor(BACK_COLOR));
-
       var margin = TextArea.Margins[BOOKMARK_MARGIN];
-      margin.Width = 20;
+      margin.Width = 16;
       margin.Sensitive = true;
       margin.Type = MarginType.Symbol;
-      margin.Mask = (1 << BOOKMARK_MARKER);
-      //margin.Cursor = MarginCursor.Arrow;
+      margin.Mask = BOOKMARK_MARGIN;
+      margin.Cursor = MarginCursor.Arrow;
 
       var marker = TextArea.Markers[BOOKMARK_MARKER];
       marker.Symbol = MarkerSymbol.Circle;
-      marker.SetBackColor(Editor.IntToColor(0xFF003B));
-      marker.SetForeColor(Editor.IntToColor(0x000000));
-      marker.SetAlpha(100);
+      marker.SetBackColor(Editor.IntToColor(0xAA0000));
+      marker.SetForeColor(Editor.IntToColor(0xFFFFFF));
 
     }
 
@@ -431,7 +433,14 @@ namespace InteractServer.Controls
       {
         acMenu.MinFragmentLength = 2;
       }
-        
+
+      // calculate horizontal scrolling
+      int width = 1;
+      foreach(var line in TextArea.Lines)
+      {
+        if (line.EndPosition > width) width = line.EndPosition;
+      }
+      TextArea.ScrollWidth = width;
     }
   }
 

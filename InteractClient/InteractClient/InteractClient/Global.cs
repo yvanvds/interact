@@ -11,6 +11,8 @@ namespace InteractClient
   {
     public static ContentPage CurrentPage = null;
 
+    public static bool LookForServers = false;
+
     public static void UpdatePage(bool connected)
     {
       if (CurrentPage is MainPage && connected)

@@ -15,7 +15,7 @@ namespace InteractServer.Models
         public SoundFiles(SQLiteConnection connection)
         {
             Name = "SoundFiles";
-            Icon = @"/InteractServer;component/Resources/Icons/Soundfile_32x.png";
+            Icon = @"/InteractServer;component/Resources/Icons/Soundfile_16x.png";
             this.connection = connection;
             connection.CreateTable<SoundFile>();
 
@@ -100,7 +100,7 @@ namespace InteractServer.Models
             {
                 Global.Clients.Get(clientID).QueueMethod(() =>
                 {
-                    Global.NetworkService.SendSoundFileVersion(clientID, ProjectID, sf.ID, sf.Version);
+                    Global.Sender.SendSoundFileVersion(clientID, ProjectID, sf.ID, sf.Version);
                 });
             }
         }

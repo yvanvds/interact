@@ -15,7 +15,7 @@ namespace InteractServer.Models
     public Screens(SQLiteConnection connection)
     {
       Name = "Screens"; // the name is shown in the tree view
-      Icon = @"/InteractServer;component/Resources/Icons/Phone_32x.png";
+      Icon = @"/InteractServer;component/Resources/Icons/Phone_16x.png";
       this.connection = connection;
       connection.CreateTable<Screen>();
 
@@ -87,7 +87,7 @@ namespace InteractServer.Models
       {
         Global.Clients.Get(clientID).QueueMethod(() =>
         {
-          Global.NetworkService.SendScreenVersion(clientID, ProjectID, screen.ID, screen.Version);
+          Global.Sender.SendScreenVersion(clientID, ProjectID, screen.ID, screen.Version);
         });
       }
     }

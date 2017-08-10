@@ -12,7 +12,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace InteractServer.Network
 {
-  public class Service
+  public class SignalSender
   {
     public IDisposable SignalR { get; set; }
     public IHubConnectionContext<dynamic> Clients { get; set; }
@@ -29,7 +29,7 @@ namespace InteractServer.Network
         Global.Log.AddEntry("Unable to start server at port " + Constants.TcpPort);
         return;
       }
-      Clients = GlobalHost.ConnectionManager.GetHubContext<InteractHub>().Clients;
+      Clients = GlobalHost.ConnectionManager.GetHubContext<SignalReceiver>().Clients;
       Global.Log.AddEntry("Server started at port " + Constants.TcpPort);
     }
 

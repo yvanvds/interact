@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace InteractServer
 {
 
-  public class InteractHub : Hub
+  public class SignalReceiver : Hub
   {
 
 
@@ -83,12 +83,12 @@ namespace InteractServer
 
     public void InvokeMethod(string clientID, string method, params object[] arguments)
     {
-      Global.NetworkService.InvokeMethod(clientID, method, arguments);
+      Global.Sender.InvokeMethod(clientID, method, arguments);
     }
 
     public void StartScreen(string clientID, int screenID)
     {
-      Global.NetworkService.StartScreen(clientID, screenID);
+      Global.Sender.StartScreen(clientID, screenID);
     }
 
     public void Log(string message)

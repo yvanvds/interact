@@ -9,8 +9,8 @@
              d:DesignHeight="361.559" Width="458.961">
 
     <DockPanel LastChildFill="true">
-        <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <scin:Scintilla x:Name="TextArea" TextChanged="TextArea_TextChanged"></scin:Scintilla>
+        <WindowsFormsHost x:Name="FormHost">
+            <scin:Scintilla x:Name="TextArea" BorderStyle="None"  TextChanged="TextArea_TextChanged"></scin:Scintilla>
         </WindowsFormsHost>
     </DockPanel>
     

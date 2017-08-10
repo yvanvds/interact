@@ -12,34 +12,36 @@ using Xamarin.Forms;
 
 namespace InteractClient.Network
 {
-  public class Service
+  public class Signaler
   {
-    private static Service instance = null;
+    private static Signaler instance = null;
+    private HubConnection connection;
+    private IHubProxy proxy;
+    public IHubProxy Proxy { get => proxy; }
+    public ServerList ConnectedServer = null;
+    public bool Connected { get; set; }
 
-    public static Service Get()
+    public static Signaler Get()
     {
       if (instance == null)
       {
-        instance = new Service();
+        instance = new Signaler();
       }
       return instance;
     }
 
-    private HubConnection connection;
-
-    private IHubProxy proxy;
-
-    public IHubProxy Proxy { get => proxy; }
-
-    public Server ConnectedServer = null;
-
-
-    public async Task ConnectAsync(Server server)
+    public Signaler()
     {
+      Connected = false;
+    }
+
+    public async Task ConnectAsync(ServerList server)
+    {
+      Connected = true;
       ConnectedServer = server;
       connection = new HubConnection("http://" + server.Address + ":" + Constants.TcpPort + "/signalr");
       connection.Closed += Disconnect;
-      proxy = connection.CreateHubProxy("InteractHub");
+      proxy = connection.CreateHubProxy("SignalReceiver");
       AddMethods();
 
       try
@@ -50,7 +52,8 @@ namespace InteractClient.Network
       }
       catch (Exception e)
       {
-        Debug.WriteLine("Connection timed out");
+        Debug.WriteLine("Connection failed: " + e.Message);
+        Connected = false;
         Global.UpdatePage(false);
       }
     }
@@ -58,10 +61,14 @@ namespace InteractClient.Network
     public void Disconnect()
     {
       ConnectedServer = null;
+      Connected = false;
 
       if (connection != null)
       {
-        connection.Stop();
+        try
+        {
+          connection.Stop();
+        } catch (NullReferenceException) {}
       }
     }
 

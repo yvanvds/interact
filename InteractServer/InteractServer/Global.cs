@@ -13,9 +13,8 @@ namespace InteractServer
     public static LogPage Log;
     public static ErrorLogPage ErrorLog;
     public static ClientList Clients;
-    public static Network.Network Network;
     public static Network.Multicast Multicast;
-    public static Network.Service NetworkService;
+    public static Network.SignalSender Sender;
     public static Managers.ProjectManager ProjectManager;
     public static Managers.ScreenManager ScreenManager;
     public static Managers.ServerScriptManager ServerScriptManager;
@@ -36,8 +35,7 @@ namespace InteractServer
     public static void Init()
     {
       Multicast = new Network.Multicast();
-      Network = new Network.Network();
-      NetworkService = new Network.Service();
+      Sender = new Network.SignalSender();
       Clients = new ClientList();
       ProjectManager = new Managers.ProjectManager();
       ScreenManager = new Managers.ScreenManager();

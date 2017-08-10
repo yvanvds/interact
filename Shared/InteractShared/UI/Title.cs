@@ -7,7 +7,7 @@ namespace Interact.UI
   public abstract class Title : View
   {
     public abstract string Content { get; set; }
-
     public abstract Color TextColor { get; set; }
+    public abstract double FontSize { get; set; }
   }
 }

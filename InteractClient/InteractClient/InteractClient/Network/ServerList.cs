@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace InteractClient.Network
 {
-  public class Server
+  public class ServerList
   {
 
     public string Name { get; set; }
     public string Address { get; set; }
 
-    public static List<Server> Servers { get => servers; }
-    private static List<Server> servers = new List<Server>();
+    public static List<ServerList> Servers { get => servers; }
+    private static List<ServerList> servers = new List<ServerList>();
 
-    public static Server AddOrUpdate(string name, string address)
+    public static ServerList AddOrUpdate(string name, string address)
     {
-      foreach (Server server in Server.Servers)
+      foreach (ServerList server in ServerList.Servers)
       {
         if (server.Address == address)
         {
@@ -29,7 +29,7 @@ namespace InteractClient.Network
         }
       }
 
-      Server.Servers.Add(new Server
+      ServerList.Servers.Add(new ServerList
       {
         Name = name,
         Address = address,

@@ -88,7 +88,7 @@ namespace InteractServer.Models
 
         public void SendToClient(string clientID)
         {
-            Global.NetworkService.SendImage(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+            Global.Sender.SendImage(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
         }
     }
 }
