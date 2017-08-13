@@ -116,10 +116,12 @@ namespace InteractServer.Pages
       else if (group is Screens)
       {
         Global.ScreenManager.StartNewScreen();
+        Refresh();
       }
       else if (group is ServerScripts)
       {
         Global.ServerScriptManager.StartNewServerScript();
+        Refresh();
       }
 
     }

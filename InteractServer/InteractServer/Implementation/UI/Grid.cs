@@ -36,7 +36,12 @@ namespace InteractServer.Implementation.UI
       backgroundColor = new Color(Global.ProjectManager.Current.ConfigPage.Color);
     }
 
-    public override void Init(int Columns, int Rows, bool fillScreen = false)
+    public override void Init(int Columns, int Rows)
+    {
+      Init(Columns, Rows, true);
+    }
+
+    public override void Init(int Columns, int Rows, bool fillScreen)
     {
       for(int i = 0; i < Columns; i++)
       {
@@ -59,6 +64,16 @@ namespace InteractServer.Implementation.UI
     public override void Remove(Interact.UI.View view)
     {
       UIObject.Children.Remove(view.InternalObject as System.Windows.UIElement);
+    }
+
+    public override void AddSpan(View view, int Column, int Row, int Width, int Height)
+    {
+      System.Windows.Controls.Grid.SetColumn(view.InternalObject as System.Windows.UIElement, Column);
+      System.Windows.Controls.Grid.SetRow(view.InternalObject as System.Windows.UIElement, Row);
+      System.Windows.Controls.Grid.SetColumnSpan(view.InternalObject as System.Windows.UIElement, Width);
+      System.Windows.Controls.Grid.SetRowSpan(view.InternalObject as System.Windows.UIElement, Height);
+
+      UIObject.Children.Add(view.InternalObject as System.Windows.UIElement);
     }
   }
 }

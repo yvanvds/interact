@@ -34,7 +34,8 @@ namespace InteractClient.UWP.Implementation
 
     // both are needed to keep track of steps
     private Dictionary<string, int> stepSize = new Dictionary<string, int>();
-    private Dictionary<string, int> lastValue = new Dictionary<string, int>();
+    private Dictionary<string, int> lastAnalogValue = new Dictionary<string, int>();
+    private Dictionary<byte, PinState> lastDigitalValue = new Dictionary<byte, PinState>();
 
     public event ArduinoReadyEventHandler DeviceReady;
     public event ArduinoFailedEventHandler DeviceConnectionFailed;
@@ -298,6 +299,7 @@ namespace InteractClient.UWP.Implementation
       foreach (var pin in digitalPins)
       {
         SetDigitalPinMode(pin, Interact.Device.Arduino.PinMode.OUTPUT);
+        lastDigitalValue[pin] = PinState.LOW;
       }
 
       foreach (var pin in analogPins)
@@ -363,15 +365,19 @@ namespace InteractClient.UWP.Implementation
 
     private void OnDigitalPinUpdated(byte pin, PinState state)
     {
-      DigitalPinSignal(pin, Convert(state));
+      if(lastDigitalValue[pin] != state)
+      {
+        lastDigitalValue[pin] = state;
+        DigitalPinSignal(pin, Convert(state));
+      }
     }
 
     private void OnAnalogPinUpdated(string pin, ushort value)
     {
       if(stepSize.ContainsKey(pin))
       {
-        if (Math.Abs(value - lastValue[pin]) < stepSize[pin]) return;
-        else lastValue[pin] = value;
+        if (Math.Abs(value - lastAnalogValue[pin]) < stepSize[pin]) return;
+        else lastAnalogValue[pin] = value;
       }
       AnalogPinSignal(pin, value);
     }
@@ -409,9 +415,9 @@ namespace InteractClient.UWP.Implementation
     public void SetStepSize(int pin, int size)
     {
       stepSize["A" + pin] = size;
-      if(!lastValue.ContainsKey("A" + pin))
+      if(!lastAnalogValue.ContainsKey("A" + pin))
       {
-        lastValue["A + pin"] = 0;
+        lastAnalogValue["A" + pin] = 0;
       }
     }
   }

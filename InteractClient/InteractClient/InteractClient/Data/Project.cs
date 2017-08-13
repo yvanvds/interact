@@ -52,11 +52,16 @@ namespace InteractClient.Data
       }
 
       // create new project
-      Current = new Project { ID = ID, Version = Version };
-      List.Add(ID, Current);
-      Network.Signaler.Get().WriteLog("Project->SetCurrent: new project added with ID " + ID.ToString());
-      Network.Signaler.Get().GetProjectConfig(ID);
-
+      try
+      {
+        Current = new Project { ID = ID, Version = Version };
+        List.Add(ID, Current);
+        Network.Signaler.Get().WriteLog("Project->SetCurrent: new project added with ID " + ID.ToString());
+        Network.Signaler.Get().GetProjectConfig(ID);
+      } catch(NullReferenceException)
+      {
+        Network.Signaler.Get().WriteLog("Project->SetCurrent: Unable to add proejct");
+      }
     }
 
     public void UpdateScreen(int ID, string content)

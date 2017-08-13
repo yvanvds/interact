@@ -38,8 +38,7 @@ namespace InteractServer.Intellisense
 
       AddScriptType("OscSender", typeof(Implementation.Network.OscSender));
       AddScriptType("OscReceiver", typeof(Implementation.Network.OscReceiver));
-      AddScriptType("Timer", typeof(JintEngine.DispatcherTimer));
-      AddScriptType("TimeSpan", typeof(TimeSpan));
+      AddScriptType("Timer", typeof(Implementation.Logic.Timer));
     }
   }
 }

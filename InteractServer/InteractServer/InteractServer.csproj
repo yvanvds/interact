@@ -93,6 +93,9 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo_A_.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutocompleteMenu-ScintillaNET, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoCompleteMenu-ScintillaNET.1.5.0\lib\net40\AutocompleteMenu-ScintillaNET.dll</HintPath>
@@ -277,6 +280,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands.cs" />
+    <Compile Include="Implementation\Logic\Timer.cs" />
     <Compile Include="Implementation\Network\Client.cs" />
     <Compile Include="Implementation\Network\Clients.cs" />
     <Compile Include="Implementation\Network\OscReceiver.cs" />
@@ -285,6 +289,7 @@
     <Compile Include="Implementation\UI\Button.cs" />
     <Compile Include="Implementation\UI\Color.cs" />
     <Compile Include="Implementation\UI\Grid.cs" />
+    <Compile Include="Implementation\UI\Image.cs" />
     <Compile Include="Implementation\UI\Slider.cs" />
     <Compile Include="Implementation\UI\Text.cs" />
     <Compile Include="Implementation\UI\Title.cs" />
@@ -313,7 +318,6 @@
     <Compile Include="Intellisense\Scripts.cs" />
     <Compile Include="Intellisense\ScriptObjects.cs" />
     <Compile Include="Intellisense\ServerObjects.cs" />
-    <Compile Include="JintEngine\DispatcherTimer.cs" />
     <Compile Include="JintEngine\Engine.cs" />
     <Compile Include="JintEngine\Osc.cs" />
     <Compile Include="JintEngine\RunningProjectPage.xaml.cs">
@@ -506,56 +510,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\undo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\settings-4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\exit-2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\users-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\folder-8.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\user-4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\301-file-1.png" />
-    <Resource Include="Resources\Images\301-file-5.png" />
-    <Resource Include="Resources\Images\301-file.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\templates\project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\folder.gif" />
-    <Resource Include="Resources\Images\icon_package.gif" />
-    <Resource Include="Resources\Images\image.gif" />
-    <Resource Include="Resources\Images\page.gif" />
-    <Resource Include="Resources\Images\page_settings.gif" />
-    <Resource Include="Resources\Images\page_sound.gif" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\templates\modelScript.json" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\play-button.png" />
-    <Resource Include="Resources\Images\stop.png" />
-    <Resource Include="Resources\Images\settings-8.png" />
     <Resource Include="Resources\Icons\Method_32x.png" />
     <Resource Include="Resources\Icons\Property_32x.png" />
     <Resource Include="Resources\Icons\Ellipsis_16x.png" />
-    <Resource Include="Resources\Images\connect.png" />
     <Resource Include="Resources\Icons\Settings_16x.png" />
     <Resource Include="Resources\Icons\Exit_16x.png" />
     <Resource Include="Resources\Icons\NewProject_16x.png" />
@@ -607,6 +576,11 @@
     <Resource Include="Resources\Icons\Image_16x.png" />
     <Resource Include="Resources\Icons\Phone_16x.png" />
     <Resource Include="Resources\Icons\Code_16x.png" />
+    <Resource Include="interact.ico" />
+    <Resource Include="Logo_A_.ico" />
+    <Resource Include="Resources\Images\Logo_A_.png" />
+    <Resource Include="Resources\Images\Logo_A_x256.png" />
+    <Resource Include="Resources\Images\Logox256.png" />
     <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

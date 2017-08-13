@@ -15,6 +15,9 @@ namespace InteractClient.JintEngine
     public static Engine Instance = new Engine();
     public static SemaphoreSlim ConstructionLock;
 
+    private bool active = false;
+    public bool Active { get => active; }
+
     private ContentPage activePage;
 
     private bool ScreenNeedsToStart = false;
@@ -75,6 +78,7 @@ namespace InteractClient.JintEngine
         jEngine.SetValue("Clients", Project.Current.Clients);
         jEngine.SetValue("OscSender", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscSender)));
         jEngine.SetValue("OscReceiver", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscReceiver)));
+        jEngine.SetValue("Timer", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Logic.Timer)));
 
         jEngine.SetValue("PinMode", TypeReference.CreateTypeReference(jEngine, typeof(Interact.Device.Arduino.PinMode)));
         jEngine.SetValue("PinState", TypeReference.CreateTypeReference(jEngine, typeof(Interact.Device.Arduino.PinState)));
@@ -113,6 +117,7 @@ namespace InteractClient.JintEngine
     {
       if (activePage is ModelPage)
       {
+        active = false;
         ModelPage p = activePage as ModelPage;
         Device.BeginInvokeOnMainThread(() => p.Pop());
         jEngine = null;
@@ -123,6 +128,7 @@ namespace InteractClient.JintEngine
 
     public void StopRunningProject()
     {
+      active = false;
       Sensors?.Stop();
       Arduino?.Stop();
       StopScreen();
@@ -158,19 +164,25 @@ namespace InteractClient.JintEngine
       catch (Jint.Parser.ParserException e)
       {
         InteractClient.Network.Signaler.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, ID);
+        ConstructionLock.Release();
+        return;
       }
       catch (Jint.Runtime.JavaScriptException e)
       {
         InteractClient.Network.Signaler.Get().WriteErrorLog(0, e.LineNumber, e.Message, ID);
+        ConstructionLock.Release();
+        return;
       }
       catch (Exception e)
       {
         InteractClient.Network.Signaler.Get().WriteLog("Engine->StartScript: Error on screen " + ID + ":" + e.Message);
+        ConstructionLock.Release();
+        return;
       }
 
       ConstructionLock.Release();
-
       Arduino?.AllowJintOutput(true);
+      active = true;
     }
 
     public void Invoke(String functionName, params object[] arguments)
@@ -192,7 +204,7 @@ namespace InteractClient.JintEngine
         }
         catch (Exception e)
         {
-          InteractClient.Network.Signaler.Get().WriteLog("Engine->Invoke: Error:" + e.Message);
+          InteractClient.Network.Signaler.Get().WriteLog("Engine->Invoke on function " + functionName + ": " + e.Message);
         }
       });
       ConstructionLock.Release();

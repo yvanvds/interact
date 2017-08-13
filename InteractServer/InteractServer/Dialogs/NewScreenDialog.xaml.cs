@@ -1,4 +1,5 @@
 ﻿using InteractServer.Models;
+using MahApps.Metro.Controls;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for NewScreenDialog.xaml
   /// </summary>
-  public partial class NewScreenDialog : Window
+  public partial class NewScreenDialog : MetroWindow
   {
     private String ModelName;
 

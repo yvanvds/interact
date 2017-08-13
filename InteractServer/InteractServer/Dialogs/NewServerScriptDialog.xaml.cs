@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for NewServerScriptDialog.xaml
   /// </summary>
-  public partial class NewServerScriptDialog : Window
+  public partial class NewServerScriptDialog : MetroWindow
   {
     private String ModelName;
 

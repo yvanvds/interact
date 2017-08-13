@@ -49,9 +49,14 @@ namespace InteractServer.Managers
 
       if (dlg.ShowDialog() == true)
       {
-        LoadProject(dlg.FileName);
-        LastFolder = Path.GetDirectoryName(dlg.FileName);
+        OpenProject(dlg.FileName);
       }
+    }
+
+    public void OpenProject(string FileName)
+    {
+      LoadProject(FileName);
+      LastFolder = Path.GetDirectoryName(FileName);
     }
 
     private void LoadProject(string FileName, string CreateWithName = "")

@@ -33,11 +33,6 @@ namespace InteractClient
       Global.CurrentPage = this;
       Global.LookForServers = true;
 
-      Network.ServerList.Servers.Clear();
-      UpdateServerList();
-      Logo.RotateTo(1000, 3000);
-      multicast.RequestServerList();
-
       Device.StartTimer(TimeSpan.FromSeconds(30), () =>
       {
         if(Global.LookForServers == true)

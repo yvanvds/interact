@@ -15,7 +15,7 @@ namespace Shared.Project
         public Background()
         {
 #if INTERACTSERVER
-            Color.Set(System.Windows.Media.Colors.White);
+            Color.Set(System.Windows.Media.Colors.Black);
 #endif
         }
     }

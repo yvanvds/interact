@@ -71,6 +71,7 @@
     <Compile Include="Implementation\Device\Arduino.cs" />
     <Compile Include="Implementation\Device\Sensor.cs" />
     <Compile Include="Implementation\Device\Sensors.cs" />
+    <Compile Include="Implementation\Logic\Timer.cs" />
     <Compile Include="Implementation\UI\Slider.cs" />
     <Compile Include="Implementation\Values.cs" />
     <Compile Include="Interface\CCButton.cs" />

@@ -9,7 +9,7 @@ namespace InteractClient.Implementation.UI
   public class Image : Interact.UI.Image
   {
     private Xamarin.Forms.Image UIObject = new Xamarin.Forms.Image();
-    private Color backgroundColor;
+    private Color backgroundColor = new Color();
 
     public Image()
     {
@@ -32,6 +32,12 @@ namespace InteractClient.Implementation.UI
         UIObject.BackgroundColor = (Xamarin.Forms.Color)(value.InternalObject);
         backgroundColor = new Color(UIObject.BackgroundColor);
       }
+    }
+
+    public override bool Visible
+    {
+      get => UIObject.IsVisible;
+      set => UIObject.IsVisible = value;
     }
   }
 }

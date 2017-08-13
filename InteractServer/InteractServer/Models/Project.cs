@@ -115,6 +115,9 @@ namespace InteractServer.Models
       ResourceGroups.Add(Images);
       ResourceGroups.Add(SoundFiles);
 
+      // update the last opened project
+      Properties.Settings.Default.LastOpenProject = FileName;
+      Properties.Settings.Default.Save();
     }
 
     public Guid ProjectID()

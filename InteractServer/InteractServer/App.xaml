@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InteractServer"
-             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite" 
+  xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   
+  xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite" 
               xmlns:xprop="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"   
   xmlns:avalonDockConverters="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
   xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="InteractServer.App"
@@ -34,7 +36,7 @@
       <BitmapImage x:Key="ImageStop" UriSource="Resources/Icons/Stop_16x.png"/>
       <BitmapImage x:Key="ImageLog" UriSource="Resources/Icons/Log_16x.png"/>
       <BitmapImage x:Key="ImageExplorer" UriSource="Resources/Icons/Explorer_16x.png"/>
-      <BitmapImage x:Key="ImagePhone" UriSource="Resources/Icons/Phone_32x.png"/>
+      <BitmapImage x:Key="ImagePhone" UriSource="Resources/Icons/Phone_16x.png"/>
 
       <SolidColorBrush x:Key="ColorDark" Color="#1a1a1a"/>
       <SolidColorBrush x:Key="ColorLessDark" Color="#3a3a3a"/>
@@ -97,7 +99,7 @@
               <Setter Property="BorderBrush" Value="{x:Null}"/>
               <Setter Property="Background">
                 <Setter.Value>
-                  <ImageBrush ImageSource="/Resources/Images/connect.png" Stretch="None" AlignmentX="Center" AlignmentY="Center" />
+                  <ImageBrush ImageSource="/Resources/Images/Logox256.png" Stretch="None" AlignmentX="Center" AlignmentY="Center"/>
                 </Setter.Value>
               </Setter>
               <Setter Property="Template">
@@ -468,7 +470,7 @@
         <Setter Property="DocumentHeaderTemplate">
           <Setter.Value>
             <DataTemplate>
-              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" Foreground="White"/>
             </DataTemplate>
           </Setter.Value>
         </Setter>
@@ -1199,7 +1201,7 @@
                       <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.ColumnSpan="2" Background="Transparent"/>
-                    <ContentPresenter Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}" 
+                    <ContentPresenter x:Name="DocumentName" Content="{Binding Model, RelativeSource={RelativeSource TemplatedParent}}" 
                                               ContentTemplate="{Binding DocumentHeaderTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"
                                               ContentTemplateSelector="{Binding DocumentHeaderTemplateSelector, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type xcad:DockingManager}, Mode=FindAncestor}}"/>
                     <!-- Close button should be moved out to the container style -->
@@ -1210,7 +1212,7 @@
                                     HorizontalAlignment="Center"
                                     Grid.Column="1" 
                                     Margin="5,0,0,0" 
-                                    Visibility="Hidden" 
+                                    Visibility="Visible" 
                                     Command="{Binding Path=LayoutItem.CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                     ToolTip="{x:Static xprop:Resources.Document_Close}">
                       <Image x:Name="PART_ImgPinClose" 
@@ -1222,6 +1224,7 @@
               <ControlTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=IsSelected}" Value="true">
                   <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />
+
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=IsLastFocusedDocument}" Value="true">
                   <Setter Property="Visibility" Value="Visible" TargetName="DocumentCloseButton"  />

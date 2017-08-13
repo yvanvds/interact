@@ -7,5 +7,6 @@ namespace Interact.UI
   public abstract class Image : View
   {
     public abstract void Set(String ImageName);
+    public abstract bool Visible { get; set; }
   }
 }

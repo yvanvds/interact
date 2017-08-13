@@ -46,5 +46,29 @@ namespace InteractServer.Properties {
                 this["NetworkToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OpenProjectOnStart {
+            get {
+                return ((bool)(this["OpenProjectOnStart"]));
+            }
+            set {
+                this["OpenProjectOnStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastOpenProject {
+            get {
+                return ((string)(this["LastOpenProject"]));
+            }
+            set {
+                this["LastOpenProject"] = value;
+            }
+        }
     }
 }

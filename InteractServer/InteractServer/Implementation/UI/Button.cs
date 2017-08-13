@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using Interact.UI;
 using System.ComponentModel;
+using System.Windows;
 
 namespace InteractServer.Implementation.UI
 {
@@ -33,6 +34,7 @@ namespace InteractServer.Implementation.UI
     {
       UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Background);
       UIObject.Foreground = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Foreground);
+      UIObject.Style = Application.Current.FindResource("SquareButtonStyle") as Style;
       UIObject.Uid = Guid.NewGuid().ToString();
 
       descriptor = DependencyPropertyDescriptor.FromProperty(System.Windows.Controls.Button.IsPressedProperty, typeof(System.Windows.Controls.Button));

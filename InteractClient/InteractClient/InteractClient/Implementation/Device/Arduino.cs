@@ -90,6 +90,7 @@ namespace InteractClient.Implementation.Device
 
     public void RemoveSignalHandlers()
     {
+      
       OnDeviceReadyHandler = null;
       OnFailedConnectionHandler = null;
       OnAnalogPinUpdateHandler = null;
@@ -140,6 +141,10 @@ namespace InteractClient.Implementation.Device
     {
       AllowJintOutput(false);
       RemoveSignalHandlers();
+      device.DeviceReady -= OnDeviceReadyEvent;
+      device.DeviceConnectionFailed -= OnConnectionFailedEvent;
+      device.DigitalPinSignal -= OnDigitalPinEvent;
+      device.AnalogPinSignal -= OnAnalogPinEvent;
       device.Disconnect();
       started = false;
     }

@@ -187,7 +187,15 @@ namespace InteractServer.Intellisense
       if (objParts.Count > 1)
       {
         int index = objParts.Count - 1;
-        mInfo = Types[objParts[index]].type.GetMethod(objParts[index - 1]);
+        try
+        {
+          mInfo = Types[objParts[index]].type.GetMethod(objParts[index - 1]);
+        } catch(AmbiguousMatchException)
+        {
+          // TODO: implement methods with overloading!
+          mInfo = null;
+        }
+        
         if (mInfo == null) return;
 
         index--;
@@ -195,7 +203,16 @@ namespace InteractServer.Intellisense
         {
           if (mInfo != null)
           {
-            mInfo = mInfo.ReturnType.GetMethod(objParts[index - 1]);
+            try
+            {
+              mInfo = mInfo.ReturnType.GetMethod(objParts[index - 1]);
+            }
+            catch (AmbiguousMatchException)
+            {
+              // TODO: implement methods with overloading!
+              mInfo = null;
+            }
+
           }
           index--;
         }

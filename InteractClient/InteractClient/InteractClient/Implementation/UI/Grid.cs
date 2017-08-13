@@ -33,6 +33,11 @@ namespace InteractClient.Implementation.UI
       }
     }
 
+    public override void Init(int Columns, int Rows)
+    {
+      Init(Columns, Rows);
+    }
+
     public override void Init(int Columns, int Rows, bool fillScreen = false)
     {
       UIObject.ColumnDefinitions.Clear();
@@ -50,15 +55,34 @@ namespace InteractClient.Implementation.UI
 
     public override void Add(Interact.UI.View view, int Column, int Row)
     {
-      Xamarin.Forms.Grid.SetColumn(view.InternalObject as Xamarin.Forms.View, Column);
-      Xamarin.Forms.Grid.SetRow(view.InternalObject as Xamarin.Forms.View, Row);
-      UIObject.Children.Add(view.InternalObject as Xamarin.Forms.View);
+      //Xamarin.Forms.Grid.SetColumn(view.InternalObject as Xamarin.Forms.View, Column);
+      //Xamarin.Forms.Grid.SetRow(view.InternalObject as Xamarin.Forms.View, Row);
+      UIObject.Children.Add(view.InternalObject as Xamarin.Forms.View, Column, Row);
+    }
+
+    public override void AddSpan(Interact.UI.View view, int Column, int Row, int Width, int Height)
+    {
+      //Xamarin.Forms.Grid.SetColumnSpan(view.InternalObject as Xamarin.Forms.View, Width);
+      //Xamarin.Forms.Grid.SetRowSpan(view.InternalObject as Xamarin.Forms.View, Height);
+      try
+      {
+        Xamarin.Forms.View fv = view.InternalObject as Xamarin.Forms.View;
+        Xamarin.Forms.Grid.SetColumn(fv, Column);
+        Xamarin.Forms.Grid.SetRow(fv, Row);
+        Xamarin.Forms.Grid.SetColumnSpan(fv, Width);
+        Xamarin.Forms.Grid.SetRowSpan(fv, Height);
+
+        UIObject.Children.Add(fv);
+      } catch (ArgumentOutOfRangeException e)
+      {
+        InteractClient.Network.Signaler.Get().WriteLog("Grid.AddSpan: Element ouf of range.");
+      }
+      
     }
 
     public override void Remove(Interact.UI.View view)
     {
       UIObject.Children.Remove(view.InternalObject as Xamarin.Forms.View);
     }
-  
   }
 }

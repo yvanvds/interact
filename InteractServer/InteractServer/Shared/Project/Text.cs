@@ -17,7 +17,7 @@ namespace Shared.Project
         public Text()
         {
 #if INTERACTSERVER
-            Foreground.Set(System.Windows.Media.Colors.Black);
+            Foreground.Set(System.Windows.Media.Colors.White);
             Background.Set(System.Windows.Media.Colors.Transparent);
             FontSize = 12;
 #endif

@@ -16,7 +16,7 @@ namespace InteractServer.Implementation.Network
 
     public override Interact.Network.Client this[int key]
     {
-      get => List[key];
+      get => List.Count > key ? List[key] : null;
     }
 
     public override void Invoke(string MethodName, params object[] arguments)

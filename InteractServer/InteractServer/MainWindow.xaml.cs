@@ -47,6 +47,15 @@ namespace InteractServer
 
       // set focus panes
       clientPane.IsActive = true;
+
+      // open project?
+      if(Properties.Settings.Default.OpenProjectOnStart)
+      {
+        if(Properties.Settings.Default.LastOpenProject.Length > 0)
+        {
+          Global.ProjectManager.OpenProject(Properties.Settings.Default.LastOpenProject);
+        }
+      }
     }
 
 
@@ -91,10 +100,9 @@ namespace InteractServer
         }
       }
 
-
-
       // remove all open documents
       Global.ScreenManager.Clear();
+      Global.ServerScriptManager.Clear();
     }
 
     private void SaveProject()
