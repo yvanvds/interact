@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumerations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Clients.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\GlMixer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\OscReceiver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\OscSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\Server.cs" />

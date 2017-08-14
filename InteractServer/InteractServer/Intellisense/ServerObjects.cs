@@ -40,6 +40,8 @@ namespace InteractServer.Intellisense
       AddScriptType("OscReceiver", typeof(Implementation.Network.OscReceiver));
       AddScriptType("Timer", typeof(JintEngine.DispatcherTimer));
       AddScriptType("TimeSpan", typeof(TimeSpan));
+
+      AddScriptType("GlMixer", typeof(Implementation.Network.GlMixer));
     }
   }
 }
