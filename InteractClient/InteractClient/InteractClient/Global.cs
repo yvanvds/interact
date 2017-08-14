@@ -12,6 +12,7 @@ namespace InteractClient
     public static ContentPage CurrentPage = null;
 
     public static bool LookForServers = false;
+    public static bool ConfigPageActive = false;
 
     public static void UpdatePage(bool connected)
     {

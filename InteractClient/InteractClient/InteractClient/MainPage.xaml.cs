@@ -46,7 +46,7 @@ namespace InteractClient
           UpdateServerList();
           Logo.RotateTo(1000, 3000);
           multicast.RequestServerList();
-        } else
+        } else if(!Global.ConfigPageActive)
         {
           if(!Signaler.Get().Connected)
           {
@@ -103,6 +103,7 @@ namespace InteractClient
     private void OptionsButton_Clicked(object sender, EventArgs e)
     {
       Global.LookForServers = false;
+      Global.ConfigPageActive = true;
       Navigation.PushAsync(new OptionsPage());
     }
   }

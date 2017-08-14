@@ -74,53 +74,53 @@ namespace InteractClient.Network
 
     public void GetProjectConfig(Guid ID)
     {
-      proxy.Invoke("GetProjectConfig", ID);
+      proxy?.Invoke("GetProjectConfig", ID);
     }
 
 
     public void GetNextMethod()
     {
-      proxy.Invoke("GetNextMethod");
+      proxy?.Invoke("GetNextMethod");
     }
 
     public void GetScreen(Guid projectID, int screenID)
     {
-      proxy.Invoke("GetScreen", projectID, screenID);
+      proxy?.Invoke("GetScreen", projectID, screenID);
     }
 
     public void GetImage(Guid projectID, int imageID)
     {
-      proxy.Invoke("GetImage", projectID, imageID);
+      proxy?.Invoke("GetImage", projectID, imageID);
     }
 
     public void GetSoundFile(Guid projectID, int sfID)
     {
-      proxy.Invoke("GetSoundFile", projectID, sfID);
+      proxy?.Invoke("GetSoundFile", projectID, sfID);
     }
 
     public void WriteLog(string message)
     {
-      proxy.Invoke("Log", message);
+      proxy?.Invoke("Log", message);
     }
 
     public void WriteErrorLog(int index, int lineNumber, string message, int resourceID)
     {
-      proxy.Invoke("ErrorLog", index, lineNumber, message, resourceID);
+      proxy?.Invoke("ErrorLog", index, lineNumber, message, resourceID);
     }
 
     public void InvokeMethod(string method, params object[] arguments)
     {
-      proxy.Invoke("InvokeMethod", method, arguments);
+      proxy?.Invoke("InvokeMethod", method, arguments);
     }
 
     public void InvokeMethod(string clientID, string method, params object[] arguments)
     {
-      proxy.Invoke("InvokeMethod", clientID, method, arguments);
+      proxy?.Invoke("InvokeMethod", clientID, method, arguments);
     }
 
     public void StartScreen(string clientID, int screenID)
     {
-      proxy.Invoke("StartScreen", clientID, screenID);
+      proxy?.Invoke("StartScreen", clientID, screenID);
     }
 
     private void AddMethods()
