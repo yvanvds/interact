@@ -283,6 +283,7 @@
     <Compile Include="Implementation\Logic\Timer.cs" />
     <Compile Include="Implementation\Network\Client.cs" />
     <Compile Include="Implementation\Network\Clients.cs" />
+    <Compile Include="Implementation\Network\GlMixer.cs" />
     <Compile Include="Implementation\Network\OscReceiver.cs" />
     <Compile Include="Implementation\Network\OscSender.cs" />
     <Compile Include="Implementation\Network\Server.cs" />

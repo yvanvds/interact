@@ -58,7 +58,14 @@ namespace InteractServer.Implementation.UI
     {
       System.Windows.Controls.Grid.SetColumn(view.InternalObject as System.Windows.UIElement, Column);
       System.Windows.Controls.Grid.SetRow(view.InternalObject as System.Windows.UIElement, Row);
-      UIObject.Children.Add(view.InternalObject as System.Windows.UIElement);
+      try
+      {
+        UIObject.Children.Add(view.InternalObject as System.Windows.UIElement);
+      } catch (ArgumentException e)
+      {
+        Global.Log.AddEntry("Root.Add: " + e.Message);
+      }
+      
     }
 
     public override void Remove(Interact.UI.View view)

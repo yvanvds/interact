@@ -13,7 +13,8 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <AuthenticationMode>Universal</AuthenticationMode>
-    <RemoteDebugMachine>192.168.1.106</RemoteDebugMachine>
+    <RemoteDebugMachine>interact01</RemoteDebugMachine>
+    <CreateCleanLayout>false</CreateCleanLayout>
   </PropertyGroup>
   <PropertyGroup>
     <SplashScreenSource>E:\Interact\interact\InteractClient\InteractClient\InteractClient.UWP\connect.png</SplashScreenSource>
