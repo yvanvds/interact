@@ -27,6 +27,11 @@ namespace InteractServer.Implementation.UI
     public Slider()
     {
       UIObject.Uid = Guid.NewGuid().ToString();
+      //UIObject.HorizontalAlignment = HorizontalAlignment.Center;
+      //UIObject.VerticalAlignment = VerticalAlignment.Center;
+      UIObject.Style = Application.Current.FindResource("FlatSlider") as Style;
+      UIObject.Margin = new System.Windows.Thickness(5, 5, 5, 5);
+
     }
 
     public override double Minimum { get => UIObject.Minimum; set => UIObject.Minimum = value; }

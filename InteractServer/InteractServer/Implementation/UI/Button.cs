@@ -32,9 +32,10 @@ namespace InteractServer.Implementation.UI
 
     public Button()
     {
-      UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Background);
-      UIObject.Foreground = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Foreground);
+      //UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Background);
+      //UIObject.Foreground = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Foreground);
       UIObject.Style = Application.Current.FindResource("SquareButtonStyle") as Style;
+      UIObject.Margin = new System.Windows.Thickness(5, 5, 5, 5);
       UIObject.Uid = Guid.NewGuid().ToString();
 
       descriptor = DependencyPropertyDescriptor.FromProperty(System.Windows.Controls.Button.IsPressedProperty, typeof(System.Windows.Controls.Button));

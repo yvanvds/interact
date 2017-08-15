@@ -21,6 +21,7 @@ namespace InteractServer.Implementation.UI
 
       UIObject.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
       UIObject.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+      UIObject.Margin = new System.Windows.Thickness(5, 5, 5, 5);
     }
 
     public override string Content { get => UIObject.Text; set => UIObject.Text = value; }
