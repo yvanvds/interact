@@ -19,7 +19,7 @@ namespace InteractClient.Network
     private IHubProxy proxy;
     public IHubProxy Proxy { get => proxy; }
     public ServerList ConnectedServer = null;
-    public bool Connected { get; set; }
+    public bool Connected { get; set; } = false;
 
     public static Signaler Get()
     {
@@ -37,6 +37,10 @@ namespace InteractClient.Network
 
     public async Task ConnectAsync(ServerList server)
     {
+      if(Connected)
+      {
+        Disconnect();
+      }
       Connected = true;
       ConnectedServer = server;
       connection = new HubConnection("http://" + server.Address + ":" + Constants.TcpPort + "/signalr");
@@ -68,6 +72,7 @@ namespace InteractClient.Network
         try
         {
           connection.Stop();
+          Debug.WriteLine("Connection closed");
         } catch (NullReferenceException) {}
       }
     }
@@ -199,6 +204,11 @@ namespace InteractClient.Network
        {
          Engine.Instance.Invoke(MethodName, arguments);
        });
+
+      proxy.On("CloseConnection", () =>
+      {
+        Disconnect();
+      });
     }
   }
 }

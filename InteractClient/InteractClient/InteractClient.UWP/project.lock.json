@@ -18675,7 +18675,7 @@
       ]
     },
     "rda.SocketsForPCL/2.0.2": {
-      "sha512": "1Snu1FSfs2TK9i6eh7Ibw5tGDMj7gLpew2agJnAyz57YGTHO6lo4Gwq2TetP2F1C7iOyli2mqD0yVrQb/IJAjA==",
+      "sha512": "b37lna72IEvK7JQmRZ6LCIvS7vSS+AjZfKy+KcdVTj88r+lMoLHxT7LXrPcjotrYD3Re40AZudomdaA8zK5+7Q==",
       "type": "package",
       "path": "rda.socketsforpcl/2.0.2",
       "files": [
@@ -25191,16 +25191,16 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
+      "projectUniqueName": "C:\\dev\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
       "projectName": "InteractClient.UWP",
-      "projectPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
-      "projectJsonPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient.UWP\\project.json",
+      "projectPath": "C:\\dev\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\InteractClient.UWP.csproj",
+      "projectJsonPath": "C:\\dev\\Interact\\InteractClient\\InteractClient\\InteractClient.UWP\\project.json",
       "projectStyle": "ProjectJson",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
-            "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj": {
-              "projectPath": "E:\\Interact\\interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj"
+            "C:\\dev\\Interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj": {
+              "projectPath": "C:\\dev\\Interact\\InteractClient\\InteractClient\\InteractClient\\InteractClient.csproj"
             }
           }
         }

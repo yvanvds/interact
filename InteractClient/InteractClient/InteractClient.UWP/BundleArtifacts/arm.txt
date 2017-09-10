@@ -1,0 +1,6 @@
+MainPackage=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_ARM.appx
+SymbolPackage=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\AppPackages\InteractClient.UWP_1.0.7.0_Test\InteractClient.UWP_1.0.7.0_ARM.appxsym
+ResourcePack=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-100.appx
+ResourcePack=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-125.appx
+ResourcePack=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-150.appx
+ResourcePack=C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-400.appx

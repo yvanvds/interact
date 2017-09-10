@@ -216,7 +216,7 @@ namespace InteractServer.Controls
       TextArea.Styles[ScintillaNET.Style.IndentGuide].BackColor = Editor.IntToColor(BACK_COLOR);
 
       var nums = TextArea.Margins[NUMBER_MARGIN];
-      nums.Width = 30;
+      nums.Width = 60;
       nums.Type = MarginType.Number;
       nums.Sensitive = true;
       //nums.Mask = 1 << NUMBER_MARGIN;

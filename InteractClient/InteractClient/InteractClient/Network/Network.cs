@@ -48,7 +48,7 @@ namespace InteractClient.Network
     }
 
 
-    private void parseUdpMessage(String IpAddress, byte[] data)
+    private async void parseUdpMessage(String IpAddress, byte[] data)
     {
       var reader = new BinaryReader(new MemoryStream(data), Encoding.UTF8);
       while (reader.BaseStream.Position < reader.BaseStream.Length)
@@ -76,7 +76,7 @@ namespace InteractClient.Network
                 {
                   // instant connect if client and server have the same token
                   Global.LookForServers = false;
-                  Signaler.Get().ConnectAsync(target);
+                  await Signaler.Get().ConnectAsync(target);
                 }
               }
               break;

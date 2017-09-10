@@ -13,11 +13,32 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <AuthenticationMode>Universal</AuthenticationMode>
-    <RemoteDebugMachine>interact01</RemoteDebugMachine>
+    <RemoteDebugMachine>pi1</RemoteDebugMachine>
     <CreateCleanLayout>false</CreateCleanLayout>
   </PropertyGroup>
   <PropertyGroup>
-    <SplashScreenSource>E:\Interact\interact\InteractClient\InteractClient\InteractClient.UWP\connect.png</SplashScreenSource>
-    <AppIconSource>E:\Interact\interact\InteractClient\InteractClient\InteractClient.UWP\connect.png</AppIconSource>
+    <SplashScreenSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</SplashScreenSource>
+    <AppIconSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</AppIconSource>
+    <AppxPackageIsForStore>False</AppxPackageIsForStore>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>arm</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <Source>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</Source>
+    <SmallTileSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</SmallTileSource>
+    <MediumTileSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</MediumTileSource>
+    <WideTileSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</WideTileSource>
+    <LargeTileSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</LargeTileSource>
+    <BadgeLogoSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</BadgeLogoSource>
+    <PackageLogoSource>C:\dev\Interact\InteractClient\InteractClient\InteractClient.UWP\Logo.png</PackageLogoSource>
+    <RemoteMachine0>pi2</RemoteMachine0>
+    <UseAuthentication0>False</UseAuthentication0>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <UseEmulator>false</UseEmulator>
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugMachine>pi1</RemoteDebugMachine>
   </PropertyGroup>
 </Project>

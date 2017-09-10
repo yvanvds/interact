@@ -19,7 +19,7 @@ namespace Shared
         {
             try {
                 JsonConvert.PopulateObject(data, this);
-            } catch(JsonException e)
+            } catch(JsonException)
             {
                 
             }

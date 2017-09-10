@@ -153,6 +153,17 @@ namespace InteractServer.Network
       if (clientID == null || clientID.Equals("")) return;
       Clients.Client(clientID).InvokeMethod(methodName, arguments);
     }
+
+    public void CloseConnection(string clientID)
+    {
+      if (clientID == null || clientID.Equals("")) return;
+      Clients.Client(clientID).CloseConnection();
+    }
+
+    public void CloseConnection()
+    {
+      Clients?.All.CloseConnection();
+    }
   }
 
   class Startup

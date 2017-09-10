@@ -70,6 +70,7 @@ namespace InteractServer
     {
       CloseProject();
       Global.Multicast.Stop();
+      Global.Sender.CloseConnection(); 
       networkTimer.Enabled = false;
     }
 

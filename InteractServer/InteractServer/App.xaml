@@ -42,8 +42,8 @@
       <SolidColorBrush x:Key="ColorDark" Color="#1a1a1a"/>
       <SolidColorBrush x:Key="ColorLessDark" Color="#3a3a3a"/>
       <SolidColorBrush x:Key="ColorText" Color="White"/>
-      <SolidColorBrush x:Key="ColorHighLight1" Color="Green"/>
-      <SolidColorBrush x:Key="ColorHighLight2" Color="GreenYellow"/>
+      <SolidColorBrush x:Key="ColorHighlight1" Color="Green"/>
+      <SolidColorBrush x:Key="ColorHighlight2" Color="GreenYellow"/>
       <SolidColorBrush x:Key="ColorDebug" Color="Magenta"/>
 
 
@@ -345,7 +345,7 @@
                               <Setter Property="Margin" Value="0,-1,-1,-2"/>
                             </Trigger>
                             <DataTrigger Binding="{Binding IsActive}" Value="True">
-                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}" />
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight1}" />
                               <Setter Property="Foreground" Value="{DynamicResource ColorText}"/>
                               <Setter Property="Panel.ZIndex" Value="1" />
                             </DataTrigger>
@@ -354,7 +354,7 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsSelected" Value="False"/>
                               </MultiTrigger.Conditions>
-                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+                              <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight2}"/>
                               <Setter Property="Panel.ZIndex" Value="0"/>
                             </MultiTrigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -459,10 +459,10 @@
                     <Condition Property="IsMouseOver" Value="true"/>
                     <Condition Property="Selector.IsSelected" Value="false"/>
                   </MultiTrigger.Conditions>
-                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight2}"/>
                 </MultiTrigger>
                 <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="true">
-                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}"/>
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight1}"/>
                 </DataTrigger>
               </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -728,7 +728,7 @@
                   </Setter>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="True">
-                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight1}" />
+                  <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight1}" />
                   <Setter Property="BorderThickness" Value="0,3,0,0"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Model.IsActive, RelativeSource={RelativeSource Mode=Self}}" Value="True">
@@ -760,7 +760,7 @@
           <Setter.Value>
             <ControlTemplate TargetType="{x:Type xcad:OverlayWindow}">
               <Canvas x:Name="PART_DropTargetsContainer" Opacity="0.9">
-                <Path x:Name="PART_PreviewBox" Fill="#001100" StrokeThickness="2" Stroke="{DynamicResource ColorHighLight1}"/>
+                <Path x:Name="PART_PreviewBox" Fill="#001100" StrokeThickness="2" Stroke="{DynamicResource ColorHighlight1}"/>
                 <Grid x:Name="PART_DockingManagerDropTargets" >
                   <Image x:Name="PART_DockingManagerDropTargetLeft" VerticalAlignment="Center" HorizontalAlignment="Left" Source="Resources/Icons/DockAnchorableLeft.PNG" Stretch="None" />
                   <Image x:Name="PART_DockingManagerDropTargetRight" VerticalAlignment="Center" HorizontalAlignment="Right" Source="Resources/Icons/DockAnchorableRight.PNG" Stretch="None" />
@@ -885,7 +885,7 @@
 
       <Style x:Key="{x:Type xcad:LayoutAnchorableFloatingWindowControl}" TargetType="{x:Type xcad:LayoutAnchorableFloatingWindowControl}">
         <Setter Property="Background" Value="{DynamicResource ColorDark}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource ColorHighLight2}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorHighlight2}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="shell:WindowChrome.WindowChrome">
           <Setter.Value>

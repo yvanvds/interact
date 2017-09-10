@@ -33,7 +33,7 @@ namespace ScreenContent
             {
                 JsonConvert.PopulateObject(data, this);
             }
-            catch(Exception e)
+            catch(Exception)
             {
 
             }
