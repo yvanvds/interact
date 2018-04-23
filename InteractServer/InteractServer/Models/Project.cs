@@ -45,6 +45,9 @@ namespace InteractServer.Models
     // audio belonging to this project
     public SoundFiles SoundFiles;
 
+    // patchers belonging to this project
+    public Patchers Patchers;
+
     // resourceGroups for the project explorer view
     public List<ProjectResourceGroup> ResourceGroups = new List<ProjectResourceGroup>();
 
@@ -108,12 +111,14 @@ namespace InteractServer.Models
       Screens = new Screens(connection);
       Images = new Images(connection);
       SoundFiles = new SoundFiles(connection);
+      Patchers = new Patchers(connection);
 
       // add all content to list for treeview
       ResourceGroups.Add(ServerScripts);
       ResourceGroups.Add(Screens);
       ResourceGroups.Add(Images);
       ResourceGroups.Add(SoundFiles);
+      ResourceGroups.Add(Patchers);
 
       // update the last opened project
       Properties.Settings.Default.LastOpenProject = FileName;
@@ -199,6 +204,7 @@ namespace InteractServer.Models
       SendScreenVersionsToClients();
       SendImageVersionsToClients();
       SendSoundFileVersionsToClients();
+      SendPatcherVersionsToClients();
       SendClientListToClients();
 
       Screen screen = Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
@@ -222,6 +228,7 @@ namespace InteractServer.Models
       SendScreenVersionsToClients();
       SendImageVersionsToClients();
       SendSoundFileVersionsToClients();
+      SendPatcherVersionsToClients();
       SendClientListToClients();
 
       // and run this task
@@ -293,6 +300,19 @@ namespace InteractServer.Models
     public void SendSoundFileVersionsToClient(string ID)
     {
       SoundFiles.SendVersionsToClient(ProjectID(), ID);
+    }
+
+    public void SendPatcherVersionsToClients()
+    {
+      foreach (string key in Global.Clients.List.Keys)
+      {
+        SendPatcherVersionsToClient(key);
+      }
+    }
+
+    public void SendPatcherVersionsToClient(string ID)
+    {
+      Patchers.SendVersionsToClient(ProjectID(), ID);
     }
 
     public void SendClientListToClients()
