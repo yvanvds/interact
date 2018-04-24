@@ -1,12 +1,14 @@
 ﻿using InteractServer.Models;
 using InteractServer.Pages;
 using MahApps.Metro.Controls;
+using System;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer
@@ -23,6 +25,8 @@ namespace InteractServer
     LayoutAnchorable projectExplorerPane;
     LayoutDocument projectConfigPane;
     LayoutAnchorable propertiesPane;
+
+    DispatcherTimer UpdateYSE = new DispatcherTimer();
 
     public MainWindow()
     {
@@ -48,6 +52,12 @@ namespace InteractServer
       // set focus panes
       clientPane.IsActive = true;
 
+      // start audio engine
+      Global.Yse.System.Init();
+      UpdateYSE.Interval = new System.TimeSpan(0, 0, 0, 0, 50);
+      UpdateYSE.Tick += new System.EventHandler(UpdateAudio);
+      UpdateYSE.Start();
+
       // open project?
       if(Properties.Settings.Default.OpenProjectOnStart)
       {
@@ -58,7 +68,10 @@ namespace InteractServer
       }
     }
 
-
+    private void UpdateAudio(object sender, EventArgs e)
+    {
+      Global.Yse.System.Update();
+    }
 
     private static void OnNetworkTimerEvent(object source, ElapsedEventArgs e)
     {
@@ -68,6 +81,8 @@ namespace InteractServer
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
+      UpdateYSE.Stop();
+      Global.Yse.System.Close();
       CloseProject();
       Global.Multicast.Stop();
       Global.Sender.CloseConnection(); 
@@ -265,7 +280,10 @@ namespace InteractServer
 
     public void CloseDocument(LayoutDocument document)
     {
-      dockMain.Children.Remove(document);
+      //dockMain.Children.Remove(document);
+      document.CanClose = false;
+      document.CanFloat = false;
+      dockMain.RemoveChild(document);
     }
 
     public BasePage FocusDocument()

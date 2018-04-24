@@ -70,6 +70,9 @@ namespace InteractServer.Pages
           } else if(tv.SelectedItem is ServerScript)
           {
             Global.ServerScriptManager.AddAndShow(tv.SelectedItem as ServerScript);
+          } else if (tv.SelectedItem is Patcher)
+          {
+            Global.PatcherManager.AddAndShow(tv.SelectedItem as Patcher);
           }
         }
       }
@@ -123,7 +126,10 @@ namespace InteractServer.Pages
         Global.ServerScriptManager.StartNewServerScript();
         Refresh();
       }
-
+      else if (group is Patchers)
+      {
+        Global.PatcherManager.StartNewPatcher();
+      }
     }
 
     private void RenameResource_Click(object sender, RoutedEventArgs e)
@@ -148,6 +154,10 @@ namespace InteractServer.Pages
       {
         group = Global.ProjectManager.Current.SoundFiles;
       }
+      else if (resource is Models.Patcher)
+      {
+        group = Global.ProjectManager.Current.Patchers;
+      }
 
       if (group != null)
       {
@@ -163,6 +173,10 @@ namespace InteractServer.Pages
           ServerScript s = resource as Models.ServerScript;
           Global.ServerScriptManager.RefreshName(s);
           Global.IntelliServerScripts.RenameScript(oldName, s.Name);
+        } else if(resource is Models.Patcher)
+        {
+          Patcher p = resource as Patcher;
+          Global.PatcherManager.RefreshName(p);
         }
         Refresh();
       }
@@ -252,6 +266,12 @@ namespace InteractServer.Pages
       else if (resource is Models.SoundFile)
       {
         Global.ProjectManager.Current.SoundFiles.Remove(resource as Models.SoundFile);
+        Refresh();
+      }
+      else if (resource is Models.Patcher)
+      {
+        Global.PatcherManager.Close(resource as Patcher);
+        Global.ProjectManager.Current.Patchers.Remove(resource as Patcher);
         Refresh();
       }
     }

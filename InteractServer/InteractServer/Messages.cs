@@ -39,6 +39,11 @@ namespace InteractServer
       return MessageBox.Show("Save changes to " + name + "?", "Script Is not Saved", MessageBoxButton.YesNoCancel);
     }
 
+    public static MessageBoxResult RequestPatcherSave(string name)
+    {
+      return MessageBox.Show("Save changes to " + name + "?", "Patcher is not Saved", MessageBoxButton.YesNoCancel);
+    }
+
     public static MessageBoxResult SaveCurrentProject()
     {
       return MessageBox.Show("Save the current project?", "Project contains changes", MessageBoxButton.YesNoCancel);

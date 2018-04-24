@@ -18,6 +18,7 @@ namespace InteractServer
     public static Managers.ProjectManager ProjectManager;
     public static Managers.ScreenManager ScreenManager;
     public static Managers.ServerScriptManager ServerScriptManager;
+    public static Managers.PatcherManager PatcherManager;
 
     public static Intellisense.Scripts IntelliServerScripts;
     public static Intellisense.Scripts IntelliClientScripts;
@@ -32,6 +33,8 @@ namespace InteractServer
 
     public static MainWindow AppWindow;
 
+    public static YSE.YseInterface Yse;
+
     public static void Init()
     {
       Multicast = new Network.Multicast();
@@ -40,6 +43,7 @@ namespace InteractServer
       ProjectManager = new Managers.ProjectManager();
       ScreenManager = new Managers.ScreenManager();
       ServerScriptManager = new Managers.ServerScriptManager();
+      PatcherManager = new Managers.PatcherManager();
       Log = new LogPage();
       ErrorLog = new ErrorLogPage();
 
@@ -52,6 +56,8 @@ namespace InteractServer
       PropertiesPage = new PropertiesPage();
       ProjectExplorerPage = new ProjectExplorerPage();
       ProjectConfigPage = new ProjectConfigPage();
+
+      Yse = new YSE.YseInterface(Log.AddEntry);
     }
   }
 }
