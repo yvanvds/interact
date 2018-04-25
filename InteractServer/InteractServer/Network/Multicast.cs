@@ -50,6 +50,15 @@ namespace InteractServer.Network
       };
 
       await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
+
+      var msg = "TEST";
+      var msgBytes = Encoding.UTF8.GetBytes(msg);
+      await receiver.SendMulticastAsync(msgBytes);
+    }
+
+    void Verify()
+    {
+      
     }
 
     public async void Stop()
