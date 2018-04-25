@@ -49,6 +49,7 @@ namespace InteractServer.Pages
     public void Load()
     {
       Yap.Clear();
+      if (view.Patcher.ContentObj.Content == null) return;
       if (view.Patcher.ContentObj.Content.Length > 0)
       {
         Yap.Load(view.Patcher.ContentObj.Content);
