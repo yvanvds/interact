@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Interact.UI;
 using System.Windows.Media;
 using System.Windows;
+using Interact.Logic;
 
 namespace InteractServer.Implementation.UI
 {
@@ -17,12 +18,15 @@ namespace InteractServer.Implementation.UI
     private Network.OscSender OscSender = null;
     private string OscAddress;
 
+    private Interact.Logic.Patcher patcher = null;
+    private string patcherInletName;
+
     class Handler
     {
       public string name;
       public object[] arguments;
     }
-    private Handler OnChangeHandler;
+    private Handler OnChangeHandler = null;
 
     public Slider()
     {
@@ -31,7 +35,7 @@ namespace InteractServer.Implementation.UI
       //UIObject.VerticalAlignment = VerticalAlignment.Center;
       UIObject.Style = Application.Current.FindResource("FlatSlider") as Style;
       UIObject.Margin = new System.Windows.Thickness(5, 5, 5, 5);
-
+      UIObject.ValueChanged += OnChangeEvent;
     }
 
     public override double Minimum { get => UIObject.Minimum; set => UIObject.Minimum = value; }
@@ -62,8 +66,10 @@ namespace InteractServer.Implementation.UI
 
     private void OnChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-      OscSender?.Send(OscAddress, (float)UIObject.Value);
-      JintEngine.Runner.Engine.InvokeMethod(OnChangeHandler.name, OnChangeHandler.arguments);
+      OscSender?.Send(OscAddress, (float)UIObject.Value / 100f);
+      patcher?.PassFloat((float)UIObject.Value / 100f, patcherInletName);
+
+      if(OnChangeHandler != null) JintEngine.Runner.Engine.InvokeMethod(OnChangeHandler.name, OnChangeHandler.arguments);
     }
 
     public override void SendOSC(string destination, int port, string address)
@@ -71,6 +77,12 @@ namespace InteractServer.Implementation.UI
       OscSender = new Network.OscSender();
       OscSender.Init(destination, port);
       OscAddress = address;
+    }
+
+    public override void SendToPatcher(Patcher patcher, string inlet)
+    {
+      this.patcher = patcher;
+      this.patcherInletName = inlet;
     }
   }
 }

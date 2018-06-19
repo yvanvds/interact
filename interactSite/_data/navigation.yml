@@ -1,0 +1,85 @@
+# main links
+main:
+  - title: "Documentation"
+    url: /documentation/quick-start-guide/
+  - title: "Download"
+    url: /download/
+  - title: "About"
+    url: /about/
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
+
+docs:
+  - title: Getting Started
+    children:
+      - title: "Quick-Start Guide"
+        url: /documentation/quick-start-guide/
+      - title: "Installation"
+        url: /documentation/installation/
+  - title: Folders
+    children:
+      - title: "Server Scripts"
+        url: /documentation/serverscripts/
+      - title: "Screens"
+        url: /documentation/screens/
+      - title: "Images"
+        url: /documentation/images/
+      - title: "Sound Files"
+        url: /documentation/soundfiles/
+      - title: "Patchers"
+        url: /documentation/patchers/
+  - title: Api - Arduino
+    url: /documentation/api_arduino_arduino
+  - title: Api - Canvas
+    children:
+      - title: "CCanvas"
+        url: /documentation/api_canvas_canvas/
+      - title: "CCircle"
+        url: /documentation/api_canvas_circle/
+      - title: "CLayer"
+        url: /documentation/api_canvas_layer/
+      - title: "CLine"
+        url: /documentation/api_canvas_line/
+      - title: "CRect"
+        url: /documentation/api_canvas_rect/
+  - title: Api - Gui
+    children:
+      - title: "Button"
+        url: /documentation/api_gui_button/
+      - title: "Grid"
+        url: /documentation/api_gui_grid/
+      - title: "Image"
+        url: /documentation/api_gui_image/
+      - title: "Slider"
+        url: /documentation/api_gui_slider/
+      - title: "Text"
+        url: /documentation/api_gui_text/
+      - title: "Title"
+        url: /documentation/api_gui_title/
+  - title: Api - Interaction
+    children:
+      - title: "Client"
+        url: /documentation/api_interaction_client/
+      - title: "Clients"
+        url: /documentation/api_interaction_clients/
+      - title: "Osc"
+        url: /documentation/api_interaction_osc/
+      - title: "Server"
+        url: /documentation/api_interaction_server/
+  - title: Api - Logic
+    children:
+      - title: "Patcher"
+        url: /documentation/api_logic_patcher/
+      - title: "Timer"
+        url: /documentation/api_logic_timer/
+  - title: Api - Utility
+    children:
+      - title: "Color"
+        url: /documentation/api_utility_color/
+      - title: "Coordinate"
+        url: /documentation/api_utility_coordinate/
+    

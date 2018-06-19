@@ -17,7 +17,7 @@ namespace Shared.Project
         public void Set(System.Windows.Media.Color source)
         {
             A = source.ScA;
-            R = source.ScB;
+            R = source.ScR;
             G = source.ScG;
             B = source.ScB;
         }

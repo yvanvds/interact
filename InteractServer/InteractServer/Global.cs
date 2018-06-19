@@ -8,17 +8,26 @@ using System.Threading.Tasks;
 
 namespace InteractServer
 {
+  public enum ContentType
+  {
+    Invalid,
+    Screen,
+    ServerScript,
+    Patcher,
+    Image,
+    SoundFile,
+  }
+
   public static class Global
   {
-    public static LogPage Log;
-    public static ErrorLogPage ErrorLog;
+    public static Log.LogPage Log;
+    public static Log.ErrorLogPage ErrorLog;
     public static ClientList Clients;
     public static Network.Multicast Multicast;
     public static Network.SignalSender Sender;
-    public static Managers.ProjectManager ProjectManager;
-    public static Managers.ScreenManager ScreenManager;
-    public static Managers.ServerScriptManager ServerScriptManager;
-    public static Managers.PatcherManager PatcherManager;
+    public static Project.ProjectManager ProjectManager;
+    public static Managers.ViewManager ViewManager;
+    public static Managers.AudioManager AudioManager;
 
     public static Intellisense.Scripts IntelliServerScripts;
     public static Intellisense.Scripts IntelliClientScripts;
@@ -27,9 +36,9 @@ namespace InteractServer
 
     public static ClientPage ClientPage;
     public static PropertiesPage PropertiesPage;
-    public static ProjectExplorerPage ProjectExplorerPage;
-    public static ProjectConfigPage ProjectConfigPage;
-
+    public static Project.ExplorerPage ProjectExplorerPage;
+    public static Project.ConfigPage ProjectConfigPage;
+    public static String ProjectPath;
 
     public static MainWindow AppWindow;
 
@@ -40,12 +49,11 @@ namespace InteractServer
       Multicast = new Network.Multicast();
       Sender = new Network.SignalSender();
       Clients = new ClientList();
-      ProjectManager = new Managers.ProjectManager();
-      ScreenManager = new Managers.ScreenManager();
-      ServerScriptManager = new Managers.ServerScriptManager();
-      PatcherManager = new Managers.PatcherManager();
-      Log = new LogPage();
-      ErrorLog = new ErrorLogPage();
+      ProjectManager = new Project.ProjectManager();
+      ViewManager = new Managers.ViewManager();
+
+      Log = new Log.LogPage();
+      ErrorLog = new Log.ErrorLogPage();
 
       IntelliServerScripts = new Intellisense.Scripts();
       IntelliClientScripts = new Intellisense.Scripts();
@@ -54,10 +62,11 @@ namespace InteractServer
 
       ClientPage = new ClientPage();
       PropertiesPage = new PropertiesPage();
-      ProjectExplorerPage = new ProjectExplorerPage();
-      ProjectConfigPage = new ProjectConfigPage();
+      ProjectExplorerPage = new Project.ExplorerPage();
+      ProjectConfigPage = new Project.ConfigPage();
 
       Yse = new YSE.YseInterface(Log.AddEntry);
+      AudioManager = new Managers.AudioManager();
     }
   }
 }

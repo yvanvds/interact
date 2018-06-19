@@ -19,41 +19,43 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for NewServerScriptDialog.xaml
   /// </summary>
-  public partial class NewServerScriptDialog : MetroWindow
+  public partial class NewServerScriptDialog : MetroWindow, IDialog
   {
-    private String ModelName;
+    private string modelName;
+    string IDialog.ModelName => modelName;
+
+    public string Type => "";
 
     public NewServerScriptDialog()
     {
       InitializeComponent();
       BContinue.IsEnabled = false;
       LFileExists.Visibility = Visibility.Hidden;
-      ModelName = "";
+      modelName = "";
     }
 
     private void BContinue_Click(object sender, RoutedEventArgs e)
     {
       if (!ValidModel()) return;
-
-      Global.ServerScriptManager.CreateNewServerScript(ModelName);
+      DialogResult = true;
       Close();
     }
 
     private void TBScriptName_TextChanged(object sender, TextChangedEventArgs e)
     {
-      String content = ModelName = TBScriptName.Text;
-      content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-      content = Utils.StringUtils.UppercaseWords(content);
-      content = Regex.Replace(content, @"\s+", "");
+      modelName = TBScriptName.Text.Trim();
+      //content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
+      //content = Utils.StringUtils.UppercaseWords(content);
+      //content = Regex.Replace(content, @"\s+", "");
 
       BContinue.IsEnabled = ValidModel();
     }
 
     private bool ValidModel()
     {
-      if (ModelName.Length == 0) return false;
+      if (modelName.Length == 0) return false;
 
-      if (Global.ProjectManager.Current.ServerScripts.NameExists(ModelName))
+      if (Global.ProjectManager.Current.ServerScripts.NameExists(modelName))
       {
         LFileExists.Visibility = Visibility.Visible;
         return false;

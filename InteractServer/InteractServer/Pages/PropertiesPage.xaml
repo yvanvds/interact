@@ -9,21 +9,24 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Properties">
 
-    <xctk:PropertyGrid x:Name="PropGrid" Grid.Column="0" Margin="0" 
-                           AutoGenerateProperties="True" BorderBrush="Transparent"
-                       Background="{DynamicResource ColorDark}"
-                       Foreground="{DynamicResource ColorText}"
+  <xctk:PropertyGrid x:Name="PropGrid" Grid.Column="0" Margin="0" 
+                           AutoGenerateProperties="True" 
                            >
-        <xctk:PropertyGrid.EditorDefinitions>
+    <xctk:PropertyGrid.EditorDefinitions>
 
-            <xctk:EditorTemplateDefinition TargetProperties="test">
-                <xctk:EditorTemplateDefinition.EditingTemplate>
-                    <DataTemplate>
-                        <TextBlock Background="Yellow" Text="{Binding Value}" />
-                    </DataTemplate>
-                </xctk:EditorTemplateDefinition.EditingTemplate>
-            </xctk:EditorTemplateDefinition>
-            
-        </xctk:PropertyGrid.EditorDefinitions>
-    </xctk:PropertyGrid>
+
+        <xctk:EditorDefinition>
+          <xctk:EditorDefinition.PropertiesDefinitions>
+            <xctk:PropertyDefinition Name="Name" />
+            <xctk:PropertyDefinition Name="StartupScreen" />
+          </xctk:EditorDefinition.PropertiesDefinitions>
+          <xctk:EditorDefinition.EditorTemplate>
+            <DataTemplate>
+              <TextBox Background="White" Foreground="Black" Text="{Binding Value}" />
+            </DataTemplate>
+          </xctk:EditorDefinition.EditorTemplate>
+        </xctk:EditorDefinition>
+
+    </xctk:PropertyGrid.EditorDefinitions>
+  </xctk:PropertyGrid>
 </Page>

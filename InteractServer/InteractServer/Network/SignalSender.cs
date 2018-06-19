@@ -69,35 +69,35 @@ namespace InteractServer.Network
       Global.Log.AddEntry("Project configuration sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendScreenVersion(string clientID, Guid ProjectID, int ID, int Version)
+    public void SendScreenVersion(string clientID, Guid ProjectID, Guid ID, int Version)
     {
       Clients.Client(clientID).SetScreenVersion(ProjectID, ID, Version);
       Global.Log.AddEntry("Screen " + ID + " version sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendPatcherVersion(string clientID, Guid ProjectID, int ID, int Version)
+    public void SendPatcherVersion(string clientID, Guid ProjectID, Guid ID, int Version)
     {
       Clients.Client(clientID).SetPatcherVersion(ProjectID, ID, Version);
       Global.Log.AddEntry("Patcher " + ID + " version sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendScreen(List<string> clients, int screenID, string screenData)
+    public void SendScreen(List<string> clients, Guid screenID, string screenData)
     {
       Clients.Clients(clients).UpdateScreen(screenID, screenData);
     }
 
-    public void SendScreen(Guid projectID, string clientID, int screenID, string screenData)
+    public void SendScreen(Guid projectID, string clientID, Guid screenID, string screenData)
     {
       Clients.Client(clientID).UpdateScreen(projectID, screenID, screenData);
       Global.Log.AddEntry("Screen " + screenID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendPatcher(List<string> clients, int patcherID, string patcherData)
+    public void SendPatcher(List<string> clients, Guid patcherID, string patcherData)
     {
       Clients.Clients(clients).UpdatePatcher(patcherID, patcherData);
     }
 
-    public void SendPatcher(Guid projectID, string clientID, int patcherID, string patcherData)
+    public void SendPatcher(Guid projectID, string clientID, Guid patcherID, string patcherData)
     {
       Clients.Client(clientID).UpdatePatcher(projectID, patcherID, patcherData);
       Global.Log.AddEntry("Patcher " + patcherID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");
@@ -108,51 +108,51 @@ namespace InteractServer.Network
       Clients.Client(targetClientID).AddClient(IP, Key, UserName, targetClientID == Key ? true : false);
     }
 
-    public void StartScreen(int screenID)
+    public void StartScreen(Guid screenID)
     {
       Clients?.All.StartScreen(screenID);
     }
 
-    public void StartScreen(string clientID, int screenID)
+    public void StartScreen(string clientID, Guid screenID)
     {
       Clients.Client(clientID).StartScreen(screenID);
       //Global.Log.AddEntry("Screen " + screenID + " started on client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void StartScreen(List<string> clients, int screenID)
+    public void StartScreen(List<string> clients, Guid screenID)
     {
       Clients.Clients(clients).StartScreen(screenID);
     }
 
-    public void SendImageVersion(string clientID, Guid ProjectID, int ID, int Version)
+    public void SendImageVersion(string clientID, Guid ProjectID, Guid ID, int Version)
     {
       Clients.Client(clientID).SetImageVersion(ProjectID, ID, Version);
       Global.Log.AddEntry("Image " + ID + " version sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendImage(List<string> clients, int imageID, string imageData)
+    public void SendImage(List<string> clients, Guid imageID, string imageData)
     {
       Clients.Clients(clients).UpdateImage(imageID, imageData);
     }
 
-    public void SendImage(Guid projectID, string clientID, int imageID, string imageData)
+    public void SendImage(Guid projectID, string clientID, Guid imageID, string imageData)
     {
       Clients.Client(clientID).UpdateImage(projectID, imageID, imageData);
       Global.Log.AddEntry("Image " + imageID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendSoundFileVersion(string clientID, Guid ProjectID, int ID, int Version)
+    public void SendSoundFileVersion(string clientID, Guid ProjectID, Guid ID, int Version)
     {
       Clients.Client(clientID).SetSoundFileVersion(ProjectID, ID, Version);
       Global.Log.AddEntry("Soundfile " + ID + " version sent to client " + Global.Clients.Get(clientID).UserName + ".");
     }
 
-    public void SendSoundFile(List<string> clients, int sfID, string sfData)
+    public void SendSoundFile(List<string> clients, Guid sfID, string sfData)
     {
       Clients.Clients(clients).UpdateSoundFile(sfID, sfData);
     }
 
-    public void SendSoundFile(Guid projectID, string clientID, int sfID, string sfData)
+    public void SendSoundFile(Guid projectID, string clientID, Guid sfID, string sfData)
     {
       Clients.Client(clientID).UpdateSoundFile(projectID, sfID, sfData);
       Global.Log.AddEntry("Soundfile " + sfID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");

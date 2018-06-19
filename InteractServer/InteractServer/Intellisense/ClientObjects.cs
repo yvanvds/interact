@@ -25,12 +25,18 @@ namespace InteractServer.Intellisense
       AddEnum("PinState", typeof(Interact.Device.Arduino.PinState));
 
       AddScriptType("Button", typeof(Interact.UI.Button));
-      AddScriptType("Entry", typeof(Xamarin.Forms.Entry));
+      //AddScriptType("Entry", typeof(Xamarin.Forms.Entry));
       AddScriptType("Image", typeof(Interact.UI.Image));
       AddScriptType("Text", typeof(Interact.UI.Text));
       AddScriptType("Title", typeof(Interact.UI.Title));
       AddScriptType("Grid", typeof(Interact.UI.Grid));
       AddScriptType("Slider", typeof(Interact.UI.Slider));
+
+      AddScriptType("CCanvas", typeof(Interact.UI.Canvas.CCanvas));
+      AddScriptType("CCircle", typeof(Interact.UI.Canvas.CCircle));
+      AddScriptType("CRect", typeof(Interact.UI.Canvas.CRect));
+      AddScriptType("CLine", typeof(Interact.UI.Canvas.CLine));
+      AddScriptType("CLayer", typeof(Interact.UI.Canvas.CLayer));
 
       AddScriptType("Color", typeof(Interact.UI.Color));
 
@@ -39,6 +45,9 @@ namespace InteractServer.Intellisense
       AddScriptType("OscSender", typeof(Interact.Network.OscSender));
       AddScriptType("OscReceiver", typeof(Interact.Network.OscReceiver));
       AddScriptType("Timer", typeof(Interact.Logic.Timer));
+
+      // Utility
+      AddScriptType("Coordinate", typeof(Interact.Utility.Coordinate));
     }
   }
 }

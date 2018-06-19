@@ -1,5 +1,6 @@
 ﻿using InteractServer.Models;
 using InteractServer.Pages;
+using InteractServer.Project.Screen;
 using MahApps.Metro.Controls;
 using System;
 using System.Threading.Tasks;
@@ -103,7 +104,7 @@ namespace InteractServer
         Global.ProjectManager.Current.Stop();
       }
 
-      if (Global.ScreenManager.NeedsSaving() || Global.ProjectManager.Current != null && Global.ProjectManager.Current.Tainted())
+      if (Global.ViewManager.NeedsSaving() || Global.ProjectManager.Current != null && Global.ProjectManager.Current.Tainted())
       {
         var result = Messages.SaveCurrentProject();
         if (result.Equals(MessageBoxResult.Cancel))
@@ -117,15 +118,13 @@ namespace InteractServer
       }
 
       // remove all open documents
-      Global.ScreenManager.Clear();
-      Global.ServerScriptManager.Clear();
+      Global.ViewManager.Clear();
     }
 
     private void SaveProject()
     {
       Global.ProjectManager.Current.Save();
-      Global.ScreenManager.SaveAll();
-      Global.ServerScriptManager.SaveAll();
+      Global.ViewManager.SaveAll();
     }
 
 
@@ -141,7 +140,7 @@ namespace InteractServer
         return;
       }
 
-      Global.ScreenManager.StartNewScreen();
+      Global.ViewManager.StartNewView(ContentType.Screen);
     }
 
     private async void ButtonStartScreen_Click(object sender, RoutedEventArgs e)
@@ -154,7 +153,7 @@ namespace InteractServer
 
 
       Global.ProjectManager.Current.Save();
-      Global.ScreenManager.SaveAll();
+      Global.ViewManager.SaveAll();
 
       Global.Log.Clear();
       Global.ErrorLog.Clear();
@@ -164,7 +163,7 @@ namespace InteractServer
       {
         if(!page.ServerSide)
         {
-          Screen screen = page.ScreenView.Screen;
+          Item screen = page.ScreenView.Screen;
           if (screen != null)
           {
             //ButtonStartScreen.IsEnabled = false;
@@ -197,6 +196,11 @@ namespace InteractServer
     private void ButtonClientsView_Click(object sender, RoutedEventArgs e)
     {
       clientPane.IsVisible = !clientPane.IsVisible;
+    }
+
+    private void ButtonPropertiesView_Click(object sender, RoutedEventArgs e)
+    {
+      propertiesPane.IsVisible = !propertiesPane.IsVisible;
     }
 
     private void ButtonLogView_Click(object sender, RoutedEventArgs e)
@@ -273,14 +277,20 @@ namespace InteractServer
       int index = GetDocumentIndex(document);
       if (index == -1)
       {
-        dockMain.Children.Add(document);
+        //dockMain.Children.Add(document);
+        dockMain.InsertChildAt(0, document);
+        dockMain.SelectedContentIndex = 0;
       }
       document.IsActive = true;
     }
 
     public void CloseDocument(LayoutDocument document)
     {
-      //dockMain.Children.Remove(document);
+
+      if (dockMain.SelectedContent == document)
+      {
+        dockMain.SelectedContentIndex = -1;
+      }
       document.CanClose = false;
       document.CanFloat = false;
       dockMain.RemoveChild(document);
@@ -404,7 +414,7 @@ namespace InteractServer
         return;
       }
 
-      Screen screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
+      Item screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
       if (screen == null)
       {
         e.CanExecute = false;
@@ -423,8 +433,7 @@ namespace InteractServer
     private async void StartProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
     {
       Global.ProjectManager.Current.Save();
-      Global.ScreenManager.SaveAll();
-      Global.ServerScriptManager.SaveAll();
+      Global.ViewManager.SaveAll();
 
       Global.Log.Clear();
       Global.ErrorLog.Clear();
@@ -443,6 +452,23 @@ namespace InteractServer
       }
 
       e.CanExecute = Global.ProjectManager.Current.Running;
+    }
+
+    private void OpenApiReference_Click(object sender, RoutedEventArgs e)
+    {
+      System.Diagnostics.Process.Start("https://interact.mutecode.com/documentation/quick-start-guide/");
+    }
+
+    private void OpenPatcherHelp_Click(object sender, RoutedEventArgs e)
+    {
+      Windows.PatcherHelpWindow window = new Windows.PatcherHelpWindow();
+      window.Show();
+    }
+
+    private void OpenAbout_Click(object sender, RoutedEventArgs e)
+    {
+      Windows.AboutWindow window = new Windows.AboutWindow();
+      window.ShowDialog();
     }
 
     private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)

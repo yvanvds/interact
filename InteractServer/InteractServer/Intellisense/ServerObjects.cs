@@ -30,17 +30,32 @@ namespace InteractServer.Intellisense
 
       // UI
       AddScriptType("Button", typeof(Implementation.UI.Button));
+      AddScriptType("Image", typeof(Implementation.UI.Image));
+      AddEnum("ImageMode", typeof(Implementation.UI.Image.Mode));
       AddScriptType("Text", typeof(Implementation.UI.Text));
       AddScriptType("Title", typeof(Implementation.UI.Title));
       AddScriptType("Slider", typeof(Implementation.UI.Slider));
       AddScriptType("Grid", typeof(Implementation.UI.Grid));
       AddScriptType("Color", typeof(Implementation.UI.Color));
 
+      AddScriptType("CCanvas", typeof(Implementation.UI.Canvas.CCanvas));
+      AddScriptType("CCircle", typeof(Implementation.UI.Canvas.CCircle));
+      AddScriptType("CRect", typeof(Implementation.UI.Canvas.CRect));
+      AddScriptType("CLine", typeof(Implementation.UI.Canvas.CLine));
+      AddScriptType("CLayer", typeof(Implementation.UI.Canvas.CLayer));
+
+      // Network
       AddScriptType("OscSender", typeof(Implementation.Network.OscSender));
       AddScriptType("OscReceiver", typeof(Implementation.Network.OscReceiver));
-      AddScriptType("Timer", typeof(Implementation.Logic.Timer));
-
       AddScriptType("GlMixer", typeof(Implementation.Network.GlMixer));
+
+      // logic
+      AddScriptType("Timer", typeof(Implementation.Logic.Timer));
+      AddScriptType("Patcher", typeof(Implementation.Logic.Patcher));
+
+      // Utility
+      AddScriptType("Coordinate", typeof(Interact.Utility.Coordinate));
+      
     }
   }
 }

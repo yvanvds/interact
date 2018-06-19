@@ -28,7 +28,7 @@ namespace InteractServer.Pages
     public ScriptPage(ScreenView view) : base(view)
     {
       InitializeComponent();
-      Editor.Text = (view.Screen.ContentObj as ScreenContent.Script).Content;
+      Editor.Text = view.Screen.Content;
       Editor.ContentChanged += Editor_ContentChanged;
       Editor.ServerSide = false;
 
@@ -54,7 +54,7 @@ namespace InteractServer.Pages
         ServerScriptView.ServerScript.Content = Editor.Text;
       } else
       {
-        (ScreenView.Screen.ContentObj as ScreenContent.Script).Content = Editor.Text;
+        ScreenView.Screen.Content = Editor.Text;
       }
     }
 
@@ -65,7 +65,7 @@ namespace InteractServer.Pages
         Editor.Text = ServerScriptView.ServerScript.Content;
       } else
       {
-        Editor.Text = (ScreenView.Screen.ContentObj as ScreenContent.Script).Content;
+        Editor.Text = ScreenView.Screen.Content;
       }
     }
 

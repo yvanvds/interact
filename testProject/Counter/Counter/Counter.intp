@@ -1,0 +1,118 @@
+{
+  "interactVersion": 1,
+  "configValues": {
+    "Name": "Counter",
+    "ID": "d5f398b4-401c-42ba-8324-2839d671bab4",
+    "StartupScreen": "screen"
+  },
+  "configButton": {
+    "Background": {
+      "A": 1.0,
+      "R": 0.0,
+      "G": 0.2158605,
+      "B": 0.0
+    },
+    "Foreground": {
+      "A": 1.0,
+      "R": 0.8713671,
+      "G": 0.9386857,
+      "B": 1.0
+    }
+  },
+  "configPage": {
+    "Color": {
+      "A": 1.0,
+      "R": 0.0,
+      "G": 0.0,
+      "B": 0.0
+    }
+  },
+  "configText": {
+    "Foreground": {
+      "A": 1.0,
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0
+    },
+    "Background": {
+      "A": 0.0,
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0
+    },
+    "FontSize": 12
+  },
+  "configTitle": {
+    "Foreground": {
+      "A": 1.0,
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0
+    },
+    "Background": {
+      "A": 0.0,
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0
+    },
+    "FontSize": 16
+  },
+  "DiskResources": [
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Screens/screen.js",
+      "Type": 1,
+      "ID": "6fca1e6d-4bc6-448e-8b10-9cac10d127a4",
+      "Data": "Script",
+      "Version": 48
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "ServerScripts/interface.js",
+      "Type": 2,
+      "ID": "f38e6ec2-0632-4a9a-963f-1659175f75e2",
+      "Data": null,
+      "Version": 54
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Images/blueButton.png",
+      "Type": 4,
+      "ID": "cec7fb02-20da-4e36-9864-c680211f9c77",
+      "Data": null,
+      "Version": 0
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Images/Flashlight-512.png",
+      "Type": 4,
+      "ID": "4c34a6f3-2e4b-47a2-a424-4d27f0977201",
+      "Data": null,
+      "Version": 0
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Images/greenButton.png",
+      "Type": 4,
+      "ID": "05184b08-5c36-489a-8449-1e69eef9227c",
+      "Data": null,
+      "Version": 0
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Images/hdd.jpg",
+      "Type": 4,
+      "ID": "cf587052-78a6-4b0c-b2d3-4de00bff1777",
+      "Data": null,
+      "Version": 0
+    },
+    {
+      "$type": "InteractServer.Project.DiskResource, InteractServer",
+      "Path": "Patchers/test.yap",
+      "Type": 3,
+      "ID": "76323725-e200-4901-8f0b-37a7c096d79b",
+      "Data": null,
+      "Version": 6
+    }
+  ]
+}

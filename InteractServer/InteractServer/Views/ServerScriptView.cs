@@ -1,6 +1,7 @@
 ﻿using InteractServer.Controls;
 using InteractServer.Models;
 using InteractServer.Pages;
+using InteractServer.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,26 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Views
 {
-  public class ServerScriptView
+  public class ServerScriptView : IView
   {
-    public ServerScriptView(ServerScript script)
+    private Project.ServerScript.Item script;
+    public Project.ServerScript.Item ServerScript { get => script; set => script = value; }
+
+    private LayoutDocument document;
+    public LayoutDocument Document { get => document; set => document = value; }
+
+    public bool Tainted => script.Tainted;
+    public Guid ID => script.ID;
+
+    private ContentType type;
+    public ContentType Type => type;
+
+    public ServerScriptView(IContentModel model)
     {
-      this.script = script;
+      this.script = model as Project.ServerScript.Item;
       Document = new LayoutDocument();
+      type = ContentType.ServerScript;
+
       Document.Content = new Frame() { Content = GeneratePageForScript(script) };
       Document.Title = script.Name;
       Document.Closing += Document_Closing;
@@ -86,16 +101,10 @@ namespace InteractServer.Views
       }
     }
 
-    public bool Tainted()
-    {
-      return script.Tainted;
-    }
+    
 
-    public int ID => script.ID;
-
-    public ServerScript ServerScript { get => script; set => script = value; }
-    public LayoutDocument Document { get => document; set => document = value; }
-    public CodeEditor CodeEditor
+    
+    public CodeEditor Editor
     {
       get
       {
@@ -107,13 +116,12 @@ namespace InteractServer.Views
       }
     }
 
-    private BasePage GeneratePageForScript(ServerScript script)
+    private BasePage GeneratePageForScript(Project.ServerScript.Item script)
     {
       return new ScriptPage(this);
     }
 
-    private ServerScript script;
-    private LayoutDocument document;
+    
 
 
   }

@@ -28,9 +28,9 @@ namespace InteractServer.Implementation.Network
       Global.Sender.InvokeMethod(ID, methodName, arguments);
     }
 
-    public override void StartScreen(string screenName)
+    public override void StartScreen(string path)
     {
-      int screenID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
+      Guid screenID = Global.ProjectManager.Current.Screens.Get(path).ID;
       Global.Sender.StartScreen(ID, screenID);
     }
   }

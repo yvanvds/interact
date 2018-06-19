@@ -1,6 +1,7 @@
 ﻿using InteractServer.Controls;
 using InteractServer.Models;
 using InteractServer.Pages;
+using InteractServer.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,28 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Views
 {
-  public class ScreenView
+  public class ScreenView : IView
   {
-    public ScreenView(Screen screen)
+    public Guid ID => Screen.ID;
+
+    private Project.Screen.Item screen;
+    public Project.Screen.Item Screen { get => screen; set => screen = value; }
+
+    private LayoutDocument document;
+    public LayoutDocument Document { get => document; set => document = value; }
+
+    public bool Tainted { get => Screen.Tainted; }
+
+    private ContentType type;
+    public ContentType Type => type;
+
+    public ScreenView(IContentModel screen)
     {
-      Screen = screen;
+      Screen = screen as Project.Screen.Item;
       Document = new LayoutDocument();
-      Document.Content = new Frame() { Content = GeneratePageForScreen(screen) };
+      type = ContentType.Screen;
+
+      Document.Content = new Frame() { Content = GeneratePageForScreen(Screen) };
       Document.Title = screen.Name;
       Document.Closing += Document_Closing;
     }
@@ -86,17 +102,11 @@ namespace InteractServer.Views
       }
     }
 
-    public bool Tainted()
-    {
-      return Screen.Tainted;
-    }
+   
 
-    public int ID => Screen.ID;
+    
 
-    public Screen Screen { get => screen; set => screen = value; }
-    public LayoutDocument Document { get => document; set => document = value; }
-
-    public CodeEditor CodeEditor
+    public CodeEditor Editor
     {
       get
       {
@@ -108,15 +118,14 @@ namespace InteractServer.Views
       }
     }
 
-    private BasePage GeneratePageForScreen(Screen screen)
+    private BasePage GeneratePageForScreen(Project.Screen.Item screen)
     {
-      if (screen.Type.Equals(ScreenType.Script)) return new ScriptPage(this);
-      if (screen.Type.Equals(ScreenType.UtilityScript)) return new ScriptPage(this);
+      if (screen.ScreenType.Equals(Project.Screen.ScreenTypes.Script)) return new ScriptPage(this);
+      if (screen.ScreenType.Equals(Project.Screen.ScreenTypes.UtilityScript)) return new ScriptPage(this);
       return null;
     }
 
-    private Screen screen;
-    private LayoutDocument document;
+
 
 
   }

@@ -8,6 +8,7 @@ namespace Interact.UI
   {
     // Appearance
     public abstract string Content { get; set; }
+    public abstract Image Image { set; }
     public abstract Color TextColor { get; set; }
 
     // Interaction

@@ -1,4 +1,5 @@
 ﻿using InteractServer.Models;
+using InteractServer.Project.Screen;
 using MahApps.Metro.Controls;
 using Shared;
 using System;
@@ -23,9 +24,13 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for NewScreenDialog.xaml
   /// </summary>
-  public partial class NewScreenDialog : MetroWindow
+  public partial class NewScreenDialog : MetroWindow, IDialog
   {
-    private String ModelName;
+    private string modelName;
+    public string ModelName { get => modelName; }
+
+    private string type;
+    public string Type { get => type; }
 
     private ObservableCollection<string> cbList;
 
@@ -34,7 +39,7 @@ namespace InteractServer.Dialogs
       InitializeComponent();
       BContinue.IsEnabled = false;
       LFileExists.Visibility = Visibility.Hidden;
-      ModelName = "";
+      modelName = "";
 
       cbList = new ObservableCollection<string>();
       cbList.Add("Scripted Screen");
@@ -48,22 +53,21 @@ namespace InteractServer.Dialogs
     {
       if (!ValidModel()) return;
 
-      String type = ScreenType.Invalid;
+      type = ScreenTypes.Invalid;
 
       switch(CBType.SelectedIndex)
       {
-        case 0: { type = ScreenType.Script; break; }
-        case 1: { type = ScreenType.UtilityScript; break; }
-        case 2: { type = ScreenType.Info; break; }
+        case 0: { type = ScreenTypes.Script; break; }
+        case 1: { type = ScreenTypes.UtilityScript; break; }
+        case 2: { type = ScreenTypes.Info; break; }
       }
-
-      Global.ScreenManager.CreateNewScreen(ModelName, type);
+      DialogResult = true;
       Close();
     }
 
     private void TBScreenName_TextChanged(object sender, TextChangedEventArgs e)
     {
-      String content = ModelName = TBScreenName.Text;
+      String content = modelName = TBScreenName.Text;
       content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
       content = Utils.StringUtils.UppercaseWords(content);
       content = Regex.Replace(content, @"\s+", "");
@@ -75,11 +79,11 @@ namespace InteractServer.Dialogs
     {
       if (ModelName.Length == 0) return false;
 
-      if (Global.ProjectManager.Current.Screens.NameExists(ModelName))
+      /*if (Global.ProjectManager.Current.Screens.NameExists(ModelName))
       {
         LFileExists.Visibility = Visibility.Visible;
         return false;
-      }
+      }*/
       LFileExists.Visibility = Visibility.Hidden;
       return true;
     }

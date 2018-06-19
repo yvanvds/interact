@@ -19,29 +19,34 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for NewPatcherDialog.xaml
   /// </summary>
-  public partial class NewPatcherDialog : MetroWindow
+  public partial class NewPatcherDialog : MetroWindow, IDialog
   {
-    private String ModelName;
+    private string modelName;
+    string IDialog.ModelName => modelName;
+
+    public string Type => "";
 
     public NewPatcherDialog()
     {
       InitializeComponent();
       BContinue.IsEnabled = false;
       LFileExists.Visibility = Visibility.Hidden;
-      ModelName = "";
+      modelName = "";
     }
 
     private void BContinue_Click(object sender, RoutedEventArgs e)
     {
       if (!ValidModel()) return;
-
-      Global.PatcherManager.CreateNewPatcher(ModelName);
-      Close();
+      else
+      {
+        DialogResult = true;
+        Close();
+      }
     }
 
     private void TBScriptName_TextChanged(object sender, TextChangedEventArgs e)
     {
-      String content = ModelName = TBScriptName.Text;
+      String content = modelName = TBScriptName.Text;
       content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
       content = Utils.StringUtils.UppercaseWords(content);
       content = Regex.Replace(content, @"\s+", "");
@@ -51,13 +56,13 @@ namespace InteractServer.Dialogs
 
     private bool ValidModel()
     {
-      if (ModelName.Length == 0) return false;
+      if (modelName.Length == 0) return false;
 
-      if (Global.ProjectManager.Current.Patchers.NameExists(ModelName))
+      /*if (Global.ProjectManager.Current.Patchers.NameExists(modelName))
       {
         LFileExists.Visibility = Visibility.Visible;
         return false;
-      }
+      }*/
       LFileExists.Visibility = Visibility.Hidden;
       return true;
     }

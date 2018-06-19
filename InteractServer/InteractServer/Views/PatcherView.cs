@@ -1,5 +1,6 @@
 ﻿using InteractServer.Models;
 using InteractServer.Pages;
+using InteractServer.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,29 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Views
 {
-  public class PatcherView
+  public class PatcherView: IView
   {
-    
+
     private LayoutDocument document;
     public LayoutDocument Document { get => document; set => document = value; }
 
-    public int ID => patcher.ID;
+    public Guid ID => patcher.ID;
 
-    private Patcher patcher;
-    public Patcher Patcher { get => patcher; set => patcher = value; }
+    private Project.Patcher.Item patcher;
+    public Project.Patcher.Item Patcher { get => patcher; set => patcher = value; }
 
-    public PatcherView(Patcher patcher)
+    public bool Tainted { get => patcher.Tainted; }
+
+    private ContentType type;
+    public ContentType Type => type;
+
+    public Controls.CodeEditor Editor { get => null; }
+
+    public PatcherView(IContentModel model)
     {
-      this.patcher = patcher;
+      this.patcher = model as Project.Patcher.Item;
+      type = ContentType.Patcher;
+
       document = new LayoutDocument();
       document.Content = new Frame()
       {
@@ -36,35 +46,31 @@ namespace InteractServer.Views
 
     private void Document_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
-      if(patcher.Tainted)
+      if (patcher.Tainted)
       {
         var result = Messages.RequestPatcherSave(patcher.Name);
 
-        if(result.Equals(MessageBoxResult.Cancel))
+        if (result.Equals(MessageBoxResult.Cancel))
         {
           e.Cancel = true;
-        } else if (result.Equals(MessageBoxResult.Yes))
+        }
+        else if (result.Equals(MessageBoxResult.Yes))
         {
           Save();
-          Frame f = document.Content as Frame;
-          PatcherPage sp = f.Content as PatcherPage;
-          sp.Close();
-          //Global.PatcherManager.Close(patcher);
-          e.Cancel = false;
-        } else if (result.Equals(MessageBoxResult.No))
-        {
-          DiscardChanges();
-          Frame f = document.Content as Frame;
-          PatcherPage sp = f.Content as PatcherPage;
-          sp.Close();
-          //Global.PatcherManager.Close(patcher);
+          PatcherPage sp = GetPage();
+          sp.Clear();
+          Global.AudioManager.DeleteObject(patcher);
+          Global.ViewManager.Close(patcher);
           e.Cancel = false;
         }
-      } else
-      {
-        Frame f = document.Content as Frame;
-        PatcherPage sp = f.Content as PatcherPage;
-        sp.Close();
+        else if (result.Equals(MessageBoxResult.No))
+        {
+          PatcherPage sp = GetPage();
+          sp.Clear();
+          Global.AudioManager.DeleteObject(patcher);
+          Global.ViewManager.Close(patcher);
+          e.Cancel = false;
+        }
       }
     }
 
@@ -73,19 +79,11 @@ namespace InteractServer.Views
       document.Parent?.RemoveChild(document);
     }
 
-    public void Load()
-    {
-      Frame f = document.Content as Frame;
-      PatcherPage sp = f.Content as PatcherPage;
-      sp.Load();
-    }
-
     public void Save()
     {
-      if(patcher.Tainted)
+      if (patcher.Tainted)
       {
-        Frame f = document.Content as Frame;
-        PatcherPage sp = f.Content as PatcherPage;
+        PatcherPage sp = GetPage();
         sp.Save();
         Global.ProjectManager.Current.Patchers.Save(Patcher);
         patcher.Tainted = false;
@@ -93,13 +91,18 @@ namespace InteractServer.Views
       }
     }
 
+    public PatcherPage GetPage()
+    {
+      Frame f = document.Content as Frame;
+      return f.Content as PatcherPage;
+    }
+
 
     public void DiscardChanges()
     {
       if (Patcher.Tainted)
       {
-        Frame f = document.Content as Frame;
-        PatcherPage sp = f.Content as PatcherPage;
+        PatcherPage sp = GetPage();
         sp.DiscardChanges();
         patcher.Tainted = false;
         document.Title = patcher.Name;
@@ -108,19 +111,16 @@ namespace InteractServer.Views
 
     public void Taint()
     {
-      if(!patcher.Tainted)
+      if (!patcher.Tainted)
       {
         patcher.Tainted = true;
         document.Title = patcher.Name + " *";
       }
     }
 
-    public bool Tainted()
-    {
-      return patcher.Tainted;
-    }
+    
 
-    private PatcherPage GeneratePageForPatcher(Patcher patcher)
+    private PatcherPage GeneratePageForPatcher(Project.Patcher.Item patcher)
     {
       return new PatcherPage(this);
     }

@@ -7,6 +7,7 @@ using System.Windows.Media;
 using Interact.UI;
 using System.ComponentModel;
 using System.Windows;
+using Interact.Logic;
 
 namespace InteractServer.Implementation.UI
 {
@@ -21,6 +22,9 @@ namespace InteractServer.Implementation.UI
     private Network.OscSender OscSender = null;
     private string OscAddress;
 
+    private Interact.Logic.Patcher patcher = null;
+    private string patcherInletName;
+
     class Handler
     {
       public string name;
@@ -32,8 +36,6 @@ namespace InteractServer.Implementation.UI
 
     public Button()
     {
-      //UIObject.Background = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Background);
-      //UIObject.Foreground = new SolidColorBrush(Global.ProjectManager.Current.ConfigButton.Foreground);
       UIObject.Style = Application.Current.FindResource("SquareButtonStyle") as Style;
       UIObject.Margin = new System.Windows.Thickness(5, 5, 5, 5);
       UIObject.Uid = Guid.NewGuid().ToString();
@@ -48,6 +50,7 @@ namespace InteractServer.Implementation.UI
       {
         pressure = 1;
         OscSender?.Send(OscAddress, pressure);
+        patcher?.PassFloat(pressure, patcherInletName);
 
         if (OnClickHandler != null)
         {
@@ -57,6 +60,7 @@ namespace InteractServer.Implementation.UI
       {
         pressure = 0;
         OscSender?.Send(OscAddress, pressure);
+        patcher?.PassFloat(pressure, patcherInletName);
 
         if (OnReleaseHandler != null)
         {
@@ -67,6 +71,8 @@ namespace InteractServer.Implementation.UI
     }
 
     public override string Content { get => UIObject.Content as string; set => UIObject.Content = value; }
+
+    public override Interact.UI.Image Image { set => UIObject.Content = value.InternalObject; }
 
     public override object InternalObject => UIObject;
 
@@ -116,6 +122,12 @@ namespace InteractServer.Implementation.UI
       OscSender = new Network.OscSender();
       OscSender.Init(destination, port);
       OscAddress = address;
+    }
+
+    public override void SendToPatcher(Patcher patcher, string inlet)
+    {
+      this.patcher = patcher;
+      this.patcherInletName = inlet;
     }
   }
 }

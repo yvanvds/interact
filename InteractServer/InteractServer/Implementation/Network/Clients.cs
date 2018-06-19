@@ -26,7 +26,7 @@ namespace InteractServer.Implementation.Network
 
     public override void StartScreen(string screenName)
     {
-      int ID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
+      Guid ID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
       Global.Sender.StartScreen(ID);
     }
 

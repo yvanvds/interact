@@ -16,8 +16,9 @@ namespace InteractServer.Implementation.Logic
     public override void Start(string callback, int intervalMilliSec)
     {
       this.callback = callback;
-      timer = new DispatcherTimer();
+      timer = new DispatcherTimer(DispatcherPriority.Normal);
       timer.Interval = TimeSpan.FromMilliseconds(intervalMilliSec);
+      timer.Tick += tick;
       timer.Start();
     }
 
@@ -29,8 +30,11 @@ namespace InteractServer.Implementation.Logic
     private void tick(object sender, EventArgs e)
     {
       if (Runner.Engine != null) Runner.Engine.InvokeMethod(callback);
-      else timer.Tick -= tick;
-      timer.Stop();
+      else
+      {
+        timer.Tick -= tick;
+        timer.Stop();
+      }
     }
   }
 }

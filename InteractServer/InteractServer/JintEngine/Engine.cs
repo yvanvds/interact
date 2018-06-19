@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Jint.Runtime.Interop;
 using System.Windows.Controls;
 using System.Windows;
+using InteractServer.Project;
 
 namespace InteractServer.JintEngine
 {
@@ -69,14 +70,14 @@ namespace InteractServer.JintEngine
 
     public void StartCurrentProject()
     {
-      ObservableCollection<ProjectResource> resources = Global.ProjectManager.Current.ServerScripts.Resources;
+      ObservableCollection<IDiskResource> resources = Global.ProjectManager.Current.ServerScripts.Resources;
 
-      foreach (ProjectResource resource in resources)
+      foreach (IDiskResource resource in resources)
       {
         try
         {
-          jint.Execute((resource as ServerScript).Content);
-          Global.Log.AddEntry("Added ServerScript " + (resource as ServerScript).Name);
+          jint.Execute((resource as Project.ServerScript.Item).Content);
+          Global.Log.AddEntry("Added ServerScript " + (resource as Project.ServerScript.Item).Name);
         }
         catch (Esprima.ParserException e)
         {
@@ -84,7 +85,7 @@ namespace InteractServer.JintEngine
         }
         catch (Exception e)
         {
-          Global.ErrorLog.AddEntry(0, 0, e.GetType().ToString() +  "ServerScript " + (resource as ServerScript).Name + " error: " + e.ToString());
+          Global.ErrorLog.AddEntry(0, 0, e.GetType().ToString() +  "ServerScript " + (resource as Project.ServerScript.Item).Name + " error: " + e.ToString());
           return;
         }
 
@@ -102,6 +103,10 @@ namespace InteractServer.JintEngine
         try
         {
           jint.Invoke(name);
+        }
+        catch (Jint.Runtime.JavaScriptException e)
+        {
+          Global.ErrorLog.AddEntry(0, e.LineNumber, e.Error.ToString());
         }
         catch (Exception e)
         {
@@ -124,7 +129,6 @@ namespace InteractServer.JintEngine
         {
           Global.ErrorLog.AddEntry(0, e.LineNumber, e.Error.ToString());
         }
-        
         catch (Exception e)
         {
           Global.Log.AddEntry("Serverscript error: " + e.ToString());

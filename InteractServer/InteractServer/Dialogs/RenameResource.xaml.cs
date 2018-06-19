@@ -1,4 +1,5 @@
-﻿using InteractServer.Models;
+﻿using InteractServer.Project;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,19 @@ namespace InteractServer.Dialogs
   /// <summary>
   /// Interaction logic for RenameResource.xaml
   /// </summary>
-  public partial class RenameResource : Window
+  public partial class RenameResource : MetroWindow
   {
-    private ProjectResourceGroup group;
-    private ProjectResource resource;
+    private IDiskResourceFolder folder;
+    private IDiskResource resource;
     private bool replaceEverywhere = false;
     private string oldName;
     private string newName;
 
-    public RenameResource(ProjectResourceGroup group, ProjectResource resource)
+    public RenameResource(IDiskResourceFolder folder, IDiskResource resource)
     {
       InitializeComponent();
       BRename.IsEnabled = false;
-      this.group = group;
+      this.folder = folder;
       this.resource = resource;
       TBResourceName.Text = resource.Name;
       oldName = resource.Name;
@@ -51,7 +52,7 @@ namespace InteractServer.Dialogs
       }
       else
       {
-        foreach (ProjectResource resource in group.Resources)
+        foreach (IDiskResource resource in folder.Resources)
         {
           if (resource.Name.Equals(newName))
           {
@@ -71,29 +72,10 @@ namespace InteractServer.Dialogs
       }
     }
 
-    private void CBRename_Click(object sender, RoutedEventArgs e)
-    {
-      replaceEverywhere = CBRename.IsChecked.Value;
-    }
 
     private void BRename_Click(object sender, RoutedEventArgs e)
     {
-      resource.Name = newName;
-
-      if (group is Screens)
-      {
-        ((Screens)group).Save(resource as Screen);
-      }
-      else if (group is Images)
-      {
-        ((Images)group).Save(resource as Models.Image);
-      }
-      else if (group is ServerScripts)
-      {
-        ((ServerScripts)group).Save(resource as ServerScript);
-      }
-
-
+      resource.MoveTo(newName);
       Close();
     }
   }

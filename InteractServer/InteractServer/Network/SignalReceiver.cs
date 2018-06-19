@@ -51,7 +51,7 @@ namespace InteractServer
       Global.ProjectManager.Current.SendConfigToClient(Context.ConnectionId);
     }
 
-    public void GetScreen(Guid projectID, int screenID)
+    public void GetScreen(Guid projectID, Guid screenID)
     {
       Global.Log.AddEntry("Client " + Global.Clients.Get(Context.ConnectionId).UserName + " asks for screen " + screenID + ".");
 
@@ -59,16 +59,22 @@ namespace InteractServer
       Global.ProjectManager.Current.Screens.Get(screenID).SendToClient(Context.ConnectionId);
     }
 
-    public void GetImage(Guid projectID, int imageID)
+    public void GetImage(Guid projectID, Guid imageID)
     {
       Global.Log.AddEntry("Client " + Global.Clients.Get(Context.ConnectionId).UserName + " asks for image " + imageID + ".");
       Global.ProjectManager.Current.Images.Get(imageID).SendToClient(Context.ConnectionId);
     }
 
-    public void GetSoundFile(Guid projectID, int sfID)
+    public void GetSoundFile(Guid projectID, Guid sfID)
     {
       Global.Log.AddEntry("Client " + Global.Clients.Get(Context.ConnectionId).UserName + " asks for soundfile " + sfID + ".");
       Global.ProjectManager.Current.SoundFiles.Get(sfID).SendToClient(Context.ConnectionId);
+    }
+
+    public void GetPatcher(Guid projectID, Guid pID)
+    {
+      Global.Log.AddEntry("Client " + Global.Clients.Get(Context.ConnectionId).UserName + " asks for patcher " + pID + ".");
+      Global.ProjectManager.Current.Patchers.Get(pID).SendToClient(Context.ConnectionId);
     }
 
     public void InvokeMethod(string name, params object[] arguments)
@@ -86,7 +92,7 @@ namespace InteractServer
       Global.Sender.InvokeMethod(clientID, method, arguments);
     }
 
-    public void StartScreen(string clientID, int screenID)
+    public void StartScreen(string clientID, Guid screenID)
     {
       Global.Sender.StartScreen(clientID, screenID);
     }
@@ -96,7 +102,7 @@ namespace InteractServer
       Global.Log.AddEntry(Global.Clients.Get(Context.ConnectionId)?.UserName + ": " + message);
     }
 
-    public void ErrorLog(int index, int lineNumber, string message, int resourceID)
+    public void ErrorLog(int index, int lineNumber, string message, Guid resourceID)
     {
       Global.ErrorLog.AddEntry(index, lineNumber, message, Global.ProjectManager.Current.Screens.Get(resourceID));
     }

@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -123,8 +122,8 @@
     <Reference Include="jint, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
       <HintPath>..\packages\jint.3.0.0-beta-001\lib\net45\jint.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.6.1\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.2\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -163,17 +162,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.Vorbis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Vorbis.1.0.0.0\lib\net35\NAudio.Vorbis.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Windows.Design.Extensibility, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NVorbis, Version=0.8.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVorbis.0.8.5.0\lib\NVorbis.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -186,14 +177,17 @@
       <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.1.59.3\lib\net45\SkiaSharp.dll</HintPath>
+    <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.1.60.0\lib\net45\SkiaSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.Desktop, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.1.59.3\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.Desktop, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.WPF, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.1.59.3\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.Gtk, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.WPF, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.dll</HintPath>
@@ -205,15 +199,6 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.108.0\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.108.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="System.Diagnostics.Contracts" />
     <Reference Include="System.Diagnostics.Tracing">
       <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
@@ -237,8 +222,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http, Version=4.3.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
@@ -301,8 +287,8 @@
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Cors, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.4\lib\net45\System.Web.Cors.dll</HintPath>
+    <Reference Include="System.Web.Cors, Version=5.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.5\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
@@ -325,15 +311,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.5.1.444934\lib\netstandard1.0\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.5.1.444934\lib\netstandard1.0\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Forms.2.5.1.444934\lib\netstandard1.0\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -353,13 +330,13 @@
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="YapView, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YapView.1.0.4\lib\net471\YapView.dll</HintPath>
+      <HintPath>..\packages\YapView.1.0.8\lib\net471\YapView.dll</HintPath>
     </Reference>
     <Reference Include="YSE.NET.PCL, Version=1.0.26.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\YSE.NET.PCL.1.0.27\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
     </Reference>
     <Reference Include="Yse.NET.Standard, Version=1.0.62.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Yse.NET.Standard.1.0.63\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+      <HintPath>..\packages\Yse.NET.Standard.1.0.65\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -369,9 +346,11 @@
     </ApplicationDefinition>
     <Compile Include="CommandBindings\PatcherCommands.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Dialogs\IDialog.cs" />
     <Compile Include="Dialogs\NewPatcherDialog.xaml.cs">
       <DependentUpon>NewPatcherDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Implementation\Logic\Patcher.cs" />
     <Compile Include="Implementation\Logic\Timer.cs" />
     <Compile Include="Implementation\Network\Client.cs" />
     <Compile Include="Implementation\Network\Clients.cs" />
@@ -380,6 +359,11 @@
     <Compile Include="Implementation\Network\OscSender.cs" />
     <Compile Include="Implementation\Network\Server.cs" />
     <Compile Include="Implementation\UI\Button.cs" />
+    <Compile Include="Implementation\UI\Canvas\CCanvas.cs" />
+    <Compile Include="Implementation\UI\Canvas\CCircle.cs" />
+    <Compile Include="Implementation\UI\Canvas\CLayer.cs" />
+    <Compile Include="Implementation\UI\Canvas\CLine.cs" />
+    <Compile Include="Implementation\UI\Canvas\CRect.cs" />
     <Compile Include="Implementation\UI\Color.cs" />
     <Compile Include="Implementation\UI\Grid.cs" />
     <Compile Include="Implementation\UI\Image.cs" />
@@ -416,28 +400,30 @@
     <Compile Include="JintEngine\RunningProjectPage.xaml.cs">
       <DependentUpon>RunningProjectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Managers\PatcherManager.cs" />
-    <Compile Include="Managers\ScreenManager.cs" />
-    <Compile Include="Managers\ProjectManager.cs" />
-    <Compile Include="Managers\ServerScriptManager.cs" />
+    <Compile Include="Managers\AudioManager.cs" />
+    <Compile Include="Project\ProjectManager.cs" />
+    <Compile Include="Managers\ViewManager.cs" />
     <Compile Include="Messages.cs" />
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\Clients.cs" />
-    <Compile Include="Models\ErrorLogEntry.cs" />
-    <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\Images.cs" />
-    <Compile Include="Models\Patcher.cs" />
-    <Compile Include="Models\Patchers.cs" />
-    <Compile Include="Models\Screen.cs" />
-    <Compile Include="Models\Screens.cs" />
-    <Compile Include="Models\LogEntry.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\ProjectResource.cs" />
-    <Compile Include="Models\ProjectResourceGroup.cs" />
-    <Compile Include="Models\ServerScript.cs" />
-    <Compile Include="Models\ServerScripts.cs" />
-    <Compile Include="Models\SoundFile.cs" />
-    <Compile Include="Models\SoundFiles.cs" />
+    <Compile Include="Client\Client.cs" />
+    <Compile Include="Client\Clients.cs" />
+    <Compile Include="Log\ErrorLogEntry.cs" />
+    <Compile Include="Project\IContentModel.cs" />
+    <Compile Include="Project\IDiskResource.cs" />
+    <Compile Include="Project\IDiskResourceFolder.cs" />
+    <Compile Include="Project\Image\Item.cs" />
+    <Compile Include="Project\Image\Container.cs" />
+    <Compile Include="Project\Patcher\Item.cs" />
+    <Compile Include="Project\Patcher\Container.cs" />
+    <Compile Include="Project\DiskResource.cs" />
+    <Compile Include="Project\ProjectFile.cs" />
+    <Compile Include="Project\Screen\Item.cs" />
+    <Compile Include="Project\Screen\Container.cs" />
+    <Compile Include="Log\LogEntry.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Project\ServerScript\Item.cs" />
+    <Compile Include="Project\ServerScript\Container.cs" />
+    <Compile Include="Project\SoundFile\Item.cs" />
+    <Compile Include="Project\SoundFile\Container.cs" />
     <Compile Include="Network\SignalReceiver.cs" />
     <Compile Include="Network\Multicast.cs" />
     <Compile Include="Network\SignalSender.cs" />
@@ -445,20 +431,20 @@
     <Compile Include="Pages\ClientPage.xaml.cs">
       <DependentUpon>ClientPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ErrorLogPage.xaml.cs">
+    <Compile Include="Log\ErrorLogPage.xaml.cs">
       <DependentUpon>ErrorLogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LogPage.xaml.cs">
+    <Compile Include="Log\LogPage.xaml.cs">
       <DependentUpon>LogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PatcherPage.xaml.cs">
+    <Compile Include="Project\Patcher\PatcherPage.xaml.cs">
       <DependentUpon>PatcherPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ProjectConfigPage.xaml.cs">
-      <DependentUpon>ProjectConfigPage.xaml</DependentUpon>
+    <Compile Include="Project\ConfigPage.xaml.cs">
+      <DependentUpon>ConfigPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ProjectExplorerPage.xaml.cs">
-      <DependentUpon>ProjectExplorerPage.xaml</DependentUpon>
+    <Compile Include="Project\ExplorerPage.xaml.cs">
+      <DependentUpon>ExplorerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -467,11 +453,12 @@
       <DependentUpon>ScriptPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PatcherContent\Base.cs" />
-    <Compile Include="ProjectPart\ConfigValues.cs" />
-    <Compile Include="ProjectPart\UI\Page.cs" />
-    <Compile Include="ProjectPart\UI\Button.cs" />
-    <Compile Include="ProjectPart\UI\Text.cs" />
-    <Compile Include="ProjectPart\UI\Title.cs" />
+    <Compile Include="Project\Config\ConfigValues.cs" />
+    <Compile Include="Project\Config\UI\Page.cs" />
+    <Compile Include="Project\Config\UI\Button.cs" />
+    <Compile Include="Project\Config\UI\Text.cs" />
+    <Compile Include="Project\Config\UI\Title.cs" />
+    <Compile Include="Resources\templates\Template.cs" />
     <Compile Include="Shared\Enumerations.cs" />
     <Compile Include="Shared\JsonObject.cs" />
     <Compile Include="ScreenContent\Base.cs" />
@@ -482,8 +469,6 @@
     <Compile Include="Shared\Project\ConfigValues.cs" />
     <Compile Include="Shared\Project\Text.cs" />
     <Compile Include="Shared\Project\Title.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\Editor.cs" />
     <Compile Include="Utils\HeaderToImageConverter.cs" />
     <Compile Include="Utils\ImageToBitmapSourceConverter.cs" />
@@ -491,9 +476,16 @@
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
     <Compile Include="Utils\YseHandler.cs" />
+    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\PatcherView.cs" />
     <Compile Include="Views\ScreenView.cs" />
     <Compile Include="Views\ServerScriptView.cs" />
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PatcherHelpWindow.xaml.cs">
+      <DependentUpon>PatcherHelpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ServerOptionsWindow.xaml.cs">
       <DependentUpon>ServerOptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -541,23 +533,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ErrorLogPage.xaml">
+    <Page Include="Log\ErrorLogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LogPage.xaml">
+    <Page Include="Log\LogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PatcherPage.xaml">
+    <Page Include="Project\Patcher\PatcherPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ProjectConfigPage.xaml">
+    <Page Include="Project\ConfigPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ProjectExplorerPage.xaml">
+    <Page Include="Project\ExplorerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -566,6 +558,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ScriptPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PatcherHelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -606,7 +606,9 @@
     <None Include="Scripts\jquery-3.3.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -719,17 +721,12 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets'))" />
-    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.props'))" />
-    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.targets'))" />
-    <Error Condition="!Exists('..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\Yse.NET.Standard.1.0.63\build\Yse.NET.STandard.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Yse.NET.Standard.1.0.63\build\Yse.NET.STandard.targets'))" />
+    <Error Condition="!Exists('..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets'))" />
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />
-  <Import Project="..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.1.444934\build\netstandard1.0\Xamarin.Forms.targets')" />
-  <Import Project="..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.59.3\build\net45\SkiaSharp.targets')" />
-  <Import Project="..\packages\Yse.NET.Standard.1.0.63\build\Yse.NET.STandard.targets" Condition="Exists('..\packages\Yse.NET.Standard.1.0.63\build\Yse.NET.STandard.targets')" />
+  <Import Project="..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets" Condition="Exists('..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets')" />
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" />
 </Project>

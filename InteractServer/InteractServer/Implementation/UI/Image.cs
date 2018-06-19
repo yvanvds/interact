@@ -10,6 +10,8 @@ namespace InteractServer.Implementation.UI
 {
   public class Image : Interact.UI.Image
   {
+    
+
     private System.Windows.Controls.Image UIObject = new System.Windows.Controls.Image();
     private Color backgroundColor = new Color();
 
@@ -30,13 +32,19 @@ namespace InteractServer.Implementation.UI
       get => backgroundColor;
       set
       {
-        backgroundColor = new Color();
+        backgroundColor = new Color(value.R, value.G, value.B, value.A);
       }
     }
 
-    public override void Set(string ImageName)
+    public override void Set(string ImageName, Mode mode)
     {
       UIObject.Source = converter.Convert(Global.ProjectManager.Current.Images.Get(ImageName).ImageObj, null, null, null) as BitmapSource;
+      switch (mode)
+      {
+        case Mode.Fill: UIObject.Stretch = System.Windows.Media.Stretch.UniformToFill; break;
+        case Mode.Fit: UIObject.Stretch = System.Windows.Media.Stretch.Uniform; break;
+        case Mode.Stretch: UIObject.Stretch = System.Windows.Media.Stretch.Fill; break;
+      }
     }
 
     public override bool Visible

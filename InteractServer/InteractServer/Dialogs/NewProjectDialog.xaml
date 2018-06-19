@@ -12,9 +12,27 @@
                       Background="{DynamicResource ColorDark}"
         Title="Start a new Project" Height="311.732" Width="307.542">
     <Grid>
-        <Label Content="Select a folder for your project" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TBFoldername"  HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="221"/>
-        <Button x:Name="BPickFolder" Content="..." HorizontalAlignment="Left" Margin="236,41,0,0" VerticalAlignment="Top" Width="46" Height="23" Click="BPickFolder_Click" Style="{StaticResource SquareButtonStyle}"/>
+        <Label Content="Select a folder for your project" 
+               HorizontalAlignment="Left" 
+               Margin="10,10,0,0" 
+               VerticalAlignment="Top"/>
+        <TextBox x:Name="TBFoldername"  
+                 HorizontalAlignment="Left" 
+                 Height="23" 
+                 Margin="10,41,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="221"/>
+        <Button x:Name="BPickFolder" 
+                Content="..." 
+                HorizontalAlignment="Left" 
+                Margin="236,41,0,0" 
+                VerticalAlignment="Top" 
+                Width="46" 
+                Height="23" 
+                Click="BPickFolder_Click" 
+                Style="{StaticResource SquareButtonStyle}"/>
         <Label Content="Project Name" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TBProjectName" HorizontalAlignment="Left" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="272" TextChanged="TBProjectName_TextChanged"/>
         <Label Content="Name on Disk" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>

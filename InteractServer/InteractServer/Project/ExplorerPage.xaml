@@ -1,0 +1,189 @@
+﻿<Page x:Class="InteractServer.Project.ExplorerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      
+      xmlns:utils="clr-namespace:InteractServer.Utils"
+      xmlns:local="clr-namespace:InteractServer.Project"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="Explorer" Loaded="Page_Loaded"
+      >
+
+  <Page.Resources>
+    <utils:ImageToBitmapSourceConverter x:Key="ImageConverter"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Green" />
+    <utils:ProjectExplorerTemplateSelector x:Key="ItemTemplateSelector">
+
+      <utils:ProjectExplorerTemplateSelector.FolderTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type local:IDiskResourceFolder}" ItemsSource="{Binding Resources}">
+          <StackPanel Orientation="Horizontal">
+            <!--
+            <StackPanel.Style>
+              <Style TargetType="StackPanel">
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                  </DataTrigger>
+                  <DataTrigger Binding="{Binding IsTargetItem}" Value="True">
+                    <Setter Property="Background" Value="Green"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </StackPanel.Style>
+            -->
+            <StackPanel.ContextMenu>
+              <ContextMenu StaysOpen="True">
+                <MenuItem Header="Add ..." Click="AddResource_Click"/>
+              </ContextMenu>
+            </StackPanel.ContextMenu>
+
+            <Image Source="{Binding Icon}" Margin="0,0,5,0" Height="16" Width="16" Stretch="UniformToFill" SnapsToDevicePixels="True" />
+            <TextBlock Text="{Binding FolderName}" Foreground="White" />
+            <TextBlock Text="{Binding GuiCount}" Foreground="GreenYellow"/>
+          </StackPanel>
+        </HierarchicalDataTemplate>
+      </utils:ProjectExplorerTemplateSelector.FolderTemplate>
+
+      <utils:ProjectExplorerTemplateSelector.ServerScriptTemplate>
+        <DataTemplate DataType="{x:Type local:IDiskResource}">
+        <StackPanel Orientation="Horizontal">
+          <StackPanel.ContextMenu>
+            <ContextMenu StaysOpen="True">
+              <MenuItem x:Name="RenameResource" Header="Rename" Click="RenameResource_Click"/>
+              <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+            </ContextMenu>
+          </StackPanel.ContextMenu>
+          <TextBlock Text="{Binding Name}" Foreground="White">
+
+            <TextBlock.ToolTip>
+              <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+            </TextBlock.ToolTip>
+          </TextBlock>
+        </StackPanel>
+        </DataTemplate>
+      </utils:ProjectExplorerTemplateSelector.ServerScriptTemplate>
+
+      <utils:ProjectExplorerTemplateSelector.PatcherTemplate>
+        <DataTemplate DataType="{x:Type local:IDiskResource}">
+          <StackPanel Orientation="Horizontal">
+            <StackPanel.ContextMenu>
+              <ContextMenu StaysOpen="True">
+                <MenuItem x:Name="RenameResource" Header="Rename" Click="RenameResource_Click"/>
+                <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+              </ContextMenu>
+            </StackPanel.ContextMenu>
+            <TextBlock Text="{Binding Name}" Foreground="White">
+
+              <TextBlock.ToolTip>
+                <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+              </TextBlock.ToolTip>
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </utils:ProjectExplorerTemplateSelector.PatcherTemplate>
+
+      <utils:ProjectExplorerTemplateSelector.ScreenTemplate>
+        <DataTemplate DataType="{x:Type local:IDiskResource}">
+          <StackPanel Orientation="Horizontal">
+            <StackPanel.ContextMenu>
+              <ContextMenu StaysOpen="True">
+                <MenuItem x:Name="RenameResource" Header="Rename" Click="RenameResource_Click"/>
+                <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+              </ContextMenu>
+            </StackPanel.ContextMenu>
+            <TextBlock Text="{Binding Name}" Foreground="White">
+
+              <TextBlock.ToolTip>
+                <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+              </TextBlock.ToolTip>
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </utils:ProjectExplorerTemplateSelector.ScreenTemplate>
+
+      <utils:ProjectExplorerTemplateSelector.ImageTemplate>
+        <DataTemplate DataType="{x:Type local:IDiskResource}">
+          <StackPanel Orientation="Horizontal">
+            <StackPanel.ContextMenu>
+              <ContextMenu StaysOpen="True">
+                <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+              </ContextMenu>
+            </StackPanel.ContextMenu>
+            <TextBlock Text="{Binding Name}"  Foreground="White">
+              <TextBlock.ToolTip>
+                <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+              </TextBlock.ToolTip>
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </utils:ProjectExplorerTemplateSelector.ImageTemplate>
+
+      <utils:ProjectExplorerTemplateSelector.SoundFileTemplate>
+        <DataTemplate DataType="{x:Type local:IDiskResource}">
+          <StackPanel Orientation="Horizontal">
+            <StackPanel.ContextMenu>
+              <ContextMenu StaysOpen="True">
+                <MenuItem x:Name="RenameResource" Header="Rename" Click="RenameResource_Click"/>
+                <MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+              </ContextMenu>
+            </StackPanel.ContextMenu>
+            
+            <TextBlock Text="{Binding Name}" Foreground="White">
+              <TextBlock.ToolTip>
+                <Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+              </TextBlock.ToolTip>
+            </TextBlock>
+            
+            <Button Tag="{Binding ID}" Click="PlayButton_Click" Width="16">
+              <Button.Background>
+                <ImageBrush ImageSource="/InteractServer;component/Resources/Icons/Run_16x.png"/>
+              </Button.Background>
+            </Button>
+          </StackPanel>
+        </DataTemplate>
+      </utils:ProjectExplorerTemplateSelector.SoundFileTemplate>
+
+    </utils:ProjectExplorerTemplateSelector>
+
+    
+    
+  </Page.Resources>
+  
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Border Grid.Row="0" BorderThickness="1" Background="{DynamicResource ColorLessDark}">
+      <StackPanel Margin="10" >
+        <Label x:Name="ProjectName" Content="No project Loaded" Foreground="White"/>
+      </StackPanel>
+    </Border>
+
+    <TreeView Grid.Row="1" 
+              x:Name="Explorer"
+              ItemTemplateSelector="{DynamicResource ItemTemplateSelector}"
+              MouseDoubleClick="Explorer_MouseDoubleClick"
+              BorderThickness="0" 
+              Style="{DynamicResource TreeViewStyleExplorer}">
+
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource MetroTreeViewItem}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}">
+          </Setter>
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}">
+          </Setter>
+
+        </Style>
+      </TreeView.ItemContainerStyle>
+
+    </TreeView>
+  </Grid>
+</Page>

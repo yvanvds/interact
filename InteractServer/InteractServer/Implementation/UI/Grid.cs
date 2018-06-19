@@ -36,21 +36,23 @@ namespace InteractServer.Implementation.UI
       backgroundColor = new Color(Global.ProjectManager.Current.ConfigPage.Color);
     }
 
-    public override void Init(int Columns, int Rows)
-    {
-      Init(Columns, Rows, true);
-    }
 
-    public override void Init(int Columns, int Rows, bool fillScreen)
+    public override void Init(int[] Columns, int[] Rows)
     {
-      for(int i = 0; i < Columns; i++)
+      UIObject.ColumnDefinitions.Clear();
+      for(int i = 0; i < Columns.Length; i++)
       {
-        UIObject.ColumnDefinitions.Add(new System.Windows.Controls.ColumnDefinition());
+        System.Windows.Controls.ColumnDefinition col = new System.Windows.Controls.ColumnDefinition();
+        col.Width = new System.Windows.GridLength(Columns[i], System.Windows.GridUnitType.Star);
+        UIObject.ColumnDefinitions.Add(col);
       }
 
-      for(int i = 0; i < Rows; i++)
+      UIObject.RowDefinitions.Clear();
+      for(int i = 0; i < Rows.Length; i++)
       {
-        UIObject.RowDefinitions.Add(new System.Windows.Controls.RowDefinition());
+        var row = new System.Windows.Controls.RowDefinition();
+        row.Height = new System.Windows.GridLength(Rows[i], System.Windows.GridUnitType.Star);
+        UIObject.RowDefinitions.Add(row);
       }
     }
 
