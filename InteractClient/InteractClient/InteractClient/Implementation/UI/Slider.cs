@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interact.Logic;
 using Interact.UI;
 using Xamarin.Forms;
 
@@ -23,6 +24,14 @@ namespace InteractClient.Implementation.UI
     }
 
     Handler OnChangeHandler;
+
+    private Interact.Logic.Patcher patcher = null;
+    private string patcherInletName;
+
+    public Slider()
+    {
+      UIObject.ValueChanged += OnChangeEvent;
+    }
 
     public override double Minimum { get => UIObject.Minimum; set => UIObject.Minimum = value; }
     public override double Maximum { get => UIObject.Maximum; set => UIObject.Maximum = value; }
@@ -47,14 +56,18 @@ namespace InteractClient.Implementation.UI
         name = functionName,
         arguments = arguments
       };
-      UIObject.ValueChanged += OnChangeEvent;
+      
     }
 
     private void OnChangeEvent(object sender, ValueChangedEventArgs e)
     {
       Value = e.NewValue;
       OscSender?.Send(OscAddress, (float)Value);
-      JintEngine.Engine.Instance.Invoke(OnChangeHandler.name, OnChangeHandler.arguments);
+      patcher?.PassFloat((float)Value, patcherInletName);
+      if(OnChangeHandler != null)
+      {
+        JintEngine.Engine.Instance.Invoke(OnChangeHandler.name, OnChangeHandler.arguments);
+      }
     }
 
     public override void SendOSC(string destination, int port, string address)
@@ -62,6 +75,12 @@ namespace InteractClient.Implementation.UI
       OscSender = new Network.OscSender();
       OscSender.Init(destination, port);
       OscAddress = address;
+    }
+
+    public override void SendToPatcher(Patcher patcher, string inlet)
+    {
+      this.patcher = patcher;
+      this.patcherInletName = inlet;
     }
   }
 }

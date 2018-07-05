@@ -33,23 +33,23 @@ namespace InteractClient.Implementation.UI
       }
     }
 
-    public override void Init(int Columns, int Rows)
-    {
-      Init(Columns, Rows);
-    }
 
-    public override void Init(int Columns, int Rows, bool fillScreen = false)
+    public override void Init(int[] Columns, int[] Rows)
     {
       UIObject.ColumnDefinitions.Clear();
-      for (int i = 0; i < Columns; i++)
+      for (int i = 0; i < Columns.Length; i++)
       {
-        UIObject.ColumnDefinitions.Add(new ColumnDefinition());
+        ColumnDefinition col = new ColumnDefinition();
+        col.Width = new GridLength(Columns[i], GridUnitType.Star);
+        UIObject.ColumnDefinitions.Add(col);
       }
 
       UIObject.RowDefinitions.Clear();
-      for (int i = 0; i < Rows; i++)
+      for (int i = 0; i < Rows.Length; i++)
       {
-        UIObject.RowDefinitions.Add(new RowDefinition());
+        RowDefinition row = new RowDefinition();
+        row.Height = new GridLength(Rows[i], GridUnitType.Star);
+        UIObject.RowDefinitions.Add(row);
       }
     }
 
@@ -73,7 +73,7 @@ namespace InteractClient.Implementation.UI
         Xamarin.Forms.Grid.SetRowSpan(fv, Height);
 
         UIObject.Children.Add(fv);
-      } catch (ArgumentOutOfRangeException e)
+      } catch (ArgumentOutOfRangeException)
       {
         InteractClient.Network.Signaler.Get().WriteLog("Grid.AddSpan: Element ouf of range.");
       }

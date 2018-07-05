@@ -11,8 +11,6 @@ namespace InteractClient.Implementation.Network
   public class OscReceiver : Interact.Network.OscReceiver
   {
     private Osc.OscReceiver receiver;
-    private Task task;
-    private CancellationTokenSource cancellationTokenSource;
     private bool started = false;
 
     private Dictionary<string, string> Routes = new Dictionary<string, string>();

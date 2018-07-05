@@ -22,7 +22,7 @@ namespace InteractClient.Network
     private UdpSocketClient udpSender = new UdpSocketClient();
 
     Guid ID = Guid.Empty;
-    ServerList ActiveServer;
+    //ServerList ActiveServer;
 
     public static Network Get()
     {
@@ -72,7 +72,7 @@ namespace InteractClient.Network
               // tokens can be used for auto connecting
               if (NetworkToken != "")
               {
-                if (NetworkToken.Equals(Settings.Current.Get<string>("NetworkToken")))
+                if (NetworkToken.Equals(CrossSettings.Current.Get<string>("NetworkToken")))
                 {
                   // instant connect if client and server have the same token
                   Global.LookForServers = false;

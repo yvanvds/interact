@@ -2,12 +2,10 @@
 using Interact.Utility;
 using InteractClient.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Interact.Device;
+using System.Collections.Generic;
+using System.Text;
+
 
 namespace InteractClient.Implementation.Device
 {
@@ -30,7 +28,7 @@ namespace InteractClient.Implementation.Device
 
     static ISensor Create()
     {
-      return  DependencyService.Get<ISensor>();
+      return DependencyService.Get<ISensor>();
     }
 
     public Sensor _Compass;

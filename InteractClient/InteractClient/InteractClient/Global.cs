@@ -26,5 +26,7 @@ namespace InteractClient
         Device.BeginInvokeOnMainThread(() => CurrentPage.Navigation.PopToRootAsync());
       }
     }
+
+    public static IYse.IYseInterface Yse;
   }
 }

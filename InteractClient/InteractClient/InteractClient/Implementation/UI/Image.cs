@@ -19,9 +19,24 @@ namespace InteractClient.Implementation.UI
 
     public override object InternalObject => UIObject;
 
-    public override void Set(string ImageName)
+    public override void Set(string ImageName, Mode mode)
     {
       UIObject.Source = Data.Project.Current.GetImage(ImageName).ImageSource;
+      switch(mode)
+      {
+        case Mode.Fill:
+          UIObject.HorizontalOptions = Xamarin.Forms.LayoutOptions.FillAndExpand;
+          UIObject.VerticalOptions = Xamarin.Forms.LayoutOptions.FillAndExpand;
+          break;
+        case Mode.Fit:
+          UIObject.HorizontalOptions = Xamarin.Forms.LayoutOptions.Fill;
+          UIObject.VerticalOptions = Xamarin.Forms.LayoutOptions.Fill;
+          break;
+        case Mode.Stretch:
+          UIObject.HorizontalOptions = Xamarin.Forms.LayoutOptions.FillAndExpand;
+          UIObject.VerticalOptions = Xamarin.Forms.LayoutOptions.FillAndExpand;
+          break;
+      }
     }
 
     public override Interact.UI.Color BackgroundColor

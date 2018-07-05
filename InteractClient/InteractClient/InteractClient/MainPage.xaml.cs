@@ -57,8 +57,8 @@ namespace InteractClient
 
     public void UpdateServerList()
     {
-      ServerList.ItemsSource = null;
-      ServerList.ItemsSource = Network.ServerList.Servers;
+      ServerLst.ItemsSource = null;
+      ServerLst.ItemsSource = Network.ServerList.Servers;
       if (Network.ServerList.Servers.Count > 0)
       {
         PageGrid.RowDefinitions[0].Height = 0;
@@ -92,7 +92,7 @@ namespace InteractClient
 
     private void UserName_TextChanged(object sender, TextChangedEventArgs e)
     {
-      Settings.Current.Set<String>("UserName", this.FindByName<Entry>("UserName").Text);
+      CrossSettings.Current.Set<String>("UserName", this.FindByName<Entry>("UserName").Text);
     }
 
     private void OptionsButton_Clicked(object sender, EventArgs e)

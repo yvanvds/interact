@@ -32,7 +32,7 @@
     
     <Button Grid.Row="5" x:Name="ButtonServer" Text="Refresh Server List" Clicked="ButtonServer_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5" HeightRequest="50" WidthRequest="400" Margin="50,10,50,0"/>
 
-    <ListView Grid.Row="6" x:Name="ServerList" ItemsSource="{Binding}" BackgroundColor="DarkSlateGray">
+    <ListView Grid.Row="6" x:Name="ServerLst" ItemsSource="{Binding}" BackgroundColor="DarkSlateGray">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell Tapped="Server_Tapped" Height="100">

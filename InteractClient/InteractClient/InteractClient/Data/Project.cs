@@ -1,9 +1,8 @@
-﻿using Shared.Project;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Shared.Project;
+
 
 namespace InteractClient.Data
 {
@@ -14,6 +13,7 @@ namespace InteractClient.Data
     public List<Screen> Screens = new List<Screen>();
     public List<Image> Images = new List<Image>();
     public List<SoundFile> SoundFiles = new List<SoundFile>();
+    public List<Patcher> Patchers = new List<Patcher>();
 
     // Static fields for project management
     public static Project Current { get => current; set => current = value; }
@@ -58,20 +58,21 @@ namespace InteractClient.Data
         List.Add(ID, Current);
         Network.Signaler.Get().WriteLog("Project->SetCurrent: new project added with ID " + ID.ToString());
         Network.Signaler.Get().GetProjectConfig(ID);
-      } catch(NullReferenceException)
+      }
+      catch (NullReferenceException)
       {
         Network.Signaler.Get().WriteLog("Project->SetCurrent: Unable to add proejct");
       }
     }
 
-    public void UpdateScreen(int ID, string content)
+    public void UpdateScreen(Guid ID, string content)
     {
       foreach (Screen screen in Screens)
       {
         if (screen.ID == ID)
         {
           screen.Deserialize(content);
-          Network.Signaler.Get().WriteLog("Project->UpdateScreen: screen " + ID + " updated.");
+          Network.Signaler.Get().WriteLog("Project->UpdateScreen: screen " + screen.Name + " updated.");
           goto next;
         }
       }
@@ -80,13 +81,13 @@ namespace InteractClient.Data
       Screen s = new Screen();
       s.Deserialize(content);
       Screens.Add(s);
-      Network.Signaler.Get().WriteLog("Project->UpdateScreen: new screen " + ID + " added.");
+      Network.Signaler.Get().WriteLog("Project->UpdateScreen: new screen " + s.Name + " added.");
 
       next:
       Network.Signaler.Get().GetNextMethod();
     }
 
-    public void UpdateImage(int ID, string content)
+    public void UpdateImage(Guid ID, string content)
     {
       foreach (Image image in Images)
       {
@@ -107,7 +108,7 @@ namespace InteractClient.Data
       Network.Signaler.Get().GetNextMethod();
     }
 
-    public void UpdateSoundFile(int ID, string content)
+    public void UpdateSoundFile(Guid ID, string content)
     {
       foreach (SoundFile sf in SoundFiles)
       {
@@ -128,7 +129,28 @@ namespace InteractClient.Data
       Network.Signaler.Get().GetNextMethod();
     }
 
-    public void SetScreenVersion(Guid projectID, int screenID, int Version)
+    public void UpdatePatcher(Guid ID, string content)
+    {
+      foreach(Patcher p in Patchers)
+      {
+        if(p.ID == ID)
+        {
+          p.Deserialize(content);
+          Network.Signaler.Get().WriteLog("Project->UpdatePatcher: patch " + p.Name + " updated.");
+          goto next;
+        }
+      }
+
+      Patcher newP = new Patcher();
+      newP.Deserialize(content);
+      Patchers.Add(newP);
+      Network.Signaler.Get().WriteLog("Project->UpdatePatcher: new patcher " + newP.Name + " added.");
+
+      next:
+      Network.Signaler.Get().GetNextMethod();
+    }
+
+    public void SetScreenVersion(Guid projectID, Guid screenID, int Version)
     {
       foreach (Screen screen in Screens)
       {
@@ -154,7 +176,7 @@ namespace InteractClient.Data
 
     }
 
-    public void SetImageVersion(Guid projectID, int imageID, int Version)
+    public void SetImageVersion(Guid projectID, Guid imageID, int Version)
     {
       foreach (Image image in Images)
       {
@@ -179,7 +201,7 @@ namespace InteractClient.Data
       Network.Signaler.Get().GetImage(projectID, imageID);
     }
 
-    public void SetSoundFileVersion(Guid projectID, int sfID, int Version)
+    public void SetSoundFileVersion(Guid projectID, Guid sfID, int Version)
     {
       foreach (SoundFile soundfile in SoundFiles)
       {
@@ -204,7 +226,32 @@ namespace InteractClient.Data
       Network.Signaler.Get().GetSoundFile(projectID, sfID);
     }
 
-    public Screen GetScreen(int ID)
+    public void SetPatcherVersion(Guid projectID, Guid pID, int Version)
+    {
+      foreach(Patcher patcher in Patchers)
+      {
+        if(patcher.ID == pID)
+        {
+          if(patcher.Version == Version)
+          {
+            Network.Signaler.Get().WriteLog("Project->SetPatcherVersion: patcher " + patcher.Name + " is on the right version.");
+            Network.Signaler.Get().GetNextMethod();
+          }
+          else
+          {
+            Network.Signaler.Get().WriteLog("Project->SetPatcherVersion: patcher " + patcher.Name + " needs an update.");
+            Network.Signaler.Get().GetPatcher(projectID, patcher.ID);
+          }
+          return;
+        }
+      }
+
+      // patcher not found, so ask for it anyway
+      Network.Signaler.Get().WriteLog("Project->SetPatcherVersion: File not found. Requesting content for file " + pID + ".");
+      Network.Signaler.Get().GetPatcher(projectID, pID);
+    }
+
+    public Screen GetScreen(Guid ID)
     {
       foreach (Screen screen in Screens)
       {
@@ -217,7 +264,7 @@ namespace InteractClient.Data
       return null;
     }
 
-    public Image GetImage(int ID)
+    public Image GetImage(Guid ID)
     {
       foreach (Image image in Images)
       {
@@ -226,11 +273,20 @@ namespace InteractClient.Data
       return null;
     }
 
-    public SoundFile GetSoundFile(int ID)
+    public SoundFile GetSoundFile(Guid ID)
     {
       foreach (SoundFile soundfile in SoundFiles)
       {
         if (soundfile.ID == ID) return soundfile;
+      }
+      return null;
+    }
+
+    public Patcher GetPatcher(Guid ID)
+    {
+      foreach (Patcher patcher in Patchers)
+      {
+        if (patcher.ID == ID) return patcher;
       }
       return null;
     }
@@ -267,6 +323,18 @@ namespace InteractClient.Data
         if (soundfile.Name.Equals(Name, StringComparison.OrdinalIgnoreCase))
         {
           return soundfile;
+        }
+      }
+      return null;
+    }
+
+    public Patcher GetPatcher(string Name)
+    {
+      foreach (Patcher patcher in Patchers)
+      {
+        if(patcher.Name.Equals(Name, StringComparison.OrdinalIgnoreCase))
+        {
+          return patcher;
         }
       }
       return null;

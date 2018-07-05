@@ -18,8 +18,8 @@ namespace InteractClient
       InitializeComponent();
       NavigationPage.SetHasNavigationBar(this, false);
 
-      this.FindByName<Entry>("IDEntry").Text = Settings.Current.Get<String>("UserName");
-      this.FindByName<Entry>("TokenEntry").Text = Settings.Current.Get<String>("NetworkToken");
+      this.FindByName<Entry>("IDEntry").Text = CrossSettings.Current.Get<String>("UserName");
+      this.FindByName<Entry>("TokenEntry").Text = CrossSettings.Current.Get<String>("NetworkToken");
     }
 
     private void Back_Clicked(object sender, EventArgs e)
@@ -31,20 +31,19 @@ namespace InteractClient
 
     private void IDEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
-      Settings.Current.Set<String>("UserName", this.FindByName<Entry>("IDEntry").Text);
+      CrossSettings.Current.Set<String>("UserName", this.FindByName<Entry>("IDEntry").Text);
     }
 
     private void TokenEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
-      Settings.Current.Set<String>("NetworkToken", this.FindByName<Entry>("TokenEntry").Text);
+      CrossSettings.Current.Set<String>("NetworkToken", this.FindByName<Entry>("TokenEntry").Text);
     }
 
     private void ArduinoButton_Clicked(object sender, EventArgs e)
     {
       switch(Device.RuntimePlatform)
       {
-        case Device.Windows:
-        case Device.WinPhone:
+        case Device.UWP:
           Navigation.PushAsync(new ArduinoPage());
           break;
         default:

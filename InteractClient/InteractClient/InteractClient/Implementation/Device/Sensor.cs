@@ -1,12 +1,8 @@
-﻿using Interact;
-using Interact.Utility;
-using InteractClient.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+using Interact;
+using Interact.Utility;
 
 namespace InteractClient.Implementation.Device
 {
@@ -37,7 +33,7 @@ namespace InteractClient.Implementation.Device
       }
     }
 
-    
+
 
     public override float ScaleMin { get => _ScaleMin; set => _ScaleMin = value; }
     public override float ScaleMax { get => _ScaleMax; set => _ScaleMax = value; }

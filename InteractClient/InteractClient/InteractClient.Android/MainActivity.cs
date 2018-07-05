@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace InteractClient.Droid
 {
-  [Activity(Label = "Interact", Icon = "@drawable/connect", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+  [Activity(Label = "InteractClient", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
   public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
   {
     protected override void OnCreate(Bundle bundle)
@@ -19,11 +19,20 @@ namespace InteractClient.Droid
 
       base.OnCreate(bundle);
 
-      global::Xamarin.Forms.Forms.Init(this, bundle);
-      
+      Global.Yse = new YSE.YseInterface(OnLogMessage);
+			Global.Yse.Log.Level = IYse.ERROR_LEVEL.DEBUG;
+
+			global::Xamarin.Forms.Forms.Init(this, bundle);
+
       Xamarin.Forms.DependencyService.Register<Implementation.SensorImplementation>();
       LoadApplication(new App());
     }
+
+    private void OnLogMessage(string message)
+    {
+      //Network.Signaler.Get().WriteLog("Yse Sound Engine: " + message);
+			System.Diagnostics.Debug.WriteLine("Yse Sound Engine: " + message);
+		}
   }
 }
 

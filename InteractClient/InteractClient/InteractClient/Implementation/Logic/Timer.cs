@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace InteractClient.Implementation.Logic
 {
@@ -15,7 +14,7 @@ namespace InteractClient.Implementation.Logic
       active = true;
       Xamarin.Forms.Device.StartTimer(TimeSpan.FromMilliseconds(intervalMilliSec), () =>
       {
-        if(JintEngine.Engine.Instance != null && JintEngine.Engine.Instance.Active)
+        if (JintEngine.Engine.Instance != null && JintEngine.Engine.Instance.Active)
         {
           JintEngine.Engine.Instance.Invoke(callback);
           return active;

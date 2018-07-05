@@ -41,7 +41,7 @@ namespace InteractClient
 
           Device.BeginInvokeOnMainThread(() =>
           {
-            string savedInterface = Settings.Current.Get<string>("ArduinoInterface");
+            string savedInterface = CrossSettings.Current.Get<string>("ArduinoInterface");
 
             if (savedInterface != null && savedInterface.Length != 0)
             {
@@ -56,7 +56,7 @@ namespace InteractClient
 
               if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth") || savedInterface.Equals("DfRobot"))
               {
-                string savedDevice = Settings.Current.Get<string>("ArduinoDevice");
+                string savedDevice = CrossSettings.Current.Get<string>("ArduinoDevice");
                 for (int i = 0; i < DevicePicker.Items.Count; i++)
                 {
                   if (DevicePicker.Items[i].Equals(savedDevice))
@@ -66,7 +66,7 @@ namespace InteractClient
                   }
                 }
 
-                uint savedBaudRate = Settings.Current.Get<uint>("ArduinoBaudRate");
+                uint savedBaudRate = CrossSettings.Current.Get<uint>("ArduinoBaudRate");
                 for (int i = 0; i < BaudRatePicker.Items.Count; i++)
                 {
                   uint br = Convert.ToUInt32(BaudRatePicker.Items[i]);
@@ -81,12 +81,12 @@ namespace InteractClient
 
               if (savedInterface.Equals("Network"))
               {
-                string savedHost = Settings.Current.Get<string>("ArduinoHost");
+                string savedHost = CrossSettings.Current.Get<string>("ArduinoHost");
                 NetworkHostNameEntry.Text = savedHost;
-                string savedPort = Convert.ToString(Settings.Current.Get<ushort>("ArduinoPort"));
+                string savedPort = Convert.ToString(CrossSettings.Current.Get<ushort>("ArduinoPort"));
                 NetworkPortEntry.Text = savedPort;
 
-                uint savedBaudRate = Settings.Current.Get<uint>("ArduinoBaudRate");
+                uint savedBaudRate = CrossSettings.Current.Get<uint>("ArduinoBaudRate");
                 for (int i = 0; i < BaudRatePicker.Items.Count; i++)
                 {
                   uint br = Convert.ToUInt32(BaudRatePicker.Items[i]);
@@ -207,9 +207,9 @@ namespace InteractClient
       }
     }
 
-    private void ConnectionPickerSelectionChanged(object sender, EventArgs e)
+    private async void ConnectionPickerSelectionChanged(object sender, EventArgs e)
     {
-      RefreshDeviceList();
+      await RefreshDeviceList();
     }
 
     private async Task RefreshButton_Clicked(object sender, EventArgs e)
@@ -307,26 +307,26 @@ namespace InteractClient
       // Store this connection
       if(ConnectionMethodPicker.SelectedItem != null)
       {
-        Settings.Current.Set<string>("ArduinoInterface", ConnectionMethodPicker.SelectedItem as string);
+        CrossSettings.Current.Set<string>("ArduinoInterface", ConnectionMethodPicker.SelectedItem as string);
       }
       if(DevicePicker.SelectedItem != null)
       {
-        Settings.Current.Set<string>("ArduinoDevice", DevicePicker.SelectedItem as string);
+        CrossSettings.Current.Set<string>("ArduinoDevice", DevicePicker.SelectedItem as string);
       }
       if(BaudRatePicker.SelectedItem != null)
       {
-        Settings.Current.Set<uint>("ArduinoBaudRate", Convert.ToUInt32((BaudRatePicker.SelectedItem as string)));
+        CrossSettings.Current.Set<uint>("ArduinoBaudRate", Convert.ToUInt32((BaudRatePicker.SelectedItem as string)));
       }
 
-      if(Settings.Current.Get<string>("ArduinoInterface").Equals("Network"))
+      if(CrossSettings.Current.Get<string>("ArduinoInterface").Equals("Network"))
       {
         string host = NetworkHostNameEntry.Text;
         string port = NetworkPortEntry.Text;
         ushort portnum = 0;
         if (ushort.TryParse(port, out portnum))
         {
-          Settings.Current.Set<string>("ArduinoHost", host);
-          Settings.Current.Set<ushort>("ArduinoPort", portnum);
+          CrossSettings.Current.Set<string>("ArduinoHost", host);
+          CrossSettings.Current.Set<ushort>("ArduinoPort", portnum);
         }
       }
     }
@@ -382,11 +382,11 @@ namespace InteractClient
 
     private async Task ClearButton_Clicked(object sender, EventArgs e)
     {
-      Settings.Current.Set<string>("ArduinoInterface", "");
-      Settings.Current.Set<string>("ArduinoDevice", "");
-      Settings.Current.Set<uint>("ArduinoBaudRate", 0);
-      Settings.Current.Set<string>("ArduinoHost", "");
-      Settings.Current.Set<ushort>("ArduinoPort", 0);
+      CrossSettings.Current.Set<string>("ArduinoInterface", "");
+      CrossSettings.Current.Set<string>("ArduinoDevice", "");
+      CrossSettings.Current.Set<uint>("ArduinoBaudRate", 0);
+      CrossSettings.Current.Set<string>("ArduinoHost", "");
+      CrossSettings.Current.Set<ushort>("ArduinoPort", 0);
 
       await RefreshDeviceList();
     }

@@ -118,8 +118,8 @@ namespace InteractClient.Droid.Implementation
       TriggerEventListener.Callback = OnSensorTrigger;
     }
 
-    
-    
+
+
 
     public bool IsActive(Interact.SensorType sensorType)
     {
@@ -128,13 +128,14 @@ namespace InteractClient.Droid.Implementation
 
     public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
     {
-      
+
     }
 
-    public void OnSensorTrigger(TriggerEvent e) {
+    public void OnSensorTrigger(TriggerEvent e)
+    {
       if (SensorValueChanged == null) return;
 
-      switch(e.Sensor.Type)
+      switch (e.Sensor.Type)
       {
         case SensorType.SignificantMotion:
           {
@@ -144,7 +145,7 @@ namespace InteractClient.Droid.Implementation
               SensorType = Interact.SensorType.SignificantMotion,
               Value = new Interact.Utility.SensorValue() { Value = 1 },
             });
-            if(IsActive(Interact.SensorType.SignificantMotion))
+            if (IsActive(Interact.SensorType.SignificantMotion))
             {
               Start(Interact.SensorType.SignificantMotion);
             }
@@ -152,24 +153,24 @@ namespace InteractClient.Droid.Implementation
           }
       }
 
-      
+
     }
 
     public void OnSensorChanged(SensorEvent e)
     {
       if (SensorValueChanged == null) return;
 
-      switch(e.Sensor.Type)
+      switch (e.Sensor.Type)
       {
         case SensorType.Accelerometer:
           {
-            if(sensorStatus[Interact.SensorType.AcceleroMeter])
-            SensorValueChanged(this, new SensorValueChangedEventArgs()
-            {
-              ValueType = Interact.SensorValueType.Vector, 
-              SensorType = Interact.SensorType.AcceleroMeter,
-              Value = new Interact.Utility.SensorVector() { X = e.Values[0], Y = e.Values[1], Z = e.Values[2] },
-            });
+            if (sensorStatus[Interact.SensorType.AcceleroMeter])
+              SensorValueChanged(this, new SensorValueChangedEventArgs()
+              {
+                ValueType = Interact.SensorValueType.Vector,
+                SensorType = Interact.SensorType.AcceleroMeter,
+                Value = new Interact.Utility.SensorVector() { X = e.Values[0], Y = e.Values[1], Z = e.Values[2] },
+              });
             tiltGravity = e.Values.ToArray();
             break;
           }
@@ -228,13 +229,13 @@ namespace InteractClient.Droid.Implementation
 
         case SensorType.MagneticField:
           {
-            if(sensorStatus[Interact.SensorType.MagnetoMeter])
-            SensorValueChanged(this, new SensorValueChangedEventArgs()
-            {
-              ValueType = Interact.SensorValueType.Vector,
-              SensorType = Interact.SensorType.MagnetoMeter,
-              Value = new Interact.Utility.SensorVector() { X = e.Values[0], Y = e.Values[1], Z = e.Values[2] },
-            });
+            if (sensorStatus[Interact.SensorType.MagnetoMeter])
+              SensorValueChanged(this, new SensorValueChangedEventArgs()
+              {
+                ValueType = Interact.SensorValueType.Vector,
+                SensorType = Interact.SensorType.MagnetoMeter,
+                Value = new Interact.Utility.SensorVector() { X = e.Values[0], Y = e.Values[1], Z = e.Values[2] },
+              });
             tiltMagnetic = e.Values.ToArray();
             break;
           }
@@ -307,7 +308,7 @@ namespace InteractClient.Droid.Implementation
             SensorManager.GetOrientation(remappedRotationMatrix, orientations);
 
             // convert to degrees
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
               orientations[i] = (float)(orientations[i] * (180.0f / Math.PI));
             }
@@ -430,12 +431,12 @@ namespace InteractClient.Droid.Implementation
           }
       }
 
-      if(sensorStatus[Interact.SensorType.Tilt] && e.Sensor.Type == SensorType.MagneticField)
+      if (sensorStatus[Interact.SensorType.Tilt] && e.Sensor.Type == SensorType.MagneticField)
       {
-        if(tiltGravity != null && tiltMagnetic != null)
+        if (tiltGravity != null && tiltMagnetic != null)
         {
           float[] R = new float[9];
-          if(SensorManager.GetRotationMatrix(R, null, tiltGravity, tiltMagnetic))
+          if (SensorManager.GetRotationMatrix(R, null, tiltGravity, tiltMagnetic))
           {
             float[] orientation = new float[9];
             SensorManager.GetOrientation(R, orientation);
@@ -464,7 +465,7 @@ namespace InteractClient.Droid.Implementation
               Value = new Interact.Utility.SensorVector() { X = rollDeg, Y = pitchDeg, Z = power },
             });
           }
-          
+
         }
       }
     }
@@ -472,14 +473,14 @@ namespace InteractClient.Droid.Implementation
     public void Start(Interact.SensorType sensorType, Interact.SensorDelay interval = Interact.SensorDelay.Default)
     {
       Android.Hardware.SensorDelay delay = Android.Hardware.SensorDelay.Normal;
-      switch(interval)
+      switch (interval)
       {
         case Interact.SensorDelay.Fastest: delay = Android.Hardware.SensorDelay.Fastest; break;
         case Interact.SensorDelay.Game: delay = Android.Hardware.SensorDelay.Game; break;
         case Interact.SensorDelay.Ui: delay = Android.Hardware.SensorDelay.Ui; break;
       }
 
-      switch(sensorType)
+      switch (sensorType)
       {
         case Interact.SensorType.AcceleroMeter:
           if (sensorAccelerometer != null)
@@ -506,7 +507,7 @@ namespace InteractClient.Droid.Implementation
           break;
 
         case Interact.SensorType.Light:
-          if(sensorLight != null)
+          if (sensorLight != null)
             sensorManager.RegisterListener(this, sensorLight, delay);
           else Network.Signaler.Get().WriteLog("Sensor: Light not available.");
           break;
@@ -601,11 +602,12 @@ namespace InteractClient.Droid.Implementation
           else Network.Signaler.Get().WriteLog("Sensor: Heart Beat not available.");
           break;
         case Interact.SensorType.Tilt:
-          if(sensorMagnetometer != null && sensorAccelerometer != null)
+          if (sensorMagnetometer != null && sensorAccelerometer != null)
           {
             sensorManager.RegisterListener(this, sensorMagnetometer, delay);
             sensorManager.RegisterListener(this, sensorAccelerometer, delay);
-          } else Network.Signaler.Get().WriteLog("Sensor: Tilt not available.");
+          }
+          else Network.Signaler.Get().WriteLog("Sensor: Tilt not available.");
           break;
       }
       sensorStatus[sensorType] = true;
@@ -613,14 +615,14 @@ namespace InteractClient.Droid.Implementation
 
     public void Stop(Interact.SensorType sensorType)
     {
-      switch(sensorType)
+      switch (sensorType)
       {
         case Interact.SensorType.AcceleroMeter:
           if (sensorAccelerometer != null && sensorStatus[Interact.SensorType.Tilt] == false)
             sensorManager.UnregisterListener(this, sensorAccelerometer);
           break;
         case Interact.SensorType.Gyroscope:
-          if(sensorGyroscope != null)
+          if (sensorGyroscope != null)
             sensorManager.UnregisterListener(this, sensorGyroscope);
           break;
         case Interact.SensorType.MagnetoMeter:
@@ -628,7 +630,7 @@ namespace InteractClient.Droid.Implementation
             sensorManager.UnregisterListener(this, sensorMagnetometer);
           break;
         case Interact.SensorType.Compass:
-          if(sensorCompass != null)
+          if (sensorCompass != null)
             sensorManager.UnregisterListener(this, sensorCompass);
           break;
         case Interact.SensorType.Light:

@@ -29,8 +29,8 @@ namespace InteractClient.Droid.Implementation
 
       thisButton.Touch += (object sender, TouchEventArgs args) =>
       {
-        
-        if(args.Event.Action == MotionEventActions.Down)
+
+        if (args.Event.Action == MotionEventActions.Down)
         {
           ccButton.OnPressed(args.Event.GetPressure(0));
         }
@@ -40,7 +40,7 @@ namespace InteractClient.Droid.Implementation
         }
         else if (args.Event.Action == MotionEventActions.Move)
         {
-          
+
         }
       };
     }

@@ -7,29 +7,55 @@ using Xamarin.Forms;
 
 namespace InteractClient
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+	public partial class App : Application
+	{
+		bool yseIsActive = false;
 
-            MainPage = new NavigationPage(new InteractClient.MainPage());
-            NavigationPage.SetHasNavigationBar(this, false);
-        }
+		public App()
+		{
+			InitializeComponent();
 
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
+			MainPage = new NavigationPage(new InteractClient.MainPage());
+			NavigationPage.SetHasNavigationBar(MainPage, false);
+		}
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+		protected override void OnStart()
+		{
+			Global.Yse.System.Init();
+			Global.Yse.System.AutoReconnect(true, 20);
+			System.Diagnostics.Debug.WriteLine("Yse Version: " + Global.Yse.System.Version + "\n");
+			yseIsActive = true;
+			TimeSpan time = new TimeSpan(0, 0, 0, 0, 50);
+			Device.StartTimer(time, UpdateYse);
+		}
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
-    }
+		protected override void OnSleep()
+		{
+			yseIsActive = false;
+			Global.Yse.System.Close();
+		}
+
+		protected override void OnResume()
+		{
+			yseIsActive = true;
+			TimeSpan time = new TimeSpan(0, 0, 0, 0, 50);
+			Device.StartTimer(time, UpdateYse);
+			Global.Yse.System.Resume();
+		}
+
+		bool UpdateYse()
+		{
+			if (!yseIsActive) return false;
+			Global.Yse.System.Update();
+			
+
+			int missed = Global.Yse.System.MissedCallbacks();
+			if (missed > 0)
+			{
+				System.Diagnostics.Debug.WriteLine("Number of callbacks missed: " + missed.ToString());
+			}
+
+			return true;
+		}
+	}
 }

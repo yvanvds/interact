@@ -13,8 +13,8 @@ namespace InteractClient.Interface
 
   public class CCButton : Xamarin.Forms.Button
   {
-    public event EventHandler Pressed;
-    public event EventHandler Released;
+    public new event EventHandler Pressed;
+    public new event EventHandler Released;
 
     public virtual void OnPressed(float pressure)
     {

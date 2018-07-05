@@ -333,10 +333,10 @@
       <HintPath>..\packages\YapView.1.0.8\lib\net471\YapView.dll</HintPath>
     </Reference>
     <Reference Include="YSE.NET.PCL, Version=1.0.26.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YSE.NET.PCL.1.0.27\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
+      <HintPath>..\packages\YSE.NET.PCL.1.0.31\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
     </Reference>
     <Reference Include="Yse.NET.Standard, Version=1.0.62.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Yse.NET.Standard.1.0.65\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+      <HintPath>..\packages\Yse.NET.Standard.1.0.66\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -721,12 +721,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets" Condition="Exists('..\packages\Yse.NET.Standard.1.0.65\build\Yse.NET.STandard.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" />
 </Project>
