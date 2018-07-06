@@ -7,7 +7,7 @@ namespace Interact.Network
   public abstract class Client
   {
     public abstract string IpAddress { get; }
-    public abstract string ID { get; }
+    public abstract Guid ID { get; }
 
     // the name used to login
     public abstract string Name { get; }

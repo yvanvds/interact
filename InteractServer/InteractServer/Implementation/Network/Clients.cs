@@ -19,15 +19,21 @@ namespace InteractServer.Implementation.Network
       get => List.Count > key ? List[key] : null;
     }
 
-    public override void Invoke(string MethodName, params object[] arguments)
+    public override void Invoke(string methodName, params object[] arguments)
     {
-      Global.Sender.InvokeMethod(MethodName, arguments);
+			foreach(var client in Global.Clients.List.Values)
+			{
+				client.Send.Invoke(methodName, arguments);
+			}
     }
 
     public override void StartScreen(string screenName)
     {
-      Guid ID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
-      Global.Sender.StartScreen(ID);
+			foreach(var client in Global.Clients.List.Values)
+			{
+				Guid ID = Global.ProjectManager.Current.Screens.Get(screenName).ID;
+				client.Send.ScreenStart(ID);
+			}
     }
 
     public override Interact.Network.Client GetLocal()

@@ -139,13 +139,14 @@ namespace InteractServer.Project.SoundFile
     }
 
 
-    public void SendVersionsToClient(Guid ProjectID, string clientID)
+    public void SendVersionsToClient(Guid ProjectID, Guid clientID)
     {
+			var client = Global.Clients.Get(clientID);
       foreach (Item sf in Resources)
       {
-        Global.Clients.Get(clientID).QueueMethod(() =>
+        client.QueueMethod(() =>
         {
-          Global.Sender.SendSoundFileVersion(clientID, ProjectID, sf.ID, sf.Version);
+          client.Send.SoundfileVersion(ProjectID, sf.ID, sf.Version);
         });
       }
     }

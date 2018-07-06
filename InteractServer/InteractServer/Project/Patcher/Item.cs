@@ -43,37 +43,20 @@ namespace InteractServer.Project.Patcher
       return JsonConvert.SerializeObject(this);
     }
 
-    public void SendToClient(string clientID)
+    public void SendToClient(Guid clientID)
     {
-      Global.Sender.SendPatcher(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+			Global.Clients.Get(clientID).Send.PatcherSet(Global.ProjectManager.Current.ProjectID(), ID, Serialize());
     }
 
     public void SendToSelectedClients()
     {
-      List<string> clients = new List<string>();
-      foreach (string key in Global.Clients.List.Keys)
+			var data = Serialize();
+      foreach (var key in Global.Clients.List.Keys)
       {
         if (Global.Clients.List[key].IsSelected)
         {
-          clients.Add(key);
-        }
-      }
-      Global.Sender.SendPatcher(clients, ID, Serialize());
-    }
-
-
-    public void RunOnSelectedClients()
-    {
-      List<string> clients = new List<string>();
-      foreach (string key in Global.Clients.List.Keys)
-      {
-        if (Global.Clients.List[key].IsSelected)
-        {
-          Global.Clients.Get(key).QueueMethod(() =>
-          {
-            Global.Sender.StartScreen(key, ID);
-          });
-        }
+          Global.Clients.Get(key).Send.PatcherSet(Global.ProjectManager.Current.ProjectID(), ID, data);
+				}
       }
     }
 

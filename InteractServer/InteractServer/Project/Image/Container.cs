@@ -149,13 +149,14 @@ namespace InteractServer.Project.Image
       image.Reload();
     }
     
-    public void SendVersionsToClient(Guid ProjectID, string clientID)
+    public void SendVersionsToClient(Guid ProjectID, Guid clientID)
     {
+			var client = Global.Clients.Get(clientID);
       foreach (Item image in Resources)
       {
-        Global.Clients.Get(clientID).QueueMethod(() =>
+        client.QueueMethod(() =>
         {
-          Global.Sender.SendImageVersion(clientID, ProjectID, image.ID, image.Version);
+          client.Send.ImageVersion(ProjectID, image.ID, image.Version);
         });
       }
     }

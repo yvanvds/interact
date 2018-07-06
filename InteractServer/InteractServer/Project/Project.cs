@@ -223,21 +223,22 @@ namespace InteractServer.Project
 
     public void MakeCurrentOnClients()
     {
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var key in Global.Clients.List.Keys)
       {
         MakeCurrentOnClient(key);
       }
     }
 
-    public void MakeCurrentOnClient(string ID)
+    public void MakeCurrentOnClient(Guid ID)
     {
-      Global.Clients.List[ID].QueueMethod(() =>
+			var client = Global.Clients.Get(ID);
+      client?.QueueMethod(() =>
       {
-        Global.Sender.SetCurrentProject(ID, ProjectID(), Version);
+        client.Send.ProjectSet(ProjectID(), Version);
       });
     }
 
-    public void SendConfigToClient(string clientID)
+    public void SendConfigToClient(Guid clientID)
     {
       Dictionary<string, string> values = new Dictionary<string, string>();
       values.Add("ConfigValues", Config.Serialize());
@@ -246,76 +247,76 @@ namespace InteractServer.Project
       values.Add("ConfigTitle", ConfigTitle.Serialize());
       values.Add("ConfigText", ConfigText.Serialize());
 
-      Global.Sender.SendProjectConfig(clientID, ProjectID(), values);
+      Global.Clients.Get(clientID).Send.ProjectConfig(ProjectID(), values);
     }
 
     public void SendScreenVersionsToClients()
     {
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var key in Global.Clients.List.Keys)
       {
         SendScreenVersionsToClient(key);
       }
     }
 
-    public void SendScreenVersionsToClient(string ID)
+    public void SendScreenVersionsToClient(Guid ID)
     {
       Screens.SendVersionsToClient(ProjectID(), ID);
     }
 
     public void SendImageVersionsToClients()
     {
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var key in Global.Clients.List.Keys)
       {
         SendImageVersionsToClient(key);
       }
     }
 
-    public void SendImageVersionsToClient(string ID)
+    public void SendImageVersionsToClient(Guid ID)
     {
       Images.SendVersionsToClient(ProjectID(), ID);
     }
 
     public void SendSoundFileVersionsToClients()
     {
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var key in Global.Clients.List.Keys)
       {
         SendSoundFileVersionsToClient(key);
       }
     }
 
-    public void SendSoundFileVersionsToClient(string ID)
+    public void SendSoundFileVersionsToClient(Guid ID)
     {
       SoundFiles.SendVersionsToClient(ProjectID(), ID);
     }
 
     public void SendPatcherVersionsToClients()
     {
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var key in Global.Clients.List.Keys)
       {
         SendPatcherVersionsToClient(key);
       }
     }
 
-    public void SendPatcherVersionsToClient(string ID)
+    public void SendPatcherVersionsToClient(Guid ID)
     {
       Patchers.SendVersionsToClient(ProjectID(), ID);
     }
 
     public void SendClientListToClients()
     {
-      foreach(string key in Global.Clients.List.Keys)
+      foreach(var key in Global.Clients.List.Keys)
       {
         SendClientListToClient(key);
       }
     }
 
-    public void SendClientListToClient(string ID)
+    public void SendClientListToClient(Guid ID)
     {
       foreach(var client in Global.Clients.List)
       {
-        Global.Clients.Get(ID).QueueMethod(() =>
+        client.Value.QueueMethod(() =>
         {
-          Global.Sender.SendClientInfo(ID, client.Value.IpAddress, client.Key, client.Value.UserName);
+          client.Value.Send.ClientAdd(client.Value.IpAddress, client.Key, client.Value.UserName);
         });
       }
     }

@@ -119,13 +119,14 @@ namespace InteractServer.Project.Screen
       Refresh();
     }
 
-    public void SendVersionsToClient(Guid ProjectID, string clientID)
+    public void SendVersionsToClient(Guid ProjectID, Guid clientID)
     {
+			var client = Global.Clients.Get(clientID);
       foreach (Item screen in Resources)
       {
-        Global.Clients.Get(clientID).QueueMethod(() =>
+        client.QueueMethod(() =>
         {
-          Global.Sender.SendScreenVersion(clientID, ProjectID, screen.ID, screen.Version);
+          client.Send.ScreenVersion(ProjectID, screen.ID, screen.Version);
         });
       }
     }

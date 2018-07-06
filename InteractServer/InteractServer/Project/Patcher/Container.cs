@@ -114,13 +114,15 @@ namespace InteractServer.Project.Patcher
       Refresh();
     }
 
-    public void SendVersionsToClient(Guid ProjectID, string clientID)
+    public void SendVersionsToClient(Guid ProjectID, Guid clientID)
     {
-      foreach(Item patcher in Resources)
+			var client = Global.Clients.Get(clientID);
+
+			foreach (Item patcher in Resources)
       {
-        Global.Clients.Get(clientID).QueueMethod(() =>
+        client.QueueMethod(() =>
         {
-          Global.Sender.SendPatcherVersion(clientID, ProjectID, patcher.ID, patcher.Version);
+          client.Send.PatcherVersion(ProjectID, patcher.ID, patcher.Version);
         });
       }
     }

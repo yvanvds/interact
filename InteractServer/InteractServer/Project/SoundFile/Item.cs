@@ -100,11 +100,9 @@ namespace InteractServer.Project.SoundFile
       return JsonConvert.SerializeObject(this);
     }
 
-    public void SendToClient(string clientID)
+    public void SendToClient(Guid clientID)
     {
-      Global.Sender.SendSoundFile(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+      Global.Clients.Get(clientID).Send.SoundfileSet(Global.ProjectManager.Current.ProjectID(), ID, Serialize());
     }
-
-
   }
 }

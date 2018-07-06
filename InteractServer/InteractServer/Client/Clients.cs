@@ -14,45 +14,27 @@ namespace InteractServer.Models
     public TrulyObservableCollection<Client> screenList;
 
     // this is the main list to work with
-    public Dictionary<string, Client> List;
+    public Dictionary<Guid, Client> List;
 
     public ClientList()
     {
       screenList = new TrulyObservableCollection<Client>();
-      List = new Dictionary<string, Client>();
+      List = new Dictionary<Guid, Client>();
     }
 
-    public void Add(string ID, Client newClient)
+    public void Add(Guid ID, Client newClient)
     {
       // if this client is already known, just update IP and last seen
       if (List.ContainsKey(ID))
       {
         App.Current.Dispatcher.Invoke((Action)delegate
         {
+					List[ID].UserName = newClient.UserName;
           List[ID].IpAddress = newClient.IpAddress;
           List[ID].LastSeen = 0;
         });
 
         return;
-      }
-
-      // if we know this IP and the connectionID is different,
-      // update the connection key
-      foreach (var client in List)
-      {
-        if(client.Value.IpAddress.Equals(newClient.IpAddress)) {
-          // notify client that the old connection is invalid
-          Global.Sender.CloseConnection(client.Key);
-
-          App.Current.Dispatcher.Invoke((Action)delegate
-          {
-            List.Remove(client.Key);
-            screenList.Remove(client.Value);
-            List.Add(ID, newClient);
-            screenList.Add(newClient);
-          });
-          return;
-        }
       }
 
       // else add to list and screenlist
@@ -64,7 +46,7 @@ namespace InteractServer.Models
 
     }
 
-    public void ConfirmPresence(string ID, String IpAddress)
+    public void ConfirmPresence(Guid ID, String IpAddress)
     {
       if (List.ContainsKey(ID))
       {
@@ -76,7 +58,39 @@ namespace InteractServer.Models
       }
     }
 
-    public void Remove(string ID)
+		public void Ping()
+		{
+			foreach(Client client in List.Values)
+			{
+				client.Send.Ping();
+			}
+		}
+
+		public void CloseConnection()
+		{
+			foreach(var client in List.Values)
+			{
+				client.Send.Disconnect();
+			}
+		}
+
+		public void ProjectStop()
+		{
+			foreach(var client in List.Values)
+			{
+				client.Send.ProjectStop();
+			}
+		}
+
+		public void ScreenStop()
+		{
+			foreach(var client in List.Values)
+			{
+				client.Send.ScreenStop();
+			}
+		}
+
+    public void Remove(Guid ID)
     {
       if (App.Current == null) return;
 
@@ -90,7 +104,7 @@ namespace InteractServer.Models
       }
     }
 
-    public Client Get(string ID)
+    public Client Get(Guid ID)
     {
       if (List.ContainsKey(ID)) return List[ID];
       return null;
@@ -100,9 +114,9 @@ namespace InteractServer.Models
     {
       // update last seen and remove old clients
 
-      List<string> KeysToDelete = new List<string>();
+      List<Guid> KeysToDelete = new List<Guid>();
 
-      foreach (string ID in List.Keys)
+      foreach (Guid ID in List.Keys)
       {
         App.Current.Dispatcher.Invoke((Action)delegate
         {
@@ -115,7 +129,7 @@ namespace InteractServer.Models
         }
       }
 
-      foreach (string ID in KeysToDelete)
+      foreach (Guid ID in KeysToDelete)
       {
         App.Current.Dispatcher.Invoke((Action)delegate
         {

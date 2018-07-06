@@ -13,25 +13,34 @@ namespace InteractServer.Models
 {
   public class Client : INotifyPropertyChanged
   {
-    private Queue<MethodInvoker> Queue = new Queue<MethodInvoker>();
-    private bool Idle = true;
+    private Queue<MethodInvoker> queue = new Queue<MethodInvoker>();
+    private bool idle = true;
 
-    protected String _UserName;
-    protected String _IpAddress;
-    protected int _LastSeen = 0;
-    protected String _Background = "Green";
+    protected String name;
+    protected String ipAddress;
+    protected int lastSeen = 0;
+    protected String background = "Green";
 
     public event PropertyChangedEventHandler PropertyChanged;
 
     public bool IsSelected { get; set; } = true;
 
+		private Network.Sender sender = null;
+		public Network.Sender Send => sender;
+		
+		public Client(string name, string ipAddress)
+		{
+			UserName = name;
+			IpAddress = ipAddress;
+		}
+
     public void ConfirmPresence(String address)
     {
       LastSeen = 0;
-      if (_IpAddress.Equals(address)) return;
+      if (ipAddress.Equals(address)) return;
 
       // ip address has changed! (might be possible because of dhcp lease?)
-      _IpAddress = address;
+      IpAddress = address;
     }
 
 
@@ -39,11 +48,11 @@ namespace InteractServer.Models
     {
       get
       {
-        return _UserName;
+        return name;
       }
       set
       {
-        _UserName = value;
+        name = value;
         NotifyPropertyChanged("UserName");
       }
     }
@@ -53,12 +62,16 @@ namespace InteractServer.Models
     {
       get
       {
-        return _IpAddress;
+        return ipAddress;
       }
       set
       {
-        _IpAddress = value;
-        NotifyPropertyChanged("IpAddress");
+				if(!value.Equals(ipAddress))
+				{
+					ipAddress = value;
+					sender = new Network.Sender(ipAddress);
+					NotifyPropertyChanged("IpAddress");
+				}
       }
     }
 
@@ -66,16 +79,16 @@ namespace InteractServer.Models
     {
       get
       {
-        return _LastSeen;
+        return lastSeen;
       }
       set
       {
-        if (_LastSeen != value)
+        if (lastSeen != value)
         {
-          _LastSeen = value;
-          if (_LastSeen == 1) return; // background color does not change
-          if (_LastSeen == 3) Background = "red";
-          else if (_LastSeen == 2) Background = "orange";
+          lastSeen = value;
+          if (lastSeen == 1) return; // background color does not change
+          if (lastSeen == 3) Background = "red";
+          else if (lastSeen == 2) Background = "orange";
           else Background = "green";
         }
       }
@@ -86,17 +99,17 @@ namespace InteractServer.Models
     {
       get
       {
-        return _Background;
+        return background;
       }
 
       set
       {
-        _Background = value;
+        background = value;
         NotifyPropertyChanged("Background");
       }
     }
 
-    public Queue<MethodInvoker> Queue1 { get => Queue; set => Queue = value; }
+    public Queue<MethodInvoker> Queue { get => queue; set => queue = value; }
 
     private void NotifyPropertyChanged(String propertyName = "")
     {
@@ -108,28 +121,28 @@ namespace InteractServer.Models
 
     public void QueueMethod(MethodInvoker method)
     {
-      if (Idle)
+      if (idle)
       {
         method();
-        Idle = false;
+        idle = false;
       }
       else
       {
-        Queue.Enqueue(method);
+        queue.Enqueue(method);
       }
     }
 
-    // called when a client indicate it has no running taks anymore
+    // called when a client indicates it has no running taks anymore
     public void GetNextMethod()
     {
-      if (Queue.Count > 0)
+      if (queue.Count > 0)
       {
-        MethodInvoker method = Queue.Dequeue();
+        MethodInvoker method = queue.Dequeue();
         method();
       }
       else
       {
-        Idle = true;
+        idle = true;
         Global.Log.AddEntry("Client " + UserName + " is now idle.");
       }
     }

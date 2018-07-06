@@ -60,34 +60,32 @@ namespace InteractServer.Project.Screen
       return JsonConvert.SerializeObject(this);
     }
 
-    public void SendToClient(string clientID)
+    public void SendToClient(Guid clientID)
     {
-      Global.Sender.SendScreen(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+      Global.Clients.Get(clientID)?.Send.ScreenSet(Global.ProjectManager.Current.ProjectID(), ID, Serialize());
     }
 
     public void SendToSelectedClients()
     {
-      List<string> clients = new List<string>();
-      foreach (string key in Global.Clients.List.Keys)
+			var data = Serialize();
+      foreach (var client in Global.Clients.List)
       {
-        if (Global.Clients.List[key].IsSelected)
+        if (client.Value.IsSelected)
         {
-          clients.Add(key);
+					client.Value.Send.ScreenSet(Global.ProjectManager.Current.ProjectID(), ID, data);
         }
       }
-      Global.Sender.SendScreen(clients, ID, Serialize());
     }
 
     public void RunOnSelectedClients()
     {
-      List<string> clients = new List<string>();
-      foreach (string key in Global.Clients.List.Keys)
+      foreach (var client in Global.Clients.List)
       {
-        if (Global.Clients.List[key].IsSelected)
+        if (client.Value.IsSelected)
         {
-          Global.Clients.Get(key).QueueMethod(() =>
+          client.Value.QueueMethod(() =>
           {
-            Global.Sender.StartScreen(key, ID);
+						client.Value.Send.ScreenStart(ID);
           });
         }
       }

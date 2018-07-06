@@ -10,6 +10,7 @@ using Shared;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
+/*
 namespace InteractServer.Network
 {
   public class SignalSender
@@ -152,7 +153,7 @@ namespace InteractServer.Network
       Clients.Clients(clients).UpdateSoundFile(sfID, sfData);
     }
 
-    public void SendSoundFile(Guid projectID, string clientID, Guid sfID, string sfData)
+    public void SendSoundFile(Guid projectID, Guid clientID, Guid sfID, string sfData)
     {
       Clients.Client(clientID).UpdateSoundFile(projectID, sfID, sfData);
       Global.Log.AddEntry("Soundfile " + sfID + " sent to client " + Global.Clients.Get(clientID).UserName + ".");
@@ -196,3 +197,4 @@ namespace InteractServer.Network
   }
 }
 
+	*/

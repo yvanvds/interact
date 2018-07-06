@@ -9,29 +9,34 @@ namespace InteractServer.Implementation.Network
   public class Client : Interact.Network.Client
   {
     private string ipAddress;
-    private string iD;
+    private Guid id;
     private string name;
 
-    public override string IpAddress => ipAddress;
-    public override string ID => iD;
+    public override string IpAddress
+		{
+			get => ipAddress;
+			
+		}
+
+    public override Guid ID => id;
     public override string Name => name;
 
-    public Client(string IpAddress, string ID, string Name)
+    public Client(string ipAddress, Guid id, string name)
     {
-      ipAddress = IpAddress;
-      iD = ID;
-      name = Name;
+      this.ipAddress = ipAddress;
+      this.id = id;
+      this.name = name;
     }
 
     public override void Invoke(string methodName, params object[] arguments)
     {
-      Global.Sender.InvokeMethod(ID, methodName, arguments);
+			Global.Clients.Get(id).Send.Invoke(methodName, arguments);
     }
 
     public override void StartScreen(string path)
     {
       Guid screenID = Global.ProjectManager.Current.Screens.Get(path).ID;
-      Global.Sender.StartScreen(ID, screenID);
+			Global.Clients.Get(id).Send.ScreenStart(screenID);
     }
   }
 }

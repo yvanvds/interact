@@ -132,9 +132,9 @@ namespace InteractServer.Project.Image
       return JsonConvert.SerializeObject(this);
     }
 
-    public void SendToClient(string clientID)
+    public void SendToClient(Guid clientID)
     {
-      Global.Sender.SendImage(Global.ProjectManager.Current.ProjectID(), clientID, ID, Serialize());
+      Global.Clients.Get(clientID).Send.ImageSet(Global.ProjectManager.Current.ProjectID(), ID, Serialize());
     }
   }
 }

@@ -24,7 +24,8 @@ namespace InteractServer
     public static Log.ErrorLogPage ErrorLog;
     public static ClientList Clients;
     public static Network.Multicast Multicast;
-    public static Network.SignalSender Sender;
+		//public static Network.SignalSender Sender;
+		public static Network.Receiver Receiver;
     public static Project.ProjectManager ProjectManager;
     public static Managers.ViewManager ViewManager;
     public static Managers.AudioManager AudioManager;
@@ -47,7 +48,8 @@ namespace InteractServer
     public static void Init()
     {
       Multicast = new Network.Multicast();
-      Sender = new Network.SignalSender();
+			//Sender = new Network.SignalSender();
+			Receiver = new Network.Receiver();
       Clients = new ClientList();
       ProjectManager = new Project.ProjectManager();
       ViewManager = new Managers.ViewManager();

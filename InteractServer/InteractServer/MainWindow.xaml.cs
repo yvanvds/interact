@@ -37,8 +37,6 @@ namespace InteractServer
       Global.AppWindow = this;
 
       Global.Multicast.Start();
-      //Global.Network.Start();
-      Global.Sender.Start();
 
       networkTimer.Elapsed += new ElapsedEventHandler(OnNetworkTimerEvent);
       networkTimer.Interval = 10000;
@@ -77,7 +75,7 @@ namespace InteractServer
     private static void OnNetworkTimerEvent(object source, ElapsedEventArgs e)
     {
       Global.Clients.Update();
-      Global.Sender.RequestAcknowledge();
+			Global.Clients.Ping();
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -86,7 +84,7 @@ namespace InteractServer
       Global.Yse.System.Close();
       CloseProject();
       Global.Multicast.Stop();
-      Global.Sender.CloseConnection(); 
+			Global.Clients.CloseConnection();
       networkTimer.Enabled = false;
     }
 
@@ -99,7 +97,7 @@ namespace InteractServer
     {
       if (Global.ProjectManager != null && Global.ProjectManager.Current != null && Global.ProjectManager.Current.Running)
       {
-        Global.Sender.StopRunningProject();
+				Global.Clients.ProjectStop();
         JintEngine.Runner.Stop();
         Global.ProjectManager.Current.Stop();
       }
@@ -184,10 +182,10 @@ namespace InteractServer
         return;
       }
 
-      //ButtonStartScreen.IsEnabled = true;
-      //ButtonStopScreen.IsEnabled = false;
+			//ButtonStartScreen.IsEnabled = true;
+			//ButtonStopScreen.IsEnabled = false;
 
-      Global.Sender.StopCurrentScreen();
+			Global.Clients.ScreenStop();
     }
 
     //////////////////////////////////////
@@ -473,7 +471,7 @@ namespace InteractServer
 
     private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
     {
-      Global.Sender.StopRunningProject();
+			Global.Clients.ProjectStop();
       JintEngine.Runner.Stop();
       Global.ProjectManager.Current.Stop();
     }
