@@ -485,121 +485,121 @@ namespace InteractClient.Droid.Implementation
         case Interact.SensorType.AcceleroMeter:
           if (sensorAccelerometer != null)
             sensorManager.RegisterListener(this, sensorAccelerometer, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: AcceleroMeter not available.");
+          else Network.Sender.Get().WriteLog("Sensor: AcceleroMeter not available.");
           break;
 
         case Interact.SensorType.Gyroscope:
           if (sensorGyroscope != null)
             sensorManager.RegisterListener(this, sensorGyroscope, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Gyroscope not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Gyroscope not available.");
           break;
 
         case Interact.SensorType.MagnetoMeter:
           if (sensorMagnetometer != null)
             sensorManager.RegisterListener(this, sensorMagnetometer, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Magnetometer not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Magnetometer not available.");
           break;
 
         case Interact.SensorType.Compass:
           if (sensorCompass != null)
             sensorManager.RegisterListener(this, sensorCompass, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Compass not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Compass not available.");
           break;
 
         case Interact.SensorType.Light:
           if (sensorLight != null)
             sensorManager.RegisterListener(this, sensorLight, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Light not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Light not available.");
           break;
 
         case Interact.SensorType.Pressure:
           if (sensorPressure != null)
             sensorManager.RegisterListener(this, sensorPressure, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Pressure not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Pressure not available.");
           break;
 
         case Interact.SensorType.Proximity:
           if (sensorProximity != null)
             sensorManager.RegisterListener(this, sensorProximity, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Proximity not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Proximity not available.");
           break;
 
         case Interact.SensorType.LinearAcceleration:
           if (sensorLinearAcceleration != null)
             sensorManager.RegisterListener(this, sensorLinearAcceleration, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Linear Acceleration not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Linear Acceleration not available.");
           break;
 
         case Interact.SensorType.Rotation:
           if (sensorRotation != null)
             sensorManager.RegisterListener(this, sensorRotation, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Rotation not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Rotation not available.");
           break;
 
         case Interact.SensorType.GameRotation:
           if (sensorGameRotation != null)
             sensorManager.RegisterListener(this, sensorGameRotation, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Game Rotation not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Game Rotation not available.");
           break;
 
         case Interact.SensorType.Humidity:
           if (sensorHumidity != null)
             sensorManager.RegisterListener(this, sensorHumidity, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Humidity not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Humidity not available.");
           break;
 
         case Interact.SensorType.AmbientTemperature:
           if (sensorAmbientTemperature != null)
             sensorManager.RegisterListener(this, sensorAmbientTemperature, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Ambient Temperature not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Ambient Temperature not available.");
           break;
 
         case Interact.SensorType.SignificantMotion:
           if (sensorSignificantMotion != null)
             sensorManager.RequestTriggerSensor(TriggerEventListener, sensorSignificantMotion);
-          else Network.Signaler.Get().WriteLog("Sensor: Significant Motion not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Significant Motion not available.");
           break;
 
         case Interact.SensorType.StepDetector:
           if (sensorStepDetector != null)
             sensorManager.RequestTriggerSensor(TriggerEventListener, sensorStepDetector);
-          else Network.Signaler.Get().WriteLog("Sensor: Step Detector not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Step Detector not available.");
           break;
 
         case Interact.SensorType.StepCounter:
           if (sensorStepCounter != null)
             sensorManager.RegisterListener(this, sensorStepCounter, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Step Counter not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Step Counter not available.");
           break;
 
         case Interact.SensorType.HeartRate:
           if (sensorHeartRate != null)
             sensorManager.RegisterListener(this, sensorHeartRate, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Heart Rate not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Heart Rate not available.");
           break;
 
         case Interact.SensorType.Pose:
           if (sensorPose != null)
             sensorManager.RegisterListener(this, sensorPose, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Pose not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Pose not available.");
           break;
 
         case Interact.SensorType.Stationary:
           if (sensorStationary != null)
             sensorManager.RegisterListener(this, sensorStationary, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Stationary not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Stationary not available.");
           break;
 
         case Interact.SensorType.Motion:
           if (sensorMotion != null)
             sensorManager.RegisterListener(this, sensorMotion, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Motion not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Motion not available.");
           break;
 
         case Interact.SensorType.HeartBeat:
           if (sensorHeartBeat != null)
             sensorManager.RegisterListener(this, sensorHeartBeat, delay);
-          else Network.Signaler.Get().WriteLog("Sensor: Heart Beat not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Heart Beat not available.");
           break;
         case Interact.SensorType.Tilt:
           if (sensorMagnetometer != null && sensorAccelerometer != null)
@@ -607,7 +607,7 @@ namespace InteractClient.Droid.Implementation
             sensorManager.RegisterListener(this, sensorMagnetometer, delay);
             sensorManager.RegisterListener(this, sensorAccelerometer, delay);
           }
-          else Network.Signaler.Get().WriteLog("Sensor: Tilt not available.");
+          else Network.Sender.Get().WriteLog("Sensor: Tilt not available.");
           break;
       }
       sensorStatus[sensorType] = true;

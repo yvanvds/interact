@@ -48,7 +48,7 @@ namespace InteractClient.Network
     }
 
 
-    private async void parseUdpMessage(String IpAddress, byte[] data)
+    private void parseUdpMessage(String IpAddress, byte[] data)
     {
       var reader = new BinaryReader(new MemoryStream(data), Encoding.UTF8);
       while (reader.BaseStream.Position < reader.BaseStream.Length)
@@ -61,7 +61,17 @@ namespace InteractClient.Network
               string Name = reader.ReadString();
               string NetworkToken = reader.ReadString();
 
-              ServerList target = ServerList.AddOrUpdate(Name, IpAddress);
+							// can't create new GUID's on android, so the server offers one in
+							// case it is not set.
+							string Guid = reader.ReadString();
+							if (!CrossSettings.Current.Contains("Guid"))
+							{
+								CrossSettings.Current.Set<Guid>("Guid", new Guid(Guid));
+								Global.deviceID = CrossSettings.Current.Get<Guid>("Guid");
+							}
+							
+
+							ServerList target = ServerList.AddOrUpdate(Name, IpAddress);
 
               if (Global.CurrentPage is MainPage)
               {
@@ -76,7 +86,8 @@ namespace InteractClient.Network
                 {
                   // instant connect if client and server have the same token
                   Global.LookForServers = false;
-                  await Signaler.Get().ConnectAsync(target);
+									Sender.Get().Init(target.Name, IpAddress, 11234);
+									Sender.Get().Connect();
                 }
               }
               break;

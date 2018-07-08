@@ -60,7 +60,7 @@ namespace InteractClient
     protected override bool OnBackButtonPressed()
     {
       Engine.Instance.StopScreen();
-      Network.Signaler.Get().Disconnect();
+      Network.Sender.Get().Disconnect();
       //Navigation.PopToRootAsync();
       return base.OnBackButtonPressed();
     }

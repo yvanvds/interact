@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
+/*
 namespace InteractClient.Network
 {
   public class Signaler
@@ -230,3 +230,4 @@ namespace InteractClient.Network
     }
   }
 }
+*/

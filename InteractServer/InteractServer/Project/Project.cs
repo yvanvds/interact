@@ -187,21 +187,18 @@ namespace InteractServer.Project
       running = true;
 
       MakeCurrentOnClients();
-      SendScreenVersionsToClients();
-      SendImageVersionsToClients();
-      SendSoundFileVersionsToClients();
-      SendPatcherVersionsToClients();
-      SendClientListToClients();
-
-      Screen.Item screen = Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
-      screen.RunOnSelectedClients();
     }
 
     public void Stop()
     {
       running = false;
-      // the actual project stop happens in jint
-    }
+			// the actual project stop happens in jint
+		}
+
+		public Guid GetDefaultScreenID()
+		{
+			return Screens.Get(Config.StartupScreen).ID;
+		}
 
     public void TestScreen(Screen.Item screen)
     {
@@ -209,13 +206,6 @@ namespace InteractServer.Project
 
       // First send current project to clients
       MakeCurrentOnClients();
-
-      // update resources
-      SendScreenVersionsToClients();
-      SendImageVersionsToClients();
-      SendSoundFileVersionsToClients();
-      SendPatcherVersionsToClients();
-      SendClientListToClients();
 
       // and run this task
       screen.RunOnSelectedClients();
@@ -232,94 +222,57 @@ namespace InteractServer.Project
     public void MakeCurrentOnClient(Guid ID)
     {
 			var client = Global.Clients.Get(ID);
-      client?.QueueMethod(() =>
-      {
-        client.Send.ProjectSet(ProjectID(), Version);
-      });
+      client.Send.ProjectSet(ProjectID(), Version);
     }
 
-    public void SendConfigToClient(Guid clientID)
-    {
-      Dictionary<string, string> values = new Dictionary<string, string>();
-      values.Add("ConfigValues", Config.Serialize());
-      values.Add("ConfigButton", ConfigButton.Serialize());
-      values.Add("ConfigPage", ConfigPage.Serialize());
-      values.Add("ConfigTitle", ConfigTitle.Serialize());
-      values.Add("ConfigText", ConfigText.Serialize());
+		public string SerializeProjectContents()
+		{
+			Dictionary<string, Dictionary<string, string>> values = new Dictionary<string, Dictionary<string, string>>();
 
-      Global.Clients.Get(clientID).Send.ProjectConfig(ProjectID(), values);
-    }
+			Dictionary<string, string> config = new Dictionary<string, string>();
+			config.Add("ConfigValues", Config.Serialize());
+			config.Add("ConfigButton", ConfigButton.Serialize());
+			config.Add("ConfigPage", ConfigPage.Serialize());
+			config.Add("ConfigTitle", ConfigTitle.Serialize());
+			config.Add("ConfigText", ConfigText.Serialize());
+			values.Add("config", config);
 
-    public void SendScreenVersionsToClients()
-    {
-      foreach (var key in Global.Clients.List.Keys)
-      {
-        SendScreenVersionsToClient(key);
-      }
-    }
+			values.Add("screens", Screens.GetVersions());
+			values.Add("images", Images.GetVersions());
+			values.Add("patchers", Patchers.GetVersions());
+			values.Add("soundfiles", SoundFiles.GetVersions());
 
-    public void SendScreenVersionsToClient(Guid ID)
-    {
-      Screens.SendVersionsToClient(ProjectID(), ID);
-    }
+			return JsonConvert.SerializeObject(values);
+		}
 
-    public void SendImageVersionsToClients()
-    {
-      foreach (var key in Global.Clients.List.Keys)
-      {
-        SendImageVersionsToClient(key);
-      }
-    }
+		public string SerializeResource(Guid resourceID)
+		{
+			var screen = Screens.Get(resourceID);
+			if(screen != null)
+			{
+				return screen.Serialize();
+			}
 
-    public void SendImageVersionsToClient(Guid ID)
-    {
-      Images.SendVersionsToClient(ProjectID(), ID);
-    }
+			var patcher = Patchers.Get(resourceID);
+			if(patcher != null)
+			{
+				return patcher.Serialize();
+			}
 
-    public void SendSoundFileVersionsToClients()
-    {
-      foreach (var key in Global.Clients.List.Keys)
-      {
-        SendSoundFileVersionsToClient(key);
-      }
-    }
+			var image = Images.Get(resourceID);
+			if(image != null)
+			{
+				return image.Serialize();
+			}
 
-    public void SendSoundFileVersionsToClient(Guid ID)
-    {
-      SoundFiles.SendVersionsToClient(ProjectID(), ID);
-    }
+			var soundfile = SoundFiles.Get(resourceID);
+			if(soundfile != null)
+			{
+				return soundfile.Serialize();
+			}
 
-    public void SendPatcherVersionsToClients()
-    {
-      foreach (var key in Global.Clients.List.Keys)
-      {
-        SendPatcherVersionsToClient(key);
-      }
-    }
-
-    public void SendPatcherVersionsToClient(Guid ID)
-    {
-      Patchers.SendVersionsToClient(ProjectID(), ID);
-    }
-
-    public void SendClientListToClients()
-    {
-      foreach(var key in Global.Clients.List.Keys)
-      {
-        SendClientListToClient(key);
-      }
-    }
-
-    public void SendClientListToClient(Guid ID)
-    {
-      foreach(var client in Global.Clients.List)
-      {
-        client.Value.QueueMethod(() =>
-        {
-          client.Value.Send.ClientAdd(client.Value.IpAddress, client.Key, client.Value.UserName);
-        });
-      }
-    }
+			return string.Empty;
+		}
 
     public void InitIntellisense()
     {

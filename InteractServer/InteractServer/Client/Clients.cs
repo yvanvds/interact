@@ -33,17 +33,24 @@ namespace InteractServer.Models
           List[ID].IpAddress = newClient.IpAddress;
           List[ID].LastSeen = 0;
         });
-
-        return;
-      }
-
-      // else add to list and screenlist
-      App.Current.Dispatcher.Invoke((Action)delegate
-      {
-        List.Add(ID, newClient);
-        screenList.Add(newClient);
-      });
-
+      } else
+			{
+				App.Current.Dispatcher.Invoke((Action)delegate
+				{
+					List.Add(ID, newClient);
+					screenList.Add(newClient);
+				});
+			}
+      
+			// send list of other clients
+			foreach(var client in List.Values)
+			{
+				if(!client.Guid.Equals(newClient.Guid))
+				{
+					client.Send.ClientAdd(newClient.Guid, newClient.IpAddress, newClient.UserName);
+					newClient.Send.ClientAdd(client.Guid, client.IpAddress, client.UserName);
+				}
+			}
     }
 
     public void ConfirmPresence(Guid ID, String IpAddress)
@@ -78,6 +85,7 @@ namespace InteractServer.Models
 		{
 			foreach(var client in List.Values)
 			{
+				client.ClearQueue();
 				client.Send.ProjectStop();
 			}
 		}
@@ -102,7 +110,15 @@ namespace InteractServer.Models
           List.Remove(ID);
         });
       }
+
+			// notify other clients
+			foreach (var client in List.Values)
+			{
+				client.Send.ClientRemove(ID);
+			}
     }
+
+
 
     public Client Get(Guid ID)
     {

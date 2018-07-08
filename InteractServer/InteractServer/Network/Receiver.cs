@@ -67,12 +67,12 @@ namespace InteractServer.Network
 			{
 				if(receiver.State == Rug.Osc.OscSocketState.Connected)
 				{
+					Rug.Osc.OscPacket packet = null;
 					try
 					{
-						Rug.Osc.OscPacket packet;
 						while(receiver.TryReceive(out packet))
 						{
-							Rug.Osc.OscMessage message = Rug.Osc.OscMessage.Parse(packet.ToString());
+							Rug.Osc.OscMessage message = packet as Rug.Osc.OscMessage;
 
 							if(message.Address.StartsWith("/client"))
 							{
@@ -95,6 +95,11 @@ namespace InteractServer.Network
 					} catch (Exception e)
 					{
 						Global.Log.AddEntry("Network Receiver Error: " + e.Message);
+						if(packet != null)
+						{
+							Global.Log.AddEntry("Offending Package: " + packet.ToString());
+						}
+						
 					}
 				}
 
@@ -115,14 +120,17 @@ namespace InteractServer.Network
 				case "/register":
 					{
 						Guid guid = Guid.Parse(message.ElementAt(0).ToString());
-						string userName = message.ElementAt(0).ToString();
+						string userName = message.ElementAt(1).ToString();
 						string ip = message.Origin.Address.ToString();
 						Global.Clients.Add(guid, new Models.Client
 						(
 							userName,
-							message.Origin.Address.ToString()
+							message.Origin.Address.ToString(),
+							guid
 						));
+						Global.Clients.Get(guid).Send.Connect();
 						Global.Log.AddEntry("Client " + userName + " connected at " + ip + ".");
+						Global.ProjectManager.Current?.MakeCurrentOnClient(guid);
 					}
 					break;
 
@@ -158,47 +166,24 @@ namespace InteractServer.Network
 					}
 					break;
 
-				case "/get/projectconfig":
-					{
-						var id = ToGuid(message.ElementAt(0));
-						Global.Log.AddEntry("Client " + Global.Clients.Get(id).UserName + " asks for project configuration.");
-						Global.ProjectManager.Current.SendConfigToClient(id);
-					}
-					break;
-
-				case "/get/screen":
+				case "/projectready":
 					{
 						var clientID = ToGuid(message.ElementAt(0));
-						var screenID = ToGuid(message.ElementAt(1));
-						Global.Log.AddEntry("Client " + Global.Clients.Get(clientID).UserName + " asks for screen " + screenID + ".");
-						Global.ProjectManager.Current.Screens.Get(screenID).SendToClient(clientID);
+						var projectID = ToGuid(message.ElementAt(1));
+						if (Global.ProjectManager.Current != null)
+						{
+							if(Global.ProjectManager.Current.Running)
+							{
+								var client = Global.Clients.Get(clientID);
+								client.Send.ScreenStart(Global.ProjectManager.Current.GetDefaultScreenID());
+							}
+						}
 					}
 					break;
-
-				case "/get/image":
+				
+				default:
 					{
-						var clientID = ToGuid(message.ElementAt(0));
-						var imageID = ToGuid(message.ElementAt(1));
-						Global.Log.AddEntry("Client " + Global.Clients.Get(clientID).UserName + " asks for image " + imageID + ".");
-						Global.ProjectManager.Current.Images.Get(imageID).SendToClient(clientID);
-					}
-					break;
-
-				case "/get/soundfile":
-					{
-						var clientID = ToGuid(message.ElementAt(0));
-						var soundfileID = ToGuid(message.ElementAt(1));
-						Global.Log.AddEntry("Client " + Global.Clients.Get(clientID).UserName + " asks for soundfile " + soundfileID + ".");
-						Global.ProjectManager.Current.SoundFiles.Get(soundfileID).SendToClient(clientID);
-					}
-					break;
-
-				case "/get/patcher":
-					{
-						var clientID = ToGuid(message.ElementAt(0));
-						var patcherID = ToGuid(message.ElementAt(1));
-						Global.Log.AddEntry("Client " + Global.Clients.Get(clientID).UserName + " asks for patcher " + patcherID + ".");
-						Global.ProjectManager.Current.Patchers.Get(patcherID).SendToClient(clientID);
+						Global.Log.AddEntry("Unhandled Client Message: " + message.Address);
 					}
 					break;
 			}
@@ -232,6 +217,12 @@ namespace InteractServer.Network
 							message.ElementAt(2).ToString(),
 							Global.ProjectManager.Current.Screens.Get(Guid.Parse(message.ElementAt(3).ToString()))
 							);
+					}
+					break;
+
+				default:
+					{
+						Global.Log.AddEntry("Unhandled Server Message: " + message.Address);
 					}
 					break;
 			}

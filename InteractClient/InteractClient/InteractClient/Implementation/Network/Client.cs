@@ -9,24 +9,24 @@ namespace InteractClient.Implementation.Network
   public class Client : Interact.Network.Client
   {
     private string ipAddress;
-    private string iD;
+    private Guid id;
     private string name;
     private bool local = false;
 
     public override string IpAddress => ipAddress;
 
-    public override string ID => iD;
+    public override Guid ID => id;
 
     public override string Name => name;
 
     public bool Local => local;
 
-    public Client(string IpAddress, string ID, string Name, bool Local)
+    public Client(string ipAddress, Guid id, string name, bool local)
     {
-      ipAddress = IpAddress;
-      iD = ID;
-      name = Name;
-      local = Local;
+      this.ipAddress = ipAddress;
+      this.id = id;
+      this.name = name;
+      this.local = local;
     }
 
     public override void Invoke(string MethodName, params object[] arguments)
@@ -36,7 +36,7 @@ namespace InteractClient.Implementation.Network
         JintEngine.Engine.Instance.Invoke(MethodName, arguments);
       } else
       {
-        InteractClient.Network.Signaler.Get().InvokeMethod(ID, MethodName, arguments);
+        InteractClient.Network.Sender.Get().InvokeMethod(ID, MethodName, arguments);
       }
     }
 
@@ -45,7 +45,7 @@ namespace InteractClient.Implementation.Network
       Data.Screen screen = Data.Project.Current.GetScreen(screenName);
       if(screen == null)
       {
-        InteractClient.Network.Signaler.Get().WriteLog("Error: the screen to start does not exist.");
+        InteractClient.Network.Sender.Get().WriteLog("Error: the screen to start does not exist.");
         return;
       }
 
@@ -54,7 +54,7 @@ namespace InteractClient.Implementation.Network
         JintEngine.Engine.Instance.StartScreen(screen.ID);
       } else
       {
-        InteractClient.Network.Signaler.Get().StartScreen(ID, screen.ID);
+        InteractClient.Network.Sender.Get().StartScreen(ID, screen.ID);
       }
     }
   }

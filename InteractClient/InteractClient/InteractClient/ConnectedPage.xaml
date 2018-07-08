@@ -21,13 +21,20 @@
         <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
       </Label.FontFamily>
     </Label>
-    <Label Grid.Row="3" x:Name="ActivityText" Text="" FontFamily="serif" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
+    
+			<Label Grid.Row="3" x:Name="ActivityText" Text="" FontFamily="serif" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
       <Label.FontFamily>
         <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
       </Label.FontFamily>
     </Label>
+			
+		<Label Grid.Row="4" x:Name="DebugText" Text="" FontFamily="serif" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
+			<Label.FontFamily>
+				<OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
+			</Label.FontFamily>
+		</Label>
 
-    <Button Grid.Row="5" x:Name="DisconnectButton" Text="Disconnect" Clicked="DisconnectButton_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5"/>
+		<Button Grid.Row="5" x:Name="DisconnectButton" Text="Disconnect" Clicked="DisconnectButton_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5"/>
     </Grid>
 
 </ContentPage>

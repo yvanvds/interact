@@ -18,7 +18,7 @@ namespace InteractClient.Implementation.Network
 
     public override void Init(int port)
     {
-      sender.Init(InteractClient.Network.Signaler.Get().ConnectedServer.Address, port);
+			sender.Init(InteractClient.Network.Sender.Get().ServerAddress, port);
     }
 
     public override void Init(string address, int port)

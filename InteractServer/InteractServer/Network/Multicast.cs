@@ -42,6 +42,7 @@ namespace InteractServer.Network
           writer.Write((Byte)NetworkMessage.Acknowledge);
           writer.Write(Properties.Settings.Default.ServerName);
           writer.Write(Properties.Settings.Default.NetworkToken);
+					writer.Write(Guid.NewGuid().ToString()); // in case the client does not have an ID, it can use this one
           writer.Write((Byte)NetworkMessage.EndOfMessage);
           writer.Flush();
 

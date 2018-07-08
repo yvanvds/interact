@@ -47,7 +47,7 @@ namespace InteractClient.JintEngine
           }
           catch (Exception e)
           {
-            Network.Signaler.Get().WriteLog("Can't setup sensors:" + e.Message);
+            Network.Sender.Get().WriteLog("Can't setup sensors:" + e.Message);
           }
         }
 
@@ -81,7 +81,7 @@ namespace InteractClient.JintEngine
 
         // Network
         jEngine.SetValue("Server", Server);
-        jEngine.SetValue("Clients", Project.Current.Clients);
+        jEngine.SetValue("Clients", Network.Sender.Get().Clients);
         jEngine.SetValue("OscSender", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscSender)));
         jEngine.SetValue("OscReceiver", TypeReference.CreateTypeReference(jEngine, typeof(Implementation.Network.OscReceiver)));
 
@@ -111,12 +111,10 @@ namespace InteractClient.JintEngine
         screenToStart = ID;
         ConnectedPage page = activePage as ConnectedPage;
         Device.BeginInvokeOnMainThread(() => page.PushModelPage());
-        InteractClient.Network.Signaler.Get().GetNextMethod();
-
+        Network.Sender.Get().GetNextMethod();
       }
       else if (activePage is ModelPage)
       {
-
         screenToStart = ID;
         ModelPage p = activePage as ModelPage;
         string screenName = Data.Project.Current.GetScreen(ID).Name;
@@ -136,7 +134,7 @@ namespace InteractClient.JintEngine
         jEngine = null;
         Arduino?.RemoveSignalHandlers();
       }
-      InteractClient.Network.Signaler.Get().GetNextMethod();
+      Network.Sender.Get().GetNextMethod();
     }
 
     public void StopRunningProject()
@@ -145,7 +143,7 @@ namespace InteractClient.JintEngine
       Sensors?.Stop();
       Arduino?.Stop();
       StopScreen();
-      Network.Signaler.Get().WriteLog("Engine->StopRunningProject: Done.");
+      Network.Sender.Get().WriteLog("Engine->StopRunningProject: Done.");
     }
 
     public void SetActivePage(ContentPage page)
@@ -167,15 +165,15 @@ namespace InteractClient.JintEngine
         Jint().LeaveExecutionContext();
       } catch (Jint.Parser.ParserException e)
       {
-        Network.Signaler.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, screenToStart);
+        Network.Sender.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, screenToStart);
       }
       catch (Jint.Runtime.JavaScriptException e)
       {
-        Network.Signaler.Get().WriteErrorLog(0, e.LineNumber, e.Message, screenToStart);
+        Network.Sender.Get().WriteErrorLog(0, e.LineNumber, e.Message, screenToStart);
       }
       catch (Exception e)
       {
-        Network.Signaler.Get().WriteLog("Engine->StartScript: Error on screen " + screenToStart + ":" + e.Message);
+        Network.Sender.Get().WriteLog("Engine->StartScript: Error on screen " + screenToStart + ":" + e.Message);
       }
     }
 
@@ -185,7 +183,7 @@ namespace InteractClient.JintEngine
 
       if (screen == null)
       {
-        InteractClient.Network.Signaler.Get().WriteLog("Engine->StartScript: screen " + screen.Name + " not found.");
+        Network.Sender.Get().WriteLog("Engine->StartScript: screen " + ID.ToString() + " not found.");
         ConstructionLock.Release();
         return;
       }
@@ -194,23 +192,23 @@ namespace InteractClient.JintEngine
 
         Jint().Execute(screen.Content);
         Jint().Invoke("Init");
-        InteractClient.Network.Signaler.Get().WriteLog("Engine->StartScript: screen " + screen.Name + " is now running.");
+        Network.Sender.Get().WriteLog("Engine->StartScript: screen " + screen.Name + " is now running.");
       }
       catch (Jint.Parser.ParserException e)
       {
-        InteractClient.Network.Signaler.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, ID);
+        Network.Sender.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, ID);
         ConstructionLock.Release();
         return;
       }
       catch (Jint.Runtime.JavaScriptException e)
       {
-        InteractClient.Network.Signaler.Get().WriteErrorLog(0, e.LineNumber, e.Message, ID);
+        Network.Sender.Get().WriteErrorLog(0, e.LineNumber, e.Message, ID);
         ConstructionLock.Release();
         return;
       }
       catch (Exception e)
       {
-        InteractClient.Network.Signaler.Get().WriteLog("Engine->StartScript: Error on screen " + ID + ":" + e.Message);
+        Network.Sender.Get().WriteLog("Engine->StartScript: Error on screen " + ID + ":" + e.Message);
         ConstructionLock.Release();
         return;
       }
@@ -231,15 +229,15 @@ namespace InteractClient.JintEngine
         }
         catch (Jint.Parser.ParserException e)
         {
-          InteractClient.Network.Signaler.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, screenToStart);
+          Network.Sender.Get().WriteErrorLog(e.Index, e.LineNumber, e.Message, screenToStart);
         }
         catch (Jint.Runtime.JavaScriptException e)
         {
-          InteractClient.Network.Signaler.Get().WriteErrorLog(0, e.LineNumber, e.Message, screenToStart);
+          Network.Sender.Get().WriteErrorLog(0, e.LineNumber, e.Message, screenToStart);
         }
         catch (Exception e)
         {
-          InteractClient.Network.Signaler.Get().WriteLog("Engine->Invoke on function " + functionName + ": " + e.Message);
+          Network.Sender.Get().WriteLog("Engine->Invoke on function " + functionName + ": " + e.Message);
         }
       });
       ConstructionLock.Release();

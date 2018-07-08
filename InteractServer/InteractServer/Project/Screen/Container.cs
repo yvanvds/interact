@@ -131,6 +131,15 @@ namespace InteractServer.Project.Screen
       }
     }
 
+		public Dictionary<string, string> GetVersions()
+		{
+			Dictionary<string, string> result = new Dictionary<string, string>();
+			foreach(Item screen in Resources) {
+				result.Add(screen.ID.ToString(), screen.Version.ToString());
+			};
+			return result;
+		}
+
     public Item Get(Guid ScreenID)
     {
       foreach (Item screen in Resources)

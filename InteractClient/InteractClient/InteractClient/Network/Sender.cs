@@ -7,58 +7,60 @@ namespace InteractClient.Network
 {
 	public class Sender
 	{
+		private static Sender instance = null;
+
 		private Osc.OscSender sender;
+
+		private string serverName;
+		public string ServerName => serverName;
+
+		public string ServerAddress => sender.Host;
+
+		public Implementation.Network.Clients Clients = new Implementation.Network.Clients();
+
+		public static Sender Get()
+		{
+			if(instance == null)
+			{
+				instance = new Sender();
+			}
+			return instance;
+		}
 
 		public Sender()
 		{
 			sender = new Osc.OscSender();
 		}
 
-		public void Init(string address, int port)
+		public void Init(string name, string address, int port)
 		{
+			serverName = name;
 			sender.Init(address, port);
 		}
 
+		
+
 		public void Connect()
 		{
-			sender.Send(new Osc.OscMessage("/client/register", CrossSettings.Current.Get<String>("UserName")));
+			sender.Send(new Osc.OscMessage("/client/register", Global.deviceID.ToString(), CrossSettings.Current.Get<String>("UserName")));
 		}
 
 		public void Disconnect()
 		{
-			sender.Send(new Osc.OscMessage("/client/disconnect"));
+			Global.Connected = false;
+			sender.Send(new Osc.OscMessage("/client/disconnect", Global.deviceID.ToString()));
 		}
 
 		public void GetNextMethod()
 		{
-			sender.Send(new Osc.OscMessage("/client/nextmethod"));
+			sender.Send(new Osc.OscMessage("/client/get/nextmethod", Global.deviceID.ToString()));
 		}
 
-		public void GetProjectConfig(Guid projectID)
+		public void ProjectUpdateReady(Guid projectID)
 		{
-			sender.Send(new Osc.OscMessage("/client/get/projectconfig", projectID.ToString()));
+			sender.Send(new Osc.OscMessage("/client/projectready", Global.deviceID.ToString(), projectID.ToString()));
 		}
-
-		public void GetScreen(Guid projectID, Guid screenID)
-		{
-			sender.Send(new Osc.OscMessage("/client/get/screen", projectID.ToString(), screenID.ToString()));
-		}
-
-		public void GetImage(Guid projectID, Guid imageID)
-		{
-			sender.Send(new Osc.OscMessage("/client/get/image", projectID.ToString(), imageID.ToString()));
-		}
-
-		public void GetSoundfile(Guid projectID, Guid soundfileID)
-		{
-			sender.Send(new Osc.OscMessage("/client/get/soundfile", projectID.ToString(), soundfileID.ToString()));
-		}
-
-		public void GetPatcher(Guid projectID, Guid patcherID)
-		{
-			sender.Send(new Osc.OscMessage("/client/get/patcher", projectID.ToString(), patcherID.ToString()));
-		}
-
+		
 		public void WriteLog(string message)
 		{
 			sender.Send(new Osc.OscMessage("/server/log", message));
@@ -76,24 +78,24 @@ namespace InteractClient.Network
 
 		public void Ping()
 		{
-			sender.Send(new Osc.OscMessage("/server/ping"));
+			sender.Send(new Osc.OscMessage("/client/ping", Global.deviceID.ToString()));
 		}
 
 		/* 
 		 * send to other clients
 		 */ 
 
-		public void SendToClient(string clientID, string address, params object[] arguments)
+		public void SendToClient(Guid clientID, string address, params object[] arguments)
 		{
-			sender.Send(new Osc.OscMessage("/proxy", clientID, address, arguments));
+			sender.Send(new Osc.OscMessage("/proxy", clientID.ToString(), address, arguments));
 		}
 
-		public void InvokeMethod(string clientID, string method, params object[] arguments)
+		public void InvokeMethod(Guid clientID, string method, params object[] arguments)
 		{
 			SendToClient(clientID, "/action/invoke", method, arguments);
 		}
 
-		public void StartScreen(string clientID, Guid screenID)
+		public void StartScreen(Guid clientID, Guid screenID)
 		{
 			SendToClient(clientID, "/screen/start", screenID.ToString());
 		}

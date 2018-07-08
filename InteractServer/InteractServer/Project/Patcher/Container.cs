@@ -127,7 +127,17 @@ namespace InteractServer.Project.Patcher
       }
     }
 
-    public Item Get(Guid PatcherID)
+		public Dictionary<string, string> GetVersions()
+		{
+			Dictionary<string, string> result = new Dictionary<string, string>();
+			foreach (Item item in Resources)
+			{
+				result.Add(item.ID.ToString(), item.Version.ToString());
+			};
+			return result;
+		}
+
+		public Item Get(Guid PatcherID)
     {
       foreach(Item patcher in Resources)
       {

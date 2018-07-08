@@ -13,16 +13,22 @@ namespace InteractClient
   {
     Multicast multicast;
     Network.Network network;
-    Signaler hub;
+		Network.Sender sender;
 
-    public MainPage()
+		public MainPage()
     {
       InitializeComponent();
       NavigationPage.SetHasNavigationBar(this, false);
 
+			//CrossSettings.Current.Remove("Guid");
+			if(CrossSettings.Current.Contains("Guid")) {
+				Global.deviceID = CrossSettings.Current.Get<Guid>("Guid");
+			}
+
       multicast = Multicast.Get();
       network = Network.Network.Get();
-      hub = Network.Signaler.Get();
+			sender = Network.Sender.Get();
+			Receiver.Get().Start();
 
       //this.FindByName<Entry>("UserName").Text = Settings.Current.Get<String>("UserName");
     }
@@ -43,7 +49,7 @@ namespace InteractClient
           multicast.RequestServerList();
         } else if(!Global.ConfigPageActive)
         {
-          if(!Signaler.Get().Connected)
+          if(!Global.Connected)
           {
             Navigation.PopToRootAsync();
             Network.ServerList.Servers.Clear();
@@ -77,16 +83,17 @@ namespace InteractClient
       Logo.RotateTo(1000, 3000);
     }
 
-    private async void Server_Tapped(object sender, EventArgs e)
+    private void Server_Tapped(object sender, EventArgs e)
     {
 
       if (sender is ViewCell)
       {
         ViewCell cell = sender as ViewCell;
         ServerList server = cell.BindingContext as ServerList;
-        await Logo.RotateTo(500, 3000);
+        Logo.RotateTo(500, 3000);
         Global.LookForServers = false;
-        await hub.ConnectAsync(server);
+				this.sender.Init(server.Name, server.Address, 11234);
+				this.sender.Connect();
       }
     }
 

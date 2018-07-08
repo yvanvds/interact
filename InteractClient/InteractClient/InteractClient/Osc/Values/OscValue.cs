@@ -61,7 +61,7 @@ namespace InteractClient.Osc.Values
       }
       else
       {
-        Network.Signaler.Get().WriteLog("OSC Error: " + obj.GetType() + " is not a legal OSC Value type");
+        Network.Sender.Get().WriteLog("OSC Error: " + obj.GetType() + " is not a legal OSC Value type");
         return new OscNull();
       }
     }

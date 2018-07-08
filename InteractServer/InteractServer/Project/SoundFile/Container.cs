@@ -151,7 +151,17 @@ namespace InteractServer.Project.SoundFile
       }
     }
 
-    public Item Get(Guid sfID)
+		public Dictionary<string, string> GetVersions()
+		{
+			Dictionary<string, string> result = new Dictionary<string, string>();
+			foreach (Item item in Resources)
+			{
+				result.Add(item.ID.ToString(), item.Version.ToString());
+			};
+			return result;
+		}
+
+		public Item Get(Guid sfID)
     {
       foreach (Item sf in Resources)
       {

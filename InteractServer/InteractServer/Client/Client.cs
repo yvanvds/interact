@@ -18,6 +18,7 @@ namespace InteractServer.Models
 
     protected String name;
     protected String ipAddress;
+		protected Guid guid;
     protected int lastSeen = 0;
     protected String background = "Green";
 
@@ -28,10 +29,11 @@ namespace InteractServer.Models
 		private Network.Sender sender = null;
 		public Network.Sender Send => sender;
 		
-		public Client(string name, string ipAddress)
+		public Client(string name, string ipAddress, Guid id)
 		{
 			UserName = name;
 			IpAddress = ipAddress;
+			guid = id;
 		}
 
     public void ConfirmPresence(String address)
@@ -74,6 +76,11 @@ namespace InteractServer.Models
 				}
       }
     }
+
+		public Guid Guid
+		{
+			get => guid;
+		}
 
     public int LastSeen
     {
@@ -146,6 +153,12 @@ namespace InteractServer.Models
         Global.Log.AddEntry("Client " + UserName + " is now idle.");
       }
     }
+
+		public void ClearQueue()
+		{
+			queue.Clear();
+			idle = true;
+		}
   }
 
 

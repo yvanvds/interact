@@ -75,7 +75,7 @@ namespace InteractClient.Implementation.UI
         UIObject.Children.Add(fv);
       } catch (ArgumentOutOfRangeException)
       {
-        InteractClient.Network.Signaler.Get().WriteLog("Grid.AddSpan: Element ouf of range.");
+        InteractClient.Network.Sender.Get().WriteLog("Grid.AddSpan: Element ouf of range.");
       }
       
     }

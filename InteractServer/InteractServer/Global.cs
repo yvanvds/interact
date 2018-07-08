@@ -24,6 +24,8 @@ namespace InteractServer
     public static Log.ErrorLogPage ErrorLog;
     public static ClientList Clients;
     public static Network.Multicast Multicast;
+		public static Network.FileServer FileServer;
+
 		//public static Network.SignalSender Sender;
 		public static Network.Receiver Receiver;
     public static Project.ProjectManager ProjectManager;
@@ -69,6 +71,8 @@ namespace InteractServer
 
       Yse = new YSE.YseInterface(Log.AddEntry);
       AudioManager = new Managers.AudioManager();
+
+			FileServer = new Network.FileServer();
     }
   }
 }

@@ -78,7 +78,7 @@ namespace InteractClient.Implementation.Device
         }
       }
 
-      InteractClient.Network.Signaler.Get().WriteLog("No Arduino Configured");
+      InteractClient.Network.Sender.Get().WriteLog("No Arduino Configured");
     }
 
     public void AllowJintOutput(bool value)

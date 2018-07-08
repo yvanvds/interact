@@ -1,4 +1,5 @@
 ﻿using InteractClient.JintEngine;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,19 @@ namespace InteractClient.Network
 {
 	public class Receiver
 	{
+		private static Receiver instance = null;
+
 		private Osc.OscReceiver receiver;
 		private bool started = false;
+
+		public static Receiver Get()
+		{
+			if(instance == null)
+			{
+				instance = new Receiver();
+			}
+			return instance;
+		}
 
 		public void Start()
 		{
@@ -36,16 +48,7 @@ namespace InteractClient.Network
 				} else if (address.StartsWith("/screen"))
 				{
 					ParseScreen(args);
-				} else if (address.StartsWith("/patcher"))
-				{
-					ParsePatcher(args);
-				} else if (address.StartsWith("/image"))
-				{
-					ParseImage(args);
-				} else if (address.StartsWith("/soundfile"))
-				{
-					ParseSoundfile(args);
-				}
+				} 
 
 			};
 
@@ -75,13 +78,32 @@ namespace InteractClient.Network
 			{
 				case "/ping":
 					{
-
+						InteractClient.Network.Sender.Get().Ping();
 					}
 					break;
 
 				case "/invoke":
 					{
 						System.Diagnostics.Debug.WriteLine("/action/invoke: " + args.Message.Arguments.ToString());
+					}
+					break;
+
+				case "/connect":
+					{
+						Global.Connected = true;
+						Global.UpdatePage();
+					}
+					break;
+
+				case "/disconnect":
+					{
+						Global.Connected = false;
+						Global.UpdatePage();
+					}
+					break;
+				default:
+					{
+						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
 					}
 					break;
 			}
@@ -91,12 +113,27 @@ namespace InteractClient.Network
 		{
 			int index = args.Message.Address.ToString().IndexOf("/", 1);
 			string address = args.Message.Address.ToString().Substring(index);
+			List<Osc.Values.IOscValue> list = args.Message.Arguments;
 
 			switch (address)
 			{
 				case "/add":
 					{
-						System.Diagnostics.Debug.WriteLine("/client/add: " + args.Message.Arguments.ToString());
+						Guid clientID = ToGuid(list[0]);
+						string ip = ToString(list[1]);
+						string name = ToString(list[2]);
+						Sender.Get().Clients.Add(clientID, ip, name, false);
+					}
+					break;
+				case "/remove":
+					{
+						Guid clientID = ToGuid(list[0]);
+						Sender.Get().Clients.Remove(clientID);
+					}
+					break;
+				default:
+					{
+						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
 					}
 					break;
 			}
@@ -108,29 +145,36 @@ namespace InteractClient.Network
 			string address = args.Message.Address.ToString().Substring(index);
 			List<Osc.Values.IOscValue> list = args.Message.Arguments;
 
-			switch (address)
+			try
 			{
-				case "/stop":
-					{
-						Engine.Instance.StopRunningProject();
-					}
-					break;
 
-				case "/set":
-					{
-						Data.Project.SetCurrent(ToGuid(list[0]), ToInt(list[1]));
-						Engine.Instance.SetScreenMessage("Loading Project...", true);
-					}
-					break;
 
-				case "/config":
-					{
-						Guid projectID = ToGuid(list[0]);
-						list.RemoveAt(0);
-						System.Diagnostics.Debug.WriteLine("/project/config: " + list.ToString());
-						//Data.Project.List[projectID]?.SetConfig();
-					}
-					break;
+				switch (address)
+				{
+					case "/stop":
+						{
+							Engine.Instance.StopRunningProject();
+							Engine.Instance.SetScreenMessage("Project Stopped.", false);
+						}
+						break;
+
+					case "/set":
+						{
+							Data.Project.SetCurrent(ToGuid(list[0]), ToInt(list[1]));
+							Engine.Instance.SetScreenMessage("Loading Project...", true);
+						}
+						break;
+
+					default:
+						{
+							Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
+						}
+						break;
+				}
+			} catch (Exception e)
+			{
+				Sender.Get().WriteLog("Client got unparseable message: " + args.Message.ToString());
+				Sender.Get().WriteLog("Caused exception: " + e.Message);
 			}
 		}
 
@@ -149,95 +193,14 @@ namespace InteractClient.Network
 					}
 					break;
 
-				case "/set":
-					{
-						Data.Project.List[ToGuid(list[0])]?.UpdateScreen(ToGuid(list[1]), ToString(list[2]));
-					}
-					break;
-
-				case "/version":
-					{
-						Guid projectID = ToGuid(list[0]);
-						Data.Project.List[projectID]?.SetScreenVersion(projectID, ToGuid(list[1]), ToInt(list[2]));
-						Engine.Instance.SetScreenMessage("Loading Screens...", true);
-					}
-					break;
-
 				case "/start":
 					{
 						Engine.Instance.StartScreen(ToGuid(list[0]));
 					}
 					break;
-			}
-		}
-
-		private void ParsePatcher(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			switch (address)
-			{
-				case "/version":
+				default:
 					{
-						Guid projectID = ToGuid(list[0]);
-						Data.Project.List[projectID]?.SetPatcherVersion(projectID, ToGuid(list[1]), ToInt(list[2]));
-						Engine.Instance.SetScreenMessage("Loading Patchers...", true);
-					}
-					break;
-
-				case "/set":
-					{
-						Data.Project.List[ToGuid(list[0])]?.UpdatePatcher(ToGuid(list[1]), ToString(list[2]));
-					}
-					break;
-			}
-		}
-
-		private void ParseImage(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			switch (address)
-			{
-				case "/version":
-					{
-						Guid projectID = ToGuid(list[0]);
-						Data.Project.List[projectID]?.SetImageVersion(projectID, ToGuid(list[1]), ToInt(list[2]));
-						Engine.Instance.SetScreenMessage("Loading images...", true);
-					}
-					break;
-
-				case "/set":
-					{
-						Data.Project.List[ToGuid(list[0])]?.UpdateImage(ToGuid(list[1]), ToString(list[2]));
-					}
-					break;
-			}
-		}
-
-		private void ParseSoundfile(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			switch (address)
-			{
-				case "/version":
-					{
-						Guid projectID = ToGuid(list[0]);
-						Data.Project.List[projectID]?.SetSoundFileVersion(projectID, ToGuid(list[1]), ToInt(list[2]));
-						Engine.Instance.SetScreenMessage("Loading Sounds...", true);
-					}
-					break;
-
-				case "/set":
-					{
-						Data.Project.List[ToGuid(list[0])]?.UpdateSoundFile(ToGuid(list[1]), ToString(list[2]));
+						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
 					}
 					break;
 			}

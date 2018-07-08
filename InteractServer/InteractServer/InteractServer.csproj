@@ -401,6 +401,7 @@
       <DependentUpon>RunningProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Managers\AudioManager.cs" />
+    <Compile Include="Network\FileServer.cs" />
     <Compile Include="Network\Receiver.cs" />
     <Compile Include="Network\Sender.cs" />
     <Compile Include="Project\ProjectManager.cs" />
