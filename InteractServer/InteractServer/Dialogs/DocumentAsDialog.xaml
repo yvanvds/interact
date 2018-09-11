@@ -1,0 +1,28 @@
+﻿<Controls:MetroWindow x:Class="InteractServer.Dialogs.DocumentAsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InteractServer.Dialogs"
+				xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+				xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="DocumentAsDialog" Height="450" Width="800">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="60"/>
+		</Grid.RowDefinitions>
+		<ad:DockingManager Grid.Row="0">
+			<ad:LayoutRoot>
+				<ad:LayoutPanel>
+					<ad:LayoutDocumentPane ShowHeader="False" x:Name="Dock"/>
+				</ad:LayoutPanel>
+			</ad:LayoutRoot>
+		</ad:DockingManager>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" Background="Black"  FlowDirection="RightToLeft">
+			<Button Name="Save" Content="Save" Margin="10" Style="{StaticResource AccentedSquareButtonStyle}" Width="75" Click="Save_Click"/>
+			<Button Name="Cancel" Content="Cancel" Margin="10" Style="{StaticResource SquareButtonStyle}" Width="75" Click="Cancel_Click"/>
+		</StackPanel>
+	</Grid>
+</Controls:MetroWindow>

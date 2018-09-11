@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InteractClient.Pages.Connected"
+						 BackgroundColor="#1a1a1a"
+						 Title="Connected">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="200"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Image Grid.Row="0" Margin="10" x:Name="Logo" Source="icon.png" HorizontalOptions="Center"/>
+		<Label Grid.Row="1" Text="- INTERACT -" FontSize="30" TextColor="White" HorizontalTextAlignment="Center"/>
+
+		<Label Grid.Row="2" x:Name="ActivityText" Text="" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center"/>
+
+		<Grid Grid.Row="3">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<!-- client name -->
+				<RowDefinition/>
+				<!-- client guid -->
+				<RowDefinition/>
+				<!-- client ip -->
+				<RowDefinition/>
+				<!-- server name -->
+				<RowDefinition/>
+				<!-- server ip -->
+			</Grid.RowDefinitions>
+
+			<Label Grid.Row="0" Grid.Column="0" Text="Name:" FontSize="Small"/>
+			<Label Grid.Row="0" Grid.Column="1" x:Name="DisplayClientName" FontSize="Small"/>
+
+			<Label Grid.Row="1" Grid.Column="0" Text="Guid:" FontSize="Small"/>
+			<Label Grid.Row="1" Grid.Column="1" x:Name="DisplayClientGuid" FontSize="Small"/>
+
+			<Label Grid.Row="2" Grid.Column="0" Text="IP:" FontSize="Small"/>
+			<Label Grid.Row="2" Grid.Column="1" x:Name="DisplayClientIP" FontSize="Small"/>
+
+			<Label Grid.Row="3" Grid.Column="0" Text="Server Name:" FontSize="Small"/>
+			<Label Grid.Row="3" Grid.Column="1" x:Name="DisplayServerName" FontSize="Small"/>
+
+			<Label Grid.Row="4" Grid.Column="0" Text="Server IP:" FontSize="Small"/>
+			<Label Grid.Row="4" Grid.Column="1" x:Name="DisplayServerIP" FontSize="Small"/>
+		</Grid>
+
+
+		<Button Grid.Row="5" x:Name="DisconnectButton" Text="Disconnect" Clicked="DisconnectButton_Clicked"/>
+	</Grid>
+</ContentPage>

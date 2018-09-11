@@ -3,8 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InteractClient.App">
 	<Application.Resources>
-
 		<!-- Application resource dictionary -->
-
+		<ResourceDictionary>
+			<Style TargetType="NavigationPage">
+				<Setter Property="BarBackgroundColor" Value="Green"/>
+			</Style>
+			<Style TargetType="Button">
+				<Setter Property="BorderColor" Value="Green"/>
+				<Setter Property="BorderRadius" Value="0"/>
+				<Setter Property="BorderWidth" Value="3"/>
+				<Setter Property="BackgroundColor" Value="#3a3a3a"/>
+				<Setter Property="TextColor" Value="White"/>
+			</Style>
+			<Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+				<Setter Property="BackgroundColor" Value="#1a1a1a"/>
+			</Style>
+			<Style TargetType="Label">
+				<Setter Property="TextColor" Value="White"/>
+			</Style>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

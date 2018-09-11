@@ -4,34 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BD810214-6D58-4A5A-8489-C3D3C037156C}</ProjectGuid>
+    <ProjectGuid>{A225837F-BF40-40D2-A702-DB0A828294BF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>InteractServer</RootNamespace>
     <AssemblyName>InteractServer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,291 +35,120 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;INTERACTSERVER</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;INTERACTSERVER</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>5B95CEF4D2618BCFADF301C9AAC9E254B04E59AE</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>InteractServer_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>InteractServer.App</StartupObject>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>Internet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Logo_A_.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>interactkey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActiproSoftware.Shared.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.SyntaxEditor.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Text.Addons.DotNet.Roslyn.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Text.Addons.DotNet.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Text.LLParser.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Text.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
     <Reference Include="AutocompleteMenu-ScintillaNET, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoCompleteMenu-ScintillaNET.1.6.1\lib\net40\AutocompleteMenu-ScintillaNET.dll</HintPath>
+      <HintPath>packages\AutoCompleteMenu-ScintillaNET.1.6.1\lib\net40\AutocompleteMenu-ScintillaNET.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
+      <HintPath>packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Esprima, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Esprima.1.0.0-beta-001\lib\net45\Esprima.dll</HintPath>
-    </Reference>
-    <Reference Include="jint, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
-      <HintPath>..\packages\jint.3.0.0-beta-001\lib\net45\jint.dll</HintPath>
-    </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.6.2\lib\net47\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Cors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Cors.4.0.0\lib\net451\Microsoft.Owin.Cors.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Diagnostics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Diagnostics.4.0.0\lib\net451\Microsoft.Owin.Diagnostics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.4.0.0\lib\net451\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Hosting.4.0.0\lib\net451\Microsoft.Owin.Hosting.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Windows.Design.Extensibility, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OscGui.1.0.28\lib\net461\OscGui.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.AeroLite" />
+    <Reference Include="OscTree, Version=1.0.21.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OscTree.1.0.21\lib\netstandard2.0\OscTree.dll</HintPath>
+    </Reference>
     <Reference Include="Rug.Osc, Version=1.2.5.17694, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rug.Osc.1.2.5\lib\Rug.Osc.dll</HintPath>
+      <HintPath>packages\Rug.Osc.1.2.5\lib\Rug.Osc.dll</HintPath>
     </Reference>
     <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="shortid, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\shortid.2.0.0\lib\net45\shortid.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.1.60.0\lib\net45\SkiaSharp.dll</HintPath>
+      <HintPath>packages\SkiaSharp.1.60.2\lib\net45\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Extended.Iconify, Version=1.60.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.Extended.Iconify.1.60.0\lib\netstandard2.0\SkiaSharp.Extended.Iconify.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Extended.Iconify.MaterialDesignIcons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.Extended.Iconify.MaterialDesignIcons.2.0.0\lib\netstandard2.0\SkiaSharp.Extended.Iconify.MaterialDesignIcons.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Desktop, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
+      <HintPath>packages\SkiaSharp.Views.1.60.2\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Gtk, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
+      <HintPath>packages\SkiaSharp.Views.1.60.2\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.WPF, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.1.60.0\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
+      <HintPath>packages\SkiaSharp.Views.1.60.2\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.dll</HintPath>
+      <HintPath>packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="Sockets.Plugin.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.Abstractions.dll</HintPath>
+      <HintPath>packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Diagnostics.Contracts" />
-    <Reference Include="System.Diagnostics.Tracing">
-      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Linq">
-      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Linq.Expressions">
-      <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http, Version=4.3.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection">
-      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Extensions">
-      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.InteropServices">
-      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Text.RegularExpressions">
-      <HintPath>..\packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Cors, Version=5.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.5\lib\net45\System.Web.Cors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.ReaderWriter">
-      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="YapView, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YapView.1.0.8\lib\net471\YapView.dll</HintPath>
+      <HintPath>packages\YapView.1.0.11\lib\net461\YapView.dll</HintPath>
     </Reference>
-    <Reference Include="YSE.NET.PCL, Version=1.0.26.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YSE.NET.PCL.1.0.31\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
+    <Reference Include="yGuiWPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\yGuiWPF.1.0.9\lib\net461\yGuiWPF.dll</HintPath>
     </Reference>
-    <Reference Include="Yse.NET.Standard, Version=1.0.62.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Yse.NET.Standard.1.0.66\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+    <Reference Include="YSE.NET.PCL, Version=1.0.39.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\YSE.NET.PCL.1.0.39\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
+    </Reference>
+    <Reference Include="Yse.NET.Standard, Version=1.0.71.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Yse.NET.Standard.1.0.71\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -344,163 +156,136 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CommandBindings\PatcherCommands.cs" />
-    <Compile Include="Commands.cs" />
-    <Compile Include="Dialogs\IDialog.cs" />
-    <Compile Include="Dialogs\NewPatcherDialog.xaml.cs">
-      <DependentUpon>NewPatcherDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Implementation\Logic\Patcher.cs" />
-    <Compile Include="Implementation\Logic\Timer.cs" />
-    <Compile Include="Implementation\Network\Client.cs" />
-    <Compile Include="Implementation\Network\Clients.cs" />
-    <Compile Include="Implementation\Network\GlMixer.cs" />
-    <Compile Include="Implementation\Network\OscReceiver.cs" />
-    <Compile Include="Implementation\Network\OscSender.cs" />
-    <Compile Include="Implementation\Network\Server.cs" />
-    <Compile Include="Implementation\UI\Button.cs" />
-    <Compile Include="Implementation\UI\Canvas\CCanvas.cs" />
-    <Compile Include="Implementation\UI\Canvas\CCircle.cs" />
-    <Compile Include="Implementation\UI\Canvas\CLayer.cs" />
-    <Compile Include="Implementation\UI\Canvas\CLine.cs" />
-    <Compile Include="Implementation\UI\Canvas\CRect.cs" />
-    <Compile Include="Implementation\UI\Color.cs" />
-    <Compile Include="Implementation\UI\Grid.cs" />
-    <Compile Include="Implementation\UI\Image.cs" />
-    <Compile Include="Implementation\UI\Slider.cs" />
-    <Compile Include="Implementation\UI\Text.cs" />
-    <Compile Include="Implementation\UI\Title.cs" />
-    <Compile Include="Intellisense\ArgumentsHintAutocompleteItem.cs" />
-    <Compile Include="Intellisense\AutoComplete.cs" />
-    <Compile Include="Controls\CodeEditor.xaml.cs">
+    <Compile Include="Clients\Client.cs" />
+    <Compile Include="Clients\ClientList.cs" />
+    <Compile Include="CodeEditor\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\NewScreenDialog.xaml.cs">
-      <DependentUpon>NewScreenDialog.xaml</DependentUpon>
+    <Compile Include="CodeEditor\SyntaxEditorHelper.cs" />
+    <Compile Include="Compiler\ClientCompiler.cs" />
+    <Compile Include="Compiler\ClientScriptObject.cs" />
+    <Compile Include="Compiler\ServerScriptObject.cs" />
+    <Compile Include="Compiler\ServerCompiler.cs" />
+    <Compile Include="Compiler\Intellisense.cs" />
+    <Compile Include="Compiler\LogForwarder.cs" />
+    <Compile Include="Compiler\OscForwarder.cs" />
+    <Compile Include="Controls\GroupMemberList.xaml.cs">
+      <DependentUpon>GroupMemberList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\NewProjectDialog.xaml.cs">
-      <DependentUpon>NewProjectDialog.xaml</DependentUpon>
+    <Compile Include="Controls\SensorControl.xaml.cs">
+      <DependentUpon>SensorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\NewServerScriptDialog.xaml.cs">
-      <DependentUpon>NewServerScriptDialog.xaml</DependentUpon>
+    <Compile Include="Controls\SoundControl.xaml.cs">
+      <DependentUpon>SoundControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\RenameResource.xaml.cs">
-      <DependentUpon>RenameResource.xaml</DependentUpon>
+    <Compile Include="Controls\SoundGrid.xaml.cs">
+      <DependentUpon>SoundGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Global.cs" />
-    <Compile Include="Intellisense\ClientObjects.cs" />
-    <Compile Include="Intellisense\FakeClientClasses\ProjectStorage.cs" />
-    <Compile Include="Intellisense\FakeClientClasses\Server.cs" />
-    <Compile Include="Intellisense\Scriptcontent.cs" />
-    <Compile Include="Intellisense\Scripts.cs" />
-    <Compile Include="Intellisense\ScriptObjects.cs" />
-    <Compile Include="Intellisense\ServerObjects.cs" />
-    <Compile Include="JintEngine\Engine.cs" />
-    <Compile Include="JintEngine\Osc.cs" />
-    <Compile Include="JintEngine\RunningProjectPage.xaml.cs">
-      <DependentUpon>RunningProjectPage.xaml</DependentUpon>
+    <Compile Include="Dialogs\DocumentAsDialog.xaml.cs">
+      <DependentUpon>DocumentAsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Managers\AudioManager.cs" />
-    <Compile Include="Network\FileServer.cs" />
-    <Compile Include="Network\Receiver.cs" />
-    <Compile Include="Network\Sender.cs" />
-    <Compile Include="Project\ProjectManager.cs" />
-    <Compile Include="Managers\ViewManager.cs" />
-    <Compile Include="Messages.cs" />
-    <Compile Include="Client\Client.cs" />
-    <Compile Include="Client\Clients.cs" />
-    <Compile Include="Log\ErrorLogEntry.cs" />
-    <Compile Include="Project\IContentModel.cs" />
-    <Compile Include="Project\IDiskResource.cs" />
-    <Compile Include="Project\IDiskResourceFolder.cs" />
-    <Compile Include="Project\Image\Item.cs" />
-    <Compile Include="Project\Image\Container.cs" />
-    <Compile Include="Project\Patcher\Item.cs" />
-    <Compile Include="Project\Patcher\Container.cs" />
-    <Compile Include="Project\DiskResource.cs" />
-    <Compile Include="Project\ProjectFile.cs" />
-    <Compile Include="Project\Screen\Item.cs" />
-    <Compile Include="Project\Screen\Container.cs" />
+    <Compile Include="Dialogs\Error.xaml.cs">
+      <DependentUpon>Error.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GetString.xaml.cs">
+      <DependentUpon>GetString.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewClientModule.xaml.cs">
+      <DependentUpon>NewClientModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewServerModule.xaml.cs">
+      <DependentUpon>NewServerModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RouteInspector.xaml.cs">
+      <DependentUpon>RouteInspector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RouteSelector.xaml.cs">
+      <DependentUpon>RouteSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ServerOptions.xaml.cs">
+      <DependentUpon>ServerOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Groups\Group.cs" />
+    <Compile Include="Groups\GroupMember.cs" />
+    <Compile Include="Log\Log.xaml.cs">
+      <DependentUpon>Log.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Log\LogEntry.cs" />
-    <Compile Include="Project\Project.cs" />
-    <Compile Include="Project\ServerScript\Item.cs" />
-    <Compile Include="Project\ServerScript\Container.cs" />
-    <Compile Include="Project\SoundFile\Item.cs" />
-    <Compile Include="Project\SoundFile\Container.cs" />
-    <Compile Include="Network\SignalReceiver.cs" />
+    <Compile Include="Network\FileServer.cs" />
     <Compile Include="Network\Multicast.cs" />
-    <Compile Include="Network\SignalSender.cs" />
-    <Compile Include="Pages\BasePage.cs" />
-    <Compile Include="Pages\ClientPage.xaml.cs">
-      <DependentUpon>ClientPage.xaml</DependentUpon>
+    <Compile Include="Network\OscReceiver.cs" />
+    <Compile Include="Network\OscSender.cs" />
+    <Compile Include="Osc\Tree.cs" />
+    <Compile Include="Pages\ClientExplorer.xaml.cs">
+      <DependentUpon>ClientExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Log\ErrorLogPage.xaml.cs">
-      <DependentUpon>ErrorLogPage.xaml</DependentUpon>
+    <Compile Include="Pages\ProjectExplorer.xaml.cs">
+      <DependentUpon>ProjectExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Log\LogPage.xaml.cs">
-      <DependentUpon>LogPage.xaml</DependentUpon>
+    <Compile Include="Pages\Properties.xaml.cs">
+      <DependentUpon>Properties.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Project\Patcher\PatcherPage.xaml.cs">
-      <DependentUpon>PatcherPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Project\ConfigPage.xaml.cs">
-      <DependentUpon>ConfigPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Project\ExplorerPage.xaml.cs">
-      <DependentUpon>ExplorerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PropertiesPage.xaml.cs">
-      <DependentUpon>PropertiesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ScriptPage.xaml.cs">
-      <DependentUpon>ScriptPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PatcherContent\Base.cs" />
-    <Compile Include="Project\Config\ConfigValues.cs" />
-    <Compile Include="Project\Config\UI\Page.cs" />
-    <Compile Include="Project\Config\UI\Button.cs" />
-    <Compile Include="Project\Config\UI\Text.cs" />
-    <Compile Include="Project\Config\UI\Title.cs" />
-    <Compile Include="Resources\templates\Template.cs" />
-    <Compile Include="Shared\Enumerations.cs" />
-    <Compile Include="Shared\JsonObject.cs" />
-    <Compile Include="ScreenContent\Base.cs" />
-    <Compile Include="ScreenContent\Script.cs" />
-    <Compile Include="Shared\Project\Background.cs" />
-    <Compile Include="Shared\Project\Button.cs" />
-    <Compile Include="Shared\Project\Color.cs" />
-    <Compile Include="Shared\Project\ConfigValues.cs" />
-    <Compile Include="Shared\Project\Text.cs" />
-    <Compile Include="Shared\Project\Title.cs" />
+    <Compile Include="Project\AbstractFolder.cs" />
+    <Compile Include="Project\ClientModuleFolder.cs" />
+    <Compile Include="Project\EndpointWriter.cs" />
+    <Compile Include="Project\ClientGroups.cs" />
+    <Compile Include="Project\Patcher.cs" />
+    <Compile Include="Project\Script.cs" />
+    <Compile Include="Project\SensorConfig.cs" />
+    <Compile Include="Project\ServerModuleFolder.cs" />
+    <Compile Include="Project\Gui.cs" />
+    <Compile Include="Project\IResource.cs" />
+    <Compile Include="Project\IFolder.cs" />
+    <Compile Include="Project\Project.cs" />
+    <EmbeddedResource Include="Resources\Definitions\ServerScriptTemplate1.cs" />
+    <EmbeddedResource Include="Resources\Definitions\ServerScriptTemplate2.cs" />
+    <EmbeddedResource Include="Resources\Definitions\ClientScriptTemplate1.cs" />
+    <EmbeddedResource Include="Resources\Definitions\ClientScriptTemplate2.cs" />
+    <EmbeddedResource Include="Resources\Definitions\ServerEndpointTemplate.cs" />
+    <Compile Include="Project\SoundPage.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Utils\ActionCommand.cs" />
     <Compile Include="Utils\Editor.cs" />
-    <Compile Include="Utils\HeaderToImageConverter.cs" />
     <Compile Include="Utils\ImageToBitmapSourceConverter.cs" />
     <Compile Include="Utils\ProjectExplorerTemplateSelector.cs" />
-    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\String.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
-    <Compile Include="Utils\YseHandler.cs" />
-    <Compile Include="Views\IView.cs" />
-    <Compile Include="Views\PatcherView.cs" />
-    <Compile Include="Views\ScreenView.cs" />
-    <Compile Include="Views\ServerScriptView.cs" />
-    <Compile Include="Windows\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\PatcherHelpWindow.xaml.cs">
-      <DependentUpon>PatcherHelpWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ServerOptionsWindow.xaml.cs">
-      <DependentUpon>ServerOptionsWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\CodeEditor.xaml">
+    <Compile Include="Yse\Handler.cs" />
+    <Compile Include="Yse\Yse.cs" />
+    <Page Include="CodeEditor\CodeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\NewPatcherDialog.xaml">
+    <Page Include="Controls\GroupMemberList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\NewScreenDialog.xaml">
+    <Page Include="Controls\SensorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SoundControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SoundGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DocumentAsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Error.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\GetString.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\NewClientModule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -508,15 +293,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\NewServerScriptDialog.xaml">
+    <Page Include="Dialogs\NewServerModule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\RenameResource.xaml">
+    <Page Include="Dialogs\RouteInspector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="JintEngine\RunningProjectPage.xaml">
+    <Page Include="Dialogs\RouteSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ServerOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Log\Log.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -528,53 +321,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands.cs" />
+    <Compile Include="Dialogs\NewProjectDialog.xaml.cs">
+      <DependentUpon>NewProjectDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\ClientPage.xaml">
+    <Page Include="Pages\ClientExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Log\ErrorLogPage.xaml">
+    <Page Include="Pages\ProjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Log\LogPage.xaml">
+    <Page Include="Pages\Properties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Project\Patcher\PatcherPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Project\ConfigPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Project\ExplorerPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PropertiesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ScriptPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\PatcherHelpWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ServerOptionsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -598,81 +371,21 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="interactkey.snk" />
-    <None Include="InteractServer_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Scripts\jquery-3.3.1.min.map" />
-    <None Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <EmbeddedResource Include="Resources\Definitions\CSharp.langdef" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\users-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\user-4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\templates\project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\templates\modelScript.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="libsndfile-1.dll" />
-    <Content Include="portaudio_x86.dll" />
-    <Content Include="Yse.dll" />
-    <Resource Include="Resources\Icons\Method_32x.png" />
-    <Resource Include="Resources\Icons\Property_32x.png" />
-    <Resource Include="Resources\Icons\Ellipsis_16x.png" />
-    <Resource Include="Resources\Icons\Settings_16x.png" />
-    <Resource Include="Resources\Icons\Exit_16x.png" />
-    <Resource Include="Resources\Icons\NewProject_16x.png" />
-    <Resource Include="Resources\Icons\Open_16x.png" />
-    <Resource Include="Resources\Icons\SaveAll_16x.png" />
-    <Resource Include="Resources\Icons\Run_16x.png" />
-    <Resource Include="Resources\Icons\Stop_16x.png" />
-    <Resource Include="Resources\Icons\Explorer_16x.png" />
-    <Resource Include="Resources\Icons\Log_16x.png" />
+    <Resource Include="Resources\Icons\Code_16x.png" />
     <Resource Include="Resources\Icons\Copy_16x.png" />
     <Resource Include="Resources\Icons\Cut_16x.png" />
-    <Resource Include="Resources\Icons\Paste_16x.png" />
-    <Resource Include="Resources\Icons\PinAutoHide.png" />
-    <Resource Include="Resources\Icons\PinClose.png" />
-    <Resource Include="Resources\Icons\PinDocMenu.png" />
-    <Resource Include="Resources\Icons\PinMaximize.png" />
-    <Resource Include="Resources\Icons\PinMenu.png" />
-    <Resource Include="Resources\Icons\PinRestore.png" />
-    <Resource Include="Resources\Icons\PinAutoHide_Black.png" />
-    <Resource Include="Resources\Icons\PinAutoHide_Dark.png" />
-    <Resource Include="Resources\Icons\PinClose_Black.png" />
-    <Resource Include="Resources\Icons\PinClose_Dark.png" />
-    <Resource Include="Resources\Icons\PinDocMenu_Black.png" />
-    <Resource Include="Resources\Icons\PinMaximize_Black.png" />
-    <Resource Include="Resources\Icons\PinMaximize_Dark.png" />
-    <Resource Include="Resources\Icons\PinMenu_Black.png" />
-    <Resource Include="Resources\Icons\PinMenu_Dark.png" />
-    <Resource Include="Resources\Icons\PinRestore_Black.png" />
-    <Resource Include="Resources\Icons\PinRestore_Dark.png" />
     <Resource Include="Resources\Icons\DockAnchorableBottom.png" />
     <Resource Include="Resources\Icons\DockAnchorableLeft.png" />
     <Resource Include="Resources\Icons\DockAnchorableRight.png" />
@@ -688,46 +401,79 @@
     <Resource Include="Resources\Icons\DockDocumentTop.png" />
     <Resource Include="Resources\Icons\DockPaneEmpty.png" />
     <Resource Include="Resources\Icons\DockPaneLargeEmpty.png" />
+    <Resource Include="Resources\Icons\Ellipsis_16x.png" />
+    <Resource Include="Resources\Icons\Exit_16x.png" />
+    <Resource Include="Resources\Icons\Explorer_16x.png" />
     <Resource Include="Resources\Icons\HTabGroup.png" />
-    <Resource Include="Resources\Icons\Locked.png" />
-    <Resource Include="Resources\Icons\VTabGroup.png" />
-    <Resource Include="Resources\Icons\SoundFile_16x.png" />
     <Resource Include="Resources\Icons\Image_16x.png" />
-    <Resource Include="Resources\Icons\Phone_16x.png" />
-    <Resource Include="Resources\Icons\Code_16x.png" />
-    <Resource Include="interact.ico" />
-    <Resource Include="Logo_A_.ico" />
-    <Resource Include="Resources\Images\Logo_A_.png" />
-    <Resource Include="Resources\Images\Logo_A_x256.png" />
-    <Resource Include="Resources\Images\Logox256.png" />
+    <Resource Include="Resources\Icons\Locked.png" />
+    <Resource Include="Resources\Icons\Log_16x.png" />
+    <Resource Include="Resources\Icons\Method_32x.png" />
+    <Resource Include="Resources\Icons\NewProject_16x.png" />
+    <Resource Include="Resources\Icons\Open_16x.png" />
+    <Resource Include="Resources\Icons\Paste_16x.png" />
     <Resource Include="Resources\Icons\Patcher_16x.png" />
-    <Content Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.3.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
-    <Content Include="sqlite3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Icons\Phone_16x.png" />
+    <Resource Include="Resources\Icons\PinAutoHide.png" />
+    <Resource Include="Resources\Icons\PinAutoHide_Black.png" />
+    <Resource Include="Resources\Icons\PinAutoHide_Dark.png" />
+    <Resource Include="Resources\Icons\PinClose.png" />
+    <Resource Include="Resources\Icons\PinClose_Black.png" />
+    <Resource Include="Resources\Icons\PinClose_Dark.png" />
+    <Resource Include="Resources\Icons\PinDocMenu.png" />
+    <Resource Include="Resources\Icons\PinDocMenu_Black.png" />
+    <Resource Include="Resources\Icons\PinMaximize.png" />
+    <Resource Include="Resources\Icons\PinMaximize_Black.png" />
+    <Resource Include="Resources\Icons\PinMaximize_Dark.png" />
+    <Resource Include="Resources\Icons\PinMenu.png" />
+    <Resource Include="Resources\Icons\PinMenu_Black.png" />
+    <Resource Include="Resources\Icons\PinMenu_Dark.png" />
+    <Resource Include="Resources\Icons\PinRestore.png" />
+    <Resource Include="Resources\Icons\PinRestore_Black.png" />
+    <Resource Include="Resources\Icons\PinRestore_Dark.png" />
+    <Resource Include="Resources\Icons\Property_32x.png" />
+    <Resource Include="Resources\Icons\Run_16x.png" />
+    <Resource Include="Resources\Icons\SaveAll_16x.png" />
+    <Resource Include="Resources\Icons\Settings_16x.png" />
+    <Resource Include="Resources\Icons\SoundFile_16x.png" />
+    <Resource Include="Resources\Icons\Stop_16x.png" />
+    <Resource Include="Resources\Icons\VTabGroup.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Implementation\Device\" />
-    <Folder Include="JintEngine\UI\" />
-    <Folder Include="Theme\" />
+    <Resource Include="Resources\Images\Logo_A_.png" />
   </ItemGroup>
-  <Import Project="..\..\Shared\InteractShared\InteractShared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logox256.png" />
+    <Resource Include="Resources\Images\Logo_A_x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Definitions\Dark.vssettings" />
+    <Resource Include="Resources\Icons\screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ScriptCompiler\ScriptCompiler.csproj">
+      <Project>{8607ab92-7a8a-4890-9bdd-04f7dc4750a9}</Project>
+      <Name>ScriptCompiler</Name>
+    </ProjectReference>
+    <ProjectReference Include="ScriptInterface\ScriptInterface.csproj">
+      <Project>{1a3dea06-4c36-4f01-be45-101c85bda0d9}</Project>
+      <Name>ScriptInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libsndfile-1.dll" />
+    <Content Include="portaudio_x86.dll" />
+    <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+    <Resource Include="Resources\Icons\sensors_16.png" />
+    <Content Include="Yse.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\SkiaSharp.1.60.2\build\net45\SkiaSharp.targets" Condition="Exists('packages\SkiaSharp.1.60.2\build\net45\SkiaSharp.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets'))" />
+    <Error Condition="!Exists('packages\SkiaSharp.1.60.2\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SkiaSharp.1.60.2\build\net45\SkiaSharp.targets'))" />
   </Target>
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.1.60.0\build\net45\SkiaSharp.targets')" />
 </Project>

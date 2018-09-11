@@ -11,12 +11,12 @@
                       GlowBrush="Lime"
                       Background="{DynamicResource ColorDark}"
         Title="Start a new Project" Height="311.732" Width="307.542">
-    <Grid>
-        <Label Content="Select a folder for your project" 
+	<Grid>
+		<Label Content="Select a folder for your project" 
                HorizontalAlignment="Left" 
                Margin="10,10,0,0" 
                VerticalAlignment="Top"/>
-        <TextBox x:Name="TBFoldername"  
+		<TextBox x:Name="TBFoldername"  
                  HorizontalAlignment="Left" 
                  Height="23" 
                  Margin="10,41,0,0" 
@@ -24,7 +24,7 @@
                  Text="" 
                  VerticalAlignment="Top" 
                  Width="221"/>
-        <Button x:Name="BPickFolder" 
+		<Button x:Name="BPickFolder" 
                 Content="..." 
                 HorizontalAlignment="Left" 
                 Margin="236,41,0,0" 
@@ -33,11 +33,11 @@
                 Height="23" 
                 Click="BPickFolder_Click" 
                 Style="{StaticResource SquareButtonStyle}"/>
-        <Label Content="Project Name" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TBProjectName" HorizontalAlignment="Left" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="272" TextChanged="TBProjectName_TextChanged"/>
-        <Label Content="Name on Disk" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TBDiskName" HorizontalAlignment="Left" Height="23" Margin="10,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="272" TextChanged="TBDiskName_TextChanged"/>
-        <Button x:Name="BContinue" Content="Continue" HorizontalAlignment="Left" Margin="207,243,0,0" VerticalAlignment="Top" Width="75" Click="BContinue_Click" Style="{StaticResource AccentedSquareButtonStyle}" />
-        <Label x:Name="LFolderExists"  Content="This Folder already exists" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Foreground="RED"/>
-    </Grid>
+		<Label Content="Project Name" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="TBProjectName" HorizontalAlignment="Left" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="272" TextChanged="TBProjectName_TextChanged"/>
+		<Label Content="Name on Disk" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="TBDiskName" HorizontalAlignment="Left" Height="23" Margin="10,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="272" TextChanged="TBDiskName_TextChanged"/>
+		<Button x:Name="BContinue" Content="Continue" HorizontalAlignment="Left" Margin="207,243,0,0" VerticalAlignment="Top" Width="75" Click="BContinue_Click" Style="{StaticResource AccentedSquareButtonStyle}" />
+		<Label x:Name="LFolderExists"  Content="This Folder already exists" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Foreground="RED"/>
+	</Grid>
 </Controls:MetroWindow>

@@ -5,100 +5,54 @@ using System.Text;
 
 namespace InteractClient.Network
 {
-	public class Sender
+	public static class Sender
 	{
-		private static Sender instance = null;
+		private static Osc.OscSender sender = new Osc.OscSender();
 
-		private Osc.OscSender sender;
+		private static Server currentServer = null;
+		public static string ServerName => currentServer.Name;
+		public static string ServerAddress => currentServer.Address;
 
-		private string serverName;
-		public string ServerName => serverName;
+		private static bool connected = false;
+		public static bool Connected => connected;
 
-		public string ServerAddress => sender.Host;
-
-		public Implementation.Network.Clients Clients = new Implementation.Network.Clients();
-
-		public static Sender Get()
+		public static void Connect(Server server, int port)
 		{
-			if(instance == null)
-			{
-				instance = new Sender();
-			}
-			return instance;
+			currentServer = server;
+			sender.Init(server.Address, port);
+			sender.Send(new Osc.OscMessage("/internal/register", Global.deviceID, CrossSettings.Current.Get<String>("UserName")));
+			connected = true;
 		}
 
-		public Sender()
+		public static void Disconnect()
 		{
-			sender = new Osc.OscSender();
+			connected = false;
+			sender.Send(new Osc.OscMessage("/internal/disconnect", Global.deviceID));
 		}
 
-		public void Init(string name, string address, int port)
+		public static void GetNextMethod()
 		{
-			serverName = name;
-			sender.Init(address, port);
+			sender.Send(new Osc.OscMessage("/internal/get/nextmethod", Global.deviceID));
 		}
 
-		
-
-		public void Connect()
+		public static void ProjectUpdateReady(string projectID)
 		{
-			sender.Send(new Osc.OscMessage("/client/register", Global.deviceID.ToString(), CrossSettings.Current.Get<String>("UserName")));
+			sender.Send(new Osc.OscMessage("/internal/project/ready", Global.deviceID, projectID));
 		}
 
-		public void Disconnect()
+		public static void WriteLog(string message)
 		{
-			Global.Connected = false;
-			sender.Send(new Osc.OscMessage("/client/disconnect", Global.deviceID.ToString()));
+			sender.Send(new Osc.OscMessage("/internal/log", message));
 		}
 
-		public void GetNextMethod()
+		public static void Ping()
 		{
-			sender.Send(new Osc.OscMessage("/client/get/nextmethod", Global.deviceID.ToString()));
+			sender.Send(new Osc.OscMessage("/internal/ping", Global.deviceID));
 		}
 
-		public void ProjectUpdateReady(Guid projectID)
+		public static void ToServer(OscTree.Route route, object[] parms)
 		{
-			sender.Send(new Osc.OscMessage("/client/projectready", Global.deviceID.ToString(), projectID.ToString()));
+			sender.Send(new Osc.OscMessage("/route" + route.GetActualRoute(), parms));
 		}
-		
-		public void WriteLog(string message)
-		{
-			sender.Send(new Osc.OscMessage("/server/log", message));
-		}
-
-		public void WriteErrorLog(int index, int lineNumber, string message, Guid resourceID)
-		{
-			sender.Send(new Osc.OscMessage("/server/errorlog", index, lineNumber, message, resourceID.ToString()));
-		}
-
-		public void InvokeMethod(string method, params object[] arguments)
-		{
-			sender.Send(new Osc.OscMessage("/server/invoke", method, arguments));
-		}
-
-		public void Ping()
-		{
-			sender.Send(new Osc.OscMessage("/client/ping", Global.deviceID.ToString()));
-		}
-
-		/* 
-		 * send to other clients
-		 */ 
-
-		public void SendToClient(Guid clientID, string address, params object[] arguments)
-		{
-			sender.Send(new Osc.OscMessage("/proxy", clientID.ToString(), address, arguments));
-		}
-
-		public void InvokeMethod(Guid clientID, string method, params object[] arguments)
-		{
-			SendToClient(clientID, "/action/invoke", method, arguments);
-		}
-
-		public void StartScreen(Guid clientID, Guid screenID)
-		{
-			SendToClient(clientID, "/screen/start", screenID.ToString());
-		}
-
 	}
 }

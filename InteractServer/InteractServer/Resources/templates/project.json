@@ -1,7 +1,0 @@
-﻿{
-  "interactVersion": "@version",
-  "configValues": {
-    "Name": "@name",
-    "ID": "@id"
-  }
-}

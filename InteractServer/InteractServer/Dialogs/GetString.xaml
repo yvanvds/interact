@@ -1,0 +1,21 @@
+﻿<Controls:MetroWindow x:Class="InteractServer.Dialogs.GetString"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InteractServer.Dialogs"
+        mc:Ignorable="d"
+				xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+				Background="{DynamicResource ColorDark}"
+        Title="GetString" Height="60" Width="300"
+											>
+    <Grid>
+		<TextBox Name="StringResult" Text="content" VerticalContentAlignment="Center" Foreground="White">
+			<TextBox.InputBindings>
+				<KeyBinding Command="{Binding EnterPressed}" Key="Return"/>
+				<KeyBinding Command="{Binding EnterPressed}" Key="Enter"/>
+				<KeyBinding Command="{Binding EscapePressed}" Key="Esc"/>
+			</TextBox.InputBindings>	
+		</TextBox>
+	</Grid>
+</Controls:MetroWindow>

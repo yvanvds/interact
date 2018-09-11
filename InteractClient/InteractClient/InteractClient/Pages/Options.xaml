@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InteractClient.Pages.Options"
+						 BackgroundColor="#1a1a1a"
+						 Title="Options">
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Label Grid.Row="0" Grid.Column="0" Text="ID" FontSize="Medium" VerticalTextAlignment="Center" />
+		<Entry x:Name="IDEntry" Grid.Row="0" Grid.Column="1" BackgroundColor="Gray" TextColor="White" TextChanged="IDEntry_TextChanged"/>
+
+		<Label Grid.Row="1" Grid.Column="0" Text="Token" FontSize="Medium" VerticalTextAlignment="Center"/>
+		<Entry x:Name="TokenEntry" Grid.Row="1" Grid.Column="1" BackgroundColor="Gray" TextColor="White" TextChanged="TokenEntry_TextChanged"/>
+
+		<Button Grid.Row="2" Grid.ColumnSpan="2" TextColor="White" x:Name="ArduinoButton" Text="Connect Arduino" Clicked="ArduinoButton_Clicked"/>
+
+	</Grid>
+</ContentPage>

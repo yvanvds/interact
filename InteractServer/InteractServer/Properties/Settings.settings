@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InteractServer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
+    <Setting Name="LastProjectFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Unnamed Server</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="NetworkToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -12,6 +15,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastOpenProject" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastAudioFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

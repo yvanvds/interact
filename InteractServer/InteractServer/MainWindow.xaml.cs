@@ -1,482 +1,314 @@
-﻿using InteractServer.Models;
-using InteractServer.Pages;
-using InteractServer.Project.Screen;
+﻿using ActiproSoftware.Windows.Themes;
+using InteractServer.Dialogs;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer
 {
-  /// <summary>
-  /// Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow : MetroWindow
-  {
-
-    private Timer networkTimer = new Timer();
-    LayoutAnchorable logPane, errorLogPane;
-    LayoutAnchorable clientPane;
-    LayoutAnchorable projectExplorerPane;
-    LayoutDocument projectConfigPane;
-    LayoutAnchorable propertiesPane;
-
-    DispatcherTimer UpdateYSE = new DispatcherTimer();
-
-    public MainWindow()
-    {
-      InitializeComponent();
-
-      Global.Init();
-      Global.AppWindow = this;
-
-      Global.Multicast.Start();
-
-      networkTimer.Elapsed += new ElapsedEventHandler(OnNetworkTimerEvent);
-      networkTimer.Interval = 10000;
-      networkTimer.Enabled = true;
-
-      AddLogPane();
-      AddClientPane();
-      AddPropertiesPane();
-      AddProjectExplorerPane();
-      AddProjectConfigPane();
-
-      // set focus panes
-      clientPane.IsActive = true;
-
-      // start audio engine
-      Global.Yse.System.Init();
-      UpdateYSE.Interval = new System.TimeSpan(0, 0, 0, 0, 50);
-      UpdateYSE.Tick += new System.EventHandler(UpdateAudio);
-      UpdateYSE.Start();
-
-      // open project?
-      if(Properties.Settings.Default.OpenProjectOnStart)
-      {
-        if(Properties.Settings.Default.LastOpenProject.Length > 0)
-        {
-          Global.ProjectManager.OpenProject(Properties.Settings.Default.LastOpenProject);
-        }
-      }
-    }
-
-    private void UpdateAudio(object sender, EventArgs e)
-    {
-      Global.Yse.System.Update();
-    }
-
-    private static void OnNetworkTimerEvent(object source, ElapsedEventArgs e)
-    {
-      Global.Clients.Update();
-			Global.Clients.Ping();
-    }
-
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-      UpdateYSE.Stop();
-      Global.Yse.System.Close();
-      CloseProject();
-      Global.Multicast.Stop();
-			Global.Clients.CloseConnection();
-      networkTimer.Enabled = false;
-    }
-
-
-    //////////////////////////////////////
-    // Project Ribbon Click Methods
-    //////////////////////////////////////
-
-    private void CloseProject()
-    {
-      if (Global.ProjectManager != null && Global.ProjectManager.Current != null && Global.ProjectManager.Current.Running)
-      {
-				Global.Clients.ProjectStop();
-        JintEngine.Runner.Stop();
-        Global.ProjectManager.Current.Stop();
-      }
-
-      if (Global.ViewManager.NeedsSaving() || Global.ProjectManager.Current != null && Global.ProjectManager.Current.Tainted())
-      {
-        var result = Messages.SaveCurrentProject();
-        if (result.Equals(MessageBoxResult.Cancel))
-        {
-          return;
-        }
-        else if (result.Equals(MessageBoxResult.Yes))
-        {
-          SaveProject();
-        }
-      }
-
-      // remove all open documents
-      Global.ViewManager.Clear();
-    }
-
-    private void SaveProject()
-    {
-      Global.ProjectManager.Current.Save();
-      Global.ViewManager.SaveAll();
-    }
-
-
-    //////////////////////////////////////
-    // Screen Ribbon Click Methods
-    //////////////////////////////////////
-
-    private void ButtonCreateScreen_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-      Global.ViewManager.StartNewView(ContentType.Screen);
-    }
-
-    private async void ButtonStartScreen_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-
-      Global.ProjectManager.Current.Save();
-      Global.ViewManager.SaveAll();
-
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-
-      BasePage page = FocusDocument();
-      if(page != null)
-      {
-        if(!page.ServerSide)
-        {
-          Item screen = page.ScreenView.Screen;
-          if (screen != null)
-          {
-            //ButtonStartScreen.IsEnabled = false;
-            //ButtonStopScreen.IsEnabled = true;
-            await Task.Run(() => Global.ProjectManager.Current.TestScreen(screen));
-            return;
-          }
-        }
-      }
-      Messages.NoScreenSelected();
-    }
-
-    private void ButtonStopScreen_Click(object sender, RoutedEventArgs e)
-    {
-      if (Global.ProjectManager.Current == null)
-      {
-        Messages.NoOpenProject();
-        return;
-      }
-
-			//ButtonStartScreen.IsEnabled = true;
-			//ButtonStopScreen.IsEnabled = false;
-
-			Global.Clients.ScreenStop();
-    }
-
-    //////////////////////////////////////
-    // View Ribbon Click Methods
-    //////////////////////////////////////
-    private void ButtonClientsView_Click(object sender, RoutedEventArgs e)
-    {
-      clientPane.IsVisible = !clientPane.IsVisible;
-    }
-
-    private void ButtonPropertiesView_Click(object sender, RoutedEventArgs e)
-    {
-      propertiesPane.IsVisible = !propertiesPane.IsVisible;
-    }
-
-    private void ButtonLogView_Click(object sender, RoutedEventArgs e)
-    {
-      logPane.IsVisible = !logPane.IsVisible;
-    }
-
-    private void ButtonExplorerView_Click(object sender, RoutedEventArgs e)
-    {
-      projectExplorerPane.IsVisible = !projectExplorerPane.IsVisible;
-    }
-
-    private void AddLogPane()
-    {
-      Frame frame = new Frame();
-      frame.Content = Global.Log;
-      logPane = new LayoutAnchorable();
-      logPane.Title = "Event Log";
-      logPane.Content = frame;
-      dockBottom.Children.Add(logPane);
-
-      Frame errorFrame = new Frame();
-      errorFrame.Content = Global.ErrorLog;
-      errorLogPane = new LayoutAnchorable();
-      errorLogPane.Title = "Error Log";
-      errorLogPane.Content = errorFrame;
-      dockBottom.Children.Add(errorLogPane);
-    }
-
-    private void AddClientPane()
-    {
-      Frame frame = new Frame();
-      frame.Content = Global.ClientPage;
-      clientPane = new LayoutAnchorable();
-      clientPane.Title = "Clients";
-      clientPane.Content = frame;
-      dockRight.Children.Add(clientPane);
-    }
-
-    private void AddPropertiesPane()
-    {
-      Frame frame = new Frame();
-      frame.Content = Global.PropertiesPage;
-      propertiesPane = new LayoutAnchorable();
-      propertiesPane.Title = "Properties";
-      propertiesPane.Content = frame;
-      propertiesPane.IsActive = true;
-      dockRight.Children.Add(propertiesPane);
-
-    }
-
-    private void AddProjectExplorerPane()
-    {
-      Frame frame = new Frame();
-      frame.Content = Global.ProjectExplorerPage;
-      projectExplorerPane = new LayoutAnchorable();
-      projectExplorerPane.Title = "Project Explorer";
-      projectExplorerPane.Content = frame;
-      dockLeft.Children.Add(projectExplorerPane);
-    }
-
-    private void AddProjectConfigPane()
-    {
-      Frame frame = new Frame();
-      frame.Content = Global.ProjectConfigPage;
-      projectConfigPane = new LayoutDocument();
-      projectConfigPane.Title = "Project Configuration";
-      projectConfigPane.Content = frame;
-
-    }
-
-    public void AddDocument(LayoutDocument document)
-    {
-      int index = GetDocumentIndex(document);
-      if (index == -1)
-      {
-        //dockMain.Children.Add(document);
-        dockMain.InsertChildAt(0, document);
-        dockMain.SelectedContentIndex = 0;
-      }
-      document.IsActive = true;
-    }
-
-    public void CloseDocument(LayoutDocument document)
-    {
-
-      if (dockMain.SelectedContent == document)
-      {
-        dockMain.SelectedContentIndex = -1;
-      }
-      document.CanClose = false;
-      document.CanFloat = false;
-      dockMain.RemoveChild(document);
-    }
-
-    public BasePage FocusDocument()
-    {
-      if (dockMain.SelectedContentIndex >= 0 && dockMain.SelectedContentIndex < dockMain.Children.Count)
-      {
-        Frame f = dockMain.SelectedContent.Content as Frame;
-        if (f.Content is BasePage)
-        {
-          return (f.Content as BasePage);
-        }
-      }
-
-      return null;
-    }
-
-
-    public int GetDocumentIndex(LayoutDocument document) // returns -1 if the document is not found
-    {
-      for (int i = 0; i < dockMain.ChildrenCount; i++)
-      {
-        if (dockMain.Children[i] == document)
-        {
-          return i;
-        }
-      }
-
-      return -1;
-    }
-
-    private void Exit_Click(object sender, RoutedEventArgs e)
-    {
-      
-    }
-
-#region Commands
-
-    private void NewProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-    }
-
-    private void NewProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      CloseProject();
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-      Global.ProjectManager.StartNewProject();
-    }
-
-    private void OpenProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-    }
-
-    private void OpenProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      CloseProject();
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-      Global.ProjectManager.OpenProject();
-    }
-
-    private void SaveProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = Global.ProjectManager != null && Global.ProjectManager.Current != null;
-    }
-
-    private void SaveProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      SaveProject();
-    }
-
-    private void Exit_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-    }
-
-    private void Exit_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      Application.Current.Shutdown();
-    }
-
-    private void AppOptions_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-    }
-
-    private void AppOptions_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      Windows.ServerOptionsWindow window = new Windows.ServerOptionsWindow();
-      window.ShowDialog();
-    }
-
-    private void ProjectOptions_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = Global.ProjectManager != null && Global.ProjectManager.Current != null;
-    }
-
-    private void ProjectOptions_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      dockMain.Children.Add(projectConfigPane);
-      projectConfigPane.IsActive = true;
-      Global.ProjectConfigPage.LinkProject(Global.ProjectManager.Current);
-    }
-
-    private void StartProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      if(Global.ProjectManager == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      if (Global.ProjectManager.Current == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      Item screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
-      if (screen == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      if(Global.ProjectManager.Current.Running)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      e.CanExecute = true;
-    }
-
-    private async void StartProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-      Global.ProjectManager.Current.Save();
-      Global.ViewManager.SaveAll();
-
-      Global.Log.Clear();
-      Global.ErrorLog.Clear();
-
-      JintEngine.Runner.Start();
-
-      await Task.Run(() => Global.ProjectManager.Current.Run());
-    }
-
-    private void StopProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-    {
-      if(Global.ProjectManager == null || Global.ProjectManager.Current == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      e.CanExecute = Global.ProjectManager.Current.Running;
-    }
-
-    private void OpenApiReference_Click(object sender, RoutedEventArgs e)
-    {
-      System.Diagnostics.Process.Start("https://interact.mutecode.com/documentation/quick-start-guide/");
-    }
-
-    private void OpenPatcherHelp_Click(object sender, RoutedEventArgs e)
-    {
-      Windows.PatcherHelpWindow window = new Windows.PatcherHelpWindow();
-      window.Show();
-    }
-
-    private void OpenAbout_Click(object sender, RoutedEventArgs e)
-    {
-      Windows.AboutWindow window = new Windows.AboutWindow();
-      window.ShowDialog();
-    }
-
-    private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
-    {
-			Global.Clients.ProjectStop();
-      JintEngine.Runner.Stop();
-      Global.ProjectManager.Current.Stop();
-    }
-
-    #endregion
-
-  }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	/// 
+	
+
+	public partial class MainWindow : MetroWindow
+	{
+		public static MainWindow Handle = null;
+
+		public MainWindow()
+		{
+			InitializeComponent();
+			Handle = this;
+
+			ThemeManager.CurrentTheme = "MetroDark";
+			CodeEditor.SyntaxEditorHelper.UpdateHighlightingStyleRegistryForThemeChange();
+
+			addPages();
+
+			Yse.Yse audio = new Yse.Yse(); // will keep an internal handle at Yse.Yse.Handle;
+
+			if(Properties.Settings.Default.OpenProjectOnStart)
+			{
+				if(Properties.Settings.Default.LastOpenProject.Length > 0)
+				{
+					Project.Project.OpenProject(Properties.Settings.Default.LastOpenProject);
+					Pages.ProjectExplorer.Handle.Refresh();
+				}
+			}
+
+
+		}
+
+		#region Project Management
+		private void NewProject_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			var dialog = new Dialogs.NewProjectDialog();
+			dialog.ShowDialog();
+			Pages.ProjectExplorer.Handle.Refresh();
+		}
+
+		private void NewProject_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void OpenProject_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			OpenFileDialog dialog = new OpenFileDialog();
+			dialog.CheckFileExists = true;
+			dialog.Filter = "Interact project file (*.intp)|*.intp";
+			if (Properties.Settings.Default.LastProjectFolder.Length > 0)
+			{
+				dialog.InitialDirectory = Properties.Settings.Default.LastProjectFolder;
+			}
+
+			if(dialog.ShowDialog() == true)
+			{
+				Project.Project.OpenProject(dialog.FileName);
+				Properties.Settings.Default.LastProjectFolder = System.IO.Path.GetDirectoryName(dialog.FileName);
+				Properties.Settings.Default.Save();
+				Pages.ProjectExplorer.Handle.Refresh();
+			}
+		}
+
+		private void OpenProject_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void SaveProject_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if(Project.Project.Current != null && Project.Project.Current.NeedsSaving())
+				Project.Project.Current.Save();
+		}
+
+		private void SaveProject_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = Project.Project.Current != null;
+		}
+		#endregion Project Management
+
+		#region Panels
+		private LayoutAnchorable projectExplorer;
+		private LayoutAnchorable properties;
+		private LayoutAnchorable log;
+		private LayoutDocument clientExplorer;
+		private void addPages()
+		{
+			{
+				Frame frame = new Frame();
+				frame.Content = new Pages.ProjectExplorer();
+				projectExplorer = new LayoutAnchorable();
+				projectExplorer.Title = "Project Explorer";
+				projectExplorer.Content = frame;
+				dockLeft.Children.Add(projectExplorer);
+			}
+			{
+				Frame frame = new Frame();
+				frame.Content = new Pages.Properties();
+				properties = new LayoutAnchorable();
+				properties.Title = "Properties";
+				properties.Content = frame;
+				properties.IsActive = true;
+				dockRight.Children.Add(properties);
+			}
+			{
+				Frame frame = new Frame();
+				frame.Content = new Log.Log();
+				log = new LayoutAnchorable();
+				log.Title = "Event Log";
+				log.Content = frame;
+				dockBottom.Children.Add(log);
+			}
+			{
+				Frame frame = new Frame();
+				frame.Content = new Pages.ClientExplorer();
+				clientExplorer = new LayoutDocument();
+				clientExplorer.Title = "Clients";
+				clientExplorer.Content = frame;		
+			}
+
+		}
+		#endregion Panels
+
+		public void AddDocument(LayoutDocument document)
+		{
+			if(dockMain.Children.Contains(document))
+			{
+				document.IsActive = true;
+			}
+			else
+			{
+				dockMain.InsertChildAt(dockMain.ChildrenCount, document);
+				dockMain.SelectedContentIndex = dockMain.ChildrenCount-1;
+			}
+		}
+
+		public void CloseDocument(LayoutDocument document)
+		{
+			if(dockMain.Children.Contains(document))
+			{
+				dockMain.Children.Remove(document);
+			}
+		}
+
+		private void AppOptions_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			var dialog = new Dialogs.ServerOptions();
+			dialog.ShowDialog();
+		}
+
+		private void AppOptions_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			Project.Project.Current?.Save();
+			Application.Current.Shutdown();
+		}
+
+		private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		#region Project Status
+		private void StartProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+		{
+			if (Project.Project.Current == null)
+			{
+				e.CanExecute = false;
+				return;
+			}
+
+			/*Item screen = Global.ProjectManager.Current.Screens.Get(Global.ProjectManager.Current.Config.StartupScreen);
+			if (screen == null)
+			{
+				e.CanExecute = false;
+				return;
+			}*/
+
+			if (Project.Project.Current.Running)
+			{
+				e.CanExecute = false;
+				return;
+			}
+
+			e.CanExecute = true;
+		}
+
+		private async void StartProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+		{
+			if (Project.Project.Current.NeedsSaving())
+			{
+				Project.Project.Current.Save();
+				if (!Project.Project.Current.CompileClientScript())
+				{
+					Log.Log.Handle.AddEntry("The Client Script contains errors");
+					return;
+				}
+			}
+
+			Log.Log.Handle.Clear();
+			await Task.Run(() => Project.Project.Current.Run());
+		}
+
+		private void StopProject_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+		{
+			if (Project.Project.Current == null)
+			{
+				e.CanExecute = false;
+				return;
+			}
+
+			e.CanExecute = Project.Project.Current.Running;
+		}
+
+		private void StopProject_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+		{
+			(App.Current as App).ClientList.ProjectStop();
+			Project.Project.Current.Stop();
+		}
+
+		#endregion Project Status
+
+		private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+
+		}
+
+		#region View Management
+		private void ViewLog(object sender, RoutedEventArgs e)
+		{
+			log.IsVisible = !log.IsVisible;
+		}
+
+		private void ViewExplorer(object sender, RoutedEventArgs e)
+		{
+			projectExplorer.IsVisible = !projectExplorer.IsVisible;
+		}
+
+		private void ViewProperties(object sender, RoutedEventArgs e)
+		{
+			properties.IsVisible = !properties.IsVisible;
+		}
+
+		private void ViewClientExplorer(object sender, RoutedEventArgs e)
+		{
+			if (clientExplorer.Root != null)
+			{
+				clientExplorer.Close();
+			} else
+			{
+				dockMain.Children.Add(clientExplorer);
+				clientExplorer.IsActive = true;
+			}
+		}
+
+		private void ViewClientOverrideScript(object sender, RoutedEventArgs e)
+		{
+			if (Project.Project.Current == null) return;
+
+			var window = new DocumentAsDialog("Client Endpoint Code", Project.Project.Current.ClientEndpointWriter.View);
+			window.ShowDialog();
+			if (window.DialogResult == true)
+			{
+				Project.Project.Current.ClientEndpointWriter.Save();
+				Project.Project.Current.RecompileClientScripts();
+			}
+		}
+
+		private void ViewServerOverrideScript(object sender, RoutedEventArgs e)
+		{
+			if (Project.Project.Current == null) return;
+
+			var window = new DocumentAsDialog("Server Endpoint Code", Project.Project.Current.ServerEndpointWriter.View);
+			window.ShowDialog();
+			if (window.DialogResult == true)
+			{
+				Project.Project.Current.ServerEndpointWriter.Save();
+				Project.Project.Current.RecompileServerScripts();
+			}
+		}
+		#endregion View Management
+
+
+	}
 }

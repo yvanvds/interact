@@ -3,57 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InteractClient"
              x:Class="InteractClient.MainPage"
-             BackgroundColor="DarkSlateGray">
+						 BackgroundColor="#1a1a1a">
 
-  <Grid x:Name="PageGrid" WidthRequest="600">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="50"/>
-      <RowDefinition Height="80"/>
-      <RowDefinition Height="100"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
+	<Grid x:Name="PageGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="200"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 
-    <Button Grid.Row="1" x:Name="OptionsButton" Image="settings.png" HorizontalOptions="End" Margin="0,0,10,0" Clicked="OptionsButton_Clicked" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.5"/>
-    <Image Grid.Row="2" x:Name="Logo" Source="connect.png" HorizontalOptions="Center"/>
-    <Label Grid.Row="3" Text="Interact" FontSize="40" TextColor="White" HorizontalTextAlignment="Center">
-      <Label.FontFamily>
-        <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
-      </Label.FontFamily>
+		<Image Grid.Row="0" x:Name="Logo" Source="icon.png" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"/>
 
-    </Label>
-    <Label Grid.Row="4" Text="One App" FontSize="Small" TextColor="White" HorizontalTextAlignment="Center">
-      <Label.FontFamily>
-        <OnPlatform x:TypeArguments="x:String" iOS="Georgia" Android="serif"/>
-      </Label.FontFamily>
-    </Label>
-    
-    <Button Grid.Row="5" x:Name="ButtonServer" Text="Refresh Server List" Clicked="ButtonServer_Clicked" BackgroundColor="LightSlateGray" TextColor="White" BorderRadius="5" HeightRequest="50" WidthRequest="400" Margin="50,10,50,0"/>
+		<Label Grid.Row="1" Text="- INTERACT -" FontSize="30" TextColor="White" HorizontalTextAlignment="Center"/>
 
-    <ListView Grid.Row="6" x:Name="ServerLst" ItemsSource="{Binding}" BackgroundColor="DarkSlateGray">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell Tapped="Server_Tapped" Height="100">
-            <StackLayout Orientation="Horizontal" Margin="50,0,50,0">
-              <Image Source="plugin.png" HorizontalOptions="Center" HeightRequest="70"/>
-              <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
-                <Label Text="{Binding Name}" TextColor="White" HorizontalTextAlignment="End"/>
-                <Label Text="{Binding Address}" TextColor="White" HorizontalTextAlignment="End"/>
-              </StackLayout>
+		<Button Grid.Row="2" x:Name="ConnectButton" Text="Connect" HeightRequest="100" BorderColor="GreenYellow" Clicked="ConnectButton_Clicked"/>
 
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </Grid>
+		<Grid Grid.Row="3">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="0" x:Name="ProjectsButton" Text="Projects" HeightRequest="80"  Clicked="ProjectsButton_Clicked"/>
+			<Button Grid.Column="1" x:Name="ConfigButton" Text="Config" HeightRequest="80" Clicked="ConfigButton_Clicked" />
+		</Grid>
 
-
-
-
-
-
+		<Grid Grid.Row="4">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="0" x:Name="DownloadButton" Text="Download" HeightRequest="80" BorderColor="DarkGreen"/>
+			<Button Grid.Column="1" x:Name="AboutButton" Text="About" HeightRequest="80" BorderColor="DarkGreen" Clicked="AboutButton_Clicked"/>
+		</Grid>
+	</Grid>
 
 </ContentPage>

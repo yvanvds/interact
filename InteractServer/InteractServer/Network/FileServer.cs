@@ -39,48 +39,76 @@ namespace InteractServer.Network
 				{
 					HttpListenerContext context = listener.GetContext();
 					process(context);
-				} catch (Exception e)
+				}
+				catch (Exception e)
 				{
-					Global.Log.AddEntry("Webserver Error: " + e.Message);
+					Log.Log.Handle?.AddEntry("Webserver Error: " + e.Message);
 				}
 			}
 		}
 
 		private void process(HttpListenerContext context)
 		{
+			if (Project.Project.Current == null)
+			{
+				context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+				context.Response.OutputStream.Close();
+				return;
+			}
+
 			string fileID = context.Request.Url.Query;
 			string path = context.Request.Url.AbsolutePath;
 
 			// remove / from path
 			path = path.Remove(0, 1);
 			string answer = string.Empty;
+			byte[] data = null;
 
-			if(path.Equals(Global.ProjectManager.Current.ProjectID().ToString()))
+			App.Current.Dispatcher.Invoke((Action)delegate
 			{
-				answer = Global.ProjectManager.Current.SerializeProjectContents();
-			} else
-			{
-				answer = Global.ProjectManager.Current.SerializeResource(new Guid(path));
-			}
+				if (path.Equals(Project.Project.Current.ID))
+				{
+					answer = Project.Project.Current.SerializeForClient();
+				}
+				else if (path.Equals("ClientScript.dll"))
+				{
+					data = Project.Project.Current.ClientModules.GetCompiledScript();
+					answer = "data";
+				}
+				else
+				{
+					answer = Project.Project.Current.SerializeResource(path);
+				}
+			});
 
-			if(answer != string.Empty)
+			if (answer != string.Empty)
 			{
 				try
 				{
 					context.Response.ContentType = "application/octet-stream";
-					context.Response.ContentLength64 = answer.Length;
-					StreamWriter writer = new StreamWriter(context.Response.OutputStream);
-					writer.Write(answer);
-					writer.Flush();
+					if(answer == "data")
+					{
+						context.Response.ContentLength64 = data.Length;
+						context.Response.OutputStream.Write(data, 0, data.Length);
+					} else
+					{
+						context.Response.ContentLength64 = answer.Length;
+						StreamWriter writer = new StreamWriter(context.Response.OutputStream);
+						writer.Write(answer);
+						writer.Flush();
+					}	
+					
 					context.Response.OutputStream.Flush();
-					Global.Log.AddEntry("Fileserver: Sending resource " + path + " to " + context.Request.RemoteEndPoint.Address.ToString());
-				} catch (Exception e)
+					Log.Log.Handle?.AddEntry("Fileserver: Sending resource " + path + " to " + context.Request.RemoteEndPoint.Address.ToString());
+				}
+				catch (Exception e)
 				{
 					context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-					Global.Log.AddEntry("Fileserver Error: " + e.Message);
+					Log.Log.Handle?.AddEntry("Fileserver Error: " + e.Message);
 				}
-				
-			} else
+
+			}
+			else
 			{
 				context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 				context.Response.OutputStream.Close();

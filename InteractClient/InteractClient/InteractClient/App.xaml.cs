@@ -1,26 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace InteractClient
 {
 	public partial class App : Application
 	{
 		bool yseIsActive = false;
 
-		public App()
+		public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new InteractClient.MainPage());
+			MainPage = new NavigationPage(new MainPage());
 			NavigationPage.SetHasNavigationBar(MainPage, false);
 		}
 
-		protected override void OnStart()
+		protected override void OnStart ()
 		{
+			Global.OscLocal = new OscTree.Tree(new OscTree.Address("LocalClient", "LocalClient"));
+			Global.OscServer = new OscTree.Tree(new OscTree.Address("Server", "Server"));
+			Global.OscAllClients = new OscTree.Tree(new OscTree.Address("AllClients", "AllClients"));
+			Global.OscRoot.Add(Global.OscLocal);
+			Global.OscRoot.Add(Global.OscServer);
+			Global.OscRoot.ErrorHandler += Network.Sender.WriteLog;
+			Global.OscLocal.ErrorHandler += Network.Sender.WriteLog;
+			Global.OscServer.ErrorHandler += Network.Sender.WriteLog;
+			Global.OscAllClients.ErrorHandler += Network.Sender.WriteLog;
+			Global.OscServer.ReRoute += Network.Sender.ToServer;
+			Global.OscAllClients.ReRoute += Network.Sender.ToServer;
+
 			Global.Yse.System.Init();
 			Global.Yse.System.AutoReconnect(true, 20);
 			System.Diagnostics.Debug.WriteLine("Yse Version: " + Global.Yse.System.Version + "\n");
@@ -29,25 +39,28 @@ namespace InteractClient
 			Device.StartTimer(time, UpdateYse);
 		}
 
-		protected override void OnSleep()
+		protected override void OnSleep ()
 		{
 			yseIsActive = false;
 			Global.Yse.System.Close();
 		}
 
-		protected override void OnResume()
+		protected override void OnResume ()
 		{
-			yseIsActive = true;
-			TimeSpan time = new TimeSpan(0, 0, 0, 0, 50);
-			Device.StartTimer(time, UpdateYse);
-			Global.Yse.System.Resume();
+			if(!yseIsActive)
+			{
+				yseIsActive = true;
+				TimeSpan time = new TimeSpan(0, 0, 0, 0, 50);
+				Device.StartTimer(time, UpdateYse);
+				Global.Yse.System.Resume();
+			}
 		}
 
 		bool UpdateYse()
 		{
 			if (!yseIsActive) return false;
 			Global.Yse.System.Update();
-			
+
 
 			int missed = Global.Yse.System.MissedCallbacks();
 			if (missed > 0)

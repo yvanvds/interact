@@ -1,8 +1,8 @@
-﻿using InteractClient.JintEngine;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace InteractClient.Network
 {
@@ -15,7 +15,7 @@ namespace InteractClient.Network
 
 		public static Receiver Get()
 		{
-			if(instance == null)
+			if (instance == null)
 			{
 				instance = new Receiver();
 			}
@@ -24,10 +24,11 @@ namespace InteractClient.Network
 
 		public void Start()
 		{
-			if(receiver == null)
+			if (receiver == null)
 			{
 				receiver = new Osc.OscReceiver();
-			} else
+			}
+			else
 			{
 				return;
 			}
@@ -36,20 +37,17 @@ namespace InteractClient.Network
 			{
 				string address = args.Message.Address.ToString();
 
-				if(address.StartsWith("/action"))
+				if (address.StartsWith("/internal"))
 				{
-					ParseAction(args);
-				} else if (address.StartsWith("/client"))
+					ParseInternal(args);
+				} else
 				{
-					ParseClient(args);
-				} else if (address.StartsWith("/project"))
-				{
-					ParseProject(args);
-				} else if (address.StartsWith("/screen"))
-				{
-					ParseScreen(args);
-				} 
-
+					if(address.StartsWith("/root"))
+					{
+						object[] obj = args.Message.Arguments.Cast<object>().ToArray();
+						Global.OscRoot.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), obj);
+					}
+				}
 			};
 
 			receiver.Start(11234);
@@ -69,147 +67,76 @@ namespace InteractClient.Network
 			Stop();
 		}
 
-		private void ParseAction(Osc.OSCMessageReceivedArgs args)
+		private async void ParseInternal(Osc.OSCMessageReceivedArgs args)
 		{
 			int index = args.Message.Address.ToString().IndexOf("/", 1);
 			string address = args.Message.Address.ToString().Substring(index);
+			List<Osc.Values.IOscValue> list = args.Message.Arguments;
 
 			switch (address)
 			{
 				case "/ping":
 					{
-						InteractClient.Network.Sender.Get().Ping();
+						Sender.Ping();
 					}
 					break;
 
 				case "/invoke":
 					{
-						System.Diagnostics.Debug.WriteLine("/action/invoke: " + args.Message.Arguments.ToString());
+						System.Diagnostics.Debug.WriteLine("/internal/invoke: " + args.Message.Arguments.ToString());
 					}
 					break;
 
 				case "/connect":
 					{
-						Global.Connected = true;
 						Global.UpdatePage();
 					}
 					break;
 
 				case "/disconnect":
 					{
-						Global.Connected = false;
 						Global.UpdatePage();
 					}
 					break;
-				default:
+				case "/project/set":
 					{
-						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
+						await Project.Manager.SetCurrent(ToString(list[0]), ToInt(list[1]));
+						Global.SetScreenMessage("Loading Project...");
 					}
 					break;
-			}
-		}
-
-		private void ParseClient(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			switch (address)
-			{
-				case "/add":
+				case "/project/start":
 					{
-						Guid clientID = ToGuid(list[0]);
-						string ip = ToString(list[1]);
-						string name = ToString(list[2]);
-						Sender.Get().Clients.Add(clientID, ip, name, false);
-					}
-					break;
-				case "/remove":
-					{
-						Guid clientID = ToGuid(list[0]);
-						Sender.Get().Clients.Remove(clientID);
-					}
-					break;
-				default:
-					{
-						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
-					}
-					break;
-			}
-		}
-
-		private void ParseProject(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			try
-			{
-
-
-				switch (address)
-				{
-					case "/stop":
+						if(Global.CurrentProject != null)
 						{
-							Engine.Instance.StopRunningProject();
-							Engine.Instance.SetScreenMessage("Project Stopped.", false);
+							Global.CurrentProject.Start();
 						}
-						break;
-
-					case "/set":
-						{
-							Data.Project.SetCurrent(ToGuid(list[0]), ToInt(list[1]));
-							Engine.Instance.SetScreenMessage("Loading Project...", true);
-						}
-						break;
-
-					default:
-						{
-							Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
-						}
-						break;
-				}
-			} catch (Exception e)
-			{
-				Sender.Get().WriteLog("Client got unparseable message: " + args.Message.ToString());
-				Sender.Get().WriteLog("Caused exception: " + e.Message);
-			}
-		}
-
-		private void ParseScreen(Osc.OSCMessageReceivedArgs args)
-		{
-			int index = args.Message.Address.ToString().IndexOf("/", 1);
-			string address = args.Message.Address.ToString().Substring(index);
-			List<Osc.Values.IOscValue> list = args.Message.Arguments;
-
-			switch (address)
-			{
-				case "/stop":
-					{
-						Engine.Instance.StopScreen();
-						Engine.Instance.SetScreenMessage("Screen Stopped.", false);
 					}
 					break;
-
-				case "/start":
+				case "/screen/start":
 					{
-						Engine.Instance.StartScreen(ToGuid(list[0]));
+						if(Global.CurrentProject != null)
+						{
+							var module = Global.CurrentProject.GetClientModule(ToString(list[0]));
+							if(module != null)
+							{
+								module.Activate();
+							}
+						}
+					}
+					break;
+				case "/project/stop":
+					{
+						Global.StopClientGui();
 					}
 					break;
 				default:
 					{
-						Sender.Get().WriteLog("Client got invalid message: " + args.Message.ToString());
+						Sender.WriteLog("Client got invalid message: " + args.Message.ToString());
 					}
 					break;
 			}
 		}
 
-		private static Guid ToGuid(Osc.Values.IOscValue value)
-		{
-			return new Guid((value as Osc.Values.OscString).Contents);
-		}
 
 		private static int ToInt(Osc.Values.IOscValue value)
 		{

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InteractClient.Pages.About"
+						 Title="About Interact"
+						 BackgroundColor="#1a1a1a">
+	
+	<ScrollView Grid.Row="0" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Always">
+		<StackLayout Padding="5,10" Orientation="Vertical">
+
+			<Label x:Name="Par1" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
+			<Label x:Name="Par2" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
+			<Label x:Name="Par3" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
+			<Label x:Name="Par4" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
+
+			<Button x:Name="SiteButton" Text="Open Website" HeightRequest="80"  Clicked="SiteButton_Clicked"/>
+		</StackLayout>
+	</ScrollView>
+</ContentPage>

@@ -9,30 +9,31 @@ using Android.OS;
 
 namespace InteractClient.Droid
 {
-  [Activity(Label = "InteractClient", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-  public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
-  {
-    protected override void OnCreate(Bundle bundle)
-    {
-      TabLayoutResource = Resource.Layout.Tabbar;
-      ToolbarResource = Resource.Layout.Toolbar;
+	[Activity(Label = "InteractClient", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+	{
+		protected override void OnCreate(Bundle bundle)
+		{
+			TabLayoutResource = Resource.Layout.Tabbar;
+			ToolbarResource = Resource.Layout.Toolbar;
 
-      base.OnCreate(bundle);
+			base.OnCreate(bundle);
 
-      Global.Yse = new YSE.YseInterface(OnLogMessage);
+			Global.Yse = new YSE.YseInterface(OnLogMessage);
 			Global.Yse.Log.Level = IYse.ERROR_LEVEL.DEBUG;
 
+			Global.Compiler = new Compiler.Compiler();
+
+			Global.Sensors = new Sensors.SensorManager();
+
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+			LoadApplication(new App());
+		}
 
-      Xamarin.Forms.DependencyService.Register<Implementation.SensorImplementation>();
-      LoadApplication(new App());
-    }
-
-    private void OnLogMessage(string message)
-    {
-      //Network.Signaler.Get().WriteLog("Yse Sound Engine: " + message);
+		private void OnLogMessage(string message)
+		{
 			System.Diagnostics.Debug.WriteLine("Yse Sound Engine: " + message);
 		}
-  }
+	}
 }
 
