@@ -1,4 +1,5 @@
-﻿using InteractServer.Groups;
+﻿using InteractServer.Clients;
+using InteractServer.Groups;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -10,22 +11,24 @@ namespace InteractServer.Project
 {
 	public class ClientGroups
 	{
-		private List<Group> List = new List<Group>();
+		private List<Group> list = new List<Group>();
+		public IReadOnlyCollection<Group> List => list.AsReadOnly();
+
 		private bool needsSaving = false;
 
 		public ClientGroups()
 		{
-			List.Add(new Group("Guests"));
+			list.Add(new Group("Guests"));
 		}
 
 		public ClientGroups(JObject data)
 		{
-			List.Add(new Group("Guests"));
+			list.Add(new Group("Guests"));
 			try
 			{
 				foreach (var group in data)
 				{
-					List.Add(new Group(group.Value as JObject));
+					list.Add(new Group(group.Value as JObject));
 				}
 			}
 			catch(Exception e)
@@ -38,9 +41,9 @@ namespace InteractServer.Project
 		{
 			var result = new JObject();
 
-			foreach(var group in List)
+			foreach(var group in list)
 			{
-				if(group.Name != "Guests")
+				if(group.name != "Guests")
 				{
 					result[group.ID] = group.Save();
 				}
@@ -52,14 +55,14 @@ namespace InteractServer.Project
 
 		public void AddGroup(Group group)
 		{
-			List.Add(group);
+			list.Add(group);
 			needsSaving = true;
 		}
 
 		public bool NeedsSaving()
 		{
 			if (needsSaving) return true;
-			foreach(var group in List)
+			foreach(var group in list)
 			{
 				if (group.NeedsSaving()) return true;
 			}
@@ -68,17 +71,17 @@ namespace InteractServer.Project
 
 		public int Count()
 		{
-			return List.Count;
+			return list.Count;
 		}
 
 		public Group GetGroup(int index)
 		{
-			return List[index];
+			return list[index];
 		}
 
 		public void AddClient(Clients.Client client)
 		{
-			foreach(var group in List)
+			foreach(var group in list)
 			{
 				if(group.HasClient(client))
 				{
@@ -87,16 +90,16 @@ namespace InteractServer.Project
 				}
 			}
 			// add to guests if we're at this point
-			List[0].Add(new GroupMember(client));
+			list[0].Add(new GroupMember(client));
 		}
 
 		public void ClientHasGone(Clients.Client client)
 		{
-			foreach(var group in List)
+			foreach(var group in list)
 			{
 				if(group.HasClient(client))
 				{
-					if(group.Name == "Guests")
+					if(group.name == "Guests")
 					{
 						group.Remove(client);
 					} else
@@ -110,7 +113,7 @@ namespace InteractServer.Project
 
 		public void MoveMemberToGroup(GroupMember member, Group group)
 		{
-			foreach(var item in List)
+			foreach(var item in list)
 			{
 				if(item == group)
 				{
@@ -120,6 +123,16 @@ namespace InteractServer.Project
 					item.Remove(member);
 				}
 			}
+		}
+
+		public Group GetGroup(Client client) {
+			foreach(var group in list) {
+				if(group.HasClient(client))
+				{
+					return group;
+				}
+			}
+			return null;
 		}
 	}
 }

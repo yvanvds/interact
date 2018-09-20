@@ -17,6 +17,12 @@ namespace InteractClient.Project
 		public GuiModule()
 		{
 			view = new OSCGui_Forms.OscGuiView();
+			view.OscTree.Endpoints.Add(new OscTree.Endpoint("Activate", (args) =>
+				{
+					Activate();
+				}, 
+				typeof(object)
+			));
 			Global.OscLocal.Add(view.OscTree);
 		}
 

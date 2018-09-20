@@ -17,10 +17,12 @@
 		<CommandBinding Command="ApplicationCommands.New" Executed="NewProject_Executed"  CanExecute="NewProject_CanExecute"/>
 		<CommandBinding Command="ApplicationCommands.Open" Executed="OpenProject_Executed" CanExecute="OpenProject_CanExecute"/>
 		<CommandBinding Command="ApplicationCommands.Save" Executed="SaveProject_Executed" CanExecute="SaveProject_CanExecute"/>
+		<CommandBinding Command="local:Commands.ProjectOptions" Executed="ProjectOptions_Executed" CanExecute="ProjectOptions_CanExecute"/>
 
 		<CommandBinding Command="local:Commands.ProjectStart" Executed="StartProject_Executed" CanExecute="StartProject_CanExecute"/>
 		<CommandBinding Command="local:Commands.ProjectStop" Executed="StopProject_Executed" CanExecute="StopProject_CanExecute"/>
-
+		
+		
 	</Window.CommandBindings>
 
 	<Grid>
@@ -61,7 +63,12 @@
 						<Image Source="{StaticResource ImageSaveAll}" Height="16" Width="16" SnapsToDevicePixels="True"/>
 					</MenuItem.Icon>
 				</MenuItem>
-	
+				<Separator></Separator>
+				<MenuItem Header="Op_tions" Command="local:Commands.ProjectOptions">
+					<MenuItem.Icon>
+						<Image Source="{StaticResource ImageOptions}" Height="16" Width="16" SnapsToDevicePixels="True"/>
+					</MenuItem.Icon>
+				</MenuItem>
 			</MenuItem>
 
 			<MenuItem Header="_Edit">

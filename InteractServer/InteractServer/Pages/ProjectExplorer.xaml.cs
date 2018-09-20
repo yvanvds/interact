@@ -68,6 +68,7 @@ namespace InteractServer.Pages
 					{
 						MainWindow.Handle.AddDocument(resource.Document);
 						Properties.Handle.SetSelected(resource);
+						resource.OnShow();
 					}
 				}
 			}

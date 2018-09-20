@@ -13,9 +13,36 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource ColorLessDark}">
 			<Label Content="Client Group:" VerticalAlignment="Center" FontSize="20" Margin="10,0,30,0"/>
-			<ComboBox Name="cb" Width="150" />
+			<ComboBox Name="cb" Width="150" Height="35" SelectionChanged="cb_SelectionChanged">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<Label Content="{Binding Name}"/>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+				
+			</ComboBox>
+				
 		</StackPanel>
 
-		<ListView Grid.Column="0" Grid.Row="1"/>
+		<ListView Grid.Column="0" Grid.Row="1" Name="SensorList" Margin="0,2,0,-2">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="200"/>
+							<ColumnDefinition Width="150"/>
+							<ColumnDefinition Width="100"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Grid.Column="0" Content="{Binding Name}" VerticalAlignment="Center"/>
+						<CheckBox Grid.Column="1" Content="Active" IsChecked="{Binding Active}" VerticalAlignment="Center"/>
+						<Button Grid.Column="2" Content="Set Route" Style="{StaticResource AccentedSquareButtonStyle}" VerticalAlignment="Center" Click="RouteButton_Click"/>
+						<Label Grid.Column="3" Content="{Binding OscRouteName}" VerticalAlignment="Center"/>
+						
+					</Grid>
+
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
 	</Grid>
 </UserControl>

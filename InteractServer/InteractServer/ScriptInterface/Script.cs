@@ -23,5 +23,7 @@ namespace ScriptInterface
 
 
 		public abstract void OnOsc(string endPoint, object[] args);
+		public abstract void OnProjectStart();
+		public abstract void OnProjectStop();
 	}
 }

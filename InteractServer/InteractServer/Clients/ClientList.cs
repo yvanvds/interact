@@ -35,7 +35,10 @@ namespace InteractServer.Clients
 
 				foreach(var key in keysToDelete)
 				{
-					ScreenList.Remove(List[key]);
+					if(ScreenList.Contains(List[key]))
+					{
+						ScreenList.Remove(List[key]);
+					}
 					List.Remove(key);
 				}
 			});

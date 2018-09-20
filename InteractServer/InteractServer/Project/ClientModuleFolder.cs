@@ -84,7 +84,7 @@ namespace InteractServer.Project
 						case "ClientPatcher":
 							resources.Add(new Patcher(elm, false, path));
 							break;
-						case "SensorConfig":
+						case "ClientSensors":
 							resources.Add(new SensorConfig(elm, path));
 							break;
 					}

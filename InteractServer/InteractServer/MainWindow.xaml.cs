@@ -307,8 +307,21 @@ namespace InteractServer
 				Project.Project.Current.RecompileServerScripts();
 			}
 		}
+
 		#endregion View Management
 
+		private void ProjectOptions_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			var dialog = new Dialogs.ProjectOptions();
+			dialog.ShowDialog();
+		}
 
+		private void ProjectOptions_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			if(Project.Project.Current != null)
+			{
+				e.CanExecute = true;
+			}
+		}
 	}
 }

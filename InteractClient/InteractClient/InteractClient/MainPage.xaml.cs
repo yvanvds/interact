@@ -17,12 +17,13 @@ namespace InteractClient
 			InitializeComponent();
 			NavigationPage.SetHasNavigationBar(this, false);
 
-			CrossSettings.Current.Remove("Guid");
+			//CrossSettings.Current.Remove("Guid");
 			if (!CrossSettings.Current.Contains("Guid"))
 			{
 				CrossSettings.Current.Set<string>("Guid", shortid.ShortId.Generate(true));
 			}
 			Global.deviceID = CrossSettings.Current.Get<string>("Guid");
+			
 
 			Network.Udp.Start();
 			Receiver.Get().Start();

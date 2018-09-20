@@ -124,12 +124,22 @@ namespace InteractClient.Droid.Sensors
 						{
 							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
 							SensorType = InteractClient.Sensors.SensorType.SignificantMotion,
-							Value = null,
+							Value = 1,
 						});
 						if (IsActive(InteractClient.Sensors.SensorType.SignificantMotion))
 						{
 							Start(InteractClient.Sensors.SensorType.SignificantMotion);
 						}
+						break;
+					}
+				default:
+					{
+						SensorValueChanged(this, new SensorValueChangedEventArgs()
+						{
+							ValueType = SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.StepDetector,
+							Value = e.Values[0],
+						});
 						break;
 					}
 			}
@@ -324,7 +334,7 @@ namespace InteractClient.Droid.Sensors
 						{
 							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
 							SensorType = InteractClient.Sensors.SensorType.StepDetector,
-							Value = null,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -333,7 +343,9 @@ namespace InteractClient.Droid.Sensors
 					{
 						SensorValueChanged(this, new SensorValueChangedEventArgs()
 						{
-
+							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.StepCounter,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -341,7 +353,9 @@ namespace InteractClient.Droid.Sensors
 					{
 						SensorValueChanged(this, new SensorValueChangedEventArgs()
 						{
-
+							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.HeartRate,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -357,7 +371,9 @@ namespace InteractClient.Droid.Sensors
 					{
 						SensorValueChanged(this, new SensorValueChangedEventArgs()
 						{
-
+							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.Stationary,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -365,7 +381,9 @@ namespace InteractClient.Droid.Sensors
 					{
 						SensorValueChanged(this, new SensorValueChangedEventArgs()
 						{
-
+							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.Motion,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -373,7 +391,9 @@ namespace InteractClient.Droid.Sensors
 					{
 						SensorValueChanged(this, new SensorValueChangedEventArgs()
 						{
-
+							ValueType = InteractClient.Sensors.SensorValueType.Trigger,
+							SensorType = InteractClient.Sensors.SensorType.StepDetector,
+							Value = e.Values[0],
 						});
 						break;
 					}
@@ -511,7 +531,7 @@ namespace InteractClient.Droid.Sensors
 
 				case InteractClient.Sensors.SensorType.StepDetector:
 					if (sensorStepDetector != null)
-						sensorManager.RequestTriggerSensor(TriggerEventListener, sensorStepDetector);
+						sensorManager.RegisterListener(this, sensorStepDetector, delay);
 					else Network.Sender.WriteLog("Sensor: Step Detector not available.");
 					break;
 
@@ -654,6 +674,31 @@ namespace InteractClient.Droid.Sensors
 					break;
 			}
 			sensorStatus[sensorType] = false;
+		}
+
+		public void StopAll()
+		{
+			Stop(InteractClient.Sensors.SensorType.AcceleroMeter);
+			Stop(InteractClient.Sensors.SensorType.AmbientTemperature);
+			Stop(InteractClient.Sensors.SensorType.Compass);
+			Stop(InteractClient.Sensors.SensorType.GameRotation);
+			Stop(InteractClient.Sensors.SensorType.Gyroscope);
+			Stop(InteractClient.Sensors.SensorType.HeartBeat);
+			Stop(InteractClient.Sensors.SensorType.HeartRate);
+			Stop(InteractClient.Sensors.SensorType.Humidity);
+			Stop(InteractClient.Sensors.SensorType.Light);
+			Stop(InteractClient.Sensors.SensorType.LinearAcceleration);
+			Stop(InteractClient.Sensors.SensorType.MagnetoMeter);
+			Stop(InteractClient.Sensors.SensorType.Motion);
+			Stop(InteractClient.Sensors.SensorType.Pose);
+			Stop(InteractClient.Sensors.SensorType.Pressure);
+			Stop(InteractClient.Sensors.SensorType.Proximity);
+			Stop(InteractClient.Sensors.SensorType.Rotation);
+			Stop(InteractClient.Sensors.SensorType.SignificantMotion);
+			Stop(InteractClient.Sensors.SensorType.Stationary);
+			Stop(InteractClient.Sensors.SensorType.StepCounter);
+			Stop(InteractClient.Sensors.SensorType.StepDetector);
+			Stop(InteractClient.Sensors.SensorType.Tilt);
 		}
 	}
 }

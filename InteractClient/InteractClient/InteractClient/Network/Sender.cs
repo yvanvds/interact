@@ -30,6 +30,11 @@ namespace InteractClient.Network
 			sender.Send(new Osc.OscMessage("/internal/disconnect", Global.deviceID));
 		}
 
+		public static void ServerLost()
+		{
+			connected = false;
+		}
+
 		public static void GetNextMethod()
 		{
 			sender.Send(new Osc.OscMessage("/internal/get/nextmethod", Global.deviceID));

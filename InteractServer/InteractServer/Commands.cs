@@ -45,6 +45,11 @@ namespace InteractServer
 			}
 		);
 
+		public static readonly RoutedUICommand ProjectOptions = new RoutedUICommand
+		(
+			"Project Options", "POptions", typeof(Commands)
+		);
+
 		public static readonly RoutedUICommand AddObject = new RoutedUICommand
 		(
 			"Add Object",

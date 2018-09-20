@@ -226,6 +226,11 @@ namespace InteractServer.Project
 			}
 			return needsSaving;
 		}
+
+		public void OnShow()
+		{
+
+		}
 	}
 
 

@@ -23,5 +23,7 @@ namespace InteractServer.Project
 		bool SaveContent();
 		void DeleteOnDisk();
 		bool NeedsSaving();
+
+		void OnShow();
 	}
 }

@@ -19,6 +19,7 @@ namespace InteractClient.Sensors
 
 		void Start(SensorType sensorType, SensorDelay interval = SensorDelay.Default);
 		void Stop(SensorType sensorType);
+		void StopAll();
 
 		bool IsActive(SensorType sensorType);
 	}

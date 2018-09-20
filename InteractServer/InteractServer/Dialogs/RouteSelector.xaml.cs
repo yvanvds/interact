@@ -151,7 +151,7 @@ namespace InteractServer.Dialogs
 			{
 				Project.Project.Current.ClientEndpointWriter.DiscardChanges();
 			}
-			
+			DialogResult = false;
 			Close();
 		}
 
@@ -173,6 +173,7 @@ namespace InteractServer.Dialogs
 				}
 				
 			}
+			DialogResult = true;
 			Close();
 		}
 

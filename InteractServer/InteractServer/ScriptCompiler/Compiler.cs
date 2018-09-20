@@ -82,6 +82,30 @@ namespace ScriptCompiler
 			}
 		}
 
+		public string OnProjectStart()
+		{
+			try
+			{
+				handle?.OnProjectStart();
+			} catch(Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
+		}
+
+		public string OnProjectStop()
+		{
+			try
+			{
+				handle?.OnProjectStop();
+			} catch(Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
+		}
+
 		public string InvokeOsc(string endpoint, object[] args)
 		{
 			try

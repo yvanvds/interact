@@ -10,7 +10,7 @@ namespace InteractClient.Compiler
 
 		public OscForwarder(string name)
 		{
-			obj = new OscTree.Object(new OscTree.Address(name, name));
+			obj = new OscTree.Object(new OscTree.Address(name, name), typeof(object));
 			Global.OscLocal.Add(obj);
 		}
 

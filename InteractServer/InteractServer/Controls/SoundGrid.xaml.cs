@@ -82,8 +82,16 @@ namespace InteractServer.Controls
 			var target = System.IO.Path.Combine(SoundPath, ProjectFileName);
 			System.IO.File.Copy(path, target, true);
 
-			var sound = new SoundControl(SoundControl.CreateJObject(OriginalFileName, ProjectFileName, ID, Name), tree, SoundPath);
+			var sound = new SoundControl(SoundControl.CreateJObject(OriginalFileName, ProjectFileName, ID, Name), tree, SoundPath, this);
 
+			Panel.Children.Add(sound);
+		}
+
+		public void AddCopy(string OriginalFileName, string ProjectFileName, string Name)
+		{
+			string ID = shortid.ShortId.Generate(false, false);
+
+			var sound = new SoundControl(SoundControl.CreateJObject(OriginalFileName, ProjectFileName, ID, Name), tree, SoundPath, this);
 			Panel.Children.Add(sound);
 		}
 
@@ -101,7 +109,7 @@ namespace InteractServer.Controls
 		{
 			foreach(var obj in content.Values())
 			{
-				Panel.Children.Add(new SoundControl(obj as JObject, tree, SoundPath));
+				Panel.Children.Add(new SoundControl(obj as JObject, tree, SoundPath, this));
 			}
 		}
 	}

@@ -80,7 +80,6 @@ namespace InteractServer.Project
 			}
 
 			type = ContentType.ClientSensors;
-
 			setupDocument();
 		}
 
@@ -105,18 +104,6 @@ namespace InteractServer.Project
 			else return false;
 			if (obj.ContainsKey("ID")) id = (string)obj["ID"];
 			else return false;
-			if (obj.ContainsKey("Type"))
-			{
-				switch ((string)obj["Type"])
-				{
-					case "ClientGui":
-						type = ContentType.ClientGui;
-						break;
-					case "ServerGui":
-						type = ContentType.ServerGui;
-						break;
-				}
-			}
 			if (obj.ContainsKey("Version")) version = (int)obj["Version"];
 
 			needsSaving = false;
@@ -171,6 +158,16 @@ namespace InteractServer.Project
 			if (SensorGUI.NeedsSaving())
 				needsSaving = true;
 			return needsSaving;
+		}
+
+		public void OnShow()
+		{
+			SensorGUI.OnShow();
+		}
+
+		public void UpdateRouteNames()
+		{
+			SensorGUI.UpdateRouteNames();
 		}
 	}
 }

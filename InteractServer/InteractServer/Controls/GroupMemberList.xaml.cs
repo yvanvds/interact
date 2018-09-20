@@ -52,5 +52,11 @@ namespace InteractServer.Controls
 				Project.Project.Current.Groups.MoveMemberToGroup(member, group);
 			}
 		}
+
+		private void Label_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var member = (sender as Label).DataContext as Groups.GroupMember;
+			Pages.Properties.Handle.SetSelected(member);
+		}
 	}
 }

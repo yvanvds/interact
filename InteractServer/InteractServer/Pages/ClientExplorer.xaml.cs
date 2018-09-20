@@ -57,7 +57,11 @@ namespace InteractServer.Pages
 			Grid.SetColumn(ButtonAddGroup, GroupGrid.ColumnDefinitions.Count);
 
 			var label = new Label();
-			label.Content = group.Name;
+			label.Content = group.name;
+			label.MouseDoubleClick += (sender, e) =>
+			{
+				Pages.Properties.Handle.SetSelected(group);
+			};
 			Grid.SetColumn(label, GroupGrid.ColumnDefinitions.Count - 2);
 			Grid.SetRow(label, 0);
 			GroupGrid.Children.Add(label);
@@ -69,6 +73,8 @@ namespace InteractServer.Pages
 			Grid.SetRow(list, 1);
 			GroupGrid.Children.Add(list);
 		}
+
+		
 
 		private void ButtonAddGroup_Click(object sender, RoutedEventArgs e)
 		{
@@ -88,5 +94,7 @@ namespace InteractServer.Pages
 		{
 			(App.Current as App).ClientList.AddFakeClients();
 		}
+
+
 	}
 }

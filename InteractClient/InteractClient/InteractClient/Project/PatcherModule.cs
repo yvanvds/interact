@@ -24,7 +24,7 @@ namespace InteractClient.Project
 		{
 			if(osc == null)
 			{
-				osc = new OscTree.Object(new OscTree.Address(Name, ID));
+				osc = new OscTree.Object(new OscTree.Address(Name, ID), typeof(object));
 				Global.OscLocal.Add(osc);
 			}
 

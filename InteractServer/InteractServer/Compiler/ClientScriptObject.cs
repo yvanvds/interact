@@ -20,5 +20,10 @@ namespace InteractServer.Compiler
 			this.osc = osc;
 			this.log = log;
 		}
+
+		public override object InitializeLifetimeService()
+		{
+			return null;
+		}
 	}
 }

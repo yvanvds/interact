@@ -188,8 +188,20 @@ namespace InteractServer.Network
 							if (Project.Project.Current.Running)
 							{
 								var client = (App.Current as App).ClientList.Get(clientID);
+								var group = Project.Project.Current.Groups.GetGroup(client);
+								if(group != null)
+								{
+									client.Send.GroupSet(group.ID, group.FirstClientGuiID);
+								}
 								client.Send.ProjectStart();
-								client.Send.ScreenStart(Project.Project.Current.FirstClientGuiID);
+								if(group != null && group.FirstClientGuiID != string.Empty)
+								{
+									client.Send.ScreenStart(group.FirstClientGuiID);
+								} else
+								{
+									client.Send.ScreenStart(Project.Project.Current.FirstClientGuiID);
+								}
+								
 							}
 						}
 					}

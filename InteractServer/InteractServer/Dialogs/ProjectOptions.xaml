@@ -1,0 +1,57 @@
+﻿<Controls:MetroWindow x:Class="InteractServer.Dialogs.ProjectOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+				xmlns:local="clr-namespace:InteractServer.Dialogs"
+        mc:Ignorable="d"
+				Background="{DynamicResource ColorDark}"
+        Title="ProjectOptions" Height="300" Width="500">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="40"/>
+		</Grid.RowDefinitions>
+		<Controls:MetroAnimatedSingleRowTabControl>
+			<TabItem Name="TabGeneral" Header="General">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+					</Grid.RowDefinitions>
+					<Label Content="Name" VerticalAlignment="Center" Margin="5"/>
+					<Label Content="Client Gui" VerticalAlignment="Center" Margin="5" Grid.Row="1"/>
+
+					<TextBox Text="{Binding ProjectName}"  Grid.Row="0" Grid.Column="1" Margin="5"/>
+					<TextBox Text="{Binding ProjectFirstGui}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+				</Grid>
+			</TabItem>
+			<TabItem Name="TabResolume" Header="Resolume">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+					</Grid.RowDefinitions>
+					<Label Content="IP Address" VerticalAlignment="Center" Margin="5"/>
+					<Label Content="Port" VerticalAlignment="Center" Margin="5" Grid.Row="1"/>
+
+					<TextBox Text="{Binding ResolumeIP}" Grid.Row="0" Grid.Column="1" Margin="5"/>
+					<TextBox Text="{Binding ResolumePort}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+				</Grid>
+			</TabItem>
+		</Controls:MetroAnimatedSingleRowTabControl>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+			<Button x:Name="ButtonOK" Content="Ok" Margin="5" Width="50" Click="ButtonOK_Click"  Style="{StaticResource AccentedSquareButtonStyle}" />
+			<Button x:Name="ButtonCancel" Content="Cancel" Margin="5" Width="50" Click="ButtonCancel_Click"  Style="{StaticResource SquareButtonStyle}" />
+		</StackPanel>
+	</Grid>
+</Controls:MetroWindow>

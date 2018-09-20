@@ -14,7 +14,7 @@
 					<StackPanel Orientation="Horizontal">
 						<Ellipse Height="10" Width="10" VerticalAlignment="Center" Margin="0,0,10,0" Fill="{Binding Color}">
 						</Ellipse>
-						<TextBlock Text="{Binding Name}"/>
+						<Label Content="{Binding Name}" MouseDoubleClick="Label_MouseDoubleClick"/>
 					</StackPanel>
 					
 				</DataTemplate>

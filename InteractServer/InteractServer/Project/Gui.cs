@@ -120,6 +120,7 @@ namespace InteractServer.Project
 			else
 			{
 				type = ContentType.ClientGui;
+				OscGUI.OscTree.Endpoints.Add(new OscTree.Endpoint("Activate", (args) => { }, typeof(object)));
 				Osc.Tree.Client.Add(OscGUI.OscTree);
 			}
 			setupDocument();
@@ -228,6 +229,11 @@ namespace InteractServer.Project
 			if (OscGUI.NeedsSaving())
 				needsSaving = true;
 			return needsSaving;
+		}
+
+		public void OnShow()
+		{
+			
 		}
 	}
 }

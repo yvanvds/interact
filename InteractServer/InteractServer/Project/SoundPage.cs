@@ -209,5 +209,10 @@ namespace InteractServer.Project
 			obj["Content"] = content;
 			return obj.ToString();
 		}
+
+		public void OnShow()
+		{
+
+		}
 	}
 }

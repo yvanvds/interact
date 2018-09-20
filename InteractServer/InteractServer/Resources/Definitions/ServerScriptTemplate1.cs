@@ -40,6 +40,17 @@ namespace Scripts
 					break;
 			}
 		}
+
+
+		public override void OnProjectStart()
+		{
+
+		}
+
+		public override void OnProjectStop()
+		{
+
+		}
 	}
 
 }

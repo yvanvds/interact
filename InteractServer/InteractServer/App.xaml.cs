@@ -17,6 +17,7 @@ namespace InteractServer
 		public Network.FileServer fileServer = new Network.FileServer();
 		public Network.Multicast MulticastServer = new Network.Multicast();
 		public Network.OscReceiver OscReceiver = new Network.OscReceiver();
+		public Network.Resolume Resolume = new Network.Resolume();
 		public Clients.ClientList ClientList = new Clients.ClientList();
 
 		private Timer timer = new Timer();
@@ -44,6 +45,7 @@ namespace InteractServer
 			timer.Enabled = false;
 			ClientList.CloseConnections();
 
+			Resolume.DisConnect();
 			OscReceiver.Stop();
 			MulticastServer.Stop();
 			fileServer.Stop();

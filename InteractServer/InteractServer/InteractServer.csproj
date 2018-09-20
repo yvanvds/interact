@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActiproSoftware.Shared.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
     <Reference Include="ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf, Version=18.1.672.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
@@ -62,10 +65,10 @@
       <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscGui.1.0.28\lib\net461\OscGui.dll</HintPath>
+      <HintPath>packages\OscGui.1.0.30\lib\net461\OscGui.dll</HintPath>
     </Reference>
-    <Reference Include="OscTree, Version=1.0.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscTree.1.0.21\lib\netstandard2.0\OscTree.dll</HintPath>
+    <Reference Include="OscTree, Version=1.0.23.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OscTree.1.0.23\lib\netstandard2.0\OscTree.dll</HintPath>
     </Reference>
     <Reference Include="Rug.Osc, Version=1.2.5.17694, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Rug.Osc.1.2.5\lib\Rug.Osc.dll</HintPath>
@@ -196,6 +199,9 @@
     <Compile Include="Dialogs\NewServerModule.xaml.cs">
       <DependentUpon>NewServerModule.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ProjectOptions.xaml.cs">
+      <DependentUpon>ProjectOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\RouteInspector.xaml.cs">
       <DependentUpon>RouteInspector.xaml</DependentUpon>
     </Compile>
@@ -216,6 +222,7 @@
     <Compile Include="Network\Multicast.cs" />
     <Compile Include="Network\OscReceiver.cs" />
     <Compile Include="Network\OscSender.cs" />
+    <Compile Include="Network\Resolume.cs" />
     <Compile Include="Osc\Tree.cs" />
     <Compile Include="Pages\ClientExplorer.xaml.cs">
       <DependentUpon>ClientExplorer.xaml</DependentUpon>
@@ -244,6 +251,8 @@
     <EmbeddedResource Include="Resources\Definitions\ClientScriptTemplate2.cs" />
     <EmbeddedResource Include="Resources\Definitions\ServerEndpointTemplate.cs" />
     <Compile Include="Project\SoundPage.cs" />
+    <Compile Include="Sensors\Sensor.cs" />
+    <Compile Include="Sensors\SensorCollection.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\ActionCommand.cs" />
     <Compile Include="Utils\Editor.cs" />
@@ -294,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\NewServerModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ProjectOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,6 +475,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="libsndfile-1.dll" />
+    <Resource Include="Logo.ico" />
     <Content Include="portaudio_x86.dll" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Resources\WindowsIcons-license.txt" />

@@ -368,5 +368,10 @@ namespace InteractServer.Project
 		{
 			InteractServer.Osc.Tree.Root.Deliver(new OscTree.Route(to, OscTree.Route.RouteType.NAME), new object[] { value });
 		}
+
+		public void OnShow()
+		{
+
+		}
 	}
 }

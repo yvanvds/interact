@@ -12,5 +12,10 @@ namespace InteractServer.Compiler
 		{
 			Log.Log.Handle.AddEntry(message);
 		}
+
+		public override object InitializeLifetimeService()
+		{
+			return null;
+		}
 	}
 }

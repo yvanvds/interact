@@ -19,7 +19,7 @@ namespace InteractServer.Compiler
 
 		public void Compile(string[] files)
 		{
-			if(domain != null)
+			if (domain != null)
 			{
 				AppDomain.Unload(domain);
 			}
@@ -31,14 +31,15 @@ namespace InteractServer.Compiler
 			try
 			{
 				bool result = compiler.CreateAssembly(files);
-				if(result == false)
+				if (result == false)
 				{
 					AppDomain.Unload(domain);
 					domain = null;
 					compiler = null;
 					Log.Log.Handle.AddEntry("Scripts are not loaded");
 				}
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				AppDomain.Unload(domain);
 				domain = null;
@@ -52,17 +53,18 @@ namespace InteractServer.Compiler
 			if (domain == null) return;
 			if (compiler == null) return;
 
-			if(server == null)
+			if (server == null)
 			{
 				oscForwarder = new OscForwarder("ServerScripts", true);
 				server = new ServerScriptObject(oscForwarder, LogForwarder);
-			} else
+			}
+			else
 			{
 				oscForwarder.Clear();
 			}
 
 			var result = compiler.Run(server);
-			if(result != string.Empty)
+			if (result != string.Empty)
 			{
 				Log.Log.Handle.AddEntry("Server Script Error: " + result);
 			}
@@ -70,10 +72,49 @@ namespace InteractServer.Compiler
 
 		public void InvokeOsc(string endpoint, object[] args)
 		{
-			string result = compiler.InvokeOsc(endpoint, args);
-			if(result != string.Empty)
+			try
 			{
-				Log.Log.Handle.AddEntry("Server Script Error: " + result);
+				string result = compiler.InvokeOsc(endpoint, args);
+				if (result != string.Empty)
+				{
+					Log.Log.Handle.AddEntry("Server Script Error: " + result);
+				}
+			}
+			catch (System.Runtime.Remoting.RemotingException e)
+			{
+				Log.Log.Handle.AddEntry("Server Script InvokeOsc error: " + e.Message);
+			}
+
+		}
+
+		public void OnProjectStart()
+		{
+			try
+			{
+				string result = compiler.OnProjectStart();
+				if (result != string.Empty)
+				{
+					Log.Log.Handle.AddEntry("Server Script Error on Project Start: " + result);
+				}
+			} catch(Exception e)
+			{
+				Log.Log.Handle.AddEntry("Server Script Error on Project Start: " + e.Message);
+			}
+		}
+
+		public void OnProjectStop()
+		{
+			try
+			{
+				string result = compiler.OnProjectStop();
+				if (result != string.Empty)
+				{
+					Log.Log.Handle.AddEntry("Server Script Error on Project Stop: " + result);
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry("Server Script Error on Project Stop: " + e.Message);
 			}
 		}
 
@@ -93,7 +134,7 @@ namespace InteractServer.Compiler
 				catch (Exception) { }
 			}
 			domain = null;
-			if(oscForwarder != null)
+			if (oscForwarder != null)
 			{
 				oscForwarder.Clear();
 			}

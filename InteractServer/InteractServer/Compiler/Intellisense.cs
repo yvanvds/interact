@@ -5,6 +5,7 @@ using ActiproSoftware.Text.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,13 @@ namespace InteractServer.Compiler
 		{
 			ServerAssembly.AssemblyReferences.AddMsCorLib();
 			ServerAssembly.AssemblyReferences.Add("ServerInterface");
+			ServerAssembly.AssemblyReferences.Add("netstandard.dll");
+			ServerAssembly.AssemblyReferences.AddFrom(
+				Path.Combine(
+					Path.GetDirectoryName(
+						System.Reflection.Assembly.GetExecutingAssembly().Location), 
+					"ScriptInterface.dll"
+					));
 		}
 
 		private void ClientAssemblyReferenceLoader(object sender, DoWorkEventArgs e)

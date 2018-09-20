@@ -65,6 +65,8 @@ namespace InteractServer.Project
 				current = new Project(path);
 				InteractServer.Properties.Settings.Default.LastOpenProject = path;
 				InteractServer.Properties.Settings.Default.Save();
+
+				Network.Resolume.Handle.Connect(current.ResolumeIP, current.ResolumePort);
 			}
 			catch (Exception e)
 			{
@@ -111,6 +113,28 @@ namespace InteractServer.Project
 		}
 		public string FirstClientGuiID => firstClientGui;
 
+		private string resolumeIP = string.Empty;
+		public string ResolumeIP
+		{
+			get => resolumeIP;
+			set
+			{
+				resolumeIP = value;
+				needsSaving = true;
+			}
+		}
+
+		private int resolumePort = 7000;
+		public int ResolumePort
+		{
+			get => resolumePort;
+			set
+			{
+				resolumePort = value;
+				needsSaving = true;
+			}
+		}
+
 		private int version = 0;
 
 		public Compiler.Intellisense Intellisense = new Compiler.Intellisense();
@@ -153,6 +177,9 @@ namespace InteractServer.Project
 
 			if (obj.ContainsKey("Version")) version = (int)obj["Version"];
 			if (obj.ContainsKey("firstClientGui")) firstClientGui = (string)obj["firstClientGui"];
+
+			if (obj.ContainsKey("ResolumePort")) resolumePort = (int)obj["ResolumePort"];
+			if (obj.ContainsKey("ResolumeIP")) resolumeIP = (string)obj["ResolumeIP"];
 
 			if(!LoadFolders(obj))
 			{
@@ -217,6 +244,8 @@ namespace InteractServer.Project
 			obj["ID"] = ID;
 			obj["Version"] = version;
 			obj["firstClientGui"] = firstClientGui;
+			obj["ResolumeIP"] = resolumeIP;
+			obj["ResolumePort"] = resolumePort;
 
 			SaveFolders(obj);
 			return obj.ToString();
@@ -229,6 +258,8 @@ namespace InteractServer.Project
 			obj["ID"] = ID;
 			obj["Version"] = version;
 			obj["firstClientGui"] = firstClientGui;
+			obj["ResolumeIP"] = resolumeIP;
+			obj["ResolumePort"] = resolumePort;
 
 			ClientModules.SaveForClient(obj);
 
@@ -323,6 +354,14 @@ namespace InteractServer.Project
 		{
 			RecompileServerScripts();
 			RecompileClientScripts();
+
+			foreach(var module in ClientModules.Resources)
+			{
+				if(module is SensorConfig)
+				{
+					(module as SensorConfig).UpdateRouteNames();
+				}
+			}
 		}
 
 		public void RecompileServerScripts()
@@ -421,11 +460,13 @@ namespace InteractServer.Project
 		{
 			running = true;
 			MakeCurrentOnClients();
+			ServerCompiler.OnProjectStart();
 		}
 
 		public void Stop()
 		{
 			running = false;
+			ServerCompiler.OnProjectStop();
 		}
 
 		#endregion Run

@@ -52,9 +52,24 @@ namespace InteractServer.Compiler
 			}
 		}
 
-		public void Send(string address, object[] values)
+		public void SendByID(string address, object[] values)
 		{
 			obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+		}
+
+		public void SendByID(string address, object value)
+		{
+			SendByID(address, new object[] { value });
+		}
+
+		public void SendByName(string address, object[] values)
+		{
+			obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+		}
+
+		public void SendByName(string address, object value)
+		{
+			SendByName(address, new object[] { value });
 		}
 
 		public void Clear()
@@ -62,9 +77,16 @@ namespace InteractServer.Compiler
 			obj.Endpoints.List.Clear();
 		}
 
-		public void Send(string address, object value)
+		
+
+		public override object InitializeLifetimeService()
 		{
-			Send(address, new object[] { value });
+			return null;
+		}
+
+		public void ToResolume(string address, object[] values)
+		{
+			Network.Resolume.Handle.Send(address, values);
 		}
 	}
 }

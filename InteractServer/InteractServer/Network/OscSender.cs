@@ -58,7 +58,11 @@ namespace InteractServer.Network
 		public void ScreenStart(string screenID)
 		{
 			sender.Send(new Rug.Osc.OscMessage("/internal/screen/start", screenID));
-			
+		}
+
+		public void GroupSet(string groupID, string startScreenID)
+		{
+			sender.Send(new Rug.Osc.OscMessage("/internal/group/set", groupID, startScreenID));
 		}
 	}
 }

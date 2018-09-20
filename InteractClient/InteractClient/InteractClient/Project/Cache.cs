@@ -162,6 +162,14 @@ namespace InteractClient.Project
 									clientModules.Add(id, m);
 									break;
 								}
+							case "ClientSensors":
+								{
+									var m = new SensorModule();
+									m.Deserialize(data);
+									m.LoadContent();
+									clientModules.Add(id, m);
+									break;
+								}
 						}
 					}
 				}

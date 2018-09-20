@@ -34,6 +34,7 @@ namespace InteractServer.Controls
 		public string SoundName => soundName;
 
 		public OscTree.Object osc;
+		private SoundGrid parentGrid;
 
 		public bool Loop
 		{
@@ -49,13 +50,16 @@ namespace InteractServer.Controls
 			}
 		}
 
-		public SoundControl(JObject obj, OscTree.Tree oscParent, string soundPath)
+		public SoundControl(JObject obj, OscTree.Tree oscParent, string soundPath, SoundGrid parentGrid)
 		{
 			InitializeComponent();
+
 			originalFileName = obj.ContainsKey("OriginalFileName") ? (string)obj["OriginalFileName"] : String.Empty;
 			projectFileName = obj.ContainsKey("ProjectFileName") ? (string)obj["ProjectFileName"] : String.Empty;
 			id = obj.ContainsKey("ID") ? (string)obj["ID"] : String.Empty;
 			soundName = obj.ContainsKey("Name") ? (string)obj["Name"] : string.Empty;
+			this.parentGrid = parentGrid;
+
 
 			this.DataContext = this;
 
@@ -204,6 +208,14 @@ namespace InteractServer.Controls
 			PositionSlider.Value = time;
 		}
 
-
+		private void Copy_Click(object sender, RoutedEventArgs e)
+		{
+			var dialog = new Dialogs.GetString("Name of Copy");
+			dialog.ShowDialog();
+			if(dialog.DialogResult == true)
+			{
+				parentGrid.AddCopy(OriginalFileName, ProjectFileName, dialog.Result);
+			}
+		}
 	}
 }

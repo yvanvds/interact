@@ -95,6 +95,7 @@ namespace InteractClient.Network
 
 				case "/disconnect":
 					{
+						Network.Sender.ServerLost();
 						Global.UpdatePage();
 					}
 					break;
@@ -129,6 +130,15 @@ namespace InteractClient.Network
 						Global.StopClientGui();
 					}
 					break;
+				case "/group/set":
+					{
+						if(Global.CurrentProject != null)
+						{
+							Global.CurrentProject.GroupID = ToString(list[0]);
+							Global.CurrentProject.StartupScreen = ToString(list[1]);
+						}
+						break;
+					}
 				default:
 					{
 						Sender.WriteLog("Client got invalid message: " + args.Message.ToString());

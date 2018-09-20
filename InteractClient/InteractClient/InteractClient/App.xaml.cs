@@ -28,8 +28,12 @@ namespace InteractClient
 			Global.OscLocal.ErrorHandler += Network.Sender.WriteLog;
 			Global.OscServer.ErrorHandler += Network.Sender.WriteLog;
 			Global.OscAllClients.ErrorHandler += Network.Sender.WriteLog;
+
 			Global.OscServer.ReRoute += Network.Sender.ToServer;
 			Global.OscAllClients.ReRoute += Network.Sender.ToServer;
+
+			Global.OscServer.DataTag = Global.deviceID;
+			Global.OscAllClients.DataTag = Global.deviceID;
 
 			Global.Yse.System.Init();
 			Global.Yse.System.AutoReconnect(true, 20);

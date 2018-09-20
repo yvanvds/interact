@@ -11,6 +11,8 @@ namespace InteractClient.Project
 		public string ID { get; set; }
 		public int Version { get; set; }
 		public string StartupScreen { get; set; }
+		public string GroupID { get; set; }
+		private SensorModule currentSensorModule = null;
 
 		public Dictionary<string, BaseModule> ClientModules = new Dictionary<string, BaseModule>();
 
@@ -97,10 +99,26 @@ namespace InteractClient.Project
 				Network.Sender.WriteLog("Running Scripts...");
 				Global.Compiler.Run();
 			}
+
+			StopSensors();
+
+			foreach (var module in ClientModules.Values)
+			{
+				if(module is SensorModule)
+				{
+					var mod = module as SensorModule;
+					if(mod.GroupID.Equals(GroupID))
+					{
+						currentSensorModule = mod;
+						currentSensorModule.Activate();
+					}
+				}
+			}
 		}
 
 		public void Stop()
 		{
+			StopSensors();
 			foreach (var module in ClientModules.Values)
 			{
 				if (module is PatcherModule)
@@ -109,6 +127,16 @@ namespace InteractClient.Project
 				}
 			}
 			Global.Compiler.StopAssembly();
+		}
+
+		private void StopSensors()
+		{
+			if (currentSensorModule != null)
+			{
+				currentSensorModule.Deactivate();
+				currentSensorModule = null;
+			}
+			Global.Sensors.StopAll();
 		}
 	}
 }
