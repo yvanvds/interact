@@ -112,5 +112,30 @@ namespace InteractServer.Controls
 				Panel.Children.Add(new SoundControl(obj as JObject, tree, SoundPath, this));
 			}
 		}
+
+		public IYse.ISound GetByName(string name)
+		{
+			foreach(var soundcontrol in Panel.Children)
+			{
+				var sc = soundcontrol as SoundControl;
+				if(sc.SoundName.Equals(name)) {
+					return sc.Sound;
+				}
+			}
+			return null;
+		}
+
+		public IYse.ISound GetByID(string ID)
+		{
+			foreach (var soundcontrol in Panel.Children)
+			{
+				var sc = soundcontrol as SoundControl;
+				if (sc.ID.Equals(ID))
+				{
+					return sc.Sound;
+				}
+			}
+			return null;
+		}
 	}
 }

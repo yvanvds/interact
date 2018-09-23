@@ -22,6 +22,7 @@ namespace InteractServer.Controls
 	public partial class SoundControl : UserControl
 	{
 		private IYse.ISound sound;
+		public IYse.ISound Sound => sound;
 
 		private string originalFileName;
 		private string projectFileName;

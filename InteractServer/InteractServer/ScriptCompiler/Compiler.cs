@@ -4,63 +4,57 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace ScriptCompiler
 {
-	public class Compiler : MarshalByRefObject
+	public class Compiler
 	{
-		CSharpCodeProvider provider;
-		CompilerParameters parameters;
-		Assembly assembly = null;
+		PluginHost host = null;
 		ScriptInterface.Script handle = null;
+		Sponsor<ScriptInterface.IScript> objectFromAssembly = null;
 
-		public Compiler()
+		public Compiler(EventHandler onLoad, EventHandler onUnload)
 		{
-			provider = new CSharpCodeProvider();
-			parameters = new CompilerParameters();
 
-			parameters.GenerateInMemory = true;
-			parameters.GenerateExecutable = false;
-
-			List<string> assemblies = new List<string>();
-			assemblies.Add("System.dll");
-			assemblies.Add("netstandard.dll");
-			assemblies.Add("ScriptInterface.dll");
-
-			parameters.ReferencedAssemblies.AddRange(assemblies.ToArray());
+			host = new PluginHost();
+			host.PluginsLoaded += onLoad;
+			host.PluginsUnloaded += onUnload;
 		}
 
 		public bool CreateAssembly(string[] files)
 		{
-			CompilerResults results = provider.CompileAssemblyFromFile(parameters, files);
-			if (results.Errors.HasErrors)
-			{
-				assembly = null;
-				StringBuilder sb = new StringBuilder();
-
-				foreach (CompilerError error in results.Errors)
-				{
-					sb.AppendLine(String.Format("Line {2} # Error ({0}) # {1}", error.ErrorNumber, error.ErrorText, error.Line)); 
-				}
-				throw new InvalidOperationException(sb.ToString());
-			}
-
-			assembly = results.CompiledAssembly;
-			return assembly != null;
+			return host.CreateAssembly(files);
 		}
 
 		public string Run(ScriptInterface.IServer server)
 		{
 			try
 			{
-				Type type = assembly.GetType("Scripts.Main");
-				var obj = Activator.CreateInstance(type, server);
-				handle = (obj as ScriptInterface.Script);
-				return string.Empty;
+				objectFromAssembly = host.GetImplementation<ScriptInterface.IScript>(new object[] { server });
+				if (objectFromAssembly != null)
+				{
+					handle = objectFromAssembly.Instance as ScriptInterface.Script;
+					if (handle == null)
+					{
+						return "Unable to create script object";
+					}
+					else
+					{
+						return string.Empty;
+					}
+				}
+				else
+				{
+					return "Unable to find Script interface";
+				}
 
-			} catch(Exception e)
+
+			}
+			catch (Exception e)
 			{
 				return e.Message;
 			}
@@ -70,15 +64,35 @@ namespace ScriptCompiler
 		{
 			try
 			{
-				Type type = assembly.GetType("Scripts.Main");
-				var obj = Activator.CreateInstance(type, client);
-				handle = (obj as ScriptInterface.Script);
-				return string.Empty;
-
+					objectFromAssembly = host.GetImplementation<ScriptInterface.IScript>(new object[] { client });
+					if (objectFromAssembly != null)
+					{
+						handle = objectFromAssembly.Instance as ScriptInterface.Script;
+						if (handle == null)
+						{
+							return "Unable to create script object";
+						}
+						else
+						{
+							return string.Empty;
+						}
+					}
+					else
+					{
+						return "Unable to find Script interface";
+					}
 			}
 			catch (Exception e)
 			{
 				return e.Message;
+			}
+		}
+
+		public void Stop()
+		{
+			if (objectFromAssembly != null)
+			{
+				objectFromAssembly.Dispose();
 			}
 		}
 
@@ -87,7 +101,8 @@ namespace ScriptCompiler
 			try
 			{
 				handle?.OnProjectStart();
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				return e.Message;
 			}
@@ -99,7 +114,8 @@ namespace ScriptCompiler
 			try
 			{
 				handle?.OnProjectStop();
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				return e.Message;
 			}
@@ -111,7 +127,8 @@ namespace ScriptCompiler
 			try
 			{
 				handle.OnOsc(endpoint, args);
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				return e.Message;
 			}
@@ -120,19 +137,21 @@ namespace ScriptCompiler
 
 		public object OscValueOverride(string methodName, object[] args)
 		{
-			Type type = assembly.GetType("Scripts.Overrides");
+			/*Type type = assembly.GetType("Scripts.Overrides");
 			var method = type.GetMethod(methodName);
-			if(method != null)
+			if (method != null)
 			{
 				try
 				{
 					return method.Invoke(null, args);
-				} catch(Exception)
+				}
+				catch (Exception)
 				{
 					// 
 				}
 			}
-			return args;
+			return args;*/
+			return null;
 		}
 	}
 }

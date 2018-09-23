@@ -52,24 +52,59 @@ namespace InteractServer.Compiler
 			}
 		}
 
-		public void SendByID(string address, object[] values)
+		public void SendByID(string address, object[] values, bool OnGuiThread = false)
 		{
-			obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+			try
+			{
+				if (OnGuiThread)
+				{
+					App.Current?.Dispatcher.Invoke((Action)delegate
+					{
+						obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+					});
+				}
+				else
+				{
+					obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+				}
+
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
-		public void SendByID(string address, object value)
+		public void SendByID(string address, object value, bool OnGuiThread = false)
 		{
-			SendByID(address, new object[] { value });
+			SendByID(address, new object[] { value }, OnGuiThread);
 		}
 
-		public void SendByName(string address, object[] values)
+		public void SendByName(string address, object[] values, bool OnGuiThread = false)
 		{
-			obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+			try
+			{
+				if(OnGuiThread)
+				{
+					App.Current?.Dispatcher.Invoke((Action)delegate
+					{
+						obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+					});
+				} else
+				{
+					obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+				}
+				
+			}
+			catch(Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
-		public void SendByName(string address, object value)
+		public void SendByName(string address, object value, bool OnGuiThread = false)
 		{
-			SendByName(address, new object[] { value });
+			SendByName(address, new object[] { value }, OnGuiThread);
 		}
 
 		public void Clear()

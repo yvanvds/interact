@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler.cs" />
+    <Compile Include="PluginHost.cs" />
+    <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sponsor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScriptInterface\ScriptInterface.csproj">

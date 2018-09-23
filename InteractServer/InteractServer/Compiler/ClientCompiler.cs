@@ -38,48 +38,34 @@ namespace InteractServer.Compiler
 			return true;
 		}
 
-		AppDomain domain = null;
 		ScriptCompiler.Compiler compiler = null;
 		ClientScriptObject client = null;
 		OscForwarder oscForwarder = null;
 		LogForwarder LogForwarder = new LogForwarder();
 
+		public ClientCompiler()
+		{
+			compiler = new ScriptCompiler.Compiler(null, null);
+		}
+
 		public void Compile(string[] files)
 		{
-			if (domain != null)
-			{
-				AppDomain.Unload(domain);
-			}
-
-			domain = AppDomain.CreateDomain("ClientScripts");
-
-			compiler = (ScriptCompiler.Compiler)domain.CreateInstanceFromAndUnwrap("ScriptCompiler.dll", "ScriptCompiler.Compiler");
-
 			try
 			{
 				bool result = compiler.CreateAssembly(files);
 				if (result == false)
 				{
-					AppDomain.Unload(domain);
-					domain = null;
-					compiler = null;
 					Log.Log.Handle.AddEntry("Client Scripts are not loaded");
 				}
 			}
 			catch (Exception e)
 			{
-				AppDomain.Unload(domain);
-				domain = null;
-				compiler = null;
 				Log.Log.Handle.AddEntry(e.Message);
 			}
 		}
 
 		public void Run()
 		{
-			if (domain == null) return;
-			if (compiler == null) return;
-
 			if (client == null)
 			{
 				oscForwarder = new OscForwarder("ClientScripts", false);
@@ -99,24 +85,23 @@ namespace InteractServer.Compiler
 
 		public void InvokeOsc(string endpoint, object[] args)
 		{
-			string result = compiler.InvokeOsc(endpoint, args);
-			if (result != string.Empty)
+			try
 			{
-				Log.Log.Handle.AddEntry("Client Script Error: " + result);
+				string result = compiler.InvokeOsc(endpoint, args);
+				if (result != string.Empty)
+				{
+					Log.Log.Handle.AddEntry("Client Script Error: " + result);
+				}
+			}
+			catch (System.Runtime.Remoting.RemotingException e)
+			{
+				Log.Log.Handle.AddEntry("Client Script InvokeOsc error: " + e.Message);
 			}
 		}
 
 		public void StopAssembly()
 		{
-			if (domain != null)
-			{
-				try
-				{
-					AppDomain.Unload(domain);
-				}
-				catch (Exception) { }
-			}
-			domain = null;
+			compiler.Stop();
 			if (oscForwarder != null)
 			{
 				oscForwarder.Clear();
@@ -126,6 +111,16 @@ namespace InteractServer.Compiler
 		~ClientCompiler()
 		{
 			StopAssembly();
+		}
+
+		public void OnLoad(object sender, EventArgs e)
+		{
+			Log.Log.Handle.AddEntry("Client Scripts Loaded");
+		}
+
+		public void OnUnload(object sender, EventArgs e)
+		{
+			Log.Log.Handle.AddEntry("Client Scripts Unloaded");
 		}
 	}
 }

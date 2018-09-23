@@ -8,11 +8,11 @@ namespace ScriptInterface
 	{
 		void AddEndpoint(string name);
 
-		void SendByID(string address, object[] values);
-		void SendByID(string address, object value);
+		void SendByID(string address, object[] values, bool OnGuiThread = false);
+		void SendByID(string address, object value, bool OnGuiThread = false);
 
-		void SendByName(string address, object[] values);
-		void SendByName(string address, object value);
+		void SendByName(string address, object[] values, bool OnGuiThread = false);
+		void SendByName(string address, object value, bool OnGuiThread = false);
 
 		void ToResolume(string address, object[] values);
 	}
