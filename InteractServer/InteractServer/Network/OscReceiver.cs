@@ -9,9 +9,7 @@ namespace InteractServer.Network
 {
 	public class OscReceiver
 	{
-		private Rug.Osc.OscReceiver receiver;
-		private Task task;
-		private CancellationTokenSource cancellationTokenSource;
+		private Osc.OscReceiver receiver;
 
 		private bool started = false;
 		public bool IsStarted { get => started; }
@@ -23,118 +21,82 @@ namespace InteractServer.Network
 
 		public void Start()
 		{
-			if (receiver == null) receiver = new Rug.Osc.OscReceiver(11234);
-			else return;
+			if (receiver == null)
+			{
+				receiver = new Osc.OscReceiver();
+				receiver.DefaultOnMessageReceived += (sender, args) =>
+				{
+					string address = args.Message.Address.ToString();
 
-			receiver.Connect();
-			cancellationTokenSource = new CancellationTokenSource();
-			task = Task.Run(() => ParseAsync(cancellationTokenSource.Token));
+					if (address.StartsWith("/internal"))
+					{
+						ParseInternalMessage(args);
+					}
+					else if (address.StartsWith("/server"))
+					{
+						//ParseServerMessage(message);
+					}
+					else if (address.StartsWith("/route", StringComparison.CurrentCultureIgnoreCase))
+					{
+						ParseRoutedMessage(args);
+					}
+					else
+					{
+						Log.Log.Handle?.AddEntry("Unknown Network Message Received: " + args.Message.ToString());
+					}
+				};
+			}
+
+			receiver.Start(11234);
+			started = true;
 			started = true;
 		}
 
 		public void Stop()
 		{
 			if (!started) return;
-			cancellationTokenSource.Cancel();
-
-			try
-			{
-				task.Wait();
-			}
-			catch (AggregateException e)
-			{
-				foreach (var v in e.InnerExceptions)
-				{
-					Log.Log.Handle?.AddEntry("OscReceiver: " + e.Message + " " + v.Message);
-				}
-			}
-			finally
-			{
-				cancellationTokenSource.Dispose();
-			}
-
-			receiver?.Close();
+			receiver.Stop();
+			receiver = null;
 			started = false;
 		}
 
-		private async Task ParseAsync(CancellationToken token)
+		~OscReceiver()
 		{
-			while (true)
-			{
-				if (receiver.State == Rug.Osc.OscSocketState.Connected)
-				{
-					Rug.Osc.OscPacket packet = null;
-					try
-					{
-						while (receiver.TryReceive(out packet))
-						{
-							Rug.Osc.OscMessage message = packet as Rug.Osc.OscMessage;
-
-							if (message.Address.StartsWith("/internal"))
-							{
-								ParseInternalMessage(message);
-							}
-							else if (message.Address.StartsWith("/server"))
-							{
-								//ParseServerMessage(message);
-							}
-							else if (message.Address.StartsWith("/route"))
-							{
-								ParseRoutedMessage(message);
-							}
-							else
-							{
-								Log.Log.Handle?.AddEntry("Unknown Network Message Received: " + message.ToString());
-							}
-
-						}
-					}
-					catch (Exception e)
-					{
-						Log.Log.Handle?.AddEntry("Network Receiver Error: " + e.Message);
-						if (packet != null)
-						{
-							Log.Log.Handle?.AddEntry("Offending Package: " + packet.ToString());
-						}
-
-					}
-				}
-
-				if (token.IsCancellationRequested)
-				{
-					token.ThrowIfCancellationRequested();
-				}
-
-				await Task.Delay(1);
-			}
+			Stop();
 		}
 
-		void ParseRoutedMessage(Rug.Osc.OscMessage message)
+
+		void ParseRoutedMessage(Osc.OSCMessageReceivedArgs args)
 		{
-			string address = message.Address.Substring(message.Address.IndexOf("/", 1));
-			object[] parms = message.ToArray();
+			int index = args.Message.Address.ToString().IndexOf("/", 1);
+			string address = args.Message.Address.ToString().Substring(index);
+			List<Osc.Values.IOscValue> list = args.Message.Arguments;
+
 			App.Current.Dispatcher.Invoke((Action)delegate
 			{
-				Osc.Tree.Root.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), parms);
+				Osc.Tree.Root.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), ToObjectArray(list));
 			});
 		}
 
-		void ParseInternalMessage(Rug.Osc.OscMessage message)
+		void ParseInternalMessage(Osc.OSCMessageReceivedArgs args)
 		{
-			string address = message.Address.Substring(message.Address.IndexOf("/", 1));
+			int index = args.Message.Address.ToString().IndexOf("/", 1);
+			string address = args.Message.Address.ToString().Substring(index);
+			List<Osc.Values.IOscValue> list = args.Message.Arguments;
+
 			switch (address)
 			{
 				case "/register":
 					{
-						string guid = message.ElementAt(0).ToString();
-						string userName = message.ElementAt(1).ToString();
+						string guid = ToString(list[0]);
+						string userName = ToString(list[1]);
 						if (userName == "null") userName = string.Empty;
-						string ip = message.Origin.Address.ToString();
+						string ip = args.Origin;
 						(App.Current as App)?.ClientList.Add(
 							guid, new Clients.Client
 						(
 							userName,
-							message.Origin.Address.ToString(),
+							ip,
 							guid
 						));
 						(App.Current as App)?.ClientList.Get(guid).Send.Connect();
@@ -145,8 +107,8 @@ namespace InteractServer.Network
 
 				case "/ping":
 					{
-						string ip = message.Origin.Address.ToString();
-						string id = message.ElementAt(0).ToString();
+						string ip = args.Origin;
+						string id = ToString(list[0]);
 
 						App.Current?.Dispatcher.Invoke((Action)delegate
 						{
@@ -158,14 +120,14 @@ namespace InteractServer.Network
 
 				case "/log":
 					{
-						Log.Log.Handle.AddEntry(message.ElementAt(0).ToString());
+						Log.Log.Handle.AddEntry(ToString(list[0]));
 					}
 					break;
 
 				case "/disconnect":
 					{
-						string ip = message.Origin.Address.ToString();
-						string id = message.ElementAt(0).ToString();
+						string ip = args.Origin;
+						string id = ToString(list[0]);
 						Log.Log.Handle?.AddEntry("Client on " + ip + " disconnected.");
 						(App.Current as App)?.ClientList.Remove(id);
 					}
@@ -181,8 +143,8 @@ namespace InteractServer.Network
 					*/
 				case "/project/ready":
 					{
-						string clientID = message.ElementAt(0).ToString();
-						var projectID = message.ElementAt(1).ToString();
+						string clientID = ToString(list[0]);
+						var projectID = ToString(list[1]);
 						if (Project.Project.Current != null)
 						{
 							if (Project.Project.Current.Running)
@@ -209,49 +171,40 @@ namespace InteractServer.Network
 					
 				default:
 					{
-						Log.Log.Handle?.AddEntry("Unhandled Client Message: " + message.Address);
+						Log.Log.Handle?.AddEntry("Unhandled Client Message: " + args.Message.Address);
 					}
 					break;
 			}
 		}
 
-		/*void ParseServerMessage(Rug.Osc.OscMessage message)
-		{
-			string address = message.Address.Substring(message.Address.IndexOf("/", 1));
-			switch (address)
-			{
-				case "/invoke":
-					{
-						if (JintEngine.Runner.Engine != null)
-						{
-							object[] array = message.ToArray();
-							Array.Resize<object>(ref array, array.Length + 1);
-							array[array.Length - 1] = message.Origin.Address.ToString();
-						}
-					}
-					break;
-				case "/log":
-					{
-						Global.Log.AddEntry(message.ToString());
-					}
-					break;
-				case "/errorlog":
-					{
-						Global.ErrorLog.AddEntry(
-							Convert.ToInt32(message.ElementAt(0)),
-							Convert.ToInt32(message.ElementAt(1)),
-							message.ElementAt(2).ToString(),
-							Global.ProjectManager.Current.Screens.Get(Guid.Parse(message.ElementAt(3).ToString()))
-							);
-					}
-					break;
 
-				default:
-					{
-						Global.Log.AddEntry("Unhandled Server Message: " + message.Address);
-					}
-					break;
+		private static int ToInt(Osc.Values.IOscValue value)
+		{
+			return (value as Osc.Values.OscInt).Contents;
+		}
+
+		private static string ToString(Osc.Values.IOscValue value)
+		{
+			return (value as Osc.Values.OscString).Contents;
+		}
+
+		private static object[] ToObjectArray(List<Osc.Values.IOscValue> list)
+		{
+			object[] result = new object[list.Count];
+			for (int i = 0; i < list.Count; i++)
+			{
+				switch (list[i].TypeTag)
+				{
+					case 'f': result[i] = (list[i] as Osc.Values.OscFloat).Contents; break;
+					case 'F': result[i] = false; break;
+					case 'i': result[i] = (list[i] as Osc.Values.OscInt).Contents; break;
+					case 'N': result[i] = null; break;
+					case 's': result[i] = (list[i] as Osc.Values.OscString).Contents; break;
+					case 'T': result[i] = true; break;
+					default: result[i] = 0; break; // should not happen
+				}
 			}
-		}*/
+			return result;
+		}
 	}
 }

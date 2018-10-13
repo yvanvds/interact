@@ -67,8 +67,9 @@ namespace InteractServer.Controls
 			if(projectFileName != string.Empty)
 			{
 				sound = Yse.Yse.Handle.Interface.NewSound();
+			
 				var path = System.IO.Path.Combine(soundPath, projectFileName);
-				sound.Create(path);
+				sound.Create(path, null, false, 1, true);
 
 				PositionSlider.Minimum = 0;
 				PositionSlider.Maximum = sound.Length;

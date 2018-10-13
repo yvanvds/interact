@@ -32,6 +32,7 @@ namespace InteractClient.Compiler
 		{
 			if (domain == null) return;
 			if (proxy == null) return;
+			
 
 			if(client == null)
 			{
@@ -42,11 +43,18 @@ namespace InteractClient.Compiler
 				oscForwarder.Clear();
 			}
 
-			var result = proxy.Run(client);
-			if(result != string.Empty)
+			try
 			{
-				Network.Sender.WriteLog("Script error: " + result);
+				var result = proxy.Run(client);
+				if (result != string.Empty)
+				{
+					Network.Sender.WriteLog("Client Script error: " + result);
+				}
+			} catch(Exception e)
+			{
+				Network.Sender.WriteLog("Client Script Error: " + e.Message);
 			}
+			
 		}
 
 		public void InvokeOsc(string endpoint, object[] args)
@@ -54,11 +62,19 @@ namespace InteractClient.Compiler
 			if (domain == null) return;
 			if (proxy == null) return;
 
-			string result = proxy.InvokeOsc(endpoint, args);
-			if(result != string.Empty)
+			try
 			{
-				Network.Sender.WriteLog("Script error: " + result);
+				string result = proxy.InvokeOsc(endpoint, args);
+				if (result != string.Empty)
+				{
+					Network.Sender.WriteLog("Client Script error: " + result);
+				}
 			}
+			catch (Exception e)
+			{
+				Network.Sender.WriteLog("Client Script Error: " + e.Message);
+			}
+
 		}
 
 		public void StopAssembly()

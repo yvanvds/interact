@@ -133,8 +133,16 @@ namespace InteractClient.Project
 				if (!clientModules.ContainsKey(id))
 				{
 					string content = await GetFileContent(Path.Combine(projectFolder.Path, module.Key));
-					var data = JObject.Parse(content);
-					if(data.ContainsKey("Type"))
+					JObject data = null;
+					try
+					{
+						data = JObject.Parse(content);
+					}
+					catch(Exception e)
+					{
+						Network.Sender.WriteLog("Error while loading module " + module.Key + ": " + e.Message);
+					}
+					if(data != null && data.ContainsKey("Type"))
 					{
 						var Type = (string)data["Type"];
 						switch(Type)
@@ -176,8 +184,12 @@ namespace InteractClient.Project
 				else if (clientModules[id].Version != Convert.ToInt32(module.Value))
 				{
 					string content = await GetFileContent(Path.Combine(projectFolder.Path, module.Key));
-					clientModules[id].Deserialize(JObject.Parse(content));
-					clientModules[id].LoadContent();
+					if(content != string.Empty)
+					{
+						clientModules[id].Deserialize(JObject.Parse(content));
+						clientModules[id].LoadContent();
+					}
+					
 				}
 			}
 

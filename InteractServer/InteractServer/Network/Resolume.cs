@@ -13,7 +13,7 @@ namespace InteractServer.Network
 		private bool connected = false;
 		public bool Connected => connected;
 
-		private Rug.Osc.OscSender sender = null;
+		private Osc.OscSender sender = null;
 
 		public Resolume()
 		{
@@ -23,16 +23,19 @@ namespace InteractServer.Network
 		public void Connect(string IP, int port)
 		{
 			if (Connected) DisConnect();
-			if(IP.Equals("127.0.0.1"))
+			/*if(IP.Equals("127.0.0.1"))
 			{
 				sender = new Rug.Osc.OscSender(System.Net.IPAddress.Loopback, 0, port);
 			} else
 			{
 				sender = new Rug.Osc.OscSender(System.Net.IPAddress.Parse(IP), 0, port);
 			}
+			*/
+			sender = new Osc.OscSender();
+
 			try
 			{
-				sender.Connect();
+				sender.Init(IP, port);
 			} catch(Exception e)
 			{
 				Log.Log.Handle.AddEntry("Resolume: " + e.Message);
@@ -45,8 +48,8 @@ namespace InteractServer.Network
 		{
 			if(sender != null)
 			{
-				sender.WaitForAllMessagesToComplete();
-				sender.Close();
+				//sender.WaitForAllMessagesToComplete();
+				//sender.Close();
 				sender = null;
 			}
 			connected = false;
@@ -56,9 +59,9 @@ namespace InteractServer.Network
 		{
 			if (sender == null) return;
 			
-			sender.Send(new Rug.Osc.OscMessage(route, 1));
+			sender.Send(new Osc.OscMessage(route, arguments));
 #if DEBUG
-			Log.Log.Handle.AddEntry("Resolume: " + route);
+			//Log.Log.Handle.AddEntry("Resolume: " + route);
 #endif
 		}
 

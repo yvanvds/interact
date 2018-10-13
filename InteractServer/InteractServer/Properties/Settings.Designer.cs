@@ -94,5 +94,41 @@ namespace InteractServer.Properties {
                 this["LastAudioFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AudioHostName {
+            get {
+                return ((string)(this["AudioHostName"]));
+            }
+            set {
+                this["AudioHostName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AudioDeviceName {
+            get {
+                return ((string)(this["AudioDeviceName"]));
+            }
+            set {
+                this["AudioDeviceName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AudioChannelConf {
+            get {
+                return ((string)(this["AudioChannelConf"]));
+            }
+            set {
+                this["AudioChannelConf"] = value;
+            }
+        }
     }
 }

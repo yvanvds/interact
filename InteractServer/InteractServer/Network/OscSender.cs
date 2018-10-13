@@ -8,61 +8,138 @@ namespace InteractServer.Network
 {
 	public class OscSender
 	{
-		private Rug.Osc.OscSender sender = null;
+		private Osc.OscSender sender = null;
 
 		public OscSender(string address)
 		{
-			sender = new Rug.Osc.OscSender(System.Net.IPAddress.Parse(address), 11234);
-			sender.Connect();
+			sender = new Osc.OscSender();
+			sender.Init(address, 11234);
 		}
 
-		~OscSender()
+		/*~OscSender()
 		{
 			if (sender != null)
 			{
-				sender.WaitForAllMessagesToComplete();
-				sender.Close();
+				try
+				{
+					sender.
+					sender.WaitForAllMessagesToComplete();
+					sender.Close();
+				}
+				catch (Exception e)
+				{
+					Log.Log.Handle.AddEntry(e.Message);
+				}
 			}
-		}
+		}*/
 
 		public void Ping()
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/ping"));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/ping"));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
+
 		}
 
 		public void Connect()
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/connect"));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/connect"));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void Disconnect()
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/disconnect"));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/disconnect"));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void ProjectSet(string id, int version)
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/project/set", id, version));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/project/set", id, version));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void ProjectStart()
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/project/start"));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/project/start"));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void ProjectStop()
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/project/stop"));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/project/stop"));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void ScreenStart(string screenID)
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/screen/start", screenID));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/screen/start", screenID));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 
 		public void GroupSet(string groupID, string startScreenID)
 		{
-			sender.Send(new Rug.Osc.OscMessage("/internal/group/set", groupID, startScreenID));
+			try
+			{
+				sender.Send(new Osc.OscMessage("/internal/group/set", groupID, startScreenID));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
+		}
+
+		public void ToClient(string route, object[] arguments)
+		{
+			try
+			{
+				sender.Send(new Osc.OscMessage(route, arguments));
+			}
+			catch (Exception e)
+			{
+				Log.Log.Handle.AddEntry(e.Message);
+			}
 		}
 	}
 }

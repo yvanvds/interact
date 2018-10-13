@@ -107,6 +107,8 @@ namespace InteractServer.Compiler
 			SendByName(address, new object[] { value }, OnGuiThread);
 		}
 
+		
+
 		public void Clear()
 		{
 			obj.Endpoints.List.Clear();
@@ -122,6 +124,22 @@ namespace InteractServer.Compiler
 		public void ToResolume(string address, object[] values)
 		{
 			Network.Resolume.Handle.Send(address, values);
+		}
+
+		public bool SendToClient(string ID, string address, object[] values)
+		{
+			Clients.Client target = Clients.ClientList.Handle.Get(ID);
+			if(target != null)
+			{
+				target.Send.ToClient(address, values);
+				return true;
+			}
+			return false;
+		}
+
+		public bool SendToClient(string ID, string address, object value)
+		{
+			return SendToClient(ID, address, new object[] { value });
 		}
 	}
 }

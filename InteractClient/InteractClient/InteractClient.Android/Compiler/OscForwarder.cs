@@ -37,14 +37,75 @@ namespace InteractClient.Compiler
 			}));
 		}
 
-		public void Send(string address, object[] values)
+		public void SendByID(string address, object[] values, bool OnGuiThread = false)
 		{
-			obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+			try
+			{
+				if (OnGuiThread)
+				{
+					Xamarin.Forms.Device.BeginInvokeOnMainThread(
+						() =>
+						{
+							obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+						});
+				} else
+				{
+					obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.ID), values);
+				}
+			} catch (Exception e)
+			{
+				Network.Sender.WriteLog("OscForwareder - " + e.Message);
+			}
+			
 		}
 
-		public void Send(string address, object value)
+		public void SendByID(string address, object value, bool OnGuiThread = false)
 		{
-			Send(address, new object[] { value });
+			SendByID(address, new object[] { value }, OnGuiThread);
+		}
+
+		public void SendByName(string address, object[] values, bool OnGuiThread = false)
+		{
+			try
+			{
+				if (OnGuiThread)
+				{
+					Xamarin.Forms.Device.BeginInvokeOnMainThread(
+						() =>
+						{
+							obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+						});
+				}
+				else
+				{
+					obj.Send(new OscTree.Route(address, OscTree.Route.RouteType.NAME), values);
+				}
+			}
+			catch (Exception e)
+			{
+				Network.Sender.WriteLog("OscForwareder - " + e.Message);
+			}
+
+		}
+
+		public void SendByName(string address, object value, bool OnGuiThread = false)
+		{
+			SendByName(address, new object[] { value }, OnGuiThread);
+		}
+
+		public void ToResolume(string address, object[] values)
+		{
+			// not implemented on client
+		}
+
+		public bool SendToClient(string ID, string address, object[] values)
+		{
+			return false;
+		}
+
+		public bool SendToClient(string ID, string address, object value)
+		{
+			return false;
 		}
 	}
 }

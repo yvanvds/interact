@@ -12,6 +12,7 @@
 			<Label x:Name="Par2" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
 			<Label x:Name="Par3" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
 			<Label x:Name="Par4" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
+			<Label x:Name="Par5" LineBreakMode="WordWrap" TextColor="White" FontSize="Medium"></Label>
 
 			<Button x:Name="SiteButton" Text="Open Website" HeightRequest="80"  Clicked="SiteButton_Clicked"/>
 		</StackLayout>

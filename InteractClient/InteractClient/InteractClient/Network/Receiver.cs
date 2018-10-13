@@ -42,10 +42,16 @@ namespace InteractClient.Network
 					ParseInternal(args);
 				} else
 				{
-					if(address.StartsWith("/root"))
+					if(address.StartsWith("/root", StringComparison.CurrentCultureIgnoreCase))
 					{
-						object[] obj = args.Message.Arguments.Cast<object>().ToArray();
-						Global.OscRoot.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), obj);
+						if(Global.CurrentProject.Running)
+						{
+							Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+							{
+								object[] obj = ToObjectArray(args.Message.Arguments);
+								Global.OscRoot.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), obj);
+							});
+						}
 					}
 				}
 			};
@@ -156,6 +162,25 @@ namespace InteractClient.Network
 		private static string ToString(Osc.Values.IOscValue value)
 		{
 			return (value as Osc.Values.OscString).Contents;
+		}
+
+		private static object[] ToObjectArray(List<Osc.Values.IOscValue> list)
+		{
+			object[] result = new object[list.Count];
+			for(int i = 0; i < list.Count; i++)
+			{
+				switch(list[i].TypeTag)
+				{
+					case 'f': result[i] = (list[i] as Osc.Values.OscFloat).Contents; break;
+					case 'F': result[i] = false; break;
+					case 'i': result[i] = (list[i] as Osc.Values.OscInt).Contents; break;
+					case 'N': result[i] = null; break;
+					case 's': result[i] = (list[i] as Osc.Values.OscString).Contents; break;
+					case 'T': result[i] = true; break;
+					default: result[i] = 0; break; // should not happen
+				}
+			}
+			return result;
 		}
 	}
 }

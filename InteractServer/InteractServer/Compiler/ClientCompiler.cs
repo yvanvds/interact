@@ -64,7 +64,7 @@ namespace InteractServer.Compiler
 			}
 		}
 
-		public void Run()
+		public bool Run()
 		{
 			if (client == null)
 			{
@@ -80,7 +80,9 @@ namespace InteractServer.Compiler
 			if (result != string.Empty)
 			{
 				Log.Log.Handle.AddEntry("Client Script Error: " + result);
+				return false;
 			}
+			return true;
 		}
 
 		public void InvokeOsc(string endpoint, object[] args)

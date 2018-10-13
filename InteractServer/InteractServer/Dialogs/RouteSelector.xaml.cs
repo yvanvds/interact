@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using InteractServer.Groups;
+using System.Windows;
 
 namespace InteractServer.Dialogs
 {
@@ -13,6 +14,8 @@ namespace InteractServer.Dialogs
 		private bool storeValueOverride;
 		private string valueOverrideMethod;
 		private bool serverSide = true;
+		private bool overrideGroupID = false;
+		private string selectedGroupID = string.Empty;
 
 		public RouteSelector(OscTree.Object origin, OscTree.Tree root)
 		{
@@ -23,6 +26,7 @@ namespace InteractServer.Dialogs
 			SetRoot(root);
 
 			serverSide = Osc.Tree.Server.Contains(origin);
+			ComboBoxGroups.ItemsSource = Project.Project.Current.Groups.List;
 		}
 
 		private void SetRoot(OscTree.Tree root)
@@ -94,6 +98,15 @@ namespace InteractServer.Dialogs
 								break;
 							default:
 								RBGroup.IsChecked = true;
+								overrideGroupID = true;
+								foreach(var group in Project.Project.Current.Groups.List)
+								{
+									if(group.ID.Equals(TreeGui.SelectedRoute.Replacements[1]))
+									{
+										ComboBoxGroups.SelectedItem = group;
+										break;
+									}
+								}
 								break;
 						}
 					}
@@ -157,6 +170,10 @@ namespace InteractServer.Dialogs
 
 		private void OkClicked(object sender, RoutedEventArgs e)
 		{
+			if(overrideGroupID)
+			{
+				TreeGui.SelectedRoute.Replacements[1] = selectedGroupID;
+			}
 			CurrentRoute = TreeGui.SelectedRoute;
 			if(storeValueOverride)
 			{
@@ -187,12 +204,19 @@ namespace InteractServer.Dialogs
 			if (RBAll.IsChecked == true)
 			{
 				TreeGui.SelectedRoute.Replacements[1] = "AllClients";
+				overrideGroupID = false;
 			} else if (RBLocal.IsChecked == true)
 			{
 				TreeGui.SelectedRoute.Replacements[1] = "LocalClient";
+				overrideGroupID = true;
 			} else if (RBGroup.IsChecked == true)
 			{
-				TreeGui.SelectedRoute.Replacements[1] = "Group";
+				overrideGroupID = true;
+				var group = ComboBoxGroups.SelectedItem as Group;
+				if(group != null)
+				{
+					selectedGroupID = group.ID;
+				}
 			}
 
 			OscTree.Route namedRoute = CreateNamedRoute(TreeGui.SelectedRoute);
@@ -281,6 +305,15 @@ namespace InteractServer.Dialogs
 		private void ChangePathOverride_Click(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		private void ComboBoxGroups_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			var group = ComboBoxGroups.SelectedItem as Group;
+			if (group != null)
+			{
+				selectedGroupID = group.ID;
+			}
 		}
 	}
 }

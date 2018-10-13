@@ -65,13 +65,10 @@
       <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscGui.1.0.30\lib\net461\OscGui.dll</HintPath>
+      <HintPath>packages\OscGui.1.0.33\lib\net461\OscGui.dll</HintPath>
     </Reference>
-    <Reference Include="OscTree, Version=1.0.23.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscTree.1.0.23\lib\netstandard2.0\OscTree.dll</HintPath>
-    </Reference>
-    <Reference Include="Rug.Osc, Version=1.2.5.17694, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Rug.Osc.1.2.5\lib\Rug.Osc.dll</HintPath>
+    <Reference Include="OscTree, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OscTree.1.0.25\lib\netstandard2.0\OscTree.dll</HintPath>
     </Reference>
     <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
@@ -145,13 +142,13 @@
       <HintPath>packages\YapView.1.0.11\lib\net461\YapView.dll</HintPath>
     </Reference>
     <Reference Include="yGuiWPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\yGuiWPF.1.0.9\lib\net461\yGuiWPF.dll</HintPath>
+      <HintPath>packages\yGuiWPF.1.0.11\lib\net461\yGuiWPF.dll</HintPath>
     </Reference>
-    <Reference Include="YSE.NET.PCL, Version=1.0.39.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\YSE.NET.PCL.1.0.39\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
+    <Reference Include="YSE.NET.PCL, Version=1.0.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\YSE.NET.PCL.1.0.42\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
     </Reference>
-    <Reference Include="Yse.NET.Standard, Version=1.0.71.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Yse.NET.Standard.1.0.71\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+    <Reference Include="Yse.NET.Standard, Version=1.0.76.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Yse.NET.Standard.1.0.76\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -223,7 +220,25 @@
     <Compile Include="Network\OscReceiver.cs" />
     <Compile Include="Network\OscSender.cs" />
     <Compile Include="Network\Resolume.cs" />
+    <Compile Include="Osc\OscBundle.cs" />
+    <Compile Include="Osc\OscMessage.cs" />
+    <Compile Include="Osc\OscPacket.cs" />
+    <Compile Include="Osc\OscReceiver.cs" />
+    <Compile Include="Osc\OscSender.cs" />
     <Compile Include="Osc\Tree.cs" />
+    <Compile Include="Osc\Values\IOscValue.cs" />
+    <Compile Include="Osc\Values\OscBlob.cs" />
+    <Compile Include="Osc\Values\OscColor.cs" />
+    <Compile Include="Osc\Values\OscFalse.cs" />
+    <Compile Include="Osc\Values\OscFloat.cs" />
+    <Compile Include="Osc\Values\OscImpulse.cs" />
+    <Compile Include="Osc\Values\OscInt.cs" />
+    <Compile Include="Osc\Values\OscMidi.cs" />
+    <Compile Include="Osc\Values\OscNull.cs" />
+    <Compile Include="Osc\Values\OscString.cs" />
+    <Compile Include="Osc\Values\OscTimeTag.cs" />
+    <Compile Include="Osc\Values\OscTrue.cs" />
+    <Compile Include="Osc\Values\OscValue.cs" />
     <Compile Include="Pages\ClientExplorer.xaml.cs">
       <DependentUpon>ClientExplorer.xaml</DependentUpon>
     </Compile>
@@ -474,12 +489,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="libsndfile-1.dll" />
     <Resource Include="Logo.ico" />
-    <Content Include="portaudio_x86.dll" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Resource Include="Resources\WindowsIcons-license.txt" />
     <Resource Include="Resources\Icons\sensors_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libsndfile-1.dll" />
+    <Content Include="portaudio_x86.dll" />
     <Content Include="Yse.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

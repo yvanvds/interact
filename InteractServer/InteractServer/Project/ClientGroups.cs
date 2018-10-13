@@ -11,6 +11,8 @@ namespace InteractServer.Project
 {
 	public class ClientGroups
 	{
+		private static ClientGroups current = null;
+
 		private List<Group> list = new List<Group>();
 		public IReadOnlyCollection<Group> List => list.AsReadOnly();
 
@@ -18,23 +20,37 @@ namespace InteractServer.Project
 
 		public ClientGroups()
 		{
-			list.Add(new Group("Guests"));
+			clearOscTree();
+			//list.Add(new Group("Guests"));
 		}
 
 		public ClientGroups(JObject data)
 		{
-			list.Add(new Group("Guests"));
+			clearOscTree();
+			AddGroup(new Group("Guests"));
 			try
 			{
 				foreach (var group in data)
 				{
-					list.Add(new Group(group.Value as JObject));
+					AddGroup(new Group(group.Value as JObject));
 				}
 			}
 			catch(Exception e)
 			{
 				Log.Log.Handle.AddEntry("Group List data is invalid: " + e.Message);
 			}
+		}
+
+		private void clearOscTree()
+		{
+			if(current != null)
+			{
+				foreach(var group in current.list)
+				{
+					group.RemoveFromOsc();
+				}
+			}
+			current = this;
 		}
 
 		public JObject Save()
@@ -55,6 +71,7 @@ namespace InteractServer.Project
 
 		public void AddGroup(Group group)
 		{
+			if (list.Contains(group)) return;
 			list.Add(group);
 			needsSaving = true;
 		}

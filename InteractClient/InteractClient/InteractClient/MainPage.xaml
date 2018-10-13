@@ -14,7 +14,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<Image Grid.Row="0" x:Name="Logo" Source="icon.png" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"/>
+		<Image Grid.Row="0" x:Name="Logo" Source="Logo.png" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"/>
 
 		<Label Grid.Row="1" Text="- INTERACT -" FontSize="30" TextColor="White" HorizontalTextAlignment="Center"/>
 

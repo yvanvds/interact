@@ -57,6 +57,12 @@ namespace InteractServer.Compiler
 		{
 			ClientAssembly.AssemblyReferences.AddMsCorLib();
 			ClientAssembly.AssemblyReferences.Add("ClientInterface");
+			ServerAssembly.AssemblyReferences.AddFrom(
+				Path.Combine(
+					Path.GetDirectoryName(
+						System.Reflection.Assembly.GetExecutingAssembly().Location),
+					"ScriptInterface.dll"
+					));
 		}
 
 		public void Dispose()

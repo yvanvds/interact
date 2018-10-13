@@ -9,11 +9,14 @@ namespace InteractServer.Clients
 	{
 		public Dictionary<string, Client> List;
 		public TrulyObservableCollection<Client> ScreenList;
+		public static ClientList Handle = null;
+
 
 		public ClientList()
 		{
 			List = new Dictionary<string, Client>();
 			ScreenList = new TrulyObservableCollection<Client>();
+			Handle = this;
 		}
 
 		List<string> keysToDelete = new List<string>();

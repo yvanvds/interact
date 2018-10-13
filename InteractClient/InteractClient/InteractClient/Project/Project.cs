@@ -19,6 +19,9 @@ namespace InteractClient.Project
 		public bool IsLocal = false;
 		public Cache Cache;
 
+		private bool running = false;
+		public bool Running { get => running; }
+
 		public Project(string id, int version)
 		{
 			this.ID = id;
@@ -114,10 +117,14 @@ namespace InteractClient.Project
 					}
 				}
 			}
+
+			running = true;
 		}
 
 		public void Stop()
 		{
+			running = false;
+
 			StopSensors();
 			foreach (var module in ClientModules.Values)
 			{

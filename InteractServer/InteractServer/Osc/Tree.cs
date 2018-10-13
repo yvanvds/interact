@@ -18,8 +18,11 @@ namespace InteractServer.Osc
 
 		public static void Init()
 		{
+			
+
 			Root.Add(Server);
 			Root.Add(Client);
+
 			LocalClient.IgnoreInGui = true;
 			LocalClient.ReRoute += ((OscTree.Route route, object[] arguments) =>
 			{
@@ -29,6 +32,7 @@ namespace InteractServer.Osc
 				Client.Deliver(newRoute, arguments);
 			});
 			Root.Add(LocalClient);
+			
 
 			AllClients.IgnoreInGui = true;
 			AllClients.ReRoute += ((OscTree.Route route, object[] arguments) =>
@@ -36,9 +40,19 @@ namespace InteractServer.Osc
 
 			});
 			Root.Add(AllClients);
+			
 
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
+		}
+
+		public static void AddErrorHandlingToOsc()
+		{
+			Root.ErrorHandler += Log.Log.Handle.AddEntry;
+			Server.ErrorHandler += Log.Log.Handle.AddEntry;
+			Client.ErrorHandler += Log.Log.Handle.AddEntry;
+			LocalClient.ErrorHandler += Log.Log.Handle.AddEntry;
+			AllClients.ErrorHandler += Log.Log.Handle.AddEntry;
 		}
 	}
 }

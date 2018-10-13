@@ -19,7 +19,6 @@ namespace ScriptCompiler
 
 		public Compiler(EventHandler onLoad, EventHandler onUnload)
 		{
-
 			host = new PluginHost();
 			host.PluginsLoaded += onLoad;
 			host.PluginsUnloaded += onUnload;

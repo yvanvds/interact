@@ -59,10 +59,19 @@ namespace InteractServer.Groups
 		public TrulyObservableCollection<GroupMember> Members = new TrulyObservableCollection<GroupMember>();
 		private bool needsSaving = false;
 
+		private OscTree.Tree groupTree;
+
 		public Group(string name)
 		{
 			this.name = name;
-			ID = shortid.ShortId.Generate(false, false);
+			if(name.Equals("Guests"))
+			{
+				ID = name;
+			} else
+			{
+				ID = shortid.ShortId.Generate(false, false);
+			}
+			initOsc();
 		}
 
 		public Group(JObject data)
@@ -88,6 +97,13 @@ namespace InteractServer.Groups
 				Log.Log.Handle.AddEntry("Group data is invalid: " + e.Message);
 			}
 			needsSaving = false;
+
+			initOsc();
+		}
+
+		~Group()
+		{
+			RemoveFromOsc();
 		}
 
 		public JObject Save()
@@ -107,6 +123,46 @@ namespace InteractServer.Groups
 
 			needsSaving = false;
 			return result;
+		}
+
+		public void RemoveFromOsc()
+		{
+			if(groupTree != null)
+			{
+				Osc.Tree.Root.Remove(groupTree);
+			}
+		}
+
+		private void initOsc()
+		{
+			groupTree = new OscTree.Tree(new OscTree.Address(Name, ID));
+			groupTree.IgnoreInGui = true;
+			groupTree.ErrorHandler += Log.Log.Handle.AddEntry;
+			groupTree.ReRoute += ((OscTree.Route route, object[] arguments) =>
+			{
+				// remove first /
+				string newRoute = route.OriginalName.Remove(0,1);
+				string[] parts = newRoute.Split('/');
+				parts[1] = "LocalClient";
+				newRoute = string.Empty;
+				foreach(var part in parts)
+				{
+					newRoute += "/" + part;
+				}
+			
+				foreach(var member in Members)
+				{
+					try
+					{
+						member.Handle?.Send.ToClient(newRoute, arguments);
+					}
+					catch(Exception e)
+					{
+						Log.Log.Handle.AddEntry(e.Message);
+					}
+				}
+			});
+			Osc.Tree.Root.Add(groupTree);
 		}
 
 		public bool HasClient(Clients.Client client)

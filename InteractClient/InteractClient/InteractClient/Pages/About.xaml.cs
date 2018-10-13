@@ -24,6 +24,8 @@ namespace InteractClient.Pages
 				"Server Projects can change client behaviour at all times, show screen messages, images or play sounds.";
 			Par4.Text =
 				"For more information, visit the Interact website on https://interact.mutecode.com.";
+			Par5.Text =
+				"Interact is funded by Musica, Impulse Centre for Music, and by C-TAKT.";
 		}
 
 		private void BackButton_Clicked(object sender, EventArgs e)

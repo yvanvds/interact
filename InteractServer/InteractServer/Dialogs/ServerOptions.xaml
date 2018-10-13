@@ -14,29 +14,67 @@
 			<RowDefinition Height="40"/>
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="100"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
+		<Controls:MetroAnimatedSingleRowTabControl>
+			<TabItem Name="TabGeneral" Header="General">
+				<Grid Grid.Row="0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
 
-			<Grid.RowDefinitions>
-				<RowDefinition Height="40"/>
-				<RowDefinition Height="40"/>
-				<RowDefinition Height="40"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
 
-			<Label Grid.Row="0" Grid.Column="0" Content="Server Name" Margin="1" VerticalAlignment="Center"/>
-			<TextBox Grid.Row="0" Grid.Column="1"  x:Name="ServerNameText" Height="20" VerticalAlignment="Center" Margin="5" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="helps you to identify this server on clients" />
+					<Label Grid.Row="0" Grid.Column="0" Content="Server Name" Margin="1" VerticalAlignment="Center"/>
+					<TextBox Grid.Row="0" Grid.Column="1"  x:Name="ServerNameText" Height="20" VerticalAlignment="Center" Margin="5" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="helps you to identify this server on clients" />
 
-			<Label Grid.Row="1" Grid.Column="0" Content="Network Token" Margin="1" VerticalAlignment="Center"/>
-			<TextBox Grid.Row="1" Grid.Column="1"  x:Name="NetworkTokenText" Height="20" VerticalAlignment="Top" Margin="5" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="a unique token which enables devices to autoconnect"/>
+					<Label Grid.Row="1" Grid.Column="0" Content="Network Token" Margin="1" VerticalAlignment="Center"/>
+					<TextBox Grid.Row="1" Grid.Column="1"  x:Name="NetworkTokenText" Height="20" VerticalAlignment="Top" Margin="5" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="a unique token which enables devices to autoconnect"/>
 
-			<Controls:ToggleSwitch Grid.Row="2" Grid.Column="0" x:Name="OpenProjectSwitch" OnLabel="Yes" OffLabel="No"/>
-			<Label Grid.Row="2" Grid.Column="1" Content="Open the last project on startup" VerticalAlignment="Center"/>
+					<Controls:ToggleSwitch Grid.Row="2" Grid.Column="0" x:Name="OpenProjectSwitch" OnLabel="Yes" OffLabel="No"/>
+					<Label Grid.Row="2" Grid.Column="1" Content="Open the last project on startup" VerticalAlignment="Center"/>
 
-		</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Name="TabAudio" Header="Audio">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+						<RowDefinition Height="40"/>
+					</Grid.RowDefinitions>
+
+					<Label Grid.Column="0" Grid.Row="0" Content="Host" VerticalAlignment="Center" Margin="5"/>
+					<ComboBox Name="ComboBoxHost" Grid.Column="1" Grid.Row="0" Margin="5" SelectionChanged="ComboBoxHost_SelectionChanged"/>
+
+					<Label Grid.Column="0" Grid.Row="1" Content="Device" VerticalAlignment="Center" Margin="5"/>
+					<ComboBox Name="ComboBoxDevice" Grid.Column="1" Grid.Row="1" Margin="5" SelectionChanged="ComboBoxDevice_SelectionChanged"/>
+
+					<Label Grid.Column="0" Grid.Row="2" Content="Output" VerticalAlignment="Center" Margin="5"/>
+					<ComboBox Name="ComboBoxOutput" Grid.Column="1" Grid.Row="2" Margin="5" SelectionChanged="ComboBoxOutput_SelectionChanged">
+
+					</ComboBox>
+					<!--
+					<Label Grid.Column="0" Grid.Row="2" Content="SampleRate" VerticalAlignment="Center" Margin="5"/>
+					<ComboBox Name="ComboBoxSampleRate" Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+					<Label Grid.Column="0" Grid.Row="3" Content="BufferSize" VerticalAlignment="Center" Margin="5"/>
+					<ComboBox Name="ComboBoxBufferSize" Grid.Column="1" Grid.Row="3" Margin="5"/>
+					-->
+				</Grid>
+			</TabItem>
+		</Controls:MetroAnimatedSingleRowTabControl>
 
 		<StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
 			<Button x:Name="ButtonOK" Content="Ok" Margin="5" Width="50" Click="ButtonOK_Click"  Style="{StaticResource AccentedSquareButtonStyle}" />

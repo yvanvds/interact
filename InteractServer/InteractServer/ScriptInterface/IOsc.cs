@@ -14,6 +14,9 @@ namespace ScriptInterface
 		void SendByName(string address, object[] values, bool OnGuiThread = false);
 		void SendByName(string address, object value, bool OnGuiThread = false);
 
+		bool SendToClient(string ID, string address, object[] values);
+		bool SendToClient(string ID, string address, object value);
+
 		void ToResolume(string address, object[] values);
 	}
 }

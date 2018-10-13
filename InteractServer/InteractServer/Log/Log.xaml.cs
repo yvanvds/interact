@@ -34,6 +34,8 @@ namespace InteractServer.Log
 			InitializeComponent();
 			DataContext = LogEntries = new ObservableCollection<LogEntry>();
 			Handle = this;
+
+			Osc.Tree.AddErrorHandlingToOsc();
 		}
 
 		public void AddEntry(String message)

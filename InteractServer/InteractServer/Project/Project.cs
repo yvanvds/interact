@@ -44,7 +44,8 @@ namespace InteractServer.Project
 			{
 				File.WriteAllText(filePath, projectFile.ToString());
 				current = new Project(filePath);
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				Dialogs.Error.Show("Error on " + e.TargetSite, e.Message);
 			}
@@ -54,7 +55,7 @@ namespace InteractServer.Project
 		{
 			if (Current != null)
 			{
-				if(Current.NeedsSaving())
+				if (Current.NeedsSaving())
 				{
 					Current.Save();
 				}
@@ -155,7 +156,8 @@ namespace InteractServer.Project
 			{
 				string content = File.ReadAllText(filePath);
 				obj = JObject.Parse(content);
-			} catch(Exception e)
+			}
+			catch (Exception e)
 			{
 				Dialogs.Error.Show("Error on " + e.TargetSite, e.Message);
 				return;
@@ -181,7 +183,7 @@ namespace InteractServer.Project
 			if (obj.ContainsKey("ResolumePort")) resolumePort = (int)obj["ResolumePort"];
 			if (obj.ContainsKey("ResolumeIP")) resolumeIP = (string)obj["ResolumeIP"];
 
-			if(!LoadFolders(obj))
+			if (!LoadFolders(obj))
 			{
 				return;
 			}
@@ -204,7 +206,7 @@ namespace InteractServer.Project
 		{
 			if (needsSaving) return true;
 
-			foreach(var folder in Folders)
+			foreach (var folder in Folders)
 			{
 				if (folder.NeedsSaving())
 				{
@@ -228,7 +230,8 @@ namespace InteractServer.Project
 			try
 			{
 				File.WriteAllText(filePath, content);
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				Dialogs.Error.Show("Error on " + e.TargetSite, e.Message);
 				return false;
@@ -284,23 +287,23 @@ namespace InteractServer.Project
 		public ServerModuleFolder ServerModules;
 		public ClientModuleFolder ClientModules;
 		public List<IFolder> Folders = new List<IFolder>();
-		
+
 		bool LoadFolders(JObject obj)
 		{
-			if(File.Exists(Path.Combine(projectPath, "groups.json")))
+			if (File.Exists(Path.Combine(projectPath, "groups.json")))
 			{
 				var groups = File.ReadAllText(Path.Combine(projectPath, "groups.json"));
 				JObject groupObj = JObject.Parse(groups);
 				Groups = new ClientGroups(groupObj);
 			}
-			
+
 
 			ServerModules = new ServerModuleFolder("Server Modules", Path.Combine(projectPath, "Server"), @"/InteractServer;component/Resources/Icons/screen.png");
 			if (!ServerModules.Load(obj)) return false;
 			Folders.Add(ServerModules);
-			foreach(var resource in ServerModules.Resources)
+			foreach (var resource in ServerModules.Resources)
 			{
-				if(resource is Script)
+				if (resource is Script)
 				{
 					(resource as Script).View.SetLanguage(Intellisense.ServerLanguage);
 				}
@@ -313,7 +316,7 @@ namespace InteractServer.Project
 			{
 				if (resource is Script)
 				{
-					(resource as Script).View.SetLanguage(Intellisense.ServerLanguage);
+					(resource as Script).View.SetLanguage(Intellisense.ClientLanguage);
 				}
 			}
 
@@ -324,26 +327,33 @@ namespace InteractServer.Project
 		bool SaveFolders(JObject obj)
 		{
 			bool recompileNeeded = false;
-			foreach(var resource in ServerModules.Resources)
+			foreach (var resource in ServerModules.Resources)
 			{
-				if(resource is Script)
+				if (resource is Script)
 				{
 					if (resource.NeedsSaving()) recompileNeeded = true;
 				}
 			}
-			foreach(var folder in Folders)
+			if (!recompileNeeded) foreach (var resource in ClientModules.Resources)
+				{
+					if (resource is Script)
+					{
+						if (resource.NeedsSaving()) recompileNeeded = true;
+					}
+				}
+			foreach (var folder in Folders)
 			{
 				folder.SaveContent();
 				if (!folder.SaveToJson(obj)) return false;
 			}
-			if(Groups.NeedsSaving())
+			if (Groups.NeedsSaving())
 			{
 				var jObj = Groups.Save();
 				string content = jObj.ToString();
 				File.WriteAllText(Path.Combine(projectPath, "groups.json"), content);
 			}
 
-			if(recompileNeeded)
+			if (recompileNeeded)
 			{
 				RecompileScripts();
 			}
@@ -355,9 +365,9 @@ namespace InteractServer.Project
 			RecompileServerScripts();
 			RecompileClientScripts();
 
-			foreach(var module in ClientModules.Resources)
+			foreach (var module in ClientModules.Resources)
 			{
-				if(module is SensorConfig)
+				if (module is SensorConfig)
 				{
 					(module as SensorConfig).UpdateRouteNames();
 				}
@@ -405,28 +415,35 @@ namespace InteractServer.Project
 			{
 				Log.Log.Handle.AddEntry("Recompiling Client Scripts...");
 				ClientCompiler.Compile(clientScripts.ToArray());
-				ClientCompiler.Run();
+				if(ClientCompiler.Run())
+				{
+					Log.Log.Handle.AddEntry("Client Scripts Reloaded.");
+				} else
+				{
+					Log.Log.Handle.AddEntry("Some Client Scripts have errors!");
+				}
 			}
 		}
 
 		public void CreateResourceInFolder(IFolder folder)
 		{
-			if(folder == ServerModules)
+			if (folder == ServerModules)
 			{
 				var dialog = new Dialogs.NewServerModule();
 				dialog.ShowDialog();
-				if(dialog.DialogResult == true)
+				if (dialog.DialogResult == true)
 				{
 					ServerModules.CreateResource(dialog.ModuleName, dialog.Type);
 				}
-			} else if (folder == ClientModules)
+			}
+			else if (folder == ClientModules)
 			{
 				var dialog = new Dialogs.NewClientModule();
 				dialog.ShowDialog();
 				if (dialog.DialogResult == true)
 				{
 					ClientModules.CreateResource(dialog.ModuleName, dialog.Type);
-					if(firstClientGui == string.Empty && dialog.Type == ContentType.ClientGui)
+					if (firstClientGui == string.Empty && dialog.Type == ContentType.ClientGui)
 					{
 						var mod = ClientModules.GetByName(dialog.ModuleName);
 						firstClientGui = mod.ID;
@@ -441,10 +458,11 @@ namespace InteractServer.Project
 
 		public void RemoveResource(IResource resource)
 		{
-			if(ServerModules.Resources.Contains(resource))
+			if (ServerModules.Resources.Contains(resource))
 			{
 				ServerModules.RemoveResource(resource);
-			} else
+			}
+			else
 			{
 				ClientModules.RemoveResource(resource);
 			}
@@ -470,7 +488,7 @@ namespace InteractServer.Project
 		}
 
 		#endregion Run
-		 
+
 		public void MakeCurrentOnClients()
 		{
 			foreach (var client in (App.Current as App).ClientList.List.Values)
