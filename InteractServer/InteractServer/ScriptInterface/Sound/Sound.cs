@@ -50,5 +50,10 @@ namespace ScriptInterface.Sound
 		{
 			Server.Osc.SendByName(oscPath + "/Loop", value);
 		}
+
+		public void Pos(float x, float y, float z)
+		{
+			Server.Osc.SendByName(oscPath + "/Pos", new object[] { x, y, z });
+		}
 	}
 }

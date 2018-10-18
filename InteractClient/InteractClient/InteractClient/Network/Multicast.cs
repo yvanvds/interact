@@ -1,6 +1,7 @@
 ﻿using Sockets.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,12 +24,19 @@ namespace InteractClient.Network
 			var msg = "INTERACT ID REQUEST";
 			var msgBytes = Encoding.UTF8.GetBytes(msg);
 
-			if (!joined)
+			try
 			{
-				await Join();
-				joined = true;
+				if (!joined)
+				{
+					await Join();
+					joined = true;
+				}
+				await receiver.SendMulticastAsync(msgBytes);
+			} catch(Exception e)
+			{
+				Debug.WriteLine(e.Message);
 			}
-			await receiver.SendMulticastAsync(msgBytes);
+			
 		}
 
 		public async void Disconnect()

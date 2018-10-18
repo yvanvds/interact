@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,8 +57,15 @@ namespace InteractClient.Network
 				}
 			};
 
-			receiver.Start(11234);
-			started = true;
+			try
+			{
+				receiver.Start(11234);
+				started = true;
+			} catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+			
 		}
 
 		public void Stop()

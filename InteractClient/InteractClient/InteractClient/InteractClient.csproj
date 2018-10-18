@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.Settings" Version="9.0.1" />
-    <PackageReference Include="OscGui_Forms" Version="1.0.13" />
+    <PackageReference Include="OscGui_Forms" Version="1.0.14" />
     <PackageReference Include="OscTree" Version="1.0.25" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="rda.SocketsForPCL" Version="2.0.2" />

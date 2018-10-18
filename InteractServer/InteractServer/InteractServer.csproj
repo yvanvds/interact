@@ -65,7 +65,7 @@
       <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscGui.1.0.33\lib\net461\OscGui.dll</HintPath>
+      <HintPath>packages\OscGui.1.0.35\lib\net461\OscGui.dll</HintPath>
     </Reference>
     <Reference Include="OscTree, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\OscTree.1.0.25\lib\netstandard2.0\OscTree.dll</HintPath>

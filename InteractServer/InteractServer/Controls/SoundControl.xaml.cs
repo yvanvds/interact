@@ -146,6 +146,20 @@ namespace InteractServer.Controls
 					sound.Loop = Convert.ToBoolean(args[0]);
 				}
 			}, typeof(bool)));
+
+			osc.Endpoints.Add(new OscTree.Endpoint("Pos", (args) =>
+			{
+				if (sound == null) return;
+				if (args.Count() > 2)
+				{
+					IYse.Pos pos = new IYse.Pos();
+					pos.X = Convert.ToSingle(args[0]);
+					pos.Y = Convert.ToSingle(args[1]);
+					pos.Z = Convert.ToSingle(args[2]);
+
+					sound.SetPos(pos);
+				}
+			}, typeof(object)));
 		}
 
 		public JObject Save()

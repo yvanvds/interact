@@ -23,7 +23,15 @@ namespace InteractClient.Network
 			{
 				parseUdpMessage(args.RemoteAddress, args.ByteData);
 			};
-			await udpReciever.StartListeningAsync(Global.UdpPort);
+
+			try
+			{
+				await udpReciever.StartListeningAsync(Global.UdpPort);
+			} catch(Exception e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+			
 		}
 
 		private static void parseUdpMessage(String ipAddress, byte[] data)

@@ -24,10 +24,10 @@ namespace InteractClient
 			Global.OscAllClients = new OscTree.Tree(new OscTree.Address("AllClients", "AllClients"));
 			Global.OscRoot.Add(Global.OscLocal);
 			Global.OscRoot.Add(Global.OscServer);
-			Global.OscRoot.ErrorHandler += Network.Sender.WriteLog;
-			Global.OscLocal.ErrorHandler += Network.Sender.WriteLog;
-			Global.OscServer.ErrorHandler += Network.Sender.WriteLog;
-			Global.OscAllClients.ErrorHandler += Network.Sender.WriteLog;
+			//Global.OscRoot.ErrorHandler += Network.Sender.WriteLog;
+			//Global.OscLocal.ErrorHandler += Network.Sender.WriteLog;
+			//Global.OscServer.ErrorHandler += Network.Sender.WriteLog;
+			//Global.OscAllClients.ErrorHandler += Network.Sender.WriteLog;
 
 			Global.OscServer.ReRoute += Network.Sender.ToServer;
 			Global.OscAllClients.ReRoute += Network.Sender.ToServer;
