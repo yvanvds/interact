@@ -31,6 +31,7 @@ namespace InteractServer.Project
 
 		public static void CreateProject(string folderName, string diskName, string projectName)
 		{
+			
 			string projectPath = Path.Combine(folderName, diskName);
 			Directory.CreateDirectory(projectPath);
 
@@ -53,14 +54,8 @@ namespace InteractServer.Project
 
 		public static void OpenProject(string path)
 		{
-			if (Current != null)
-			{
-				if (Current.NeedsSaving())
-				{
-					Current.Save();
-				}
+			if(Current != null) Current.Close();
 
-			}
 			try
 			{
 				current = new Project(path);
@@ -455,6 +450,23 @@ namespace InteractServer.Project
 			Pages.ProjectExplorer.Handle.Refresh();
 		}
 
+		public void Close()
+		{
+			if (Current != null)
+			{
+				if (Current.NeedsSaving())
+				{
+					Current.Save();
+				}
+			}
+
+			Osc.Tree.Clear();
+			MainWindow.Handle.CloseDocuments();
+			Pages.Properties.Handle.SetSelected(null);
+
+			Project.current = null;
+			Pages.ProjectExplorer.Handle.Refresh();
+		}
 
 		public void RemoveResource(IResource resource)
 		{

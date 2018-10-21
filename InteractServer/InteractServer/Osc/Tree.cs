@@ -54,5 +54,13 @@ namespace InteractServer.Osc
 			LocalClient.ErrorHandler += Log.Log.Handle.AddEntry;
 			AllClients.ErrorHandler += Log.Log.Handle.AddEntry;
 		}
+
+		public static void Clear()
+		{
+			Server.Clear();
+			Client.Clear();
+			ServerPatchers.Clear();
+			ServerSounds.Clear();
+		}
 	}
 }

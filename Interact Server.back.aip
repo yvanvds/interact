@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="14.3" version="14.3" Modules="simple" RootPath="." Language="en" Id="{0CE2B66E-DF9A-4A2C-9D85-2154D3A69532}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPNOREPAIR" Value="1"/>
+    <ROW Property="ARPPRODUCTICON" Value="Logo_A_.exe" Type="8"/>
+    <ROW Property="ARPURLINFOABOUT" Value="https://interact.mutecode.com/documentation/quick-start-guide/"/>
+    <ROW Property="Manufacturer" Value="Mute"/>
+    <ROW Property="ProductCode" Value="1033:{C14ED881-CC19-4961-99B7-8E71EB812E19} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="Interact Server"/>
+    <ROW Property="ProductVersion" Value="0.2" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{697F13A8-EC9B-48A8-8565-19D8E83BE1BB}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="de_Dir" Directory_Parent="APPDIR" DefaultDir="de"/>
+    <ROW Directory="en_Dir" Directory_Parent="APPDIR" DefaultDir="en"/>
+    <ROW Directory="es_Dir" Directory_Parent="APPDIR" DefaultDir="es"/>
+    <ROW Directory="fr_Dir" Directory_Parent="APPDIR" DefaultDir="fr"/>
+    <ROW Directory="hu_Dir" Directory_Parent="APPDIR" DefaultDir="hu"/>
+    <ROW Directory="it_Dir" Directory_Parent="APPDIR" DefaultDir="it"/>
+    <ROW Directory="ptBR_Dir" Directory_Parent="APPDIR" DefaultDir="pt-BR"/>
+    <ROW Directory="ro_Dir" Directory_Parent="APPDIR" DefaultDir="ro"/>
+    <ROW Directory="ru_Dir" Directory_Parent="APPDIR" DefaultDir="ru"/>
+    <ROW Directory="sv_Dir" Directory_Parent="APPDIR" DefaultDir="sv"/>
+    <ROW Directory="zhHans_Dir" Directory_Parent="APPDIR" DefaultDir="zh-Hans"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AutocompleteMenuScintillaNET.dll" ComponentId="{FB75EB54-DE0A-43B4-88B0-3F507D4953E3}" Directory_="APPDIR" Attributes="0" KeyPath="AutocompleteMenuScintillaNET.dll"/>
+    <ROW Component="ControlzEx.dll" ComponentId="{E7034510-B86C-4C23-9685-A82923609540}" Directory_="APPDIR" Attributes="0" KeyPath="ControlzEx.dll"/>
+    <ROW Component="EntityFramework.SqlServer.dll" ComponentId="{460595AD-6B7C-42B5-B0C7-0E8EE0F2B0E5}" Directory_="APPDIR" Attributes="0" KeyPath="EntityFramework.SqlServer.dll"/>
+    <ROW Component="EntityFramework.SqlServer.xml" ComponentId="{6BFC4A7A-6F19-403B-BCE5-ABFD4C515ABB}" Directory_="APPDIR" Attributes="0" KeyPath="EntityFramework.SqlServer.xml" Type="0"/>
+    <ROW Component="EntityFramework.dll" ComponentId="{5E6C5A40-4878-4FE9-88F1-77CC8B8D5443}" Directory_="APPDIR" Attributes="0" KeyPath="EntityFramework.dll"/>
+    <ROW Component="Esprima.dll" ComponentId="{D8C9A3CD-2168-4138-8924-9ED19FA55635}" Directory_="APPDIR" Attributes="0" KeyPath="Esprima.dll"/>
+    <ROW Component="InteractServer.exe" ComponentId="{A78CAFB2-CFE7-423B-87E2-54035F1755C5}" Directory_="APPDIR" Attributes="0" KeyPath="InteractServer.exe"/>
+    <ROW Component="MahApps.Metro.dll" ComponentId="{0BD61972-7094-4C0D-8140-8B04E7FFE375}" Directory_="APPDIR" Attributes="0" KeyPath="MahApps.Metro.dll"/>
+    <ROW Component="Microsoft.AspNet.SignalR.Core.dll" ComponentId="{5BC2AAEA-0756-43B6-B3F1-AEF9C8202AD1}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.AspNet.SignalR.Core.dll"/>
+    <ROW Component="Microsoft.AspNet.SignalR.SystemWeb.dll" ComponentId="{8CAB230F-955D-4A0F-AF58-C7FA1EF4FECB}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.AspNet.SignalR.SystemWeb.dll"/>
+    <ROW Component="Microsoft.Owin.Cors.dll" ComponentId="{B366D9A3-F4EC-49AA-9379-BC1B5CBF3A2F}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Cors.dll"/>
+    <ROW Component="Microsoft.Owin.Diagnostics.dll" ComponentId="{7126CAEF-8616-41A8-A116-E6A0F8C9D7C1}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Diagnostics.dll"/>
+    <ROW Component="Microsoft.Owin.Host.HttpListener.dll" ComponentId="{465B7A64-7C18-4FD4-9C57-60CA6418432F}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Host.HttpListener.dll"/>
+    <ROW Component="Microsoft.Owin.Host.SystemWeb.dll" ComponentId="{C877426E-49C3-49F9-9267-E22D745F9904}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Host.SystemWeb.dll"/>
+    <ROW Component="Microsoft.Owin.Hosting.dll" ComponentId="{9E458C63-31DB-43F8-996F-0DFBEB235793}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Hosting.dll"/>
+    <ROW Component="Microsoft.Owin.Security.dll" ComponentId="{B115052A-F4F4-4D8E-ACE5-3A53BC79FA49}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.Security.dll"/>
+    <ROW Component="Microsoft.Owin.dll" ComponentId="{EEF61F2B-7F82-48EE-848E-1435547F4BF9}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Owin.dll"/>
+    <ROW Component="Microsoft.Threading.Tasks.Extensions.Des" ComponentId="{6B7D8B45-7DAF-4418-861A-A97B4C0B9B0E}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Threading.Tasks.Extensions.Desktop.dll"/>
+    <ROW Component="Microsoft.Threading.Tasks.Extensions.dll" ComponentId="{B63A57B1-A473-47C2-8FE3-739C87483FDD}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Threading.Tasks.Extensions.dll"/>
+    <ROW Component="Microsoft.Threading.Tasks.dll" ComponentId="{EDE5703D-4371-40A1-B2EB-046F914AAD68}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Threading.Tasks.dll"/>
+    <ROW Component="Microsoft.Windows.Design.Extensibility.r" ComponentId="{956EFD99-C01D-4039-BEA0-2FF3BB024660}" Directory_="en_Dir" Attributes="0" KeyPath="Microsoft.Windows.Design.Extensibility.resources.dll"/>
+    <ROW Component="Newtonsoft.Json.dll" ComponentId="{9FCA42D5-B520-4055-9C9C-B3A9B84A0798}" Directory_="APPDIR" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
+    <ROW Component="Owin.dll" ComponentId="{984476CF-4AF2-4971-9F3E-91BA5E7681D0}" Directory_="APPDIR" Attributes="0" KeyPath="Owin.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{6A9B1ECE-5EF3-4F71-BD6C-A7173B76B387}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="Rug.Osc.dll" ComponentId="{EB777640-9445-4AC6-9B62-3FD423758113}" Directory_="APPDIR" Attributes="0" KeyPath="Rug.Osc.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{BF86259F-7B3C-449B-AABF-07C822F9DFDE}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="ScintillaNET.dll" ComponentId="{3E2A9247-E3FE-41E7-BAF3-486BA8DD371F}" Directory_="APPDIR" Attributes="0" KeyPath="ScintillaNET.dll"/>
+    <ROW Component="SkiaSharp.Views.Desktop.dll" ComponentId="{0AAD5430-00AB-4F29-B83E-FFE8B840D1BF}" Directory_="APPDIR" Attributes="0" KeyPath="SkiaSharp.Views.Desktop.dll"/>
+    <ROW Component="SkiaSharp.Views.WPF.dll" ComponentId="{89A027F2-2FE8-4CD7-A57F-8FD91CCA0A59}" Directory_="APPDIR" Attributes="0" KeyPath="SkiaSharp.Views.WPF.dll"/>
+    <ROW Component="SkiaSharp.dll" ComponentId="{D4532B7C-3736-46E6-B1DD-CBD2DEB204D9}" Directory_="APPDIR" Attributes="0" KeyPath="SkiaSharp.dll"/>
+    <ROW Component="Sockets.Plugin.Abstractions.dll" ComponentId="{80BF94E4-66FF-4200-80A1-D1384E73D1F6}" Directory_="APPDIR" Attributes="0" KeyPath="Sockets.Plugin.Abstractions.dll"/>
+    <ROW Component="Sockets.Plugin.dll" ComponentId="{DD64135B-2EB4-45B3-AD3B-12ECC58E2F1E}" Directory_="APPDIR" Attributes="0" KeyPath="Sockets.Plugin.dll"/>
+    <ROW Component="System.Data.Common.dll" ComponentId="{52526CE6-C93A-4F52-BE7D-187D52D6BE25}" Directory_="APPDIR" Attributes="0" KeyPath="System.Data.Common.dll"/>
+    <ROW Component="System.Diagnostics.StackTrace.dll" ComponentId="{403883DC-4236-44D1-936E-3F97FFA1E33A}" Directory_="APPDIR" Attributes="0" KeyPath="System.Diagnostics.StackTrace.dll"/>
+    <ROW Component="System.Diagnostics.Tracing.dll" ComponentId="{E0BFDA12-815A-419C-AEA0-24737D246A74}" Directory_="APPDIR" Attributes="0" KeyPath="System.Diagnostics.Tracing.dll"/>
+    <ROW Component="System.Globalization.Extensions.dll" ComponentId="{7AAE8406-0F48-45B8-8FCF-5FCECDF5CEF0}" Directory_="APPDIR" Attributes="0" KeyPath="System.Globalization.Extensions.dll"/>
+    <ROW Component="System.IO.Compression.dll" ComponentId="{FEF6C3F1-682B-4DB1-88C4-665D80CBAA3D}" Directory_="APPDIR" Attributes="0" KeyPath="System.IO.Compression.dll"/>
+    <ROW Component="System.Net.Http.Extensions.dll" ComponentId="{0C65EFEB-332F-4B07-A6E6-C3E6E9F53E9A}" Directory_="APPDIR" Attributes="0" KeyPath="System.Net.Http.Extensions.dll"/>
+    <ROW Component="System.Net.Http.Primitives.dll" ComponentId="{571AF262-FD4F-4A6F-88D4-887A2F759EC8}" Directory_="APPDIR" Attributes="0" KeyPath="System.Net.Http.Primitives.dll"/>
+    <ROW Component="System.Net.Http.dll" ComponentId="{14FA4C82-9BDE-4BC0-B67C-DA591534157D}" Directory_="APPDIR" Attributes="0" KeyPath="System.Net.Http.dll"/>
+    <ROW Component="System.Net.Sockets.dll" ComponentId="{56481DBA-AAA5-44F7-9739-514436933063}" Directory_="APPDIR" Attributes="0" KeyPath="System.Net.Sockets.dll"/>
+    <ROW Component="System.Reactive.Core.dll" ComponentId="{AE716687-9287-400C-9F1B-03C3F8C58E95}" Directory_="APPDIR" Attributes="0" KeyPath="System.Reactive.Core.dll"/>
+    <ROW Component="System.Reactive.Interfaces.dll" ComponentId="{4E76BFAA-1157-44C5-97AA-FB70D81D9C60}" Directory_="APPDIR" Attributes="0" KeyPath="System.Reactive.Interfaces.dll"/>
+    <ROW Component="System.Reactive.Linq.dll" ComponentId="{501766F6-A874-4503-B1E9-7AF65F85F70F}" Directory_="APPDIR" Attributes="0" KeyPath="System.Reactive.Linq.dll"/>
+    <ROW Component="System.Reactive.PlatformServices.dll" ComponentId="{662F6990-0265-4275-84E4-E8A79DF3741D}" Directory_="APPDIR" Attributes="0" KeyPath="System.Reactive.PlatformServices.dll"/>
+    <ROW Component="System.Runtime.Serialization.Primitives." ComponentId="{B967829B-8984-473E-94E0-DF08782598D8}" Directory_="APPDIR" Attributes="0" KeyPath="System.Runtime.Serialization.Primitives.dll"/>
+    <ROW Component="System.Security.Cryptography.Algorithms." ComponentId="{F5D244A4-5F89-4CB1-BB11-8CF53BAC6366}" Directory_="APPDIR" Attributes="0" KeyPath="System.Security.Cryptography.Algorithms.dll"/>
+    <ROW Component="System.Security.SecureString.dll" ComponentId="{B8182E90-2D2E-46C8-BBCF-B1EEB8CDC987}" Directory_="APPDIR" Attributes="0" KeyPath="System.Security.SecureString.dll"/>
+    <ROW Component="System.Threading.Overlapped.dll" ComponentId="{D2C9FEF1-D550-4EA5-9FC7-D1CD6815B560}" Directory_="APPDIR" Attributes="0" KeyPath="System.Threading.Overlapped.dll"/>
+    <ROW Component="System.Web.Cors.dll" ComponentId="{1D69BD79-59FF-49BA-8A75-CE413EF0E8B3}" Directory_="APPDIR" Attributes="0" KeyPath="System.Web.Cors.dll"/>
+    <ROW Component="System.Windows.Interactivity.dll" ComponentId="{042BE0EF-FC69-42A1-9F0A-AC7454874B64}" Directory_="APPDIR" Attributes="0" KeyPath="System.Windows.Interactivity.dll"/>
+    <ROW Component="System.Xml.XPath.XDocument.dll" ComponentId="{033F94C1-B4ED-4744-9842-EAA79B6DD93E}" Directory_="APPDIR" Attributes="0" KeyPath="System.Xml.XPath.XDocument.dll"/>
+    <ROW Component="Xamarin.Forms.Core.dll" ComponentId="{83BE5820-8884-43AA-8B33-282C666A711E}" Directory_="APPDIR" Attributes="0" KeyPath="Xamarin.Forms.Core.dll"/>
+    <ROW Component="Xamarin.Forms.Platform.dll" ComponentId="{D8EA840B-94EB-4E17-A577-9F015F9D2F4B}" Directory_="APPDIR" Attributes="0" KeyPath="Xamarin.Forms.Platform.dll"/>
+    <ROW Component="Xamarin.Forms.Xaml.dll" ComponentId="{65D3BAC4-30E7-44BE-B0E8-09DF1619FD6D}" Directory_="APPDIR" Attributes="0" KeyPath="Xamarin.Forms.Xaml.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.Themes.Aero.dll" ComponentId="{67668AAC-4E39-433E-8829-F6478DA0DA3D}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.Themes.Aero.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.Themes.Metro.dll" ComponentId="{FB03ED5F-29D1-40BB-ACEC-EBA29EAAD8AC}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.Themes.Metro.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" ComponentId="{AFC207E2-EC2A-4409-85EE-2542D6417631}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.Themes.VS2010.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.dll" ComponentId="{A8159E07-A19B-4DC4-BFC6-F5623D2C5395}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll" ComponentId="{963B5FEB-1526-4579-A0BA-140F8DDC07F3}" Directory_="de_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_1" ComponentId="{3CB87CD3-13B6-4345-B697-4B2972DC2621}" Directory_="es_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_1"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_2" ComponentId="{3A600B11-868B-42C2-809D-D2086356FF74}" Directory_="fr_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_2"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_3" ComponentId="{B9FFB624-9E2B-4E82-9909-B1D2252060E1}" Directory_="hu_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_3"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_4" ComponentId="{7DA90596-94AC-4C32-A348-06813D71CDB0}" Directory_="it_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_4"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_5" ComponentId="{47AA0198-ACBB-4CC0-A8D5-A92F843ADC37}" Directory_="ptBR_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_5"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_6" ComponentId="{F0E7B433-7535-4FE8-816E-CB4D8E1D7E7B}" Directory_="ro_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_6"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_7" ComponentId="{50EBE5D2-367E-485B-895A-AB5FDEC3C3C7}" Directory_="ru_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_7"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_8" ComponentId="{AF786016-1F05-4327-B66E-BA889AFEB2CB}" Directory_="sv_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_8"/>
+    <ROW Component="Xceed.Wpf.AvalonDock.resources.dll_9" ComponentId="{9DD5C7EE-1E65-4E3A-A6AF-5D5005953B8C}" Directory_="zhHans_Dir" Attributes="0" KeyPath="Xceed.Wpf.AvalonDock.resources.dll_9"/>
+    <ROW Component="Xceed.Wpf.DataGrid.dll" ComponentId="{8026395C-19CA-4474-B20F-7B4A4E355B2D}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.DataGrid.dll"/>
+    <ROW Component="Xceed.Wpf.Toolkit.dll" ComponentId="{288BF1FE-E93A-4FF2-9AFF-F8672E0C4CBD}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.Toolkit.dll"/>
+    <ROW Component="YSE.NET.PCL.dll" ComponentId="{5523F26C-B11D-4F1B-AFC3-53C78BC4EB0D}" Directory_="APPDIR" Attributes="0" KeyPath="YSE.NET.PCL.dll"/>
+    <ROW Component="YapView.dll" ComponentId="{F1383E6E-AE6C-48AC-AF3E-2B95E49CFA99}" Directory_="APPDIR" Attributes="0" KeyPath="YapView.dll"/>
+    <ROW Component="Yse.NET.Standard.dll" ComponentId="{122B196E-5A61-4962-91D2-C375BC80B7B9}" Directory_="APPDIR" Attributes="0" KeyPath="Yse.NET.Standard.dll"/>
+    <ROW Component="Yse.dll" ComponentId="{1DC9D864-F00E-41BD-845D-1C65CD43262E}" Directory_="APPDIR" Attributes="0" KeyPath="Yse.dll"/>
+    <ROW Component="jint.dll" ComponentId="{BF27C3C8-9D4C-4977-8F06-4B51BE6B2135}" Directory_="APPDIR" Attributes="0" KeyPath="jint.dll"/>
+    <ROW Component="libSkiaSharp.dll" ComponentId="{A4513C14-7C14-4B6A-B039-DD35B9998A94}" Directory_="APPDIR" Attributes="0" KeyPath="libSkiaSharp.dll"/>
+    <ROW Component="libsndfile1.dll" ComponentId="{6C163854-D6D0-4135-8418-4AB6522FD93B}" Directory_="APPDIR" Attributes="0" KeyPath="libsndfile1.dll"/>
+    <ROW Component="portaudio_x86.dll" ComponentId="{7A375DE9-4B72-4DCD-899B-9D03498D524D}" Directory_="APPDIR" Attributes="0" KeyPath="portaudio_x86.dll"/>
+    <ROW Component="sqlite3.dll" ComponentId="{BBC5846F-64E1-4BB0-84B3-36759074E3FB}" Directory_="APPDIR" Attributes="0" KeyPath="sqlite3.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AutocompleteMenuScintillaNET.dll ControlzEx.dll EntityFramework.SqlServer.dll EntityFramework.SqlServer.xml EntityFramework.dll Esprima.dll InteractServer.exe MahApps.Metro.dll Microsoft.AspNet.SignalR.Core.dll Microsoft.AspNet.SignalR.SystemWeb.dll Microsoft.Owin.Cors.dll Microsoft.Owin.Diagnostics.dll Microsoft.Owin.Host.HttpListener.dll Microsoft.Owin.Host.SystemWeb.dll Microsoft.Owin.Hosting.dll Microsoft.Owin.Security.dll Microsoft.Owin.dll Microsoft.Threading.Tasks.Extensions.Des Microsoft.Threading.Tasks.Extensions.dll Microsoft.Threading.Tasks.dll Microsoft.Windows.Design.Extensibility.r Newtonsoft.Json.dll Owin.dll ProductInformation Rug.Osc.dll SHORTCUTDIR ScintillaNET.dll SkiaSharp.Views.Desktop.dll SkiaSharp.Views.WPF.dll SkiaSharp.dll Sockets.Plugin.Abstractions.dll Sockets.Plugin.dll System.Data.Common.dll System.Diagnostics.StackTrace.dll System.Diagnostics.Tracing.dll System.Globalization.Extensions.dll System.IO.Compression.dll System.Net.Http.Extensions.dll System.Net.Http.Primitives.dll System.Net.Http.dll System.Net.Sockets.dll System.Reactive.Core.dll System.Reactive.Interfaces.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Runtime.Serialization.Primitives. System.Security.Cryptography.Algorithms. System.Security.SecureString.dll System.Threading.Overlapped.dll System.Web.Cors.dll System.Windows.Interactivity.dll System.Xml.XPath.XDocument.dll Xamarin.Forms.Core.dll Xamarin.Forms.Platform.dll Xamarin.Forms.Xaml.dll Xceed.Wpf.AvalonDock.Themes.Aero.dll Xceed.Wpf.AvalonDock.Themes.Metro.dll Xceed.Wpf.AvalonDock.Themes.VS2010.dll Xceed.Wpf.AvalonDock.dll Xceed.Wpf.AvalonDock.resources.dll Xceed.Wpf.AvalonDock.resources.dll_1 Xceed.Wpf.AvalonDock.resources.dll_2 Xceed.Wpf.AvalonDock.resources.dll_3 Xceed.Wpf.AvalonDock.resources.dll_4 Xceed.Wpf.AvalonDock.resources.dll_5 Xceed.Wpf.AvalonDock.resources.dll_6 Xceed.Wpf.AvalonDock.resources.dll_7 Xceed.Wpf.AvalonDock.resources.dll_8 Xceed.Wpf.AvalonDock.resources.dll_9 Xceed.Wpf.DataGrid.dll Xceed.Wpf.Toolkit.dll YSE.NET.PCL.dll YapView.dll Yse.NET.Standard.dll Yse.dll jint.dll libSkiaSharp.dll libsndfile1.dll portaudio_x86.dll sqlite3.dll"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AutocompleteMenuScintillaNET.dll" Component_="AutocompleteMenuScintillaNET.dll" FileName="AUTOCO~1.DLL|AutocompleteMenu-ScintillaNET.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\AutocompleteMenu-ScintillaNET.dll" SelfReg="false" NextFile="ControlzEx.dll"/>
+    <ROW File="ControlzEx.dll" Component_="ControlzEx.dll" FileName="CONTRO~1.DLL|ControlzEx.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ControlzEx.dll" SelfReg="false" NextFile="ControlzEx.pdb"/>
+    <ROW File="ControlzEx.pdb" Component_="ControlzEx.dll" FileName="CONTRO~1.PDB|ControlzEx.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ControlzEx.pdb" SelfReg="false" NextFile="EntityFramework.dll"/>
+    <ROW File="EntityFramework.SqlServer.dll" Component_="EntityFramework.SqlServer.dll" FileName="ENTITY~2.DLL|EntityFramework.SqlServer.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\EntityFramework.SqlServer.dll" SelfReg="false" NextFile="EntityFramework.SqlServer.xml"/>
+    <ROW File="EntityFramework.SqlServer.xml" Component_="EntityFramework.SqlServer.xml" FileName="ENTITY~1.XML|EntityFramework.SqlServer.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\EntityFramework.SqlServer.xml" SelfReg="false" NextFile="EntityFramework.xml"/>
+    <ROW File="EntityFramework.dll" Component_="EntityFramework.dll" FileName="ENTITY~1.DLL|EntityFramework.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\EntityFramework.dll" SelfReg="false" NextFile="EntityFramework.SqlServer.dll"/>
+    <ROW File="EntityFramework.xml" Component_="EntityFramework.SqlServer.xml" FileName="ENTITY~2.XML|EntityFramework.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\EntityFramework.xml" SelfReg="false" NextFile="Esprima.dll"/>
+    <ROW File="Esprima.dll" Component_="Esprima.dll" FileName="Esprima.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Esprima.dll" SelfReg="false" NextFile="InteractServer.exe"/>
+    <ROW File="InteractServer.exe" Component_="InteractServer.exe" FileName="INTERA~1.EXE|InteractServer.exe" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\InteractServer.exe" SelfReg="false" NextFile="InteractServer.exe.config" DigSign="true"/>
+    <ROW File="InteractServer.exe.config" Component_="EntityFramework.SqlServer.xml" FileName="INTERA~1.CON|InteractServer.exe.config" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\InteractServer.exe.config" SelfReg="false" NextFile="InteractServer.pdb"/>
+    <ROW File="InteractServer.pdb" Component_="InteractServer.exe" FileName="INTERA~1.PDB|InteractServer.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\InteractServer.pdb" SelfReg="false" NextFile="jint.dll"/>
+    <ROW File="MahApps.Metro.dll" Component_="MahApps.Metro.dll" FileName="MAHAPP~1.DLL|MahApps.Metro.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\MahApps.Metro.dll" SelfReg="false" NextFile="MahApps.Metro.pdb"/>
+    <ROW File="MahApps.Metro.pdb" Component_="MahApps.Metro.dll" FileName="MAHAPP~1.PDB|MahApps.Metro.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\MahApps.Metro.pdb" SelfReg="false" NextFile="MahApps.Metro.xml"/>
+    <ROW File="MahApps.Metro.xml" Component_="EntityFramework.SqlServer.xml" FileName="MAHAPP~1.XML|MahApps.Metro.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\MahApps.Metro.xml" SelfReg="false" NextFile="Microsoft.AspNet.SignalR.Core.dll"/>
+    <ROW File="Microsoft.AspNet.SignalR.Core.dll" Component_="Microsoft.AspNet.SignalR.Core.dll" FileName="MICROS~1.DLL|Microsoft.AspNet.SignalR.Core.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.AspNet.SignalR.Core.dll" SelfReg="false" NextFile="Microsoft.AspNet.SignalR.Core.xml"/>
+    <ROW File="Microsoft.AspNet.SignalR.Core.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~1.XML|Microsoft.AspNet.SignalR.Core.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.AspNet.SignalR.Core.xml" SelfReg="false" NextFile="Microsoft.AspNet.SignalR.SystemWeb.dll"/>
+    <ROW File="Microsoft.AspNet.SignalR.SystemWeb.dll" Component_="Microsoft.AspNet.SignalR.SystemWeb.dll" FileName="MICROS~2.DLL|Microsoft.AspNet.SignalR.SystemWeb.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.AspNet.SignalR.SystemWeb.dll" SelfReg="false" NextFile="Microsoft.AspNet.SignalR.SystemWeb.xml"/>
+    <ROW File="Microsoft.AspNet.SignalR.SystemWeb.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~2.XML|Microsoft.AspNet.SignalR.SystemWeb.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.AspNet.SignalR.SystemWeb.xml" SelfReg="false" NextFile="Microsoft.Owin.Cors.dll"/>
+    <ROW File="Microsoft.Owin.Cors.dll" Component_="Microsoft.Owin.Cors.dll" FileName="MICROS~3.DLL|Microsoft.Owin.Cors.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Cors.dll" SelfReg="false" NextFile="Microsoft.Owin.Cors.xml"/>
+    <ROW File="Microsoft.Owin.Cors.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~3.XML|Microsoft.Owin.Cors.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Cors.xml" SelfReg="false" NextFile="Microsoft.Owin.Diagnostics.dll"/>
+    <ROW File="Microsoft.Owin.Diagnostics.dll" Component_="Microsoft.Owin.Diagnostics.dll" FileName="MICROS~4.DLL|Microsoft.Owin.Diagnostics.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Diagnostics.dll" SelfReg="false" NextFile="Microsoft.Owin.Diagnostics.xml"/>
+    <ROW File="Microsoft.Owin.Diagnostics.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~4.XML|Microsoft.Owin.Diagnostics.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Diagnostics.xml" SelfReg="false" NextFile="Microsoft.Owin.dll"/>
+    <ROW File="Microsoft.Owin.Host.HttpListener.dll" Component_="Microsoft.Owin.Host.HttpListener.dll" FileName="MICROS~6.DLL|Microsoft.Owin.Host.HttpListener.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Host.HttpListener.dll" SelfReg="false" NextFile="Microsoft.Owin.Host.HttpListener.xml"/>
+    <ROW File="Microsoft.Owin.Host.HttpListener.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~5.XML|Microsoft.Owin.Host.HttpListener.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Host.HttpListener.xml" SelfReg="false" NextFile="Microsoft.Owin.Host.SystemWeb.dll"/>
+    <ROW File="Microsoft.Owin.Host.SystemWeb.dll" Component_="Microsoft.Owin.Host.SystemWeb.dll" FileName="MICROS~7.DLL|Microsoft.Owin.Host.SystemWeb.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Host.SystemWeb.dll" SelfReg="false" NextFile="Microsoft.Owin.Host.SystemWeb.xml"/>
+    <ROW File="Microsoft.Owin.Host.SystemWeb.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~6.XML|Microsoft.Owin.Host.SystemWeb.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Host.SystemWeb.xml" SelfReg="false" NextFile="Microsoft.Owin.Hosting.dll"/>
+    <ROW File="Microsoft.Owin.Hosting.dll" Component_="Microsoft.Owin.Hosting.dll" FileName="MICROS~8.DLL|Microsoft.Owin.Hosting.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Hosting.dll" SelfReg="false" NextFile="Microsoft.Owin.Hosting.xml"/>
+    <ROW File="Microsoft.Owin.Hosting.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~7.XML|Microsoft.Owin.Hosting.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Hosting.xml" SelfReg="false" NextFile="Microsoft.Owin.Security.dll"/>
+    <ROW File="Microsoft.Owin.Security.dll" Component_="Microsoft.Owin.Security.dll" FileName="MICROS~9.DLL|Microsoft.Owin.Security.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Security.dll" SelfReg="false" NextFile="Microsoft.Owin.Security.xml"/>
+    <ROW File="Microsoft.Owin.Security.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~8.XML|Microsoft.Owin.Security.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.Security.xml" SelfReg="false" NextFile="Microsoft.Owin.xml"/>
+    <ROW File="Microsoft.Owin.dll" Component_="Microsoft.Owin.dll" FileName="MICROS~5.DLL|Microsoft.Owin.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.dll" SelfReg="false" NextFile="Microsoft.Owin.Host.HttpListener.dll"/>
+    <ROW File="Microsoft.Owin.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICROS~9.XML|Microsoft.Owin.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Owin.xml" SelfReg="false" NextFile="Microsoft.Threading.Tasks.dll"/>
+    <ROW File="Microsoft.Threading.Tasks.Extensions.Desktop.dll" Component_="Microsoft.Threading.Tasks.Extensions.Des" FileName="MICRO~11.DLL|Microsoft.Threading.Tasks.Extensions.Desktop.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll" SelfReg="false" NextFile="Microsoft.Threading.Tasks.Extensions.Desktop.xml"/>
+    <ROW File="Microsoft.Threading.Tasks.Extensions.Desktop.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICRO~10.XML|Microsoft.Threading.Tasks.Extensions.Desktop.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.Extensions.Desktop.xml" SelfReg="false" NextFile="Microsoft.Threading.Tasks.Extensions.dll"/>
+    <ROW File="Microsoft.Threading.Tasks.Extensions.dll" Component_="Microsoft.Threading.Tasks.Extensions.dll" FileName="MICRO~12.DLL|Microsoft.Threading.Tasks.Extensions.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.Extensions.dll" SelfReg="false" NextFile="Microsoft.Threading.Tasks.Extensions.xml"/>
+    <ROW File="Microsoft.Threading.Tasks.Extensions.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICRO~11.XML|Microsoft.Threading.Tasks.Extensions.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.Extensions.xml" SelfReg="false" NextFile="Microsoft.Threading.Tasks.xml"/>
+    <ROW File="Microsoft.Threading.Tasks.dll" Component_="Microsoft.Threading.Tasks.dll" FileName="MICRO~10.DLL|Microsoft.Threading.Tasks.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.dll" SelfReg="false" NextFile="Microsoft.Threading.Tasks.Extensions.Desktop.dll"/>
+    <ROW File="Microsoft.Threading.Tasks.xml" Component_="EntityFramework.SqlServer.xml" FileName="MICRO~12.XML|Microsoft.Threading.Tasks.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Microsoft.Threading.Tasks.xml" SelfReg="false" NextFile="Newtonsoft.Json.dll"/>
+    <ROW File="Microsoft.Windows.Design.Extensibility.resources.dll" Component_="Microsoft.Windows.Design.Extensibility.r" FileName="MICROS~1.DLL|Microsoft.Windows.Design.Extensibility.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\en\Microsoft.Windows.Design.Extensibility.resources.dll" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Newtonsoft.Json.dll" SelfReg="false" NextFile="Newtonsoft.Json.xml"/>
+    <ROW File="Newtonsoft.Json.xml" Component_="EntityFramework.SqlServer.xml" FileName="NEWTON~1.XML|Newtonsoft.Json.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Newtonsoft.Json.xml" SelfReg="false" NextFile="Owin.dll"/>
+    <ROW File="Owin.dll" Component_="Owin.dll" FileName="Owin.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Owin.dll" SelfReg="false" NextFile="portaudio_x86.dll"/>
+    <ROW File="Rug.Osc.dll" Component_="Rug.Osc.dll" FileName="RUGOSC~1.DLL|Rug.Osc.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Rug.Osc.dll" SelfReg="false" NextFile="Rug.Osc.xml"/>
+    <ROW File="Rug.Osc.xml" Component_="EntityFramework.SqlServer.xml" FileName="RUGOSC~1.XML|Rug.Osc.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Rug.Osc.xml" SelfReg="false" NextFile="ScintillaNET.dll"/>
+    <ROW File="ScintillaNET.dll" Component_="ScintillaNET.dll" FileName="SCINTI~1.DLL|ScintillaNET.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ScintillaNET.dll" SelfReg="false" NextFile="ScintillaNET.xml"/>
+    <ROW File="ScintillaNET.xml" Component_="EntityFramework.SqlServer.xml" FileName="SCINTI~1.XML|ScintillaNET.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ScintillaNET.xml" SelfReg="false" NextFile="SkiaSharp.dll"/>
+    <ROW File="SkiaSharp.Views.Desktop.dll" Component_="SkiaSharp.Views.Desktop.dll" FileName="SKIASH~2.DLL|SkiaSharp.Views.Desktop.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\SkiaSharp.Views.Desktop.dll" SelfReg="false" NextFile="SkiaSharp.Views.WPF.dll"/>
+    <ROW File="SkiaSharp.Views.WPF.dll" Component_="SkiaSharp.Views.WPF.dll" FileName="SKIASH~3.DLL|SkiaSharp.Views.WPF.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\SkiaSharp.Views.WPF.dll" SelfReg="false" NextFile="SkiaSharp.xml"/>
+    <ROW File="SkiaSharp.dll" Component_="SkiaSharp.dll" FileName="SKIASH~1.DLL|SkiaSharp.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\SkiaSharp.dll" SelfReg="false" NextFile="SkiaSharp.dll.config"/>
+    <ROW File="SkiaSharp.dll.config" Component_="EntityFramework.SqlServer.xml" FileName="SKIASH~1.CON|SkiaSharp.dll.config" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\SkiaSharp.dll.config" SelfReg="false" NextFile="SkiaSharp.Views.Desktop.dll"/>
+    <ROW File="SkiaSharp.xml" Component_="EntityFramework.SqlServer.xml" FileName="SKIASH~1.XML|SkiaSharp.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\SkiaSharp.xml" SelfReg="false" NextFile="Sockets.Plugin.Abstractions.dll"/>
+    <ROW File="Sockets.Plugin.Abstractions.dll" Component_="Sockets.Plugin.Abstractions.dll" FileName="SOCKET~1.DLL|Sockets.Plugin.Abstractions.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.Abstractions.dll" SelfReg="false" NextFile="Sockets.Plugin.Abstractions.pdb"/>
+    <ROW File="Sockets.Plugin.Abstractions.pdb" Component_="Sockets.Plugin.Abstractions.dll" FileName="SOCKET~1.PDB|Sockets.Plugin.Abstractions.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.Abstractions.pdb" SelfReg="false" NextFile="Sockets.Plugin.Abstractions.xml"/>
+    <ROW File="Sockets.Plugin.Abstractions.xml" Component_="EntityFramework.SqlServer.xml" FileName="SOCKET~1.XML|Sockets.Plugin.Abstractions.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.Abstractions.xml" SelfReg="false" NextFile="Sockets.Plugin.dll"/>
+    <ROW File="Sockets.Plugin.dll" Component_="Sockets.Plugin.dll" FileName="SOCKET~2.DLL|Sockets.Plugin.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.dll" SelfReg="false" NextFile="Sockets.Plugin.pdb"/>
+    <ROW File="Sockets.Plugin.pdb" Component_="Sockets.Plugin.dll" FileName="SOCKET~2.PDB|Sockets.Plugin.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.pdb" SelfReg="false" NextFile="Sockets.Plugin.xml"/>
+    <ROW File="Sockets.Plugin.xml" Component_="EntityFramework.SqlServer.xml" FileName="SOCKET~2.XML|Sockets.Plugin.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Sockets.Plugin.xml" SelfReg="false" NextFile="sqlite3.dll"/>
+    <ROW File="System.Data.Common.dll" Component_="System.Data.Common.dll" FileName="SYSTEM~1.DLL|System.Data.Common.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Data.Common.dll" SelfReg="false" NextFile="System.Diagnostics.StackTrace.dll"/>
+    <ROW File="System.Diagnostics.StackTrace.dll" Component_="System.Diagnostics.StackTrace.dll" FileName="SYSTEM~5.DLL|System.Diagnostics.StackTrace.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Diagnostics.StackTrace.dll" SelfReg="false" NextFile="System.Diagnostics.Tracing.dll"/>
+    <ROW File="System.Diagnostics.Tracing.dll" Component_="System.Diagnostics.Tracing.dll" FileName="SYSTEM~6.DLL|System.Diagnostics.Tracing.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Diagnostics.Tracing.dll" SelfReg="false" NextFile="System.Globalization.Extensions.dll"/>
+    <ROW File="System.Globalization.Extensions.dll" Component_="System.Globalization.Extensions.dll" FileName="SYSTEM~7.DLL|System.Globalization.Extensions.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Globalization.Extensions.dll" SelfReg="false" NextFile="System.IO.Compression.dll"/>
+    <ROW File="System.IO.Compression.dll" Component_="System.IO.Compression.dll" FileName="SYSTEM~8.DLL|System.IO.Compression.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.IO.Compression.dll" SelfReg="false" NextFile="System.Net.Http.dll"/>
+    <ROW File="System.Net.Http.Extensions.dll" Component_="System.Net.Http.Extensions.dll" FileName="SYSTE~10.DLL|System.Net.Http.Extensions.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Http.Extensions.dll" SelfReg="false" NextFile="System.Net.Http.Extensions.xml"/>
+    <ROW File="System.Net.Http.Extensions.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~2.XML|System.Net.Http.Extensions.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Http.Extensions.xml" SelfReg="false" NextFile="System.Net.Http.Primitives.dll"/>
+    <ROW File="System.Net.Http.Primitives.dll" Component_="System.Net.Http.Primitives.dll" FileName="SYSTE~11.DLL|System.Net.Http.Primitives.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Http.Primitives.dll" SelfReg="false" NextFile="System.Net.Http.Primitives.xml"/>
+    <ROW File="System.Net.Http.Primitives.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~3.XML|System.Net.Http.Primitives.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Http.Primitives.xml" SelfReg="false" NextFile="System.Net.Sockets.dll"/>
+    <ROW File="System.Net.Http.dll" Component_="System.Net.Http.dll" FileName="SYSTEM~9.DLL|System.Net.Http.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Http.dll" SelfReg="false" NextFile="System.Net.Http.Extensions.dll"/>
+    <ROW File="System.Net.Sockets.dll" Component_="System.Net.Sockets.dll" FileName="SYSTE~12.DLL|System.Net.Sockets.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Net.Sockets.dll" SelfReg="false" NextFile="System.Reactive.Core.dll"/>
+    <ROW File="System.Reactive.Core.dll" Component_="System.Reactive.Core.dll" FileName="SYSTE~13.DLL|System.Reactive.Core.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Core.dll" SelfReg="false" NextFile="System.Reactive.Core.xml"/>
+    <ROW File="System.Reactive.Core.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~4.XML|System.Reactive.Core.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Core.xml" SelfReg="false" NextFile="System.Reactive.Interfaces.dll"/>
+    <ROW File="System.Reactive.Interfaces.dll" Component_="System.Reactive.Interfaces.dll" FileName="SYSTE~14.DLL|System.Reactive.Interfaces.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Interfaces.dll" SelfReg="false" NextFile="System.Reactive.Interfaces.xml"/>
+    <ROW File="System.Reactive.Interfaces.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~5.XML|System.Reactive.Interfaces.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Interfaces.xml" SelfReg="false" NextFile="System.Reactive.Linq.dll"/>
+    <ROW File="System.Reactive.Linq.dll" Component_="System.Reactive.Linq.dll" FileName="SYSTE~15.DLL|System.Reactive.Linq.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Linq.dll" SelfReg="false" NextFile="System.Reactive.Linq.xml"/>
+    <ROW File="System.Reactive.Linq.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~6.XML|System.Reactive.Linq.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.Linq.xml" SelfReg="false" NextFile="System.Reactive.PlatformServices.dll"/>
+    <ROW File="System.Reactive.PlatformServices.dll" Component_="System.Reactive.PlatformServices.dll" FileName="SYSTE~16.DLL|System.Reactive.PlatformServices.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.PlatformServices.dll" SelfReg="false" NextFile="System.Reactive.PlatformServices.xml"/>
+    <ROW File="System.Reactive.PlatformServices.xml" Component_="EntityFramework.SqlServer.xml" FileName="SYSTEM~7.XML|System.Reactive.PlatformServices.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Reactive.PlatformServices.xml" SelfReg="false" NextFile="System.Runtime.Serialization.Primitives.dll"/>
+    <ROW File="System.Runtime.Serialization.Primitives.dll" Component_="System.Runtime.Serialization.Primitives." FileName="SYSTE~17.DLL|System.Runtime.Serialization.Primitives.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Runtime.Serialization.Primitives.dll" SelfReg="false" NextFile="System.Security.Cryptography.Algorithms.dll"/>
+    <ROW File="System.Security.Cryptography.Algorithms.dll" Component_="System.Security.Cryptography.Algorithms." FileName="SYSTE~18.DLL|System.Security.Cryptography.Algorithms.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Security.Cryptography.Algorithms.dll" SelfReg="false" NextFile="System.Security.SecureString.dll"/>
+    <ROW File="System.Security.SecureString.dll" Component_="System.Security.SecureString.dll" FileName="SYSTE~19.DLL|System.Security.SecureString.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Security.SecureString.dll" SelfReg="false" NextFile="System.Threading.Overlapped.dll"/>
+    <ROW File="System.Threading.Overlapped.dll" Component_="System.Threading.Overlapped.dll" FileName="SYSTE~20.DLL|System.Threading.Overlapped.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Threading.Overlapped.dll" SelfReg="false" NextFile="System.Web.Cors.dll"/>
+    <ROW File="System.Web.Cors.dll" Component_="System.Web.Cors.dll" FileName="SYSTE~21.DLL|System.Web.Cors.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Web.Cors.dll" SelfReg="false" NextFile="System.Windows.Interactivity.dll"/>
+    <ROW File="System.Windows.Interactivity.dll" Component_="System.Windows.Interactivity.dll" FileName="SYSTE~22.DLL|System.Windows.Interactivity.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Windows.Interactivity.dll" SelfReg="false" NextFile="System.Xml.XPath.XDocument.dll"/>
+    <ROW File="System.Xml.XPath.XDocument.dll" Component_="System.Xml.XPath.XDocument.dll" FileName="SYSTE~23.DLL|System.Xml.XPath.XDocument.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\System.Xml.XPath.XDocument.dll" SelfReg="false" NextFile="Xamarin.Forms.Core.dll"/>
+    <ROW File="Xamarin.Forms.Core.dll" Component_="Xamarin.Forms.Core.dll" FileName="XAMARI~1.DLL|Xamarin.Forms.Core.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Core.dll" SelfReg="false" NextFile="Xamarin.Forms.Core.pdb"/>
+    <ROW File="Xamarin.Forms.Core.pdb" Component_="Xamarin.Forms.Core.dll" FileName="XAMARI~1.PDB|Xamarin.Forms.Core.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Core.pdb" SelfReg="false" NextFile="Xamarin.Forms.Core.xml"/>
+    <ROW File="Xamarin.Forms.Core.xml" Component_="EntityFramework.SqlServer.xml" FileName="XAMARI~1.XML|Xamarin.Forms.Core.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Core.xml" SelfReg="false" NextFile="Xamarin.Forms.Platform.dll"/>
+    <ROW File="Xamarin.Forms.Platform.dll" Component_="Xamarin.Forms.Platform.dll" FileName="XAMARI~2.DLL|Xamarin.Forms.Platform.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Platform.dll" SelfReg="false" NextFile="Xamarin.Forms.Xaml.dll"/>
+    <ROW File="Xamarin.Forms.Xaml.dll" Component_="Xamarin.Forms.Xaml.dll" FileName="XAMARI~3.DLL|Xamarin.Forms.Xaml.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Xaml.dll" SelfReg="false" NextFile="Xamarin.Forms.Xaml.pdb"/>
+    <ROW File="Xamarin.Forms.Xaml.pdb" Component_="Xamarin.Forms.Xaml.dll" FileName="XAMARI~2.PDB|Xamarin.Forms.Xaml.pdb" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Xaml.pdb" SelfReg="false" NextFile="Xamarin.Forms.Xaml.xml"/>
+    <ROW File="Xamarin.Forms.Xaml.xml" Component_="EntityFramework.SqlServer.xml" FileName="XAMARI~2.XML|Xamarin.Forms.Xaml.xml" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xamarin.Forms.Xaml.xml" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.dll"/>
+    <ROW File="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Component_="Xceed.Wpf.AvalonDock.Themes.Aero.dll" FileName="XCEEDW~2.DLL|Xceed.Wpf.AvalonDock.Themes.Aero.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.AvalonDock.Themes.Aero.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.Themes.Metro.dll"/>
+    <ROW File="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Component_="Xceed.Wpf.AvalonDock.Themes.Metro.dll" FileName="XCEEDW~3.DLL|Xceed.Wpf.AvalonDock.Themes.Metro.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.AvalonDock.Themes.Metro.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.Themes.VS2010.dll"/>
+    <ROW File="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Component_="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" FileName="XCEEDW~4.DLL|Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" SelfReg="false" NextFile="Xceed.Wpf.DataGrid.dll"/>
+    <ROW File="Xceed.Wpf.AvalonDock.dll" Component_="Xceed.Wpf.AvalonDock.dll" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.AvalonDock.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.Themes.Aero.dll"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll" Component_="Xceed.Wpf.AvalonDock.resources.dll" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\de\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_1"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_1" Component_="Xceed.Wpf.AvalonDock.resources.dll_1" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\es\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_2"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_2" Component_="Xceed.Wpf.AvalonDock.resources.dll_2" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\fr\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_3"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_3" Component_="Xceed.Wpf.AvalonDock.resources.dll_3" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\hu\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_4"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_4" Component_="Xceed.Wpf.AvalonDock.resources.dll_4" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\it\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_5"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_5" Component_="Xceed.Wpf.AvalonDock.resources.dll_5" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_6"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_6" Component_="Xceed.Wpf.AvalonDock.resources.dll_6" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ro\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_7"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_7" Component_="Xceed.Wpf.AvalonDock.resources.dll_7" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\ru\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_8"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_8" Component_="Xceed.Wpf.AvalonDock.resources.dll_8" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\sv\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll_9"/>
+    <ROW File="Xceed.Wpf.AvalonDock.resources.dll_9" Component_="Xceed.Wpf.AvalonDock.resources.dll_9" FileName="XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.resources.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll" SelfReg="false" NextFile="Microsoft.Windows.Design.Extensibility.resources.dll"/>
+    <ROW File="Xceed.Wpf.DataGrid.dll" Component_="Xceed.Wpf.DataGrid.dll" FileName="XCEEDW~5.DLL|Xceed.Wpf.DataGrid.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.DataGrid.dll" SelfReg="false" NextFile="Xceed.Wpf.Toolkit.dll"/>
+    <ROW File="Xceed.Wpf.Toolkit.dll" Component_="Xceed.Wpf.Toolkit.dll" FileName="XCEEDW~6.DLL|Xceed.Wpf.Toolkit.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Xceed.Wpf.Toolkit.dll" SelfReg="false" NextFile="YapView.dll"/>
+    <ROW File="YSE.NET.PCL.dll" Component_="YSE.NET.PCL.dll" FileName="YSENET~1.DLL|YSE.NET.PCL.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\YSE.NET.PCL.dll" SelfReg="false" NextFile="Yse.NET.Standard.dll"/>
+    <ROW File="YapView.dll" Component_="YapView.dll" FileName="YapView.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\YapView.dll" SelfReg="false" NextFile="Yse.dll"/>
+    <ROW File="Yse.NET.Standard.dll" Component_="Yse.NET.Standard.dll" FileName="YSENET~2.DLL|Yse.NET.Standard.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Yse.NET.Standard.dll" SelfReg="false" NextFile="Xceed.Wpf.AvalonDock.resources.dll"/>
+    <ROW File="Yse.dll" Component_="Yse.dll" FileName="Yse.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\Yse.dll" SelfReg="false" NextFile="YSE.NET.PCL.dll"/>
+    <ROW File="jint.dll" Component_="jint.dll" FileName="jint.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\jint.dll" SelfReg="false" NextFile="libSkiaSharp.dll"/>
+    <ROW File="libSkiaSharp.dll" Component_="libSkiaSharp.dll" FileName="LIBSKI~1.DLL|libSkiaSharp.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\libSkiaSharp.dll" SelfReg="false" NextFile="libSkiaSharp.dylib"/>
+    <ROW File="libSkiaSharp.dylib" Component_="EntityFramework.SqlServer.xml" FileName="LIBSKI~1.DYL|libSkiaSharp.dylib" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\libSkiaSharp.dylib" SelfReg="false" NextFile="libsndfile1.dll"/>
+    <ROW File="libsndfile1.dll" Component_="libsndfile1.dll" FileName="LIBSND~1.DLL|libsndfile-1.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\libsndfile-1.dll" SelfReg="false" NextFile="MahApps.Metro.dll"/>
+    <ROW File="portaudio_x86.dll" Component_="portaudio_x86.dll" FileName="PORTAU~1.DLL|portaudio_x86.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\portaudio_x86.dll" SelfReg="false" NextFile="Rug.Osc.dll"/>
+    <ROW File="sqlite3.dll" Component_="sqlite3.dll" FileName="sqlite3.dll" Attributes="0" SourcePath="InteractServer\InteractServer\bin\x86\Release\sqlite3.dll" SelfReg="false" NextFile="System.Data.Common.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_PinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="PinShortcuts"/>
+    <ROW Action="AI_PinToStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="PinToStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_PinToTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="PinToTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_PrepareShortcutFlags" Type="1" Source="ShortcutFlags.dll" Target="PrepareActionData"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_UnpinFromStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinFromTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="UnpinShortcuts"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="Logo_A_.exe" SourcePath="Logo\Logo_A_.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_PinShortcuts" Condition="(VersionNT &gt; 600) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="6499"/>
+    <ROW Action="AI_UnpinShortcuts" Condition="(VersionNT &gt; 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="3199"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="Privileged" Description="[ProductName] requires administrative privileges to install." DescriptionLocId="AI.LaunchCondition.Privileged" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="InteractServer" Directory_="SHORTCUTDIR" Name="INTERA~1|Interact Server" Component_="InteractServer.exe" Target="[#InteractServer.exe]" Hotkey="0" Icon_="Logo_A_.exe" IconIndex="0" ShowCmd="3" WkDir="APPDIR" CustomFlags="1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>

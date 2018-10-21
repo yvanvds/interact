@@ -57,6 +57,11 @@ namespace InteractServer
 		#region Project Management
 		private void NewProject_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
+			if(Project.Project.Current != null)
+			{
+				Project.Project.Current.Close();
+			}
+
 			var dialog = new Dialogs.NewProjectDialog();
 			dialog.ShowDialog();
 			Pages.ProjectExplorer.Handle.Refresh();
@@ -165,6 +170,11 @@ namespace InteractServer
 			{
 				dockMain.Children.Remove(document);
 			}
+		}
+
+		public void CloseDocuments()
+		{
+			dockMain.Children.Clear();
 		}
 
 		private void AppOptions_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -319,6 +329,22 @@ namespace InteractServer
 		private void ProjectOptions_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			if(Project.Project.Current != null)
+			{
+				e.CanExecute = true;
+			}
+		}
+
+		private void ProjectClose_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if(Project.Project.Current != null)
+			{
+				Project.Project.Current.Close();
+			}
+		}
+
+		private void ProjectClose_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			if (Project.Project.Current != null)
 			{
 				e.CanExecute = true;
 			}

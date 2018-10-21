@@ -21,7 +21,7 @@ namespace InteractServer.Project
 		public ClientGroups()
 		{
 			clearOscTree();
-			//list.Add(new Group("Guests"));
+			list.Add(new Group("Guests"));
 		}
 
 		public ClientGroups(JObject data)
