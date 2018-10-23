@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Documentation"
-    url: /documentation/quick-start-guide/
+    url: /documentation/installation/
   - title: "Download"
     url: /download/
   - title: "About"
@@ -16,10 +16,16 @@ main:
 docs:
   - title: Getting Started
     children:
-      - title: "Quick-Start Guide"
-        url: /documentation/quick-start-guide/
       - title: "Installation"
         url: /documentation/installation/
+      - title: "The Server"
+        url: /documentation/serverside/
+      - title: "The Client"
+        url: /documentation/clientside/
+      - title: "Patchers"
+        url: /documentation/patchersintro/
+      - title: "Sensors"
+        url: /documentation/sensorsintro/
   - title: Folders
     children:
       - title: "Server Scripts"

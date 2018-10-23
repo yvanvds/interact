@@ -29,6 +29,11 @@ namespace ScriptCompiler
 			return host.CreateAssembly(files);
 		}
 
+		public bool HasScriptInterface()
+		{
+			return host.GetImplementation<ScriptInterface.IScript>(new object[] { }) != null;
+		}
+
 		public string Run(ScriptInterface.IServer server)
 		{
 			try

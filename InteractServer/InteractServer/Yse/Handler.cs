@@ -94,6 +94,10 @@ namespace InteractServer.Yse
 				{
 					SendIntData(obj, (int)values[0]);
 				}
+				else if (values[0] is bool)
+				{
+					SendIntData(obj, (bool)values[0] == true ? 1 : 0);
+				}
 				else if (values[0] is string)
 				{
 					SendStringData(obj, (string)values[0]);

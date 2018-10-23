@@ -64,6 +64,11 @@ namespace InteractServer.Compiler
 			}
 		}
 
+		public bool HasScriptInterface()
+		{
+			return compiler.HasScriptInterface();
+		}
+
 		public bool Run()
 		{
 			if (client == null)

@@ -115,8 +115,8 @@ namespace InteractClient.Network
 					break;
 				case "/project/set":
 					{
-						await Project.Manager.SetCurrent(ToString(list[0]), ToInt(list[1]));
 						Global.SetScreenMessage("Loading Project...");
+						await Project.Manager.SetCurrent(ToString(list[0]), ToInt(list[1]));
 					}
 					break;
 				case "/project/start":

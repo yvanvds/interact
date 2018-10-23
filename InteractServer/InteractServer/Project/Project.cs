@@ -388,7 +388,14 @@ namespace InteractServer.Project
 			{
 				Log.Log.Handle.AddEntry("Recompiling Server Scripts...");
 				ServerCompiler.Compile(scripts.ToArray());
-				ServerCompiler.Run();
+				if(ServerCompiler.HasScriptInterface())
+				{
+					ServerCompiler.Run();
+				} else
+				{
+					Log.Log.Handle.AddEntry("No Server Scripts found");
+				}
+				
 			}
 		}
 
@@ -410,13 +417,22 @@ namespace InteractServer.Project
 			{
 				Log.Log.Handle.AddEntry("Recompiling Client Scripts...");
 				ClientCompiler.Compile(clientScripts.ToArray());
-				if(ClientCompiler.Run())
+
+				if(ClientCompiler.HasScriptInterface())
 				{
-					Log.Log.Handle.AddEntry("Client Scripts Reloaded.");
+					if (ClientCompiler.Run())
+					{
+						Log.Log.Handle.AddEntry("Client Scripts Reloaded.");
+					}
+					else
+					{
+						Log.Log.Handle.AddEntry("Some Client Scripts have errors!");
+					}
 				} else
 				{
-					Log.Log.Handle.AddEntry("Some Client Scripts have errors!");
+					Log.Log.Handle.AddEntry("No client scripts found.");
 				}
+				
 			}
 		}
 

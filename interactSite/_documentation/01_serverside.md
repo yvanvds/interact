@@ -1,11 +1,11 @@
 ---
 layout: single
-permalink: /documentation/quick-start-guide/
+permalink: /documentation/serverside/
 last_modified_at: 2018-10-21
 toc: true
 sidebar:
   nav: "docs"
-title: "Quick Start Guide"
+title: "The Server"
 ---
 
 Please start with installing at least the Server application. Preferably you should also install the Android client on your phone. Installation instructions can be found [here](/documentation/installation/).
@@ -17,15 +17,13 @@ After running the server application, you will need to create a new project (`Pr
 
 In this guide, we will add some simple interactions to your project. This will teach you the basics concepts and workflow of Interact. You should read the full documentation afterwards to fully understand the possibilities.
 
-## The Server Side
-
-### Add a Sound Page
+## Add a Sound Page
 
 Right-click the server module folder and add a new module. From the drop-down list with module types, select `Sound Page`. Give your module a name. When the module is created, double-click to open it.
 
 Now add a new sound to the page. You can use `.ogg` and `.wav` files, but `.mp3` is not implemented right now. You should test your sound by playing it.
 
-### Add a Gui Screen
+## Add a Gui Screen
 
 Next you should add a Gui. Right-click the server module folder again and add another module. This time, choose `Gui Screen`. After creating the screen, double-click  it to open.
 
@@ -33,7 +31,7 @@ To add Gui Elements to the screen, you must enable edit mode. This is done with 
 
 In the properties window, with the button selected, enable `Is Toggle` to make this a toggle button. Also, change the `Text` property to "play". Next, click on the ellipsis next to `Targets`. This will open the `Route Inspector`. On the right click on `add`. This will show the `Route Selector`.
 
-### The Route Selector
+## The Route Selector
 
 All interactions between elements in Interact are defined by routes. A route defines to which element an action will be sent. For a toggle button, this means the current on/off state will be sent to the target of the route.
 
@@ -45,7 +43,7 @@ Once the endpoint, the `ok` button in the lower left corner can be selected. Cli
 
 If you turn off edit mode for this gui screen, you can start and stop the sound by pressing the play button. Congratulations, you've made your first interaction!
 
-### A Volume Slider
+## A Volume Slider
 
 Go back to edit mode on your Gui screen. This time, hold the CTRL button and drag your mouse (while the left button is down) until you select tree placeholders in a row. Next to the `Edit` checkbox, you can see a `Merge` button. Click it to merge the three placeholders into one.
 

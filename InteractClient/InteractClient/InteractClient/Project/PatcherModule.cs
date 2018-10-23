@@ -54,6 +54,10 @@ namespace InteractClient.Project
 						{
 							((IYse.IHandle)obj).SetFloatData(0, (float)values[0]);
 						}
+						else if (values[0] is bool)
+						{
+							((IYse.IHandle)obj).SetIntData(0, (bool)values[0] == true ? 1 : 0);
+						}
 						else if (values[0] is string)
 						{
 							((IYse.IHandle)obj).SetListData(0, (string)values[0]);

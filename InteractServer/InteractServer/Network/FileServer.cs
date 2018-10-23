@@ -88,8 +88,17 @@ namespace InteractServer.Network
 					context.Response.ContentType = "application/octet-stream";
 					if(answer == "data")
 					{
-						context.Response.ContentLength64 = data.Length;
-						context.Response.OutputStream.Write(data, 0, data.Length);
+						if(data != null)
+						{
+							context.Response.ContentLength64 = data.Length;
+							context.Response.OutputStream.Write(data, 0, data.Length);
+						} else
+						{
+							context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+							context.Response.OutputStream.Close();
+							return;
+						}
+						
 					} else
 					{
 						context.Response.ContentLength64 = answer.Length;
