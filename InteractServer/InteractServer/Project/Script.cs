@@ -15,7 +15,7 @@ namespace InteractServer.Project
 {
 	class Script : IResource, OscGuiControl.IPropertyInterface
 	{
-		public CodeEditor.CodeEditor View = null;
+		public CodeEditor.ICodeEditor View = null;
 		private LayoutDocument document = null;
 		public LayoutDocument Document => document;
 
@@ -117,7 +117,11 @@ namespace InteractServer.Project
 
 		private void setupView(string name)
 		{
+#if(WithSyntaxEditor)
 			View = new CodeEditor.CodeEditor(name);
+#else
+			View = new CodeEditor.FallbackEditor(name);
+#endif
 		}
 
 		private void setupDocument()

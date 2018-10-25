@@ -300,7 +300,9 @@ namespace InteractServer.Project
 			{
 				if (resource is Script)
 				{
-					(resource as Script).View.SetLanguage(Intellisense.ServerLanguage);
+#if (WithSyntaxEditor)
+					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Intellisense.ServerLanguage);
+#endif
 				}
 			}
 
@@ -311,7 +313,9 @@ namespace InteractServer.Project
 			{
 				if (resource is Script)
 				{
-					(resource as Script).View.SetLanguage(Intellisense.ClientLanguage);
+#if (WithSyntaxEditor)
+					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Intellisense.ClientLanguage);
+#endif
 				}
 			}
 
@@ -496,9 +500,9 @@ namespace InteractServer.Project
 			}
 			needsSaving = true;
 		}
-		#endregion Folders
+#endregion Folders
 
-		#region Run
+#region Run
 		private bool running = false;
 		public bool Running { get => running; }
 
@@ -515,7 +519,7 @@ namespace InteractServer.Project
 			ServerCompiler.OnProjectStop();
 		}
 
-		#endregion Run
+#endregion Run
 
 		public void MakeCurrentOnClients()
 		{

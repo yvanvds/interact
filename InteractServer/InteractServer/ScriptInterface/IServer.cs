@@ -7,4 +7,11 @@ namespace ScriptInterface
 		IOsc Osc { get; }
 		ILog Log { get; }
 	}
+
+	public class FakeServer : IServer
+	{
+		public IOsc Osc => throw new NotImplementedException();
+
+		public ILog Log => throw new NotImplementedException();
+	}
 }

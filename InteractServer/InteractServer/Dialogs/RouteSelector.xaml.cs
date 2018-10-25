@@ -265,7 +265,7 @@ namespace InteractServer.Dialogs
 
 			string method = "public static "  + result + " " + valueOverrideMethod + "(" + arg + ")";
 
-			CodeEditor.CodeEditor view;
+			CodeEditor.ICodeEditor view;
 			if (serverSide)
 			{
 				view = Project.Project.Current.ServerEndpointWriter.View;

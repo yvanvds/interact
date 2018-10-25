@@ -17,7 +17,7 @@ namespace InteractServer.Project
 		private bool serverside;
 
 		public string Content;
-		public CodeEditor.CodeEditor View = null;
+		public CodeEditor.ICodeEditor View = null;
 
 		private LayoutDocument document = null;
 		public LayoutDocument Document => document;
@@ -56,7 +56,11 @@ namespace InteractServer.Project
 				Content = File.ReadAllText(Path.Combine(path, "EndpointWriter.cs"));
 			}
 
+#if(WithSyntaxEditor)
 			View = new CodeEditor.CodeEditor(serverside ? "ServerEndpointCode" : "ClientEndpointCode");
+#else
+			View = new CodeEditor.FallbackEditor(serverside ? "ServerEndpointCode" : "ClientEndpointCode");
+#endif
 			View.Text = Content;
 			Frame frame = new Frame();
 			frame.Content = View;
@@ -65,7 +69,9 @@ namespace InteractServer.Project
 			document.Title = serverside ? "ServerEndpointCode" : "ClientEndpointCode";
 			document.Content = frame;
 
-			View.SetLanguage(language);
+#if(WithSyntaxEditor)
+			(View as CodeEditor.CodeEditor).SetLanguage(language);
+#endif
 		}
 
 		public void PrepareForView()

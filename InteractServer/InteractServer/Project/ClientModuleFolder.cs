@@ -34,7 +34,9 @@ namespace InteractServer.Project
 					break;
 				case ContentType.ClientScript:
 					resources.Add(new Script(name, false, path));
-					(resources.Last() as Script).View.SetLanguage(Project.Current.Intellisense.ClientLanguage);
+#if(WithSyntaxEditor)
+					((resources.Last() as Script).View as CodeEditor.CodeEditor).SetLanguage(Project.Current.Intellisense.ClientLanguage);
+#endif
 					string resource;
 					if (!hasClientScript)
 					{

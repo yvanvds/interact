@@ -31,7 +31,15 @@ namespace ScriptCompiler
 
 		public bool HasScriptInterface()
 		{
-			return host.GetImplementation<ScriptInterface.IScript>(new object[] { }) != null;
+			try
+			{
+				var server = new ScriptInterface.FakeServer();
+				return host.GetImplementation<ScriptInterface.IScript>(new object[] { server }) != null;
+			}catch(Exception)
+			{
+				return false;
+			}
+			
 		}
 
 		public string Run(ScriptInterface.IServer server)

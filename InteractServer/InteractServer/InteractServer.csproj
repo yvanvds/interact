@@ -38,7 +38,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NotWithSyntaxEditor</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -47,7 +47,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WithSyntaxEditor</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -192,6 +192,10 @@
     <Compile Include="CodeEditor\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CodeEditor\FallbackEditor.xaml.cs">
+      <DependentUpon>FallbackEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CodeEditor\ICodeEditor.cs" />
     <Compile Include="CodeEditor\SyntaxEditorHelper.cs" />
     <Compile Include="Compiler\ClientCompiler.cs" />
     <Compile Include="Compiler\ClientScriptObject.cs" />
@@ -312,6 +316,10 @@
     <Compile Include="Yse\Handler.cs" />
     <Compile Include="Yse\Yse.cs" />
     <Page Include="CodeEditor\CodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CodeEditor\FallbackEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

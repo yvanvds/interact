@@ -7,7 +7,6 @@ using ActiproSoftware.Text.Parsing.LLParser;
 using ActiproSoftware.Windows.Controls.SyntaxEditor;
 using AutocompleteMenuNS;
 using InteractServer.Utils;
-using ScintillaNET;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +30,7 @@ namespace InteractServer.CodeEditor
 	/// <summary>
 	/// Interaction logic for CodeEditor.xaml
 	/// </summary>
-	public partial class CodeEditor : UserControl
+	public partial class CodeEditor : UserControl, ICodeEditor
 	{
 		private int documentNumber;
 		private bool hasPendingParseData;
