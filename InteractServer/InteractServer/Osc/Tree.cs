@@ -61,6 +61,9 @@ namespace InteractServer.Osc
 			Client.Clear();
 			ServerPatchers.Clear();
 			ServerSounds.Clear();
+
+			Server.Add(ServerPatchers);
+			Server.Add(ServerSounds);
 		}
 	}
 }

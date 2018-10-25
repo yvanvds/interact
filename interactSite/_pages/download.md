@@ -11,9 +11,7 @@ The Interact Server is available for Windows platforms (tested on Windows 10). B
 
 ### Current Version
 
-[Interact Server 0.3](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Server%2FInteract%20Server-0.3.msi?alt=media&token=d8ba3812-ef6f-4def-bf95-21a3141076f1) (Released on october 21, 2018)
-
-This version uses an evaluation version of the Actipro SyntaxEditor. While being a valuable addition for the code module, I still have to secure funding for its license. This is why you will get a popup when opening a project, asking you to purchase a license. You don't have to do that. The license has to be bought by the software developer (me). I assume I will get one in a few weeks.
+The current version of Interact uses the Actipro SyntaxEditor. While being a valuable addition for the code module, I still have to secure funding for its license. A download will be available in a few weeks.
 
 ### Older versions
 

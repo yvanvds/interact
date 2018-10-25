@@ -212,6 +212,9 @@
     <Compile Include="Controls\SoundGrid.xaml.cs">
       <DependentUpon>SoundGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DocumentAsDialog.xaml.cs">
       <DependentUpon>DocumentAsDialog.xaml</DependentUpon>
     </Compile>
@@ -325,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SoundGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

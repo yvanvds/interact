@@ -349,5 +349,11 @@ namespace InteractServer
 				e.CanExecute = true;
 			}
 		}
+
+		private void About_click(object sender, RoutedEventArgs e)
+		{
+			var window = new Dialogs.About();
+			window.ShowDialog();
+		}
 	}
 }

@@ -1,0 +1,37 @@
+﻿<Controls:MetroWindow  x:Class="InteractServer.Dialogs.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InteractServer.Dialogs"
+        mc:Ignorable="d"
+				xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+				Background="{DynamicResource ColorDark}"
+        Title="About Interact" Height="450" Width="800">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="150"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Image Source="/InteractServer;component/Resources/Images/Logo_A_.png" VerticalAlignment="Top" Margin="0,10,0,0" />
+		<StackPanel Grid.Column="1" Orientation="Vertical">
+			<TextBlock TextWrapping="Wrap" Text="Interact is a developer platform for interactive art. It is developed by yvan vander sanden with funding by Musica, Impulse Center for Music and C-Takt. Interact is open source software. All code is available on GitHub. " Margin="0,6,10,0" Foreground="White" FontSize="16"/>
+			<TextBlock HorizontalAlignment="Center" Margin="0,20,0,0">
+				<Hyperlink NavigateUri="https://interact.mutecode.com" RequestNavigate="Hyperlink_RequestNavigate" FontSize="20" TextDecorations="{x:Null}">
+					Interact Website (Open in Browser)
+				</Hyperlink>
+			</TextBlock>
+			<TextBlock HorizontalAlignment="Center" Margin="0,20,0,0">
+				<Hyperlink NavigateUri="https://www.musica.be" RequestNavigate="Hyperlink_RequestNavigate" FontSize="20" TextDecorations="{x:Null}">
+					Musica (Open in Browser)
+				</Hyperlink>
+			</TextBlock>
+			<TextBlock TextWrapping="Wrap" Text="The Code Editor component is implement through the Actipro SyntaxEditor for WPF. We are very grateful for their generosity." Foreground="White" FontSize="16" Margin="0,40,10,0" />
+			<TextBlock HorizontalAlignment="Center" Margin="0,20,0,0">
+				<Hyperlink NavigateUri="https://www.actiprosoftware.com/" RequestNavigate="Hyperlink_RequestNavigate" FontSize="20" TextDecorations="{x:Null}">
+					Actipro Software (Open in Browser)
+				</Hyperlink>
+			</TextBlock>
+		</StackPanel>
+		</Grid>
+</Controls:MetroWindow>

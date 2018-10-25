@@ -20,6 +20,7 @@
 		<CommandBinding Command="ApplicationCommands.Close" Executed="ProjectClose_Executed" CanExecute="ProjectClose_CanExecute"/>
 		<CommandBinding Command="local:Commands.ProjectOptions" Executed="ProjectOptions_Executed" CanExecute="ProjectOptions_CanExecute"/>
 
+		
 		<CommandBinding Command="local:Commands.ProjectStart" Executed="StartProject_Executed" CanExecute="StartProject_CanExecute"/>
 		<CommandBinding Command="local:Commands.ProjectStop" Executed="StopProject_Executed" CanExecute="StopProject_CanExecute"/>
 		
@@ -127,9 +128,9 @@
 				<!--
 				<MenuItem Header="Api _Reference" Click="OpenApiReference_Click"></MenuItem>
 				<MenuItem Header="_Patcher Help" Click="OpenPatcherHelp_Click"></MenuItem>
-				<Separator/>
-				<MenuItem Header="_About" Click="OpenAbout_Click"></MenuItem>
--->
+				<Separator/>-->
+				<MenuItem Header="_About" Click="About_click"></MenuItem>
+
 			</MenuItem>
 		</Menu>
 
