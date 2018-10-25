@@ -12,4 +12,4 @@ Interact is actually a combination of different project, tied together. There is
 
 All the libraries above are developed by yvan vander sanden.
 
-The Interact Server also uses the [Actipro SyntaxEditor](https://www.actiprosoftware.com/products/controls/wpf/syntaxeditor). If you are a developer and you do not have a license for this product, please open the project properties - Build page and remove the conditional compilation symbol `WithSyntaxEditor`. This will still allow you to work on most of the code, but not on the parts that require the Code Editor.
+The Interact Server also uses the [Actipro SyntaxEditor](https://www.actiprosoftware.com/products/controls/wpf/syntaxeditor) and the .NET Language Add-on. If you are a developer and you do not have a license for these products, please open the project properties - Build page and remove the conditional compilation symbol `WithSyntaxEditor`. This will still allow you to work on most of the code, but not on the parts that require the Code Editor.
