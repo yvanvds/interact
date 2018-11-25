@@ -26,6 +26,7 @@ namespace InteractServer
 		ClientPatcher,
 		ClientSounds,
 		ClientSensors,
+		ClientArduino,
 	}
 
 	public enum NetworkMessage

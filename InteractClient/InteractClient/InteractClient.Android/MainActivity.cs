@@ -25,6 +25,7 @@ namespace InteractClient.Droid
 			Global.Compiler = new Compiler.Compiler();
 
 			Global.Sensors = new Sensors.SensorManager();
+			InteractClient.IO.FileSystem.Init(new FileSystem.FileSystem());
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			LoadApplication(new App());

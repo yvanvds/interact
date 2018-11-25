@@ -17,28 +17,34 @@ namespace InteractClient.Pages
 		{
 			InitializeComponent ();
 
-			this.FindByName<Entry>("IDEntry").Text = CrossSettings.Current.Get<String>("UserName");
-			this.FindByName<Entry>("TokenEntry").Text = CrossSettings.Current.Get<String>("NetworkToken");
+			this.FindByName<Entry>("IDEntry").Text = Global.Settings.ID;
+			this.FindByName<Entry>("TokenEntry").Text = Global.Settings.Token;
 
 			if (Device.RuntimePlatform != Device.UWP)
 			{
-				ArduinoButton.IsEnabled = false;
+				ArduinoButton.IsVisible = false;
+				BackButton.IsVisible = false;
 			}
 		}
 
 		private void IDEntry_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			CrossSettings.Current.Set<String>("UserName", this.FindByName<Entry>("IDEntry").Text);
+			Global.Settings.ID = this.FindByName<Entry>("IDEntry").Text;
 		}
 
 		private void TokenEntry_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			CrossSettings.Current.Set<String>("NetworkToken", this.FindByName<Entry>("TokenEntry").Text);
+			Global.Settings.Token = this.FindByName<Entry>("TokenEntry").Text;
 		}
 
 		private void ArduinoButton_Clicked(object sender, EventArgs e)
 		{
 			Navigation.PushAsync(new Arduino());
+		}
+
+		private void BackButton_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PopAsync();
 		}
 	}
 }

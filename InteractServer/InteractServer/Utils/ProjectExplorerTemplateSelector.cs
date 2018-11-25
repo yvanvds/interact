@@ -14,6 +14,7 @@ namespace InteractServer.Utils
 		public DataTemplate ImageTemplate { get; set; }
 		public DataTemplate PatcherTemplate { get; set; }
 		public DataTemplate SensorTemplate { get; set; }
+		public DataTemplate ArduinoTemplate { get; set; }
 
 
 		public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -45,6 +46,10 @@ namespace InteractServer.Utils
 				else if (item is SensorConfig)
 				{
 					return SensorTemplate;
+				}
+				else if (item is ArduinoConfig)
+				{
+					return ArduinoTemplate;
 				}
 			}
 

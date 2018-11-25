@@ -17,6 +17,16 @@ namespace InteractClient.Pages
 		public Projects ()
 		{
 			InitializeComponent ();
+
+			if(Device.RuntimePlatform == Device.Android)
+			{
+				BackButton.IsVisible = false;
+				BackButton.HeightRequest = 0;
+			} else
+			{
+				BackButton.IsVisible = true;
+				BackButton.HeightRequest = 80;
+			}
 		}
 
 		protected override async void OnAppearing()
@@ -24,6 +34,8 @@ namespace InteractClient.Pages
 			base.OnAppearing();
 			await Manager.Load();
 			ProjectList.ItemsSource = Manager.List;
+
+			
 		}
 
 		private void ButtonRun_Clicked(object sender, EventArgs e)
@@ -36,7 +48,7 @@ namespace InteractClient.Pages
 			JintEngine.Engine.Instance.StartScreen(screen.ID);*/
 		}
 
-		private async Task ButtonDelete_ClickedAsync(object sender, EventArgs e)
+		private async void ButtonDelete_ClickedAsync(object sender, EventArgs e)
 		{
 			var answer = await DisplayAlert("Delete", "Really delete this project?", "Yes", "No");
 			if (answer)
@@ -50,6 +62,11 @@ namespace InteractClient.Pages
 		public void PushModelPage()
 		{
 			//Navigation.PushAsync(new ModelPage());
+		}
+
+		private void BackButton_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PopAsync();
 		}
 	}
 }

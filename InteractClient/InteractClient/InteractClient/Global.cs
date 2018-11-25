@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace InteractClient
@@ -15,6 +16,8 @@ namespace InteractClient
 		public static ContentPage CurrentPage = null;
 		public static string deviceID;
 
+		public static Settings Settings = new Settings();
+
 		public static Project.Project CurrentProject { get; set; } = null;
 		public static Dictionary<string, Project.Project> ProjectList = new Dictionary<string, Project.Project>();
 
@@ -26,6 +29,8 @@ namespace InteractClient
 		public static IYse.IYseInterface Yse;
 
 		public static Sensors.ISensor Sensors;
+
+		public static Arduino.Arduino Arduino;
 
 		public static ICompiler Compiler;
 
@@ -102,6 +107,11 @@ namespace InteractClient
 			{
 				CurrentProject.Stop();
 			}
+		}
+
+		public static async Task RunOnGui(Action action)
+		{
+			Device.BeginInvokeOnMainThread(action);
 		}
 	}
 }

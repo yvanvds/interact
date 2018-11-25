@@ -15,8 +15,27 @@ namespace InteractClient.Pages
 		public Servers ()
 		{
 			InitializeComponent ();
+
 			ServerList.ItemsSource = Network.Servers.List;
 			Global.CurrentPage = this;
+
+			if(Device.RuntimePlatform == Device.UWP)
+			{
+				var def = new RowDefinition();
+				def.Height = 80;
+				MainGrid.RowDefinitions.Add(def);
+
+				var button = new Button();
+				button.Text = "Back";
+				Grid.SetRow(button, 2);
+				MainGrid.Children.Add(button);
+				button.Clicked += BackButtonClicked;
+			}
+		}
+
+		private void BackButtonClicked(object sender, EventArgs e)
+		{
+			Navigation.PopAsync();
 		}
 
 		protected override void OnAppearing()
@@ -40,5 +59,6 @@ namespace InteractClient.Pages
 			}
 
 		}
+
 	}
 }

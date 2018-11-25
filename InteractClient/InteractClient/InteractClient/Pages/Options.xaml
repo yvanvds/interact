@@ -25,6 +25,6 @@
 		<Entry x:Name="TokenEntry" Grid.Row="1" Grid.Column="1" BackgroundColor="Gray" TextColor="White" TextChanged="TokenEntry_TextChanged"/>
 
 		<Button Grid.Row="2" Grid.ColumnSpan="2" TextColor="White" x:Name="ArduinoButton" Text="Connect Arduino" Clicked="ArduinoButton_Clicked"/>
-
+		<Button Grid.Row="4" Grid.ColumnSpan="2" TextColor="White" x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
 	</Grid>
 </ContentPage>

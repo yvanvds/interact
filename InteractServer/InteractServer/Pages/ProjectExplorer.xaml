@@ -116,6 +116,27 @@
 				</DataTemplate>
 			</utils:ProjectExplorerTemplateSelector.SensorTemplate>
 
+			<utils:ProjectExplorerTemplateSelector.ArduinoTemplate>
+				<DataTemplate DataType="{x:Type project:IResource}">
+					<StackPanel Orientation="Horizontal">
+						<StackPanel.ContextMenu>
+							<ContextMenu StaysOpen="True">
+								<MenuItem x:Name="RenameResource" Header="Rename" Click="RenameResource_Click"/>
+								<MenuItem x:Name="RemoveResource" Header="Remove" Click="RemoveResource_Click"/>
+							</ContextMenu>
+						</StackPanel.ContextMenu>
+						<Image Source="{Binding Icon}" Margin="0,0,5,0" Height="16" Width="16" Stretch="UniformToFill" SnapsToDevicePixels="True" />
+						<TextBlock Text="{Binding Name}" Foreground="White">
+
+							<TextBlock.ToolTip>
+								<Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"
+                                    Stretch="None"/>
+							</TextBlock.ToolTip>
+						</TextBlock>
+					</StackPanel>
+				</DataTemplate>
+			</utils:ProjectExplorerTemplateSelector.ArduinoTemplate>
+			
 			<utils:ProjectExplorerTemplateSelector.ImageTemplate>
 				<DataTemplate DataType="{x:Type project:IResource}">
 					<StackPanel Orientation="Horizontal">

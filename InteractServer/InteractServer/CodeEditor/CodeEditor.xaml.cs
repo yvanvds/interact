@@ -5,7 +5,6 @@ using ActiproSoftware.Text.Languages.DotNet.Reflection;
 using ActiproSoftware.Text.Parsing;
 using ActiproSoftware.Text.Parsing.LLParser;
 using ActiproSoftware.Windows.Controls.SyntaxEditor;
-using AutocompleteMenuNS;
 using InteractServer.Utils;
 using System;
 using System.Collections.Generic;

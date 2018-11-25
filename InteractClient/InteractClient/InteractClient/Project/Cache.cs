@@ -1,7 +1,6 @@
 ﻿using InteractClient.Network;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PCLStorage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using InteractClient.IO;
 
 namespace InteractClient.Project
 {
@@ -42,39 +42,42 @@ namespace InteractClient.Project
 			if (appCacheFolder == null)
 			{
 				IFolder rootFolder = FileSystem.Current.LocalStorage;
-				await rootFolder.CreateFolderAsync("ProjectCache", CreationCollisionOption.OpenIfExists).ContinueWith(createFolderTask =>
+				appCacheFolder = await rootFolder.GetFolder("ProjectCache");
+				if(appCacheFolder == null)
 				{
-					createFolderTask.Wait();
-					appCacheFolder = createFolderTask.Result;
-				});
+					return;
+				}
 			}
 
 			// create project folder if it does not exist
-			await appCacheFolder.CreateFolderAsync(projectID.ToString(), CreationCollisionOption.OpenIfExists).ContinueWith(createFolderTask =>
-			{
-				createFolderTask.Wait();
-				projectFolder = createFolderTask.Result;
-			});
+			projectFolder = await appCacheFolder.GetFolder(projectID.ToString());
 
 			// load last configuration if available
 			var path = Path.Combine(projectFolder.Path, projectID.ToString());
-			var exists = await projectFolder.CheckExistsAsync(projectID.ToString());
-			if (exists == ExistenceCheckResult.FileExists)
+
+			if (projectFolder.FileExists(projectID.ToString()))
 			{
-				string content = await GetFileContent(path);
-				JObject obj = JObject.Parse(content);
-				if (obj.ContainsKey("Name")) Name = (string)obj["Name"];
-				if (obj.ContainsKey("Version")) Version = (int)obj["Version"];
-				if (obj.ContainsKey("ID")) projectID = (string)obj["ID"];
-				if(obj.ContainsKey("Client Modules"))
+				string content = await GetFileContent(projectFolder, projectID.ToString());
+				try
 				{
-					JObject cMods = obj["Client Modules"] as JObject;
-					ClientModules.Clear();
-					foreach(var mod in cMods)
+					JObject obj = JObject.Parse(content);
+					if (obj.ContainsKey("Name")) Name = (string)obj["Name"];
+					if (obj.ContainsKey("Version")) Version = (int)obj["Version"];
+					if (obj.ContainsKey("ID")) projectID = (string)obj["ID"];
+					if (obj.ContainsKey("Client Modules"))
 					{
-						ClientModules.Add(mod.Key, (int)mod.Value);
+						JObject cMods = obj["Client Modules"] as JObject;
+						ClientModules.Clear();
+						foreach (var mod in cMods)
+						{
+							ClientModules.Add(mod.Key, (int)mod.Value);
+						}
 					}
+				} catch (Exception e)
+				{
+					Sender.WriteLog("ProjectCache error: " + e.Message);
 				}
+				
 			}
 		}
 
@@ -84,15 +87,23 @@ namespace InteractClient.Project
 			string path = await GetContentLocation(projectID, true);
 			if(path != string.Empty)
 			{
-				string content = await GetFileContent(path);
-				JObject obj = JObject.Parse(content);
-				if (obj.ContainsKey("Name")) Name = (string)obj["Name"];
-				if (obj.ContainsKey("Version")) Version = (int)obj["Version"];
-				if(obj.ContainsKey("Client Modules"))
+				string content = await GetFileContent(projectFolder, projectID);
+
+				try
 				{
-					JObject cMods = obj["Client Modules"] as JObject;
-					await UpdateResource(cMods, ClientModules);
+					JObject obj = JObject.Parse(content);
+					if (obj.ContainsKey("Name")) Name = (string)obj["Name"];
+					if (obj.ContainsKey("Version")) Version = (int)obj["Version"];
+					if (obj.ContainsKey("Client Modules"))
+					{
+						JObject cMods = obj["Client Modules"] as JObject;
+						await UpdateResource(cMods, ClientModules);
+					}
+				} catch(Exception e)
+				{
+					Sender.WriteLog("Cache Parsing Error: " + e.Message);
 				}
+				
 			}
 		}
 
@@ -113,8 +124,7 @@ namespace InteractClient.Project
 			{
 				if(!cMods.ContainsKey(item.Key))
 				{
-					IFile file = await projectFolder.GetFileAsync(item.Key);
-					await file.DeleteAsync();
+					await projectFolder.FileDelete(item.Key);
 				}
 			}
 
@@ -132,7 +142,7 @@ namespace InteractClient.Project
 				string id = module.Key;
 				if (!clientModules.ContainsKey(id))
 				{
-					string content = await GetFileContent(Path.Combine(projectFolder.Path, module.Key));
+					string content = await GetFileContent(projectFolder, module.Key);
 					JObject data = null;
 					try
 					{
@@ -151,7 +161,11 @@ namespace InteractClient.Project
 								{
 									var m = new GuiModule();
 									m.Deserialize(data);
-									m.LoadContent();
+									await Global.RunOnGui(() =>
+									{
+										m.LoadContent();
+									});
+									
 									clientModules.Add(id, m);
 									break;
 								}
@@ -178,16 +192,27 @@ namespace InteractClient.Project
 									clientModules.Add(id, m);
 									break;
 								}
+							case "ClientArduino":
+								{
+									var m = new ArduinoModule();
+									m.Deserialize(data);
+									m.LoadContent();
+									clientModules.Add(id, m);
+									break;
+								}
 						}
 					}
 				}
 				else if (clientModules[id].Version != Convert.ToInt32(module.Value))
 				{
-					string content = await GetFileContent(Path.Combine(projectFolder.Path, module.Key));
+					string content = await GetFileContent(projectFolder, module.Key);
 					if(content != string.Empty)
 					{
 						clientModules[id].Deserialize(JObject.Parse(content));
-						clientModules[id].LoadContent();
+						await Global.RunOnGui(() =>
+						{
+							clientModules[id].LoadContent();
+						});
 					}
 					
 				}
@@ -224,8 +249,7 @@ namespace InteractClient.Project
 
 				if (reload == false)
 				{
-					var exists = await projectFolder.CheckExistsAsync(id);
-					if (exists == ExistenceCheckResult.FileExists && !downloadTasks.ContainsKey(path))
+					if (projectFolder.FileExists(id) && !downloadTasks.ContainsKey(path))
 					{
 						return path;
 					}
@@ -259,46 +283,28 @@ namespace InteractClient.Project
 		{
 			if (ProjectIsLocal) return true;
 
-			IFile file = null;
 			try
 			{
 				var client = new HttpClient();
 				var data = await client.GetByteArrayAsync(url);
 				var fileNamePaths = fileName.Split('\\');
-				fileName = fileNamePaths[fileNamePaths.Length - 1];
-				file = await FileSystem.Current.LocalStorage.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-
-				using (var fileStream = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-				{
-					fileStream.Write(data, 0, data.Length);
-				}
+				var name = fileNamePaths[fileNamePaths.Length - 1];
+				await projectFolder.FileWrite(name, data);
 				return true;
 			}
 			catch (Exception e)
 			{
-				Sender.WriteLog("ProjectCache download error: " + e.Message);
-			}
-
-			if (file != null)
-			{
-				await file.DeleteAsync();
+				Sender.WriteLog("ProjectCache download error on file " + fileName + " : " + e.Message);
 			}
 			return false;
 		}
 
-		public static async Task<string> GetFileContent(string path)
+		public static async Task<string> GetFileContent(IFolder folder, string filename)
 		{
 			string content = string.Empty;
 			try
 			{
-				IFile file = await FileSystem.Current.LocalStorage.GetFileAsync(path);
-				using (var fileStream = await file.OpenAsync(PCLStorage.FileAccess.Read))
-				{
-					using (var reader = new StreamReader(fileStream, Encoding.UTF8))
-					{
-						content = reader.ReadToEnd();
-					}
-				}
+				content = await folder.FileRead(filename);
 			}
 			catch (Exception e)
 			{

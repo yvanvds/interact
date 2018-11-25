@@ -39,7 +39,7 @@ namespace InteractClient.Osc
       }
       else
       {
-        throw new InvalidOperationException("No destination was supplied");
+        //throw new InvalidOperationException("No destination was supplied");
       }
     }
 

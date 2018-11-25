@@ -65,7 +65,7 @@
 
 				<Label Grid.Row="7" Grid.ColumnSpan="2" x:Name="ConnectMessage" TextColor="White" />
 
-				<Grid Grid.Row="8" Grid.ColumnSpan="2">
+				<Grid Grid.Row="8" Grid.ColumnSpan="2" x:Name="ButtonGrid">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>

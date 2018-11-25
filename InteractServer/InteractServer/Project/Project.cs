@@ -369,6 +369,9 @@ namespace InteractServer.Project
 				if (module is SensorConfig)
 				{
 					(module as SensorConfig).UpdateRouteNames();
+				} else if (module is ArduinoConfig)
+				{
+					(module as ArduinoConfig).UpdateRouteNames();
 				}
 			}
 		}

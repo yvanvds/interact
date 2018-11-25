@@ -50,6 +50,7 @@
 		<StackPanel Grid.Row="2" Orientation="Horizontal" Background="#3a3a3a">
 			<Button BorderBrush="Green" Height="40" Width="80" Margin="5" Content="OK" IsEnabled="False" x:Name="OkButton" Click="OkClicked"/>
 			<Button Height="40" Width="80" Margin="5" Content="Cancel" IsEnabled="True" Click="CancelClicked"/>
+			<Button Height="40" Width="80" BorderBrush="Red" Margin="5" Content="Clear" IsEnabled="True" Name="ClearButton" Click="ClearButton_Click"/>
 		</StackPanel>
 	</Grid>
 </Controls:MetroWindow>

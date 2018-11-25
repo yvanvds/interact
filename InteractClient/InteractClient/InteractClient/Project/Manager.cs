@@ -1,9 +1,9 @@
-﻿using PCLStorage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using InteractClient.IO;
 
 namespace InteractClient.Project
 {
@@ -18,19 +18,15 @@ namespace InteractClient.Project
 			IFolder appCacheFolder = null;
 			{
 				IFolder rootFolder = FileSystem.Current.LocalStorage;
-				await rootFolder.CreateFolderAsync("ProjectCache", CreationCollisionOption.OpenIfExists).ContinueWith(createFolderTask =>
-				{
-					createFolderTask.Wait();
-					appCacheFolder = createFolderTask.Result;
-				});
+				appCacheFolder = await rootFolder.GetFolder("ProjectCache");
 			}
 
-			var folders = await appCacheFolder.GetFoldersAsync();
+			var folders = await appCacheFolder.GetFolders();
 
 			foreach (var folder in folders)
 			{
 				string folderName = folder.Name;
-				var info = Acr.Settings.CrossSettings.Current.Get<Info>(folderName);
+				var info = Global.Settings.GetProjectInfo(folderName);
 				if (info == null)
 				{
 					info = new Info();
@@ -45,16 +41,15 @@ namespace InteractClient.Project
 		public async Task DeleteFromDisk(Info projectInfo)
 		{
 			IFolder rootFolder = FileSystem.Current.LocalStorage;
-			IFolder appCacheFolder = await rootFolder.GetFolderAsync("ProjectCache");
+			IFolder appCacheFolder = await rootFolder.GetFolder("ProjectCache");
 
-			var folder = await appCacheFolder.GetFolderAsync(projectInfo.Guid);
-			await folder.DeleteAsync();
+			await appCacheFolder.FolderDelete(projectInfo.Guid);
 
 			if (Global.ProjectList.ContainsKey(projectInfo.Guid))
 			{
 				Global.ProjectList.Remove(projectInfo.Guid);
 			}
-			Acr.Settings.CrossSettings.Current.Remove(projectInfo.Guid);
+			Global.Settings.RemoveProjectInfo(projectInfo.Guid);
 			list.Remove(projectInfo);
 		}
 
@@ -102,13 +97,10 @@ namespace InteractClient.Project
 					Global.SetScreenMessage("Project is Ready");
 				}
 			} 
-			catch(NullReferenceException)
+			catch(Exception e)
 			{
-				if(!Global.CurrentProject.IsLocal)
-				{
-					Network.Sender.WriteLog("Project->SetCurrent: Unable to add project");
-				}
-				Global.SetScreenMessage("Project failed to load!");
+				Network.Sender.WriteLog("Project->SetCurrent: Unable to add project - " + e.Message);
+				Global.SetScreenMessage("Project failed to load: " + e.Message);
 			}
 		}
 	}

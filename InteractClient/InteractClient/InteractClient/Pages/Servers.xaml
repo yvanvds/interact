@@ -4,7 +4,7 @@
              x:Class="InteractClient.Pages.Servers"
 						 BackgroundColor="#1a1a1a"
 						 Title="Available Servers">
-	<Grid Margin="10">
+	<Grid Margin="10" x:Name="MainGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="80"/>

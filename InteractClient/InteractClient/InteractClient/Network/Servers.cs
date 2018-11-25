@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace InteractClient.Network
 {
@@ -11,7 +12,7 @@ namespace InteractClient.Network
 		public static ObservableCollection<Server> List { get => servers; }
 
 
-		public static void Add(string name, string address)
+		public static async Task Add(string name, string address)
 		{
 			foreach (var server in Servers.List)
 			{
@@ -22,11 +23,15 @@ namespace InteractClient.Network
 				}
 			}
 
-			Servers.List.Add(new Server
+			await Global.RunOnGui( () =>
 			{
-				Name = name,
-				Address = address,
-			});
+				Servers.List.Add(new Server
+				{
+					Name = name,
+					Address = address,
+				});
+			}
+			);
 		}
 
 		public static Server Get(string address)

@@ -17,13 +17,18 @@ namespace InteractServer.Dialogs
 		private bool overrideGroupID = false;
 		private string selectedGroupID = string.Empty;
 
-		public RouteSelector(OscTree.Object origin, OscTree.Tree root)
+		public RouteSelector(OscTree.Object origin, OscTree.Tree root, bool showClear = false)
 		{
 			InitializeComponent();
 			Origin = origin;
 			SidePanelVisible(false, false);
 
 			SetRoot(root);
+
+			if(!showClear)
+			{
+				ClearButton.Visibility = Visibility.Hidden;
+			}
 
 			serverSide = Osc.Tree.Server.Contains(origin);
 			ComboBoxGroups.ItemsSource = Project.Project.Current.Groups.List;
@@ -314,6 +319,13 @@ namespace InteractServer.Dialogs
 			{
 				selectedGroupID = group.ID;
 			}
+		}
+
+		private void ClearButton_Click(object sender, RoutedEventArgs e)
+		{
+			CurrentRoute = null;
+			DialogResult = true;
+			Close();
 		}
 	}
 }

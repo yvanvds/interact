@@ -5,7 +5,13 @@
 						 BackgroundColor="#1a1a1a"
 						 Title="Projects on Device">
 	<ContentPage.Content>
-		<ScrollView>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+		
+			<ScrollView>
 			<ListView x:Name="ProjectList" RowHeight="110">
 				<ListView.ItemTemplate>
 					<DataTemplate>
@@ -43,5 +49,7 @@
 				</ListView.ItemTemplate>
 			</ListView>
 		</ScrollView>
+			<Button Grid.Row="1" x:Name="BackButton"  Text="Back" HeightRequest="80" BorderColor="DarkGreen" Clicked="BackButton_Clicked"/>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>

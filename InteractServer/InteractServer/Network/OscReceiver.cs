@@ -180,12 +180,20 @@ namespace InteractServer.Network
 
 		private static int ToInt(Osc.Values.IOscValue value)
 		{
-			return (value as Osc.Values.OscInt).Contents;
+			if(value.TypeTag == 'i')
+			{
+				return (value as Osc.Values.OscInt).Contents;
+			}
+			return 0;
 		}
 
 		private static string ToString(Osc.Values.IOscValue value)
 		{
-			return (value as Osc.Values.OscString).Contents;
+			if (value.TypeTag == 's')
+			{
+				return (value as Osc.Values.OscString).Contents;
+			}
+			return string.Empty;
 		}
 
 		private static object[] ToObjectArray(List<Osc.Values.IOscValue> list)

@@ -17,6 +17,11 @@ After running the server application, you will need to create a new project (`Pr
 
 In this guide, we will add some simple interactions to your project. This will teach you the basics concepts and workflow of Interact. You should read the full documentation afterwards to fully understand the possibilities.
 
+_The text below the next video is a transcript of this video._
+
+<iframe src="https://www.youtube.com/embed/DG1ycqNZxtg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 ## Add a Sound Page
 
 Right-click the server module folder and add a new module. From the drop-down list with module types, select `Sound Page`. Give your module a name. When the module is created, double-click to open it.

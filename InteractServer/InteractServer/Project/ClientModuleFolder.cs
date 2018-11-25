@@ -32,6 +32,9 @@ namespace InteractServer.Project
 				case ContentType.ClientSensors:
 					resources.Add(new SensorConfig(name, path));
 					break;
+				case ContentType.ClientArduino:
+					resources.Add(new ArduinoConfig(name, path));
+					break;
 				case ContentType.ClientScript:
 					resources.Add(new Script(name, false, path));
 #if(WithSyntaxEditor)
@@ -89,6 +92,9 @@ namespace InteractServer.Project
 						case "ClientSensors":
 							resources.Add(new SensorConfig(elm, path));
 							break;
+						case "ClientArduino":
+							resources.Add(new ArduinoConfig(elm, path));
+							break;
 					}
 				}
 			}
@@ -109,6 +115,7 @@ namespace InteractServer.Project
 			needsSaving = false;
 			return true;
 		}
+		#endregion JSON
 
 		public void SaveForClient(JObject obj)
 		{
@@ -155,6 +162,6 @@ namespace InteractServer.Project
 			}
 			return null;
 		}
-		#endregion JSON
+		
 	}
 }

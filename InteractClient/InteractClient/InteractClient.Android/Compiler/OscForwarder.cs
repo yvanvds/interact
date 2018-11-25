@@ -54,7 +54,7 @@ namespace InteractClient.Compiler
 				}
 			} catch (Exception e)
 			{
-				Network.Sender.WriteLog("OscForwareder - " + e.Message);
+				Network.Sender.WriteLog("OscForwarder - " + e.Message);
 			}
 			
 		}
@@ -83,7 +83,7 @@ namespace InteractClient.Compiler
 			}
 			catch (Exception e)
 			{
-				Network.Sender.WriteLog("OscForwareder - " + e.Message);
+				Network.Sender.WriteLog("OscForwarder - " + e.Message);
 			}
 
 		}

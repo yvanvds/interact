@@ -25,6 +25,24 @@ namespace InteractClient.Pages
 			InitializeComponent ();
 			arduino = DependencyService.Get<IArduino>();
 			ConnectionMethodPicker.SelectedIndexChanged += ConnectionPickerSelectionChanged;
+
+			if (Device.RuntimePlatform == Device.UWP)
+			{
+				var def = new ColumnDefinition();
+				def.Width = GridLength.Star;
+				ButtonGrid.ColumnDefinitions.Add(def);
+
+				var button = new Button();
+				button.Text = "Back";
+				Grid.SetColumn(button, 3);
+				ButtonGrid.Children.Add(button);
+				button.Clicked += BackButtonClicked;
+			}
+		}
+
+		private void BackButtonClicked(object sender, EventArgs e)
+		{
+			Navigation.PopAsync();
 		}
 
 		protected override void OnAppearing()
@@ -41,7 +59,7 @@ namespace InteractClient.Pages
 
 					Device.BeginInvokeOnMainThread(() =>
 					{
-						string savedInterface = CrossSettings.Current.Get<string>("ArduinoInterface");
+						string savedInterface = Global.Settings.ArduinoInterface;
 
 						if (savedInterface != null && savedInterface.Length != 0)
 						{
@@ -56,7 +74,7 @@ namespace InteractClient.Pages
 
 							if (savedInterface.Equals("USB") || savedInterface.Equals("Bluetooth") || savedInterface.Equals("DfRobot"))
 							{
-								string savedDevice = CrossSettings.Current.Get<string>("ArduinoDevice");
+								string savedDevice = Global.Settings.ArduinoDevice;
 								for (int i = 0; i < DevicePicker.Items.Count; i++)
 								{
 									if (DevicePicker.Items[i].Equals(savedDevice))
@@ -66,7 +84,7 @@ namespace InteractClient.Pages
 									}
 								}
 
-								uint savedBaudRate = CrossSettings.Current.Get<uint>("ArduinoBaudRate");
+								uint savedBaudRate = Global.Settings.ArduinoBaudRate;
 								for (int i = 0; i < BaudRatePicker.Items.Count; i++)
 								{
 									uint br = Convert.ToUInt32(BaudRatePicker.Items[i]);
@@ -81,12 +99,12 @@ namespace InteractClient.Pages
 
 							if (savedInterface.Equals("Network"))
 							{
-								string savedHost = CrossSettings.Current.Get<string>("ArduinoHost");
+								string savedHost = Global.Settings.ArduinoHost;
 								NetworkHostNameEntry.Text = savedHost;
-								string savedPort = Convert.ToString(CrossSettings.Current.Get<ushort>("ArduinoPort"));
+								string savedPort = Convert.ToString(Global.Settings.ArduinoPort);
 								NetworkPortEntry.Text = savedPort;
 
-								uint savedBaudRate = CrossSettings.Current.Get<uint>("ArduinoBaudRate");
+								uint savedBaudRate = Global.Settings.ArduinoBaudRate;
 								for (int i = 0; i < BaudRatePicker.Items.Count; i++)
 								{
 									uint br = Convert.ToUInt32(BaudRatePicker.Items[i]);
@@ -213,7 +231,7 @@ namespace InteractClient.Pages
 			await RefreshDeviceList();
 		}
 
-		private async Task RefreshButton_Clicked(object sender, EventArgs e)
+		private async void RefreshButton_Clicked(object sender, EventArgs e)
 		{
 			await RefreshDeviceList();
 		}
@@ -308,26 +326,26 @@ namespace InteractClient.Pages
 			// Store this connection
 			if (ConnectionMethodPicker.SelectedItem != null)
 			{
-				CrossSettings.Current.Set<string>("ArduinoInterface", ConnectionMethodPicker.SelectedItem as string);
+				Global.Settings.ArduinoInterface = ConnectionMethodPicker.SelectedItem as string;
 			}
 			if (DevicePicker.SelectedItem != null)
 			{
-				CrossSettings.Current.Set<string>("ArduinoDevice", DevicePicker.SelectedItem as string);
+				Global.Settings.ArduinoDevice = DevicePicker.SelectedItem as string;
 			}
 			if (BaudRatePicker.SelectedItem != null)
 			{
-				CrossSettings.Current.Set<uint>("ArduinoBaudRate", Convert.ToUInt32((BaudRatePicker.SelectedItem as string)));
+				Global.Settings.ArduinoBaudRate = Convert.ToUInt32((BaudRatePicker.SelectedItem as string));
 			}
 
-			if (CrossSettings.Current.Get<string>("ArduinoInterface").Equals("Network"))
+			if (Global.Settings.ArduinoInterface.Equals("Network"))
 			{
 				string host = NetworkHostNameEntry.Text;
 				string port = NetworkPortEntry.Text;
 				ushort portnum = 0;
 				if (ushort.TryParse(port, out portnum))
 				{
-					CrossSettings.Current.Set<string>("ArduinoHost", host);
-					CrossSettings.Current.Set<ushort>("ArduinoPort", portnum);
+					Global.Settings.ArduinoHost = host;
+					Global.Settings.ArduinoPort = portnum;
 				}
 			}
 		}
@@ -381,13 +399,13 @@ namespace InteractClient.Pages
 			Navigation.PopAsync();
 		}
 
-		private async Task ClearButton_Clicked(object sender, EventArgs e)
+		private async void ClearButton_Clicked(object sender, EventArgs e)
 		{
-			CrossSettings.Current.Set<string>("ArduinoInterface", "");
-			CrossSettings.Current.Set<string>("ArduinoDevice", "");
-			CrossSettings.Current.Set<uint>("ArduinoBaudRate", 0);
-			CrossSettings.Current.Set<string>("ArduinoHost", "");
-			CrossSettings.Current.Set<ushort>("ArduinoPort", 0);
+			Global.Settings.ArduinoInterface = String.Empty;
+			Global.Settings.ArduinoDevice = String.Empty;
+			Global.Settings.ArduinoBaudRate = 0;
+			Global.Settings.ArduinoHost = String.Empty;
+			Global.Settings.ArduinoPort = 0;
 
 			await RefreshDeviceList();
 		}

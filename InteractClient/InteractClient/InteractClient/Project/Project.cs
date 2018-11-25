@@ -13,6 +13,7 @@ namespace InteractClient.Project
 		public string StartupScreen { get; set; }
 		public string GroupID { get; set; }
 		private SensorModule currentSensorModule = null;
+		private ArduinoModule currentArduinoModule = null;
 
 		public Dictionary<string, BaseModule> ClientModules = new Dictionary<string, BaseModule>();
 
@@ -37,7 +38,7 @@ namespace InteractClient.Project
 			await Cache.RefreshClientModules(ClientModules);
 			Version = version;
 
-			var info = Acr.Settings.CrossSettings.Current.Get<Info>(ID);
+			var info = Global.Settings.GetProjectInfo(ID);
 			if (info == null)
 			{
 				info = new Info
@@ -57,7 +58,7 @@ namespace InteractClient.Project
 				info.FirstScreen = StartupScreen;
 			}
 
-			Acr.Settings.CrossSettings.Current.Set(ID.ToString(), info);
+			Global.Settings.SetProjectInfo(ID.ToString(), info);
 		}
 
 		public BaseModule GetClientModule(string ID)
@@ -104,6 +105,7 @@ namespace InteractClient.Project
 			}
 
 			StopSensors();
+			StopArduino();
 
 			foreach (var module in ClientModules.Values)
 			{
@@ -114,6 +116,14 @@ namespace InteractClient.Project
 					{
 						currentSensorModule = mod;
 						currentSensorModule.Activate();
+					}
+				} else if (module is ArduinoModule)
+				{
+					var mod = module as ArduinoModule;
+					if(mod.GroupID.Equals(GroupID))
+					{
+						currentArduinoModule = mod;
+						currentArduinoModule.Activate();
 					}
 				}
 			}
@@ -126,6 +136,8 @@ namespace InteractClient.Project
 			running = false;
 
 			StopSensors();
+			StopArduino();
+
 			foreach (var module in ClientModules.Values)
 			{
 				if (module is PatcherModule)
@@ -143,7 +155,17 @@ namespace InteractClient.Project
 				currentSensorModule.Deactivate();
 				currentSensorModule = null;
 			}
-			Global.Sensors.StopAll();
+			Global.Sensors?.StopAll();
+		}
+
+		private void StopArduino()
+		{
+			if(currentArduinoModule != null)
+			{
+				currentArduinoModule.Deactivate();
+				currentArduinoModule = null;
+			}
+			
 		}
 	}
 }

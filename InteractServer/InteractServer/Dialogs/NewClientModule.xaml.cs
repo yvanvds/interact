@@ -28,6 +28,7 @@ namespace InteractServer.Dialogs
 			cbList.Add("Script File");
 			cbList.Add("Audio Patcher");
 			cbList.Add("Sensor Configuration");
+			cbList.Add("Arduino Configuration");
 			CBType.ItemsSource = cbList;
 			CBType.SelectedIndex = 0;
 		}
@@ -50,6 +51,9 @@ namespace InteractServer.Dialogs
 					break;
 				case 3:
 					Type = ContentType.ClientSensors;
+					break;
+				case 4:
+					Type = ContentType.ClientArduino;
 					break;
 			}
 			DialogResult = true;

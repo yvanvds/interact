@@ -1,5 +1,4 @@
-﻿using Acr.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,7 +19,7 @@ namespace InteractClient.Network
 		{
 			currentServer = server;
 			sender.Init(server.Address, port);
-			sender.Send(new Osc.OscMessage("/internal/register", Global.deviceID, CrossSettings.Current.Get<String>("UserName")));
+			sender.Send(new Osc.OscMessage("/internal/register", Global.deviceID, Global.Settings.ID));
 			connected = true;
 		}
 

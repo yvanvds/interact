@@ -1,11 +1,11 @@
-﻿using Acr.Settings;
-using Sockets.Plugin;
+﻿using Sockets.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace InteractClient.Network
 {
@@ -19,9 +19,9 @@ namespace InteractClient.Network
 
 		public static async void Start()
 		{
-			udpReciever.MessageReceived += (sender, args) =>
+			udpReciever.MessageReceived += async (sender, args) =>
 			{
-				parseUdpMessage(args.RemoteAddress, args.ByteData);
+				await parseUdpMessage(args.RemoteAddress, args.ByteData);
 			};
 
 			try
@@ -34,7 +34,7 @@ namespace InteractClient.Network
 			
 		}
 
-		private static void parseUdpMessage(String ipAddress, byte[] data)
+		private static async Task parseUdpMessage(String ipAddress, byte[] data)
 		{
 			var reader = new BinaryReader(new MemoryStream(data), Encoding.UTF8);
 			while (reader.BaseStream.Position < reader.BaseStream.Length)
@@ -46,12 +46,12 @@ namespace InteractClient.Network
 							// the server acknowledges us
 							string name = reader.ReadString();
 							string token = reader.ReadString();
-							Servers.Add(name, ipAddress);
+							await Servers.Add(name, ipAddress);
 
 							// tokens can be used for auto connecting
 							if (autoConnect && token != "")
 							{
-								if (token.Equals(CrossSettings.Current.Get<string>("NetworkToken")))
+								if (token.Equals(Global.Settings.Token))
 								{
 									// instant connect if client and server have the same token
 									var server = Servers.Get(ipAddress);
