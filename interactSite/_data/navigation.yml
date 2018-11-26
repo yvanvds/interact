@@ -6,6 +6,8 @@ main:
     url: /download/
   - title: "About"
     url: /about/
+  - title: "Forum"
+    url: http://forum.mutecode.com/c/interact  
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

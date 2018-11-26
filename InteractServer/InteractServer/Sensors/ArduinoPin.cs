@@ -11,6 +11,7 @@ namespace InteractServer.Sensors
 	public class ArduinoPin : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
+		OscTree.Object oscParent;
 
 		private string name;
 		public string Name
@@ -48,17 +49,28 @@ namespace InteractServer.Sensors
 			}
 		}
 
-		private string mode = "Analog";
+		private string mode = "Analog In";
 		public string Mode
 		{
 			get => mode;
 			set
 			{
 				mode = value;
+				ModeChanged();
 				OnPropertyChanged("Mode");
 				needsSaving = true;
 			}
 		}
+		private bool isAnalogIn = true;
+		public bool IsAnalogIn => isAnalogIn;
+
+		private bool isDigitalIn = false;
+		public bool IsDigitalIn => isDigitalIn;
+
+		private bool isDigitalOut = false;
+		public bool IsDigitalOut => isDigitalOut;
+
+
 
 		private int stepSize = 1;
 		public int StepSize
@@ -126,8 +138,9 @@ namespace InteractServer.Sensors
 			}
 		}
 
-		public ArduinoPin()
+		public ArduinoPin(OscTree.Object parent)
 		{
+			oscParent = parent;
 			mode = "Analog In";
 		}
 
@@ -202,6 +215,56 @@ namespace InteractServer.Sensors
 				OnPropertyChanged("OscRouteName");
 			}
 			needsSaving = false;
+		}
+
+		private void ModeChanged()
+		{
+			if(Mode.Equals("Analog In"))
+			{
+				isAnalogIn = true;
+				isDigitalIn = false;
+				isDigitalOut = false;
+				foreach(var endpoint in oscParent.Endpoints.List)
+				{
+					if(endpoint.Key.Equals(Name))
+					{
+						oscParent.Endpoints.List.Remove(Name);
+						break;
+					}
+				}
+			} else if (Mode.Equals("Digital In"))
+			{
+				isAnalogIn = false;
+				isDigitalIn = true;
+				isDigitalOut = false;
+				foreach (var endpoint in oscParent.Endpoints.List)
+				{
+					if (endpoint.Key.Equals(Name))
+					{
+						oscParent.Endpoints.List.Remove(Name);
+						break;
+					}
+				}
+			} else if (Mode.Equals("Digital Out"))
+			{
+				isAnalogIn = false;
+				isDigitalIn = false;
+				isDigitalOut = true;
+				bool hasEndpoint = false;
+				foreach (var endpoint in oscParent.Endpoints.List)
+				{
+					if (endpoint.Key.Equals(Name))
+					{
+						hasEndpoint = true;
+						break;
+					}
+				}
+
+				if(!hasEndpoint)
+				{
+					oscParent.Endpoints.Add(new OscTree.Endpoint(Name, (args)=>{ }, typeof(bool)));
+				}
+			}
 		}
 	}
 }

@@ -47,6 +47,8 @@ namespace InteractServer.Project
 		private string content = string.Empty;
 		private string folderPath;
 
+		private OscTree.Object OscObject;
+
 		public ArduinoConfig(string name, string folderPath)
 		{
 			ArduinoGUI = new Controls.ArduinoControl();
@@ -58,6 +60,10 @@ namespace InteractServer.Project
 			type = ContentType.ClientArduino;
 			content = ArduinoGUI.ToJSON();
 
+			OscObject = new OscTree.Object(new OscTree.Address(Name), typeof(object));
+			Osc.Tree.Client.Add(OscObject);
+			ArduinoGUI.SetOscParent(OscObject);
+
 			setupDocument();
 		}
 
@@ -67,6 +73,10 @@ namespace InteractServer.Project
 
 			LoadFromJson(obj);
 			this.folderPath = folderPath;
+
+			OscObject = new OscTree.Object(new OscTree.Address(Name), typeof(object));
+			Osc.Tree.Client.Add(OscObject);
+			ArduinoGUI.SetOscParent(OscObject);
 
 			try
 			{

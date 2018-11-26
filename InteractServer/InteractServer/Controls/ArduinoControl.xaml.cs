@@ -29,6 +29,8 @@ namespace InteractServer.Controls
 		private string selectedGroup = string.Empty;
 		private bool needsSaving = false;
 
+		private OscTree.Object oscParent = null;
+
 		public ArduinoControl()
 		{
 			InitializeComponent();
@@ -64,7 +66,7 @@ namespace InteractServer.Controls
 				var arr = obj["Pins"] as JArray;
 				foreach(var pin in arr)
 				{
-					var newpin = new ArduinoPin();
+					var newpin = new ArduinoPin(oscParent);
 					newpin.ReadJSON(pin as JObject);
 					Pins.Add(newpin);
 				}
@@ -84,6 +86,11 @@ namespace InteractServer.Controls
 				}
 			}
 			routes.UpdateScreenNames(Osc.Tree.Root);
+		}
+
+		public void SetOscParent(OscTree.Object parent)
+		{
+			oscParent = parent;
 		}
 
 		public bool NeedsSaving()
@@ -124,7 +131,7 @@ namespace InteractServer.Controls
 
 		private void AddPin_Click(object sender, RoutedEventArgs e)
 		{
-			Pins.Add(new ArduinoPin());
+			Pins.Add(new ArduinoPin(oscParent));
 			Pins.Last().ID = shortid.ShortId.Generate(true, false);
 		}
 
@@ -148,6 +155,10 @@ namespace InteractServer.Controls
 		private void DeleteButton_Click(object sender, RoutedEventArgs e)
 		{
 			ArduinoPin pin = (e.Source as Button).DataContext as ArduinoPin;
+			if(pin.IsDigitalOut)
+			{
+				oscParent.Endpoints.List.Remove(pin.Name);
+			}
 			Pins.Remove(pin);
 		}
 	}

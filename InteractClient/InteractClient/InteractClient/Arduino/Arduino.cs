@@ -44,15 +44,22 @@ namespace InteractClient.Arduino
 			private float scale = 1;
 			public float Scale => scale;
 
+			private bool digital = false;
+			public bool Digital => digital;
+
 			public OscTree.Route Route => Config.Route;
 
 			public Pin(ArduinoConfig config, OscTree.Tree parent)
 			{
 				Config = config;
-				if(Config.Mode.Equals("Digital Out", StringComparison.CurrentCultureIgnoreCase))
+				if (Config.Mode.Equals("Digital Out", StringComparison.CurrentCultureIgnoreCase))
 				{
 					OscObj = new OscTree.Object(new OscTree.Address(Config.Name, Config.Name), typeof(int));
 					parent.Add(OscObj);
+					digital = true;
+				} else if (Config.Mode.Equals("Digital In", StringComparison.CurrentCultureIgnoreCase))
+				{
+					digital = true;
 				} else if (Config.Mode.Equals("Analog In", StringComparison.CurrentCultureIgnoreCase))
 				{
 					if(Config.LowValue < Config.HighValue)
@@ -66,7 +73,8 @@ namespace InteractClient.Arduino
 						float range = Config.LowValue - Config.HighValue;
 						scale = -(range / 1024f);
 					}
-				}
+					digital = false;
+				} 
 			}
 		}
 
@@ -151,11 +159,13 @@ namespace InteractClient.Arduino
 		{
 			Pins.Clear();
 			OscTree.Children.List.Clear();
+			bool analogActive = false;
+			bool digitalActive = false;
+
 			foreach (var p in config.Pins)
 			{
 				var pin = new Pin(p, OscTree);
-				bool analogActive = false;
-				bool digitalActive = false;
+				
 				switch(p.Mode)
 				{
 					case "Analog In":
@@ -181,9 +191,10 @@ namespace InteractClient.Arduino
 				}
 				
 				Pins.Add(pin);
-				device.EnableAnalogCallback(analogActive);
-				device.EnableDigitalCallback(digitalActive);
+				
 			}
+			device.EnableAnalogCallback(analogActive);
+			device.EnableDigitalCallback(digitalActive);
 		}
 
 		private void OnAnalogPinEvent(string pin, ushort value)
@@ -214,9 +225,16 @@ namespace InteractClient.Arduino
 		{
 			foreach(var current in Pins)
 			{
-				if(current.Number == pin)
+				if(current.Digital && current.Number == pin)
 				{
-					OscTree.Send(current.Route, new object[] { state });
+					if(current.Route != null)
+					{
+						Device.BeginInvokeOnMainThread(() =>
+						{
+							OscTree.Send(current.Route, new object[] { state == PinState.LOW ? false : true });
+						});
+					}
+					
 				}
 			}
 		}
