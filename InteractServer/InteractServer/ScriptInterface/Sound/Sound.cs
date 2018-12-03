@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScriptInterface.Sound
+namespace Scripts.Sound
 {
 	public class Sound
 	{
-		public static IServer Server;
-
 		private string oscPath;
 		
 
@@ -18,42 +16,42 @@ namespace ScriptInterface.Sound
 
 		public void Play()
 		{
-			Server.Osc.SendByName(oscPath + "/Play", true);
+			//Server.Osc.SendByName(oscPath + "/Play", true);
 		}
 
 		public void Stop()
 		{
-			Server.Osc.SendByName(oscPath + "/Stop", true);
+			//Server.Osc.SendByName(oscPath + "/Stop", true);
 		}
 
 		public void Pause()
 		{
-			Server.Osc.SendByName(oscPath + "/Pause", true);
+			//Server.Osc.SendByName(oscPath + "/Pause", true);
 		}
 
 		public void Time(float value)
 		{
-			Server.Osc.SendByName(oscPath + "/Time", value);
+			//Server.Osc.SendByName(oscPath + "/Time", value);
 		}
 
 		public void Volume(float value)
 		{
-			Server.Osc.SendByName(oscPath + "/Volume", value);
+			//Server.Osc.SendByName(oscPath + "/Volume", value);
 		}
 
 		public void Speed(float value)
 		{
-			Server.Osc.SendByName(oscPath + "/Speed", value);
+			//Server.Osc.SendByName(oscPath + "/Speed", value);
 		}
 
 		public void Loop(bool value)
 		{
-			Server.Osc.SendByName(oscPath + "/Loop", value);
+			//Server.Osc.SendByName(oscPath + "/Loop", value);
 		}
 
 		public void Pos(float x, float y, float z)
 		{
-			Server.Osc.SendByName(oscPath + "/Pos", new object[] { x, y, z });
+			//Server.Osc.SendByName(oscPath + "/Pos", new object[] { x, y, z });
 		}
 	}
 }

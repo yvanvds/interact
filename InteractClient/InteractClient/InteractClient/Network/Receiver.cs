@@ -47,11 +47,11 @@ namespace InteractClient.Network
 					{
 						if(Global.CurrentProject.Running)
 						{
-							Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-							{
+							//Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+							//{
 								object[] obj = ToObjectArray(args.Message.Arguments);
 								Global.OscRoot.Deliver(new OscTree.Route(address, OscTree.Route.RouteType.ID), obj);
-							});
+							//});
 						}
 					}
 				}

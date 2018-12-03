@@ -16,7 +16,31 @@ namespace InteractServer.Project
 		public ClientModuleFolder(string name, string path, string icon)
 			: base(name, path, icon)
 		{
+			// create directories
+			if (!Directory.Exists(Path.Combine(path, "Gui")))
+			{
+				Directory.CreateDirectory(Path.Combine(path, "Gui"));
+			}
 
+			if (!Directory.Exists(Path.Combine(path, "Patcher")))
+			{
+				Directory.CreateDirectory(Path.Combine(path, "Patcher"));
+			}
+			
+			if (!Directory.Exists(Path.Combine(path, "Script")))
+			{
+				Directory.CreateDirectory(Path.Combine(path, "Script"));
+			}
+
+			if (!Directory.Exists(Path.Combine(path, "Sensor")))
+			{
+				Directory.CreateDirectory(Path.Combine(path, "Sensor"));
+			}
+
+			if (!Directory.Exists(Path.Combine(path, "Arduino")))
+			{
+				Directory.CreateDirectory(Path.Combine(path, "Arduino"));
+			}
 		}
 
 		public override bool CreateResource(string name, ContentType type)

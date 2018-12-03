@@ -45,25 +45,26 @@ namespace InteractServer.Dialogs
 		private void BContinue_Click(object sender, RoutedEventArgs e)
 		{
 			if (!ValidModel()) return;
-			Type = ContentType.Invalid;
+			Type = GetContentType();
+			DialogResult = true;
+			Close();
+		}
 
+		private ContentType GetContentType()
+		{
 			switch (CBType.SelectedIndex)
 			{
 				case 0:
-					Type = ContentType.ServerGui;
-					break;
+					return ContentType.ServerGui;
 				case 1:
-					Type = ContentType.ServerScript;
-					break;
+					return ContentType.ServerScript;
 				case 2:
-					Type = ContentType.ServerPatcher;
-					break;
+					return ContentType.ServerPatcher;
 				case 3:
-					Type = ContentType.ServerSounds;
-					break;
+					return ContentType.ServerSounds;
+				default:
+					return ContentType.Invalid;
 			}
-			DialogResult = true;
-			Close();
 		}
 
 		private void TBModuleName_TextChanged(object sender, TextChangedEventArgs e)
@@ -80,7 +81,7 @@ namespace InteractServer.Dialogs
 		{
 			if (ModuleName.Length == 0) return false;
 
-			if (Project.Project.Current.ServerModules.FileExists(ModuleName))
+			if (Project.Project.Current.ServerModules.FileExists(ModuleName, GetContentType()))
 			{
 				LFileExists.Visibility = Visibility.Visible;
 				return false;

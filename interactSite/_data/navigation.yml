@@ -48,9 +48,7 @@ docs:
         url: /documentation/modules/patcher/
   - title: Varia
     children:
-      - title: "Release Notes"
-        url: /documentation/varia/releasenotes/
-      - title: "Roadmap"
-        url: /documentation/varia/roadmap/
+      - title: "Raspberry PI"
+        url: /documentation/varia/pi/
 
     

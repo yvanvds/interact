@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InteractServer.Sensors
 {
@@ -58,6 +59,8 @@ namespace InteractServer.Sensors
 				mode = value;
 				ModeChanged();
 				OnPropertyChanged("Mode");
+				OnPropertyChanged("AnalogVisibility");
+				OnPropertyChanged("RouteVisibility");
 				needsSaving = true;
 			}
 		}
@@ -70,7 +73,23 @@ namespace InteractServer.Sensors
 		private bool isDigitalOut = false;
 		public bool IsDigitalOut => isDigitalOut;
 
+		public Visibility AnalogVisibility
+		{
+			get
+			{
+				if (IsAnalogIn) return Visibility.Visible;
+				return Visibility.Hidden;
+			}
+		}
 
+		public Visibility RouteVisibility
+		{
+			get
+			{
+				if (isDigitalOut) return Visibility.Hidden;
+				return Visibility.Visible;
+			}
+		}
 
 		private int stepSize = 1;
 		public int StepSize
@@ -191,7 +210,7 @@ namespace InteractServer.Sensors
 
 			if(obj.ContainsKey("Mode"))
 			{
-				mode = (string)obj["Mode"];
+				Mode = (string)obj["Mode"];
 			}
 
 			if(obj.ContainsKey("StepSize"))

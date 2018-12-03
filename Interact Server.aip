@@ -15,7 +15,7 @@
     <ROW Property="ProductCode" Value="1033:{C14ED881-CC19-4961-99B7-8E71EB812E19} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Interact Server"/>
-    <ROW Property="ProductVersion" Value="0.5" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.6" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{697F13A8-EC9B-48A8-8565-19D8E83BE1BB}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

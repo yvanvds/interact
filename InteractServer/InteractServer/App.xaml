@@ -35,6 +35,10 @@
 			<BitmapImage x:Key="ImagePhone" UriSource="Resources/Icons/Phone_16x.png"/>
 			<BitmapImage x:Key="ImageCode" UriSource="Resources/Icons/Code_16x.png"/>
 			<BitmapImage x:Key="ImageCloseProject" UriSource="Resources/Icons/CloseSolution_inverse_16x.png"/>
+			<BitmapImage x:Key="Undo" UriSource="Resources/Icons/Undo_16x.png"/>
+			<BitmapImage x:Key="Redo" UriSource="Resources/Icons/Redo_16x.png"/>
+			<BitmapImage x:Key="Route" UriSource="Resources/Icons/AssociationLine_16x.png"/>
+			
 
 			<SolidColorBrush x:Key="ColorDark" Color="#1a1a1a"/>
 			<SolidColorBrush x:Key="ColorLessDark" Color="#3a3a3a"/>

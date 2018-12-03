@@ -1,4 +1,5 @@
 ﻿using Microsoft.CSharp;
+using Newtonsoft.Json.Linq;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -35,6 +36,19 @@ namespace ScriptCompiler
 		/// <summary>
 		/// Gets or sets the TextWriter to use for logging.
 		/// </summary>
+		/// 
+
+		private List<ParseError> errors = new List<ParseError>();
+		public string Errors()
+		{
+			var arr = new JArray();
+			foreach(var error in errors)
+			{
+				arr.Add(error.AsJson());
+			}
+			return arr.ToString();
+		}
+
 		public TextWriter Log
 		{
 			get
@@ -84,17 +98,17 @@ namespace ScriptCompiler
 		public bool Init(string[] filesToCompile)
 		{
 			Uninit();
+			errors.Clear();
 
 			CompilerResults results = provider.CompileAssemblyFromFile(parameters, filesToCompile);
 			if (results.Errors.HasErrors)
 			{
-				StringBuilder sb = new StringBuilder();
-
-				foreach (CompilerError error in results.Errors)
+				
+				for(int i = 0; i < results.Errors.Count; i++)
 				{
-					sb.AppendLine(String.Format("Line {2} # Error ({0}) # {1}", error.ErrorNumber, error.ErrorText, error.Line));
+					errors.Add(new ParseError(results.Errors[i]));
 				}
-				throw new InvalidOperationException(sb.ToString());
+				return false;
 			}
 
 			Assemblies.Add(results.CompiledAssembly);
@@ -154,6 +168,22 @@ namespace ScriptCompiler
 			ConstructorCache.Clear();
 		}
 
+		public bool InjectCommunicator(Scripts.ICommunicator communicator)
+		{
+			foreach (var asm in Assemblies)
+			{
+				Type t = asm.GetType("Scripts.Main");
+				if (t != null)
+				{
+					Type b = t.BaseType;
+					MethodInfo info = b.GetMethod("InjectCommunicator");
+					info.Invoke(null, new object[] { communicator });
+					return true;
+				}
+			}
+			return false;
+		}
+
 		/// <summary>
 		/// Returns a sequence of instances of types that implement a 
 		/// particular interface. Any instances that are MarshalByRefObject 
@@ -205,9 +235,8 @@ namespace ScriptCompiler
 		/// </summary>
 		/// <typeparam name="TInterface"></typeparam>
 		/// <returns></returns>
-		public TInterface GetImplementation<TInterface>(object[] args)
+		public TInterface GetImplementation<TInterface>()
 		{
-			constructorArgs = args;
 			return GetImplementations<TInterface>().FirstOrDefault();
 		}
 

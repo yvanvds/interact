@@ -43,20 +43,20 @@ namespace InteractServer.Project
 			properties.Add("Version");
 		}
 		#endregion PropertyInterface
-		
+
+		private string name = string.Empty;
 		public string Name
-		{
-			get => View.Name;
+		{	
+			get => name;
 			set
 			{
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				View.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => Path.Combine(folderPath, Name);
 
 		private string id = string.Empty;
 		public string ID => id;
@@ -83,7 +83,7 @@ namespace InteractServer.Project
 
 			Name = name;
 			this.id = shortid.ShortId.Generate(true);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Patcher");
 			this.serverSide = serverSide;
 
 			if (serverSide)
@@ -106,12 +106,12 @@ namespace InteractServer.Project
 			createView();
 
 			LoadFromJson(obj);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Patcher");
 			this.serverSide = serverSide;
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID));
+				content = File.ReadAllText(System.IO.Path.Combine(this.folderPath, Name));
 				patcher.ParseJSON(content);
 				View.Load();
 			} catch(Exception e)
@@ -304,7 +304,7 @@ namespace InteractServer.Project
 			try
 			{
 				content = View.Save();
-				File.WriteAllText(System.IO.Path.Combine(folderPath, ID), content);
+				File.WriteAllText(System.IO.Path.Combine(folderPath, Name), content);
 				return true;
 			} catch(Exception e)
 			{
@@ -315,7 +315,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(Path.Combine(folderPath, ID));
+			File.Delete(Path.Combine(folderPath, Name));
 		}
 
 		private bool needsSaving = false;

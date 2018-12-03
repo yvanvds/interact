@@ -1,0 +1,1 @@
+MainPackage=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\x86\Release\InteractClient.UWP_1.0.5.0_x86.appx

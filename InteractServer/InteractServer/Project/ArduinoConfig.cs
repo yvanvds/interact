@@ -15,19 +15,19 @@ namespace InteractServer.Project
 	{
 		public Controls.ArduinoControl ArduinoGUI = null;
 
+		private string name = string.Empty;
 		public string Name
 		{
-			get => ArduinoGUI.Name;
+			get => name;
 			set
 			{
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				ArduinoGUI.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => Path.Combine(folderPath, Name);
 
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
@@ -55,12 +55,12 @@ namespace InteractServer.Project
 
 			Name = name;
 			this.id = shortid.ShortId.Generate(false, false);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Arduino");
 
 			type = ContentType.ClientArduino;
 			content = ArduinoGUI.ToJSON();
 
-			OscObject = new OscTree.Object(new OscTree.Address(Name), typeof(object));
+			OscObject = new OscTree.Object(new OscTree.Address(Name, id), typeof(object));
 			Osc.Tree.Client.Add(OscObject);
 			ArduinoGUI.SetOscParent(OscObject);
 
@@ -74,13 +74,13 @@ namespace InteractServer.Project
 			LoadFromJson(obj);
 			this.folderPath = folderPath;
 
-			OscObject = new OscTree.Object(new OscTree.Address(Name), typeof(object));
+			OscObject = new OscTree.Object(new OscTree.Address(Name, id), typeof(object));
 			Osc.Tree.Client.Add(OscObject);
 			ArduinoGUI.SetOscParent(OscObject);
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID + "_arduinoConf.json"));
+				content = File.ReadAllText(System.IO.Path.Combine(folderPath, "Arduino", ID + "_arduinoConf.json"));
 				ArduinoGUI.LoadJSON(content);
 			} catch(Exception)
 			{

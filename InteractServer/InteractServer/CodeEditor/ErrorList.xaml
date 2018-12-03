@@ -1,0 +1,33 @@
+﻿<Page x:Class="InteractServer.CodeEditor.ErrorList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InteractServer.CodeEditor"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="{Binding ElementName=errorListView, Path=Items.Count, StringFormat={}Error List ({0}), FallbackValue=Error List}">
+
+    <Grid>
+		<ListView x:Name="errorListView" BorderThickness="0" MouseDoubleClick="ErrorListView_MouseDoubleClick">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="30">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Image Source="{Binding Path=Icon}" Margin="0" Height="16" Width="16" Stretch="UniformToFill" SnapsToDevicePixels="True" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+						
+					</GridViewColumn>
+					<GridViewColumn Header="File" Width="80" DisplayMemberBinding="{Binding Path=ReadableFilename}"/>
+					<GridViewColumn Header="Error" Width="80" DisplayMemberBinding="{Binding Path=ErrorNumber}"/>
+					<GridViewColumn Header="Line" Width="40" DisplayMemberBinding="{Binding Path=Line}"/>
+					<GridViewColumn Header="Char" Width="40" DisplayMemberBinding="{Binding Path=Column}"/>
+					
+					<GridViewColumn Header="Description" Width="800" DisplayMemberBinding="{Binding Path=ErrorText}"/>
+				</GridView>
+			</ListView.View>
+		</ListView>
+    </Grid>
+</Page>

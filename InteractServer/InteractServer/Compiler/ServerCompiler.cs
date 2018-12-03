@@ -13,9 +13,7 @@ namespace InteractServer.Compiler
 	public class ServerCompiler
 	{
 		ScriptCompiler.Compiler compiler = null;
-		ServerScriptObject server = null;
-		OscForwarder oscForwarder = null;
-		LogForwarder LogForwarder = new LogForwarder();
+		ServerCommunicator server = null;
 
 		public ServerCompiler()
 		{
@@ -36,6 +34,7 @@ namespace InteractServer.Compiler
 			{
 				Log.Log.Handle.AddEntry(e.Message);
 			}
+			CodeEditor.ErrorList.Handle.Populate(compiler.Errors());
 		}
 
 		public bool HasScriptInterface()
@@ -47,13 +46,9 @@ namespace InteractServer.Compiler
 		{
 			if (server == null)
 			{
-				oscForwarder = new OscForwarder("ServerScripts", true);
-				server = new ServerScriptObject(oscForwarder, LogForwarder);
+				server = new ServerCommunicator();
 			}
-			else
-			{
-				oscForwarder.Clear();
-			}
+			Osc.Tree.ServerScripts.Endpoints.Clear();
 
 			var result = compiler.Run(server);
 			if (result != string.Empty)
@@ -118,10 +113,7 @@ namespace InteractServer.Compiler
 		public void StopAssembly()
 		{
 			compiler.Stop();
-			if (oscForwarder != null)
-			{
-				oscForwarder.Clear();
-			}
+			Osc.Tree.ServerScripts.Endpoints.Clear();
 		}
 
 		~ServerCompiler()

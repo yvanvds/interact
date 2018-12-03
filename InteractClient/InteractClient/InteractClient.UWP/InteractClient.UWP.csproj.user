@@ -25,5 +25,18 @@
     <AppIconSource>C:\Users\yvan\source\repos\interact\Logo\Logo_A_x512.png</AppIconSource>
     <SplashScreenSource>C:\Users\yvan\source\repos\interact\Logo\Logo_A_x512.png</SplashScreenSource>
     <PackageLogoSource>C:\Users\yvan\source\repos\interact\Logo\Logo_A_x512.png</PackageLogoSource>
+    <AppxPackageIsForStore>False</AppxPackageIsForStore>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x86|arm</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <RemoteMachine0>192.168.0.109:4022 %28pi1%29</RemoteMachine0>
+    <UseAuthentication0>False</UseAuthentication0>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>false</UseEmulator>
+    <RemoteDebugMachine>192.168.0.109</RemoteDebugMachine>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
 </Project>

@@ -58,5 +58,10 @@ namespace InteractServer.CodeEditor
 
 		public void InsertMethod(string line) { }
 		public void SetFocusOnNewCode() { }
+
+		public void SetFocus(int line, int column)
+		{
+			
+		}
 	}
 }

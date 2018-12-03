@@ -6,7 +6,9 @@ namespace InteractServer.Project
 {
 	public interface IResource
 	{
+		string DisplayName { get; }
 		string Name { get; }
+		string Location { get; }
 		ContentType Type { get; }
 		string ID { get; }
 		string Icon { get; }

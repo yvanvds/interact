@@ -69,28 +69,28 @@
 					<GridViewColumn Header="StepSize">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
-								<TextBox Grid.Column="3" Text="{Binding StepSize}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+								<TextBox Grid.Column="3" Text="{Binding StepSize}" Visibility="{Binding AnalogVisibility}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
 					<GridViewColumn Header="Low Value">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
-								<TextBox Grid.Column="3" Text="{Binding LowValue}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+								<TextBox Grid.Column="3" Text="{Binding LowValue}" Visibility="{Binding AnalogVisibility}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
 					<GridViewColumn Header="High Value">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
-								<TextBox Grid.Column="3" Text="{Binding HighValue}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+								<TextBox Grid.Column="3" Text="{Binding HighValue}" Visibility="{Binding AnalogVisibility}" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
 					<GridViewColumn Header="Route" Width="400">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
-								<Label Grid.Column="4" Content="{Binding OscRouteName}" MouseLeftButtonUp="Route_MouseLeftButtonUp"/>
+								<Label Grid.Column="4" Content="{Binding OscRouteName}" Visibility="{Binding RouteVisibility, Mode=OneWay}" MouseLeftButtonUp="Route_MouseLeftButtonUp"/>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>

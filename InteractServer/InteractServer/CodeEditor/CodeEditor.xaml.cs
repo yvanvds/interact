@@ -5,6 +5,7 @@ using ActiproSoftware.Text.Languages.DotNet.Reflection;
 using ActiproSoftware.Text.Parsing;
 using ActiproSoftware.Text.Parsing.LLParser;
 using ActiproSoftware.Windows.Controls.SyntaxEditor;
+using InteractServer.Dialogs;
 using InteractServer.Utils;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace InteractServer.CodeEditor
 		{
 			InitializeComponent();
 
-			Name = name;
+			Name = System.IO.Path.GetFileNameWithoutExtension(name);
 			codeEditor.Document.TextChanged += Document_TextChanged;
 			codeEditor.ZoomLevel = 1.25;
 			codeEditor.Document.TabSize = 2;
@@ -188,6 +189,27 @@ namespace InteractServer.CodeEditor
 			codeEditor.Caret.Position = new TextPosition(newCodeLine, 8);
 			codeEditor.ActiveView.Scroller.ScrollToCaret();
 			codeEditor.ActiveView.Focus();
+		}
+
+		private void RouteButton_Click(object sender, RoutedEventArgs e)
+		{
+			var dialog = new RouteSelector(null, Osc.Tree.Root);
+			/*if (pin.Route != null)
+			{
+				dialog.SetRoute(pin.Route);
+			}*/
+			dialog.ShowDialog();
+
+			if (dialog.DialogResult == true)
+			{
+				codeEditor.Document.InsertText(TextChangeTypes.Typing, codeEditor.Caret.Offset, dialog.CurrentRoute.OriginalName);
+			}
+		}
+
+		public void SetFocus(int line, int column)
+		{
+			var pos = new TextPosition(line-1, column);
+			codeEditor.ActiveView.Selection.StartPosition = pos;
 		}
 	}
 }

@@ -112,7 +112,9 @@ namespace InteractServer
 		private LayoutAnchorable projectExplorer;
 		private LayoutAnchorable properties;
 		private LayoutAnchorable log;
+		private LayoutAnchorable errorlist;
 		private LayoutDocument clientExplorer;
+
 		private void addPages()
 		{
 			{
@@ -142,12 +144,32 @@ namespace InteractServer
 			}
 			{
 				Frame frame = new Frame();
+				frame.Content = new CodeEditor.ErrorList();
+				errorlist = new LayoutAnchorable();
+				errorlist.Title = CodeEditor.ErrorList.Handle.Title;
+				errorlist.Content = frame;
+				dockBottom.Children.Add(errorlist);
+			}
+			{
+				Frame frame = new Frame();
 				frame.Content = new Pages.ClientExplorer();
 				clientExplorer = new LayoutDocument();
 				clientExplorer.Title = "Clients";
 				clientExplorer.Content = frame;		
 			}
 
+		}
+
+		public void FocusOnErrorList()
+		{
+			if(dockBottom.Children.Contains(errorlist))
+			{
+				errorlist.IsActive = true;
+			} else
+			{
+				dockBottom.InsertChildAt(dockBottom.ChildrenCount, errorlist);
+				dockBottom.SelectedContentIndex = dockBottom.ChildrenCount - 1;
+			}
 		}
 		#endregion Panels
 

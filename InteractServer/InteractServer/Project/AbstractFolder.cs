@@ -40,16 +40,49 @@ namespace InteractServer.Project
 			}
 		}
 
-		public bool FileExists(string name)
+		public bool FileExists(string name, ContentType type)
 		{
-			foreach (var resource in resources)
+			string path = string.Empty;
+			switch(type)
 			{
-				if (resource.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase))
-				{
-					return true;
-				}
+				case ContentType.ClientArduino:
+					{
+						path = Path.Combine(this.path, "Arduino", name + ".json");
+						break;
+					}
+				case ContentType.ServerGui:
+				case ContentType.ClientGui:
+					{
+						path = Path.Combine(this.path, "Gui", name + ".json");
+						break;
+					}
+				case ContentType.ServerPatcher:
+				case ContentType.ClientPatcher:
+					{
+						path = Path.Combine(this.path, "Patcher", name + ".yap");
+						break;
+					}
+				case ContentType.ServerScript:
+				case ContentType.ClientScript:
+					{
+						path = Path.Combine(this.path, "Script", name + ".cs");
+						break;
+					}
+				case ContentType.ClientSensors:
+					{
+						path = Path.Combine(this.path, "Sensor", name + ".json");
+						break;
+					}
+				case ContentType.ServerSounds:
+				case ContentType.ClientSounds:
+					{
+						path = Path.Combine(this.path, "Sound", name + ".json");
+						break;
+					}
+				default: return false;
 			}
-			return false;
+
+			return File.Exists(path);
 		}
 
 		public IResource Get(string id)
@@ -68,6 +101,15 @@ namespace InteractServer.Project
 				if (resource.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) return resource;
 			}
 			return null;
+		}
+
+		public string GetName(string ID)
+		{
+			foreach(var resource in resources)
+			{
+				if (resource.ID.Equals(ID)) return resource.Name;
+			}
+			return string.Empty;
 		}
 
 		public abstract bool CreateResource(string name, ContentType type);

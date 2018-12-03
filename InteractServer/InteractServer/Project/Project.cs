@@ -45,6 +45,7 @@ namespace InteractServer.Project
 			{
 				File.WriteAllText(filePath, projectFile.ToString());
 				current = new Project(filePath);
+				current.Save();
 			}
 			catch (Exception e)
 			{
@@ -59,6 +60,7 @@ namespace InteractServer.Project
 			try
 			{
 				current = new Project(path);
+				current.RecompileScripts();
 				InteractServer.Properties.Settings.Default.LastOpenProject = path;
 				InteractServer.Properties.Settings.Default.Save();
 
@@ -185,8 +187,6 @@ namespace InteractServer.Project
 
 			ServerEndpointWriter = new EndpointWriter(Path.Combine(projectPath, "Server"), Intellisense.ServerLanguage, true);
 			ClientEndpointWriter = new EndpointWriter(Path.Combine(projectPath, "Client"), Intellisense.ClientLanguage, false);
-
-			RecompileScripts();
 
 			Osc.Tree.Root.ValueOverrideHandler = ServerCompiler.OscValueOverride;
 
@@ -357,6 +357,16 @@ namespace InteractServer.Project
 				RecompileScripts();
 			}
 			return true;
+		}
+
+		public string ResourceName(string ID)
+		{
+			string result = ServerModules.GetName(ID);
+			if(result.Length == 0)
+			{
+				result = ClientModules.GetName(ID);
+			}
+			return result;
 		}
 
 		public void RecompileScripts()

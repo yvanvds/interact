@@ -24,18 +24,18 @@ namespace InteractServer.Project
 
 		#endregion PropertyInterface
 
+		private string name = string.Empty;
 		public string Name
 		{
-			get => OscGUI.Name;
+			get => name;
 			set {
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				OscGUI.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => System.IO.Path.Combine(folderPath, Name);
 
 		private string id = string.Empty;
 		public string ID => id;
@@ -67,7 +67,7 @@ namespace InteractServer.Project
 			OscGUI = new OscGuiControl.OscGUI();
 			Name = name;
 			this.id = shortid.ShortId.Generate(false, false);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Gui");
 			this.serverSide = serverSide;
 
 			
@@ -97,12 +97,12 @@ namespace InteractServer.Project
 			OscGUI.SetInspector(Pages.Properties.Handle.GetInspector());
 
 			LoadFromJson(obj);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Gui");
 			this.serverSide = serverSide;
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID));
+				content = File.ReadAllText(System.IO.Path.Combine(this.folderPath, Name));
 				OscGUI.LoadJSON(content);
 				OscGUI.EditMode = false;
 			} catch(Exception)
@@ -156,7 +156,7 @@ namespace InteractServer.Project
 			try
 			{
 				content = OscGUI.ToJSON();
-				File.WriteAllText(System.IO.Path.Combine(folderPath, ID), content);
+				File.WriteAllText(System.IO.Path.Combine(folderPath, Name), content);
 				return true;
 			}
 			catch (Exception e)
@@ -168,7 +168,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(System.IO.Path.Combine(folderPath, ID));
+			File.Delete(System.IO.Path.Combine(folderPath, Name));
 		}
 
 		public bool LoadFromJson(JObject obj)

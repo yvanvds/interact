@@ -16,22 +16,20 @@ namespace InteractServer.Project
 	public class SoundPage : IResource, OscGuiControl.IPropertyInterface
 	{
 		public Controls.SoundGrid View = null;
-		
 
-		private string name;
+		public string name;
 		public string Name
 		{
-			get => View.Name;
+			get => name;
 			set
 			{
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				View.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => Path.Combine(folderPath, Name);
 
 		private LayoutDocument document = null;
 		public LayoutDocument Document => document;
@@ -69,10 +67,11 @@ namespace InteractServer.Project
 		public SoundPage(string name, bool serverSide, string folderPath)
 		{
 			this.id = shortid.ShortId.Generate(true);
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Sound");
 			this.serverSide = serverSide;
+			this.Name = name;
 
-			createView(name);
+			createView();
 
 			if(serverSide)
 			{
@@ -87,14 +86,15 @@ namespace InteractServer.Project
 
 		public SoundPage(JObject obj, bool serverSide, string folderPath)
 		{
-			this.folderPath = folderPath;
+			this.folderPath = System.IO.Path.Combine(folderPath, "Sound");
 			this.serverSide = serverSide;
 			LoadFromJson(obj);
-			createView((string)obj["Name"]);
+			this.name = (string)obj["Name"];
+			createView();
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID));
+				content = File.ReadAllText(System.IO.Path.Combine(this.folderPath, Name));
 				View.Load(JObject.Parse(content));
 			}
 			catch (Exception e)
@@ -114,9 +114,9 @@ namespace InteractServer.Project
 			setupDocument();
 		}
 
-		private void createView(string name)
+		private void createView()
 		{
-			View = new Controls.SoundGrid(name, ID, Path.Combine(folderPath, "Sounds"));
+			View = new Controls.SoundGrid(DisplayName, ID, folderPath);
 		}
 
 		private void setupDocument()
@@ -133,7 +133,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(Path.Combine(folderPath, ID));
+			File.Delete(Path.Combine(folderPath, Name));
 		}
 
 		public bool LoadFromJson(JObject obj)
@@ -177,7 +177,7 @@ namespace InteractServer.Project
 			try
 			{
 				content = View.Save().ToString();
-				File.WriteAllText(System.IO.Path.Combine(folderPath, ID), content);
+				File.WriteAllText(System.IO.Path.Combine(folderPath, Name), content);
 				return true;
 			}
 			catch (Exception e)

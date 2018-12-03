@@ -52,6 +52,11 @@ namespace ScriptCompiler
 		/// </summary>
 		public PluginHost() { }
 
+		public string Errors()
+		{
+			return Loader.Errors();
+		}
+
 		/// <summary>
 		/// Initalises a new instance of the PluginHost class using the specified 
 		/// path to the plugin assemblies.
@@ -70,14 +75,19 @@ namespace ScriptCompiler
 			Dispose(false);
 		}
 
+		public bool InjectCommunicator(Scripts.ICommunicator communicator)
+		{
+			return Loader.InjectCommunicator(communicator);
+		}
+
 		/// <summary>
 		/// Returns the type of the first class that implements the specified interface in all loaded assemblies.
 		/// </summary>
 		/// <typeparam name="TInterface"></typeparam>
 		/// <returns></returns>
-		public Sponsor<TInterface> GetImplementation<TInterface>(object[] args) where TInterface : class
+		public Sponsor<TInterface> GetImplementation<TInterface>() where TInterface : class
 		{
-			TInterface instance = Loader.GetImplementation<TInterface>(args);
+			TInterface instance = Loader.GetImplementation<TInterface>();
 
 			if (instance != null)
 				return new Sponsor<TInterface>(instance);

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScriptInterface
+namespace Script
 {
 	public interface IClient
 	{
-		IOsc Osc { get; }
-		ILog Log { get; }
+		//IOsc Osc { get; }
+		//ILog Log { get; }
 	}
 }

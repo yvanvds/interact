@@ -39,9 +39,9 @@ namespace InteractServer.Compiler
 		}
 
 		ScriptCompiler.Compiler compiler = null;
-		ClientScriptObject client = null;
-		OscForwarder oscForwarder = null;
-		LogForwarder LogForwarder = new LogForwarder();
+		//ClientScriptObject client = null;
+		//OscForwarder oscForwarder = null;
+		//LogForwarder LogForwarder = new LogForwarder();
 
 		public ClientCompiler()
 		{
@@ -71,22 +71,22 @@ namespace InteractServer.Compiler
 
 		public bool Run()
 		{
-			if (client == null)
+			/*//if (client == null)
 			{
-				oscForwarder = new OscForwarder("ClientScripts", false);
-				client = new ClientScriptObject(oscForwarder, LogForwarder);
+				//oscForwarder = new OscForwarder("ClientScripts", false);
+				//client = new ClientScriptObject(oscForwarder, LogForwarder);
 			}
-			else
+			//else
 			{
-				oscForwarder.Clear();
+				//oscForwarder.Clear();
 			}
 
-			var result = compiler.Run(client);
-			if (result != string.Empty)
+			//var result = compiler.Run(client);
+			//if (result != string.Empty)
 			{
 				Log.Log.Handle.AddEntry("Client Script Error: " + result);
 				return false;
-			}
+			}*/
 			return true;
 		}
 
@@ -109,9 +109,9 @@ namespace InteractServer.Compiler
 		public void StopAssembly()
 		{
 			compiler.Stop();
-			if (oscForwarder != null)
+			//if (oscForwarder != null)
 			{
-				oscForwarder.Clear();
+				//oscForwarder.Clear();
 			}
 		}
 

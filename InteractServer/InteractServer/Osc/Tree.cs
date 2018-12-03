@@ -15,11 +15,10 @@ namespace InteractServer.Osc
 		public static OscTree.Tree AllClients = new OscTree.Tree(new OscTree.Address("AllClients", "AllClients"));
 		public static OscTree.Tree ServerPatchers = new OscTree.Tree(new OscTree.Address("Patchers", "Patchers"));
 		public static OscTree.Tree ServerSounds = new OscTree.Tree(new OscTree.Address("Sounds", "Sounds"));
+		public static OscTree.Object ServerScripts = new OscTree.Object(new OscTree.Address("ServerScripts", "ServerScripts"), typeof(Object));
 
 		public static void Init()
 		{
-			
-
 			Root.Add(Server);
 			Root.Add(Client);
 
@@ -44,6 +43,7 @@ namespace InteractServer.Osc
 
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
+			Server.Add(ServerScripts);
 		}
 
 		public static void AddErrorHandlingToOsc()
@@ -61,9 +61,11 @@ namespace InteractServer.Osc
 			Client.Clear();
 			ServerPatchers.Clear();
 			ServerSounds.Clear();
+			ServerScripts.Endpoints.Clear();
 
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
+			Server.Add(ServerScripts);
 		}
 	}
 }

@@ -36,28 +36,28 @@ namespace InteractServer.Dialogs
 		private void BContinue_Click(object sender, RoutedEventArgs e)
 		{
 			if (!ValidModel()) return;
-			Type = ContentType.Invalid;
+			Type = GetContentType();
+			DialogResult = true;
+			Close();
+		}
 
+		private ContentType GetContentType()
+		{
 			switch (CBType.SelectedIndex)
 			{
 				case 0:
-					Type = ContentType.ClientGui;
-					break;
+					return ContentType.ClientGui;
 				case 1:
-					Type = ContentType.ClientScript;
-					break;
+					return ContentType.ClientScript;
 				case 2:
-					Type = ContentType.ClientPatcher;
-					break;
+					return ContentType.ClientPatcher;
 				case 3:
-					Type = ContentType.ClientSensors;
-					break;
+					return ContentType.ClientSensors;
 				case 4:
-					Type = ContentType.ClientArduino;
-					break;
+					return ContentType.ClientArduino;
+				default:
+					return ContentType.Invalid;
 			}
-			DialogResult = true;
-			Close();
 		}
 
 		private void TBModuleName_TextChanged(object sender, TextChangedEventArgs e)
@@ -74,7 +74,7 @@ namespace InteractServer.Dialogs
 		{
 			if (ModuleName.Length == 0) return false;
 
-			if (Project.Project.Current.ClientModules.FileExists(ModuleName))
+			if (Project.Project.Current.ClientModules.FileExists(ModuleName, GetContentType()))
 			{
 				LFileExists.Visibility = Visibility.Visible;
 				return false;

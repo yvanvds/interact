@@ -16,5 +16,7 @@ namespace InteractServer.CodeEditor
 
 		void InsertMethod(string line);
 		void SetFocusOnNewCode();
+
+		void SetFocus(int line, int column);
 	}
 }

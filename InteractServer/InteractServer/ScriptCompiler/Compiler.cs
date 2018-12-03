@@ -14,8 +14,13 @@ namespace ScriptCompiler
 	public class Compiler
 	{
 		PluginHost host = null;
-		ScriptInterface.Script handle = null;
-		Sponsor<ScriptInterface.IScript> objectFromAssembly = null;
+		Scripts.ServerBase handle = null;
+		Sponsor<Scripts.IScript> objectFromAssembly = null;
+
+		public string Errors()
+		{
+			return host.Errors();
+		}
 
 		public Compiler(EventHandler onLoad, EventHandler onUnload)
 		{
@@ -33,30 +38,26 @@ namespace ScriptCompiler
 		{
 			try
 			{
-				var server = new ScriptInterface.FakeServer();
-				return host.GetImplementation<ScriptInterface.IScript>(new object[] { server }) != null;
-			}catch(Exception)
+				return host.GetImplementation<Scripts.IScript>() != null;
+			}catch(Exception e)
 			{
+				Console.WriteLine(e.Message);
 				return false;
 			}
 			
 		}
 
-		public string Run(ScriptInterface.IServer server)
+		public string Run(Scripts.ICommunicator communicator)
 		{
 			try
 			{
-				objectFromAssembly = host.GetImplementation<ScriptInterface.IScript>(new object[] { server });
+				objectFromAssembly = host.GetImplementation<Scripts.IScript>();
 				if (objectFromAssembly != null)
 				{
-					handle = objectFromAssembly.Instance as ScriptInterface.Script;
+					handle = objectFromAssembly.Instance as Scripts.ServerBase;
 					if (handle == null)
 					{
 						return "Unable to create script object";
-					}
-					else
-					{
-						return string.Empty;
 					}
 				}
 				else
@@ -64,7 +65,12 @@ namespace ScriptCompiler
 					return "Unable to find Script interface";
 				}
 
+				if(!host.InjectCommunicator(communicator))
+				{
+					return "Unable to inject Communicator Object";
+				}
 
+				return OnCreate();
 			}
 			catch (Exception e)
 			{
@@ -72,14 +78,14 @@ namespace ScriptCompiler
 			}
 		}
 
-		public string Run(ScriptInterface.IClient client)
+		public string Run(Script.IClient client)
 		{
 			try
 			{
-					objectFromAssembly = host.GetImplementation<ScriptInterface.IScript>(new object[] { client });
+					objectFromAssembly = host.GetImplementation<Scripts.IScript>();
 					if (objectFromAssembly != null)
 					{
-						handle = objectFromAssembly.Instance as ScriptInterface.Script;
+						//handle = objectFromAssembly.Instance as Script.Script;
 						if (handle == null)
 						{
 							return "Unable to create script object";
@@ -106,6 +112,19 @@ namespace ScriptCompiler
 			{
 				objectFromAssembly.Dispose();
 			}
+		}
+
+		public string OnCreate()
+		{
+			try
+			{
+				handle?.OnCreate();
+			}
+			catch(Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
 		}
 
 		public string OnProjectStart()

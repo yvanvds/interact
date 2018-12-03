@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScriptInterface.Resolume
+namespace Script.Resolume
 {
 	public class Composition : ISender
 	{

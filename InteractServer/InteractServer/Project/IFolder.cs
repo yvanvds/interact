@@ -12,7 +12,7 @@ namespace InteractServer.Project
 		int Count { get; }
 		string GuiCount { get; }
 
-		bool FileExists(string name);
+		bool FileExists(string name, ContentType type);
 
 		ObservableCollection<IResource> Resources { get; }
 

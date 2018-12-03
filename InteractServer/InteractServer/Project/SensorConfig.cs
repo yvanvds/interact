@@ -14,19 +14,19 @@ namespace InteractServer.Project
 	class SensorConfig : IResource
 	{
 
+		private string name = string.Empty;
 		public string Name
 		{
-			get => SensorGUI.Name;
+			get => name;
 			set
 			{
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				SensorGUI.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => Path.Combine(folderPath, Name);
 
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
@@ -68,11 +68,11 @@ namespace InteractServer.Project
 			SensorGUI = new Controls.SensorControl();
 
 			LoadFromJson(obj);
-			this.folderPath = folderPath;
+			this.folderPath = Path.Combine(folderPath, "Sensor");
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID + "_sensorConf.json"));
+				content = File.ReadAllText(Path.Combine(folderPath, ID + "_sensorConf.json"));
 				SensorGUI.LoadJSON(content);
 			} catch(Exception)
 			{
@@ -95,7 +95,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(System.IO.Path.Combine(folderPath, ID + "_sensorConf.json"));
+			File.Delete(System.IO.Path.Combine(folderPath, "Sensor", ID + "_sensorConf.json"));
 		}
 
 		public bool LoadFromJson(JObject obj)

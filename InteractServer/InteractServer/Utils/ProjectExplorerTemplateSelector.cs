@@ -35,7 +35,7 @@ namespace InteractServer.Utils
 				{
 					return PatcherTemplate;
 				}
-				else if (item is Script)
+				else if (item is Project.Script)
 				{
 					return ScriptTemplate;
 				}

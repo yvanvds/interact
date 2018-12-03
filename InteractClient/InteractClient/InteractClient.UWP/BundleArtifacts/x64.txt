@@ -1,0 +1,2 @@
+MainPackage=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\x64\Release\InteractClient.UWP_1.0.0.0_x64.appx
+SymbolPackage=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\AppPackages\InteractClient.UWP_1.0.0.0_Test\InteractClient.UWP_1.0.0.0_x64.appxsym

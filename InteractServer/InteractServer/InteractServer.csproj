@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -91,8 +91,8 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\OscGui.1.0.35\lib\net461\OscGui.dll</HintPath>
@@ -188,6 +188,9 @@
     <Compile Include="CodeEditor\CodeEditor.xaml.cs">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CodeEditor\ErrorList.xaml.cs">
+      <DependentUpon>ErrorList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CodeEditor\FallbackEditor.xaml.cs">
       <DependentUpon>FallbackEditor.xaml</DependentUpon>
     </Compile>
@@ -195,11 +198,9 @@
     <Compile Include="CodeEditor\SyntaxEditorHelper.cs" />
     <Compile Include="Compiler\ClientCompiler.cs" />
     <Compile Include="Compiler\ClientScriptObject.cs" />
-    <Compile Include="Compiler\ServerScriptObject.cs" />
+    <Compile Include="Compiler\ServerCommunicator.cs" />
     <Compile Include="Compiler\ServerCompiler.cs" />
     <Compile Include="Compiler\Intellisense.cs" />
-    <Compile Include="Compiler\LogForwarder.cs" />
-    <Compile Include="Compiler\OscForwarder.cs" />
     <Compile Include="Controls\ArduinoControl.xaml.cs">
       <DependentUpon>ArduinoControl.xaml</DependentUpon>
     </Compile>
@@ -318,6 +319,10 @@
     <Compile Include="Yse\Handler.cs" />
     <Compile Include="Yse\Yse.cs" />
     <Page Include="CodeEditor\CodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CodeEditor\ErrorList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -552,6 +557,18 @@
     <Content Include="portaudio_x86.dll" />
     <Resource Include="Resources\Icons\CloseSolution_inverse_16x.png" />
     <Resource Include="Resources\Icons\arduino_16.png" />
+    <Resource Include="Resources\Icons\StatusWarning_16x.png" />
+    <Resource Include="Resources\Icons\StatusCriticalError_16x.png" />
+    <Resource Include="Resources\Icons\AssociationLine_16x.png" />
+    <Resource Include="Resources\Icons\CommentLines16.png" />
+    <Resource Include="Resources\Icons\DecreaseIndent16.png" />
+    <Resource Include="Resources\Icons\FormatDocument16.png" />
+    <Resource Include="Resources\Icons\FormatSelection16.png" />
+    <Resource Include="Resources\Icons\IncreaseIndent16.png" />
+    <Resource Include="Resources\Icons\UncommentLines16.png" />
+    <Resource Include="Resources\Icons\Redo16.png" />
+    <Resource Include="Resources\Icons\Undo16.png" />
+    <Resource Include="Resources\Icons\Script_16x.png" />
     <Content Include="Yse.dll" />
   </ItemGroup>
   <ItemGroup>

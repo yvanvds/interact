@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace InteractServer.Pages
 
 		private void RenameResource_Click(object sender, RoutedEventArgs e)
 		{
-
+			
 		}
 
 		private void AddResource_Click(object sender, RoutedEventArgs e)
@@ -98,6 +99,15 @@ namespace InteractServer.Pages
 			if(Project.Project.Current != null)
 			{
 				Properties.Handle.SetSelected(Project.Project.Current);
+			}
+		}
+
+		private void ShowResource_Click(object sender, RoutedEventArgs e)
+		{
+			var resource = ((MenuItem)sender).DataContext as Project.IResource;
+			if (resource != null)
+			{
+				Process.Start("explorer.exe", "/select, " + resource.Location);
 			}
 		}
 	}

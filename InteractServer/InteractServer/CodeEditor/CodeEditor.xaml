@@ -28,6 +28,7 @@
 
 				<StatusBarItem Grid.Column="1">
 					<StackPanel Orientation="Horizontal">
+						
 						<TextBlock x:Name="linePanel" MinWidth="40" Margin="7,0,7,0" VerticalAlignment="Center" Text="Ln 1" />
 						<TextBlock x:Name="columnPanel" MinWidth="40" Margin="7,0,7,0" VerticalAlignment="Center" Text="Col 1" />
 						<TextBlock x:Name="characterPanel" MinWidth="40" Margin="7,0,7,0" VerticalAlignment="Center" Text="Ch 1" />
@@ -39,8 +40,49 @@
 
 		<Rectangle DockPanel.Dock="Bottom" Height="1" StrokeThickness="1" Stroke="{DynamicResource {x:Static themes:AssetResourceKeys.ContainerBorderNormalBrushKey}}" Opacity="0.5" SnapsToDevicePixels="True" />
 
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar>
+				<Button Command="ApplicationCommands.Undo" ToolTip="Undo" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/Undo16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Button Command="ApplicationCommands.Redo" ToolTip="Redo" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/Redo16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				
+				<Separator/>
+				<Button Command="editor:EditorCommands.Outdent" ToolTip="Outdent" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/DecreaseIndent16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Button Command="editor:EditorCommands.Indent" ToolTip="Indent" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/IncreaseIndent16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Separator />
+				<Button Command="editor:EditorCommands.CommentLines" ToolTip="Comment out the selected lines" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/CommentLines16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Button Command="editor:EditorCommands.UncommentLines" ToolTip="Uncomment the selected lines" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/UncommentLines16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Separator />
+				<Button Command="editor:EditorCommands.FormatDocument" ToolTip="Format Document" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/FormatDocument16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
+				<Button Command="editor:EditorCommands.FormatSelection" ToolTip="Format Selection" CommandTarget="{Binding ElementName=codeEditor}">
+					<shared:DynamicImage Source="/Resources/Icons/FormatSelection16.png" Width="16" Height="16" Stretch="UniformToFill" />
+				</Button>
 
-		<editor:NavigableSymbolSelector x:Name="symbolSelector" DockPanel.Dock="Top" Margin="0,0,0,1" SyntaxEditor="{Binding ElementName=codeEditor}" />
+				<Separator/>
+				<Button ToolTip="Insert Route" Click="RouteButton_Click">
+					<Image Source="{StaticResource Route}" SnapsToDevicePixels="True" />
+				</Button>
+			</ToolBar>
+			
+			<ToolBar>
+				<editor:NavigableSymbolSelector x:Name="symbolSelector" Width="400" Margin="10,0,0,1" SyntaxEditor="{Binding ElementName=codeEditor}" />
+			</ToolBar>
+			
+		</ToolBarTray>
+		
 
 		<editor:SyntaxEditor x:Name="codeEditor" 
 													IsLineNumberMarginVisible="True"

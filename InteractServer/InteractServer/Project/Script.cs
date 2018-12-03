@@ -34,19 +34,19 @@ namespace InteractServer.Project
 		}
 		#endregion PropertyInterface
 
+		private string name = string.Empty;
 		public string Name
 		{
-			get => View.Name;
+			get => name;
 			set
 			{
-				string content = value;
-				content = Regex.Replace(content, @"[^a-zA-Z0-9 -]", "");
-				content = Utils.String.UppercaseWords(content);
-				content = Regex.Replace(content, @"\s+", "");
-				View.Name = content;
+				name = value;
 				needsSaving = true;
 			}
 		}
+
+		public string DisplayName => System.IO.Path.GetFileNameWithoutExtension(Name);
+		public string Location => Path.Combine(folderPath, Name);
 
 		private string id = string.Empty;
 		public string ID => id;
@@ -54,7 +54,7 @@ namespace InteractServer.Project
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/Code_16x.png";
+		private string icon = @"/InteractServer;component/Resources/Icons/Script_16x.png";
 		public string Icon => icon;
 
 		private int version = 0;
@@ -74,10 +74,10 @@ namespace InteractServer.Project
 
 		public Script(string name, bool serverSide, string folderPath)
 		{
-			setupView(name);
-
-			this.id = shortid.ShortId.Generate(true);
-			this.folderPath = folderPath;
+			setupView();
+			this.Name = name;
+			this.id = shortid.ShortId.Generate(false, false); 
+			this.folderPath = Path.Combine(folderPath, "Script");
 			this.serverSide = serverSide;
 
 			if (serverSide)
@@ -96,8 +96,8 @@ namespace InteractServer.Project
 
 		public Script(JObject obj, bool serverSide, string folderPath)
 		{
-			string name = (string)obj["Name"];
-			setupView(name);
+			Name = (string)obj["Name"];
+			setupView();
 
 			LoadFromJson(obj);
 			this.folderPath = folderPath;
@@ -105,7 +105,7 @@ namespace InteractServer.Project
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, ID));
+				content = File.ReadAllText(Path.Combine(folderPath, "Script", Name));
 			}
 			catch (Exception e)
 			{
@@ -115,10 +115,10 @@ namespace InteractServer.Project
 			setupDocument();
 		}
 
-		private void setupView(string name)
+		private void setupView()
 		{
 #if(WithSyntaxEditor)
-			View = new CodeEditor.CodeEditor(name);
+			View = new CodeEditor.CodeEditor(DisplayName);
 #else
 			View = new CodeEditor.FallbackEditor(name);
 #endif
@@ -201,7 +201,7 @@ namespace InteractServer.Project
 			try
 			{
 				content = View.Text;
-				View.Save(Path.Combine(folderPath, ID));
+				View.Save(Path.Combine(folderPath, Name));
 				View.NeedsSaving = false;
 				return true;
 			} catch(Exception e)
@@ -218,7 +218,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(Path.Combine(folderPath, ID));
+			File.Delete(Path.Combine(folderPath, Name));
 		}
 
 		private bool needsSaving = false;

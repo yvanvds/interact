@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScriptInterface.Resolume
+namespace Script.Resolume
 {
 	public interface ISender
 	{
@@ -12,7 +12,7 @@ namespace ScriptInterface.Resolume
 
 	public class Resolume: ISender
 	{
-		private IOsc osc;
+		//private IOsc osc;
 
 		private Composition composition;
 		public Composition Composition => composition;
@@ -26,9 +26,9 @@ namespace ScriptInterface.Resolume
 		private Layer activeLayer;
 		public Layer ActiveLayer => activeLayer;
 
-		public Resolume(IOsc Osc)
+		public Resolume()//IOsc Osc)
 		{
-			osc = Osc;
+			//osc = Osc;
 			composition = new Composition(this);
 			playbackController = new PlaybackController(this);
 			activeLayer = new Layer(this, "activelayer");
@@ -36,12 +36,12 @@ namespace ScriptInterface.Resolume
 
 		public void Send(string route, object[] arguments)
 		{
-			osc.ToResolume(route, arguments);
+			//osc.ToResolume(route, arguments);
 		}
 
 		public void Send(string route, object argument)
 		{
-			osc.ToResolume(route, new object[] { argument });
+			//osc.ToResolume(route, new object[] { argument });
 		}
 
 		public void AddLayer(string name)

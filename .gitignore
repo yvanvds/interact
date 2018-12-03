@@ -57,4 +57,4 @@ publish/
 *.pfx
 .vs/
 *.suo
-
+AppPackages/
