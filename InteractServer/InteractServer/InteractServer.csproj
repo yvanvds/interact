@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.6.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -93,12 +93,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="OscGui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscGui.1.0.35\lib\net461\OscGui.dll</HintPath>
-    </Reference>
-    <Reference Include="OscTree, Version=1.0.26.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\OscTree.1.0.26\lib\netstandard2.0\OscTree.dll</HintPath>
     </Reference>
     <Reference Include="shortid, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\shortid.2.0.0\lib\net45\shortid.dll</HintPath>
@@ -168,14 +162,11 @@
     <Reference Include="YapView, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\YapView.1.0.11\lib\net461\YapView.dll</HintPath>
     </Reference>
-    <Reference Include="yGuiWPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\yGuiWPF.1.0.11\lib\net461\yGuiWPF.dll</HintPath>
+    <Reference Include="YSE.NET.PCL, Version=1.0.43.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\YSE.NET.PCL.1.0.43\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
     </Reference>
-    <Reference Include="YSE.NET.PCL, Version=1.0.42.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\YSE.NET.PCL.1.0.42\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
-    </Reference>
-    <Reference Include="Yse.NET.Standard, Version=1.0.76.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Yse.NET.Standard.1.0.76\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+    <Reference Include="Yse.NET.Standard, Version=1.0.77.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Yse.NET.Standard.1.0.77\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -196,8 +187,9 @@
     </Compile>
     <Compile Include="CodeEditor\ICodeEditor.cs" />
     <Compile Include="CodeEditor\SyntaxEditorHelper.cs" />
+    <Compile Include="CodeEditor\Tagger.cs" />
     <Compile Include="Compiler\ClientCompiler.cs" />
-    <Compile Include="Compiler\ClientScriptObject.cs" />
+    <Compile Include="Compiler\ClientCommunicator.cs" />
     <Compile Include="Compiler\ServerCommunicator.cs" />
     <Compile Include="Compiler\ServerCompiler.cs" />
     <Compile Include="Compiler\Intellisense.cs" />
@@ -291,6 +283,7 @@
     <Compile Include="Project\ClientModuleFolder.cs" />
     <Compile Include="Project\EndpointWriter.cs" />
     <Compile Include="Project\ClientGroups.cs" />
+    <Compile Include="Project\FileGroup.cs" />
     <Compile Include="Project\Patcher.cs" />
     <Compile Include="Project\Script.cs" />
     <Compile Include="Project\SensorConfig.cs" />
@@ -462,7 +455,9 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Resources\Definitions\CSharp.langdef" />
+    <EmbeddedResource Include="Resources\Definitions\CSharp.langdef">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -537,6 +532,18 @@
     <Resource Include="Resources\Icons\screen.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\OSCGui\OscGuiControl\OscGui.csproj">
+      <Project>{c204dca4-1efb-46d7-8921-c7931b88e8ed}</Project>
+      <Name>OscGui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\OscTree\OscTree\OscTree.csproj">
+      <Project>{d1017ff2-5812-4ddc-adf0-14f77b7e27bb}</Project>
+      <Name>OscTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\yGui\yGuiWPF\yGuiWPF.csproj">
+      <Project>{c555e189-1ffd-4cbd-b375-f596483ccf23}</Project>
+      <Name>yGuiWPF</Name>
+    </ProjectReference>
     <ProjectReference Include="ScriptCompiler\ScriptCompiler.csproj">
       <Project>{8607ab92-7a8a-4890-9bdd-04f7dc4750a9}</Project>
       <Name>ScriptCompiler</Name>
@@ -553,8 +560,6 @@
     <Resource Include="Resources\Icons\sensors_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="libsndfile-1.dll" />
-    <Content Include="portaudio_x86.dll" />
     <Resource Include="Resources\Icons\CloseSolution_inverse_16x.png" />
     <Resource Include="Resources\Icons\arduino_16.png" />
     <Resource Include="Resources\Icons\StatusWarning_16x.png" />
@@ -569,7 +574,6 @@
     <Resource Include="Resources\Icons\Redo16.png" />
     <Resource Include="Resources\Icons\Undo16.png" />
     <Resource Include="Resources\Icons\Script_16x.png" />
-    <Content Include="Yse.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -582,6 +586,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libsndfile-1.dll" />
+    <Content Include="portaudio_x86.dll" />
+    <Content Include="Yse.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets" Condition="Exists('packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" />

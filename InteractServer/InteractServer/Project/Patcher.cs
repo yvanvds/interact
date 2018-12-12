@@ -64,7 +64,7 @@ namespace InteractServer.Project
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/Patcher_16x.png";
+		private string icon = "";
 		public string Icon => icon;
 
 		private int version = 0;
@@ -83,7 +83,7 @@ namespace InteractServer.Project
 
 			Name = name;
 			this.id = shortid.ShortId.Generate(true);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Patcher");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 
 			if (serverSide)
@@ -106,7 +106,7 @@ namespace InteractServer.Project
 			createView();
 
 			LoadFromJson(obj);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Patcher");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 
 			try

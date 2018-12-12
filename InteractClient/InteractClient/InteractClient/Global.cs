@@ -25,6 +25,7 @@ namespace InteractClient
 		public static OscTree.Tree OscLocal;
 		public static OscTree.Tree OscAllClients;
 		public static OscTree.Tree OscServer;
+		public static OscTree.Object ClientScripts = new OscTree.Object(new OscTree.Address("ClientScripts", "ClientScripts"), typeof(Object));
 
 		public static IYse.IYseInterface Yse;
 

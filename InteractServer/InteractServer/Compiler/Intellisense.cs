@@ -1,12 +1,16 @@
-﻿using ActiproSoftware.Text.Languages.CSharp.Implementation;
+﻿using ActiproSoftware.Text;
+using ActiproSoftware.Text.Implementation;
+using ActiproSoftware.Text.Languages.CSharp.Implementation;
 using ActiproSoftware.Text.Languages.DotNet;
 using ActiproSoftware.Text.Languages.DotNet.Reflection;
+using ActiproSoftware.Text.Tagging.Implementation;
 using ActiproSoftware.Text.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +23,7 @@ namespace InteractServer.Compiler
 		public IProjectAssembly ServerAssembly;
 		public IProjectAssembly ClientAssembly;
 		public CSharpSyntaxLanguage ServerLanguage;
-		public CSharpSyntaxLanguage ClientLanguage;
+		public ISyntaxLanguage ClientLanguage;
 
 		public Intellisense()
 		{
@@ -30,6 +34,7 @@ namespace InteractServer.Compiler
 
 			ServerLanguage = new CSharpSyntaxLanguage();
 			ServerLanguage.RegisterProjectAssembly(ServerAssembly);
+			
 
 			ClientAssembly = new CSharpProjectAssembly("Client");
 			var clientAssemblyLoader = new BackgroundWorker();
@@ -37,14 +42,33 @@ namespace InteractServer.Compiler
 			clientAssemblyLoader.RunWorkerAsync();
 
 			ClientLanguage = new CSharpSyntaxLanguage();
-			ClientLanguage.RegisterProjectAssembly(ClientAssembly);
+            ClientLanguage.RegisterProjectAssembly(ClientAssembly);
+
+			ServerLanguage.RegisterService(new CodeDocumentTaggerProvider<CodeEditor.Tagger>(typeof(CodeEditor.Tagger)));
+			ClientLanguage.RegisterService(new CodeDocumentTaggerProvider<CodeEditor.Tagger>(typeof(CodeEditor.Tagger)));
+		}
+
+		private ISyntaxLanguage InitializeLanguage()
+		{
+			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("InteractServer.Resources.Definitions.CSharp.langdef"))
+			{
+				if(stream != null)
+				{
+					SyntaxLanguageDefinitionSerializer serializer = new SyntaxLanguageDefinitionSerializer();
+					return serializer.LoadFromStream(stream);
+				} else
+				{
+					return SyntaxLanguage.PlainText;
+				}
+			}
 		}
 
 		private void DotNetProjectAssemblyReferenceLoader(object sender, DoWorkEventArgs e)
 		{
 			ServerAssembly.AssemblyReferences.AddMsCorLib();
-			ServerAssembly.AssemblyReferences.Add("ServerInterface");
+			ServerAssembly.AssemblyReferences.Add("System.dll");
 			ServerAssembly.AssemblyReferences.Add("netstandard.dll");
+
 			ServerAssembly.AssemblyReferences.AddFrom(
 				Path.Combine(
 					Path.GetDirectoryName(
@@ -56,8 +80,9 @@ namespace InteractServer.Compiler
 		private void ClientAssemblyReferenceLoader(object sender, DoWorkEventArgs e)
 		{
 			ClientAssembly.AssemblyReferences.AddMsCorLib();
-			ClientAssembly.AssemblyReferences.Add("ClientInterface");
-			ServerAssembly.AssemblyReferences.AddFrom(
+			ClientAssembly.AssemblyReferences.Add("System.dll");
+            ClientAssembly.AssemblyReferences.Add("netstandard.dll");
+            ClientAssembly.AssemblyReferences.AddFrom(
 				Path.Combine(
 					Path.GetDirectoryName(
 						System.Reflection.Assembly.GetExecutingAssembly().Location),

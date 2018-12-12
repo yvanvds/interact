@@ -58,7 +58,7 @@ namespace InteractServer.Project
 		private string id = string.Empty;
 		public string ID => id;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/SoundFile_16x.png";
+		private string icon = "";
 		public string Icon => icon;
 
 		private int version = 0;
@@ -67,7 +67,7 @@ namespace InteractServer.Project
 		public SoundPage(string name, bool serverSide, string folderPath)
 		{
 			this.id = shortid.ShortId.Generate(true);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Sound");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 			this.Name = name;
 
@@ -86,7 +86,7 @@ namespace InteractServer.Project
 
 		public SoundPage(JObject obj, bool serverSide, string folderPath)
 		{
-			this.folderPath = System.IO.Path.Combine(folderPath, "Sound");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 			LoadFromJson(obj);
 			this.name = (string)obj["Name"];

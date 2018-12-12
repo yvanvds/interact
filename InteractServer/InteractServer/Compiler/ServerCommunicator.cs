@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InteractServer.Clients;
 using InteractServer.Controls;
 using InteractServer.Project;
 using Scripts;
@@ -79,6 +80,36 @@ namespace InteractServer.Compiler
 		public void SendToResolume(string address, object[] values)
 		{
 			Network.Resolume.Handle.Send(address, values);
+		}
+
+		public int ClientCount()
+		{
+			return ClientList.Handle.List.Count;
+		}
+
+		public bool ClientIDExists(string ID)
+		{
+			return ClientList.Handle.IDExists(ID);
+		}
+
+		public bool ClientNameExists(string Name)
+		{
+			return ClientList.Handle.NameExists(Name);
+		}
+
+		public string ClientName(string ID)
+		{
+			return ClientList.Handle.GetName(ID);
+		}
+
+		public string ClientID(string Name)
+		{
+			return ClientList.Handle.GetID(Name);
+		}
+
+		public string ClientIP(string ID)
+		{
+			return ClientList.Handle.GetIP(ID);
 		}
 	}
 }

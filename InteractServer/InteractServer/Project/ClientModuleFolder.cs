@@ -11,35 +11,43 @@ namespace InteractServer.Project
 {
 	public class ClientModuleFolder : AbstractFolder, IFolder
 	{
-		private bool hasClientScript = false;
+		FileGroup GuiGroup;
+		FileGroup PatcherGroup;
+		public FileGroup ScriptGroup;
+		public FileGroup SensorGroup;
+		public FileGroup ArduinoGroup;
 
 		public ClientModuleFolder(string name, string path, string icon)
 			: base(name, path, icon)
 		{
-			// create directories
-			if (!Directory.Exists(Path.Combine(path, "Gui")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Gui"));
-			}
+			Groups.Add(new FileGroup("Guis", Path.Combine(path, "Gui"), @"/InteractServer;component/Resources/Icons/screen.png", ".json", typeof(Gui), ContentType.ClientGui));
+			GuiGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Patcher")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Patcher"));
-			}
-			
-			if (!Directory.Exists(Path.Combine(path, "Script")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Script"));
-			}
+			Groups.Add(new FileGroup("Patchers", Path.Combine(path, "Patcher"), @"/InteractServer;component/Resources/Icons/Patcher_16x.png", ".yap", typeof(Patcher), ContentType.ClientPatcher));
+			PatcherGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Sensor")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Sensor"));
-			}
+			Groups.Add(new FileGroup("Scripts", Path.Combine(path, "Script"), @"/InteractServer;component/Resources/Icons/Script_16x.png", ".cs", typeof(Script), ContentType.ClientScript));
+			ScriptGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Arduino")))
+			Groups.Add(new FileGroup("Sensors", Path.Combine(path, "Sensor"), @"/InteractServer;component/Resources/Icons/sensors_16.png", ".json", typeof(SensorConfig), ContentType.ClientSensors));
+			SensorGroup = Groups.Last();
+
+			Groups.Add(new FileGroup("Arduino", Path.Combine(path, "Arduino"), @"/InteractServer;component/Resources/Icons/arduino_16.png", ".json", typeof(ArduinoConfig), ContentType.ClientArduino));
+			ArduinoGroup = Groups.Last();
+
+			if (!File.Exists(Path.Combine(path, "Script", "Main.cs")))
 			{
-				Directory.CreateDirectory(Path.Combine(path, "Arduino"));
+				var resource = ScriptGroup.CreateResource("Main", false);
+				using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("InteractServer.Resources.Definitions.ClientScriptTemplate1.cs"))
+				{
+					if (stream != null)
+					{
+						StreamReader reader = new StreamReader(stream);
+						(resource as Script).View.Text = reader.ReadToEnd();
+						(resource as Script).SaveContent();
+					}
+				}
+				needsSaving = true;
 			}
 		}
 
@@ -48,43 +56,33 @@ namespace InteractServer.Project
 			switch (type)
 			{
 				case ContentType.ClientGui:
-					resources.Add(new Gui(name, false, path));
+					GuiGroup.CreateResource(name, false);
 					break;
 				case ContentType.ClientPatcher:
-					resources.Add(new Patcher(name, false, path));
+					PatcherGroup.CreateResource(name, false);
 					break;
 				case ContentType.ClientSensors:
-					resources.Add(new SensorConfig(name, path));
+					SensorGroup.CreateResource(name, false);
 					break;
 				case ContentType.ClientArduino:
-					resources.Add(new ArduinoConfig(name, path));
+					ArduinoGroup.CreateResource(name, false);
 					break;
 				case ContentType.ClientScript:
-					resources.Add(new Script(name, false, path));
-#if(WithSyntaxEditor)
-					((resources.Last() as Script).View as CodeEditor.CodeEditor).SetLanguage(Project.Current.Intellisense.ClientLanguage);
+					var resource = ScriptGroup.CreateResource(name, false);
+#if (WithSyntaxEditor)
+					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Project.Current.Intellisense.ClientLanguage);
 #endif
-					string resource;
-					if (!hasClientScript)
-					{
-						resource = "InteractServer.Resources.Definitions.ClientScriptTemplate1.cs";
-					}
-					else
-					{
-						resource = "InteractServer.Resources.Definitions.ClientScriptTemplate2.cs";
-					}
+					string content = "InteractServer.Resources.Definitions.ClientScriptTemplate2.cs";
 
-					using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+					using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(content))
 					{
 						if (stream != null)
 						{
 							StreamReader reader = new StreamReader(stream);
-							(resources.Last() as Script).View.Text = reader.ReadToEnd();
-							(resources.Last() as Script).SaveContent();
+							(resource as Script).View.Text = reader.ReadToEnd();
+							(resource as Script).SaveContent();
 						}
 					}
-					hasClientScript = true;
-
 					break;
 			}
 			needsSaving = true;
@@ -104,20 +102,19 @@ namespace InteractServer.Project
 					switch (type)
 					{
 						case "ClientGui":
-							resources.Add(new Gui(elm, false, path));
+							GuiGroup.CreateResource(elm, false);
 							break;
 						case "ClientScript":
-							resources.Add(new Script(elm, false, path));
-							hasClientScript = true;
+							ScriptGroup.CreateResource(elm, false);
 							break;
 						case "ClientPatcher":
-							resources.Add(new Patcher(elm, false, path));
+							PatcherGroup.CreateResource(elm, false);
 							break;
 						case "ClientSensors":
-							resources.Add(new SensorConfig(elm, path));
+							SensorGroup.CreateResource(elm, false);
 							break;
 						case "ClientArduino":
-							resources.Add(new ArduinoConfig(elm, path));
+							ArduinoGroup.CreateResource(elm, false);
 							break;
 					}
 				}
@@ -128,13 +125,10 @@ namespace InteractServer.Project
 
 		public override bool SaveToJson(JObject obj)
 		{
-			if (resources.Count > 0)
+			obj[Name] = new JObject();
+			foreach (var group in groups)
 			{
-				obj[Name] = new JObject();
-				foreach (var resource in resources)
-				{
-					obj[Name][resource.ID] = resource.SaveToJson();
-				}
+				group.SaveToJson(obj[Name] as JObject);
 			}
 			needsSaving = false;
 			return true;
@@ -143,26 +137,21 @@ namespace InteractServer.Project
 
 		public void SaveForClient(JObject obj)
 		{
-			if (resources.Count > 0)
+			obj[Name] = new JObject();
+			foreach(var group in groups)
 			{
-				obj[Name] = new JObject();
-				foreach (var resource in resources)
-				{
-					obj[Name][resource.ID] = resource.Version;
-				}
+				group.SaveForClient(obj[Name] as JObject);
 			}
 		}
 
 		public bool CompileScript()
 		{
 			List<string> code = new List<string>();
-			foreach(var resource in resources)
+			foreach(var resource in ScriptGroup.Resources)
 			{
-				if(resource is Script)
-				{
-					code.Add((resource as Script).GetCurrentContent());
-				}
+				code.Add((resource as Script).GetCurrentContent());		
 			}
+
 			var path = Path.Combine(base.path, "ClientScript.dll");
 			File.Delete(path);
 
@@ -187,5 +176,15 @@ namespace InteractServer.Project
 			return null;
 		}
 		
+		public void UpdateRouteNames()
+		{
+			foreach(var resource in SensorGroup.Resources) {
+				(resource as SensorConfig).UpdateRouteNames();
+			}
+			foreach(var resource in ArduinoGroup.Resources)
+			{
+				(resource as ArduinoConfig).UpdateRouteNames();
+			}
+		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using ActiproSoftware.Text.Languages.CSharp.Implementation;
+﻿using ActiproSoftware.Text;
+using ActiproSoftware.Text.Languages.CSharp.Implementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,7 @@ namespace InteractServer.Project
 		private LayoutDocument document = null;
 		public LayoutDocument Document => document;
 
-		public EndpointWriter(string path, CSharpSyntaxLanguage language, bool serverside)
+		public EndpointWriter(string path, ISyntaxLanguage language, bool serverside)
 		{
 			this.path = path;
 			this.serverside = serverside;

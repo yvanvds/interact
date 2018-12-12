@@ -11,9 +11,7 @@ namespace InteractClient.UWP.Compiler
 	{
 		AppDomain domain = null;
 		ProxyDomain proxy = null;
-		ScriptClient client = null;
-		OscForwarder oscForwarder = null;
-		LogForwarder logForwarder = new LogForwarder();
+		ClientCommunicator communicator = null;
 
 		public void LoadAssembly(byte[] array)
 		{
@@ -34,19 +32,15 @@ namespace InteractClient.UWP.Compiler
 			if (proxy == null) return;
 
 
-			if (client == null)
+			if (communicator == null)
 			{
-				oscForwarder = new OscForwarder("ClientScripts");
-				client = new ScriptClient(oscForwarder, logForwarder);
+				communicator = new ClientCommunicator();
 			}
-			else
-			{
-				oscForwarder.Clear();
-			}
+			Global.ClientScripts.Endpoints.Clear();
 
 			try
 			{
-				var result = proxy.Run(client);
+				var result = proxy.Run(communicator);
 				if (result != string.Empty)
 				{
 					Network.Sender.WriteLog("Client Script error: " + result);
@@ -56,6 +50,7 @@ namespace InteractClient.UWP.Compiler
 			{
 				Network.Sender.WriteLog("Client Script Error: " + e.Message);
 			}
+			proxy.OnProjectStart();
 
 		}
 
@@ -81,6 +76,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void StopAssembly()
 		{
+			proxy?.OnProjectStop();
 			if (domain != null)
 			{
 				try
@@ -90,10 +86,7 @@ namespace InteractClient.UWP.Compiler
 				catch (Exception) { }
 			}
 			domain = null;
-			if (oscForwarder != null)
-			{
-				oscForwarder.Clear();
-			}
+			Global.ClientScripts.Endpoints.Clear();
 		}
 
 		~Compiler()
@@ -105,7 +98,7 @@ namespace InteractClient.UWP.Compiler
 	class ProxyDomain : MarshalByRefObject
 	{
 		Assembly assembly;
-		ScriptInterface.Script handle = null;
+		Scripts.Base handle = null;
 
 		public void LoadAssembly(byte[] array)
 		{
@@ -120,19 +113,76 @@ namespace InteractClient.UWP.Compiler
 			}
 		}
 
-		public string Run(ScriptInterface.IClient client)
+		public string Run(Scripts.ICommunicator communicator)
 		{
 			try
 			{
 				Type type = assembly.GetType("Scripts.Main");
-				var obj = Activator.CreateInstance(type, client);
-				handle = (obj as ScriptInterface.Script);
-				return string.Empty;
+				var obj = Activator.CreateInstance(type);
+				handle = (obj as Scripts.Base);
+				if (!InjectCommunicator(communicator))
+				{
+					return "Unable to inject Communicator Object";
+				}
+
+				return OnCreate();
 			}
 			catch (Exception e)
 			{
 				return e.Message;
 			}
+		}
+
+		public string OnCreate()
+		{
+			try
+			{
+				handle?.OnCreate();
+			}
+			catch (Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
+		}
+
+		public string OnProjectStart()
+		{
+			try
+			{
+				handle?.OnProjectStart();
+			}
+			catch (Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
+		}
+
+		public string OnProjectStop()
+		{
+			try
+			{
+				handle?.OnProjectStop();
+			}
+			catch (Exception e)
+			{
+				return e.Message;
+			}
+			return string.Empty;
+		}
+
+		private bool InjectCommunicator(Scripts.ICommunicator communicator)
+		{
+			Type t = assembly.GetType("Scripts.Main");
+			if (t != null)
+			{
+				Type b = t.BaseType;
+				MethodInfo info = b.GetMethod("InjectCommunicator");
+				info.Invoke(null, new object[] { communicator });
+				return true;
+			}
+			return false;
 		}
 
 		public string InvokeOsc(string endpoint, object[] args)

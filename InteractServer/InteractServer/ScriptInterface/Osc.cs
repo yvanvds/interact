@@ -11,7 +11,7 @@ namespace Scripts
 		public static void AddEndpoint(string name, Action<object[]> action)
 		{
 			actions.Add(name, action);
-			ServerBase.Com.AddOscEndpoint(name);
+			Base.Com.AddOscEndpoint(name);
 		}
 
 		public static void OnOsc(string name, object[] args)
@@ -27,22 +27,22 @@ namespace Scripts
 
 		public static void SendByID(string address, object[] values, bool OnGuiThread = false)
 		{
-			ServerBase.Com.SendOscByID(address, values, OnGuiThread);
+			Base.Com.SendOscByID(address, values, OnGuiThread);
 		}
 
 		public static void SendByID(string address, object value, bool OnGuiThread = false)
 		{
-			ServerBase.Com.SendOscByID(address, new object[] { value }, OnGuiThread);
+			Base.Com.SendOscByID(address, new object[] { value }, OnGuiThread);
 		}
 
 		public static void SendByName(string address, object[] values, bool OnGuiThread = false)
 		{
-			ServerBase.Com.SendOscByName(address, values, OnGuiThread);
+			Base.Com.SendOscByName(address, values, OnGuiThread);
 		}
 
 		public static void SendByName(string address, object value, bool OnGuiThread = false)
 		{
-			ServerBase.Com.SendOscByName(address, new object[] { value }, OnGuiThread);
+			Base.Com.SendOscByName(address, new object[] { value }, OnGuiThread);
 		}
 	}
 }

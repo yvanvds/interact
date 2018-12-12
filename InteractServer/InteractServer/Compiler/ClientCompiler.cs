@@ -22,6 +22,7 @@ namespace InteractServer.Compiler
 			List<string> assemblies = new List<string>();
 			assemblies.Add("netstandard.dll");
 			assemblies.Add("ScriptInterface.dll");
+            assemblies.Add("System.dll");
 
 			parameters.ReferencedAssemblies.AddRange(assemblies.ToArray());
 
@@ -39,16 +40,14 @@ namespace InteractServer.Compiler
 		}
 
 		ScriptCompiler.Compiler compiler = null;
-		//ClientScriptObject client = null;
-		//OscForwarder oscForwarder = null;
-		//LogForwarder LogForwarder = new LogForwarder();
+		ClientCommunicator client = null;
 
 		public ClientCompiler()
 		{
 			compiler = new ScriptCompiler.Compiler(null, null);
 		}
 
-		public void Compile(string[] files)
+		public bool Compile(string[] files)
 		{
 			try
 			{
@@ -62,6 +61,8 @@ namespace InteractServer.Compiler
 			{
 				Log.Log.Handle.AddEntry(e.Message);
 			}
+			CodeEditor.ErrorList.Handle.Populate(compiler.Errors());
+			return !CodeEditor.ErrorList.Handle.ContainsErrors();
 		}
 
 		public bool HasScriptInterface()
@@ -71,48 +72,25 @@ namespace InteractServer.Compiler
 
 		public bool Run()
 		{
-			/*//if (client == null)
+			if (client == null)
 			{
-				//oscForwarder = new OscForwarder("ClientScripts", false);
-				//client = new ClientScriptObject(oscForwarder, LogForwarder);
+				client = new ClientCommunicator();
 			}
-			//else
-			{
-				//oscForwarder.Clear();
-			}
+			Osc.Tree.ClientScripts.Endpoints.Clear();
 
-			//var result = compiler.Run(client);
-			//if (result != string.Empty)
+			var result = compiler.Run(client);
+			if (result != string.Empty)
 			{
 				Log.Log.Handle.AddEntry("Client Script Error: " + result);
 				return false;
-			}*/
+			}
 			return true;
-		}
-
-		public void InvokeOsc(string endpoint, object[] args)
-		{
-			try
-			{
-				string result = compiler.InvokeOsc(endpoint, args);
-				if (result != string.Empty)
-				{
-					Log.Log.Handle.AddEntry("Client Script Error: " + result);
-				}
-			}
-			catch (System.Runtime.Remoting.RemotingException e)
-			{
-				Log.Log.Handle.AddEntry("Client Script InvokeOsc error: " + e.Message);
-			}
 		}
 
 		public void StopAssembly()
 		{
 			compiler.Stop();
-			//if (oscForwarder != null)
-			{
-				//oscForwarder.Clear();
-			}
+			Osc.Tree.ClientScripts.Endpoints.Clear();
 		}
 
 		~ClientCompiler()

@@ -67,6 +67,26 @@ namespace InteractServer.Dialogs
 			}
 		}
 
+		private void SetContentType(ContentType type)
+		{
+			Type = type;
+			switch(Type)
+			{
+				case ContentType.ServerGui:
+					CBType.SelectedIndex = 0;
+					break;
+				case ContentType.ServerScript:
+					CBType.SelectedIndex = 1;
+					break;
+				case ContentType.ServerPatcher:
+					CBType.SelectedIndex = 2;
+					break;
+				case ContentType.ServerSounds:
+					CBType.SelectedIndex = 3;
+					break;
+			}
+		}
+
 		private void TBModuleName_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			ModuleName = TBModuleName.Text.Trim();
@@ -88,6 +108,12 @@ namespace InteractServer.Dialogs
 			}
 			LFileExists.Visibility = Visibility.Hidden;
 			return true;
+		}
+
+		public void ShowDialog(ContentType type)
+		{
+			SetContentType(type);
+			ShowDialog();
 		}
 	}
 }

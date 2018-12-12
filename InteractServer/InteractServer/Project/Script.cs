@@ -54,7 +54,7 @@ namespace InteractServer.Project
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/Script_16x.png";
+		private string icon = "";
 		public string Icon => icon;
 
 		private int version = 0;
@@ -76,8 +76,8 @@ namespace InteractServer.Project
 		{
 			setupView();
 			this.Name = name;
-			this.id = shortid.ShortId.Generate(false, false); 
-			this.folderPath = Path.Combine(folderPath, "Script");
+			this.id = shortid.ShortId.Generate(false, false);
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 
 			if (serverSide)
@@ -105,7 +105,7 @@ namespace InteractServer.Project
 
 			try
 			{
-				content = File.ReadAllText(Path.Combine(folderPath, "Script", Name));
+				content = File.ReadAllText(Path.Combine(folderPath, Name));
 			}
 			catch (Exception e)
 			{

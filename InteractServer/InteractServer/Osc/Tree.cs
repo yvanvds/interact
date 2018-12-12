@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InteractServer.Clients;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace InteractServer.Osc
 		public static OscTree.Tree ServerPatchers = new OscTree.Tree(new OscTree.Address("Patchers", "Patchers"));
 		public static OscTree.Tree ServerSounds = new OscTree.Tree(new OscTree.Address("Sounds", "Sounds"));
 		public static OscTree.Object ServerScripts = new OscTree.Object(new OscTree.Address("ServerScripts", "ServerScripts"), typeof(Object));
+		public static OscTree.Object ClientScripts = new OscTree.Object(new OscTree.Address("ClientScripts", "ClientScripts"), typeof(Object));
 
 		public static void Init()
 		{
@@ -36,7 +38,19 @@ namespace InteractServer.Osc
 			AllClients.IgnoreInGui = true;
 			AllClients.ReRoute += ((OscTree.Route route, object[] arguments) =>
 			{
+				string newRoute = route.OriginalName.Remove(0, 1);
+				string[] parts = newRoute.Split('/');
+				parts[1] = "LocalClient";
+				newRoute = string.Empty;
+				foreach (var part in parts)
+				{
+					newRoute += "/" + part;
+				}
 
+				foreach (var client in ClientList.Handle.List.Values)
+				{
+					client.Send.ToClient(newRoute, arguments);
+				}
 			});
 			Root.Add(AllClients);
 			
@@ -44,6 +58,8 @@ namespace InteractServer.Osc
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
 			Server.Add(ServerScripts);
+
+			Client.Add(ClientScripts);
 		}
 
 		public static void AddErrorHandlingToOsc()
@@ -62,10 +78,13 @@ namespace InteractServer.Osc
 			ServerPatchers.Clear();
 			ServerSounds.Clear();
 			ServerScripts.Endpoints.Clear();
+			ClientScripts.Endpoints.Clear();
 
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
 			Server.Add(ServerScripts);
+
+			Client.Add(ClientScripts);
 		}
 	}
 }

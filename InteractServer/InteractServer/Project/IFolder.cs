@@ -9,12 +9,9 @@ namespace InteractServer.Project
 		string Icon { get; }
 		bool IsExpanded { get; set; }
 
-		int Count { get; }
-		string GuiCount { get; }
-
 		bool FileExists(string name, ContentType type);
 
-		ObservableCollection<IResource> Resources { get; }
+		ObservableCollection<FileGroup> Groups { get; }
 
 		bool SaveToJson(JObject obj);
 		void SaveContent();

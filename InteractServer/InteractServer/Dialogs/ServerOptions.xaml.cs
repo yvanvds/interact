@@ -226,7 +226,14 @@ namespace InteractServer.Dialogs
 			}
 			if(ComboBoxOutput.SelectedIndex >= 0)
 			{
-				selectedChannelConf = outputs[ComboBoxOutput.SelectedIndex];
+                if(ComboBoxOutput.SelectedIndex < outputs.Count)
+                {
+                    selectedChannelConf = outputs[ComboBoxOutput.SelectedIndex];
+                } else
+                {
+                    selectedChannelConf = string.Empty;
+                }
+				
 			} else
 			{
 				selectedChannelConf = string.Empty;

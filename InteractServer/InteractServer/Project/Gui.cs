@@ -45,7 +45,7 @@ namespace InteractServer.Project
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/screen.png";
+		private string icon = "";
 		public string Icon => icon;
 
 		public string Data { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -66,8 +66,9 @@ namespace InteractServer.Project
 		{
 			OscGUI = new OscGuiControl.OscGUI();
 			Name = name;
+            OscGUI.Name = DisplayName;
 			this.id = shortid.ShortId.Generate(false, false);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Gui");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 
 			
@@ -83,7 +84,8 @@ namespace InteractServer.Project
 			{
 				type = ContentType.ClientGui;
 				OscGUI.SetGridSize(8, 4);
-				Osc.Tree.Client.Add(OscGUI.OscTree);
+                OscGUI.OscTree.Endpoints.Add(new OscTree.Endpoint("Activate", (args) => { }, typeof(object)));
+                Osc.Tree.Client.Add(OscGUI.OscTree);
 			}
 
 			content = OscGUI.ToJSON();
@@ -97,13 +99,14 @@ namespace InteractServer.Project
 			OscGUI.SetInspector(Pages.Properties.Handle.GetInspector());
 
 			LoadFromJson(obj);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Gui");
+			this.folderPath = folderPath;
 			this.serverSide = serverSide;
 
 			try
 			{
 				content = File.ReadAllText(System.IO.Path.Combine(this.folderPath, Name));
 				OscGUI.LoadJSON(content);
+                OscGUI.Name = DisplayName;
 				OscGUI.EditMode = false;
 			} catch(Exception)
 			{

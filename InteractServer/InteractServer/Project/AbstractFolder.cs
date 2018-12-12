@@ -21,12 +21,8 @@ namespace InteractServer.Project
 
 		public bool IsExpanded { get; set; } = false;
 
-		public int Count => Resources.Count;
-
-		public string GuiCount => " [" + Count.ToString() + "]";
-
-		protected ObservableCollection<IResource> resources = new ObservableCollection<IResource>();
-		public ObservableCollection<IResource> Resources => resources;
+		protected ObservableCollection<FileGroup> groups = new ObservableCollection<FileGroup>();
+		public ObservableCollection<FileGroup> Groups => groups;
 
 		public AbstractFolder(string name, string path, string icon)
 		{
@@ -87,37 +83,62 @@ namespace InteractServer.Project
 
 		public IResource Get(string id)
 		{
-			foreach(var resource in resources)
+			foreach(var group in groups)
 			{
-				if (resource.ID.Equals(id)) return resource;
+				var resource = group.Get(id);
+				if (resource != null) return resource;
 			}
 			return null;
 		}
 
 		public IResource GetByName(string name)
 		{
-			foreach (var resource in resources)
+			foreach (var group in groups)
 			{
-				if (resource.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) return resource;
+				var resource = group.GetByName(name);
+				if (resource != null) return resource;
 			}
 			return null;
 		}
 
 		public string GetName(string ID)
 		{
-			foreach(var resource in resources)
+			foreach(var group in groups)
 			{
-				if (resource.ID.Equals(ID)) return resource.Name;
+				var result = group.GetName(ID);
+				if (result.Length > 0) return result;
 			}
 			return string.Empty;
 		}
 
 		public abstract bool CreateResource(string name, ContentType type);
-		public bool RemoveResource(IResource resource)
+		public void RemoveResource(IResource resource)
 		{
-			resource.DeleteOnDisk();
-			resources.Remove(resource);
-			return true;
+			foreach(var group in groups)
+			{
+				if(group.Contains(resource))
+				{
+					group.RemoveResource(resource);
+					return;
+				}
+			}
+		}
+
+		public bool Contains(FileGroup group)
+		{
+			return groups.Contains(group);
+		}
+
+		public bool Contains(IResource resource)
+		{
+			foreach (var group in groups)
+			{
+				if (group.Contains(resource))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public abstract bool Load(JObject obj);
@@ -128,18 +149,18 @@ namespace InteractServer.Project
 		public bool NeedsSaving()
 		{
 			if (needsSaving) return true;
-			foreach(var resource in resources)
+			foreach(var group in groups)
 			{
-				if (resource.NeedsSaving()) return true;
+				if (group.NeedsSaving()) return true;
 			}
 			return false;
 		}
 
 		public void SaveContent()
 		{
-			foreach (var resource in resources)
+			foreach (var group in groups)
 			{
-				if(resource.NeedsSaving()) resource.SaveContent();
+				if(group.NeedsSaving()) group.SaveContent();
 			}
 		}
 	}

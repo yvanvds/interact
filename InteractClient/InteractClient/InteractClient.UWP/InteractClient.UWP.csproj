@@ -102,10 +102,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Arduino\ArduinoImplementation.cs" />
+    <Compile Include="Compiler\ClientCommunicator.cs" />
     <Compile Include="Compiler\Compiler.cs" />
-    <Compile Include="Compiler\LogForwarder.cs" />
-    <Compile Include="Compiler\OscForwarder.cs" />
-    <Compile Include="Compiler\ScriptClient.cs" />
     <Compile Include="FileSystem\FileSystem.cs" />
     <Compile Include="FileSystem\Folder.cs" />
     <Compile Include="MainPage.xaml.cs">

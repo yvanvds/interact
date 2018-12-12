@@ -7,6 +7,7 @@ namespace InteractServer.Utils
 	public class ProjectExplorerTemplateSelector : DataTemplateSelector
 	{
 		public DataTemplate FolderTemplate { get; set; }
+		public DataTemplate GroupTemplate { get; set; }
 		public DataTemplate ScreenTemplate { get; set; }
 		public DataTemplate ScriptTemplate { get; set; }
 		public DataTemplate GuiTemplate { get; set; }
@@ -26,6 +27,10 @@ namespace InteractServer.Utils
 				if (item is IFolder)
 				{
 					return FolderTemplate;
+				}
+				else if (item is FileGroup)
+				{
+					return GroupTemplate;
 				}
 				else if (item is Gui)
 				{

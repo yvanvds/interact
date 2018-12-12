@@ -20,7 +20,7 @@ namespace InteractServer.Compiler
 			compiler = new ScriptCompiler.Compiler(new EventHandler(OnLoad), new EventHandler(OnUnload));
 		}
 
-		public void Compile(string[] files)
+		public bool Compile(string[] files)
 		{
 			try
 			{
@@ -35,6 +35,7 @@ namespace InteractServer.Compiler
 				Log.Log.Handle.AddEntry(e.Message);
 			}
 			CodeEditor.ErrorList.Handle.Populate(compiler.Errors());
+			return !CodeEditor.ErrorList.Handle.ContainsErrors();
 		}
 
 		public bool HasScriptInterface()

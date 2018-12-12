@@ -10,14 +10,11 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.Settings" Version="9.0.1" />
-    <PackageReference Include="OscGui_Forms" Version="1.0.15" />
-    <PackageReference Include="OscTree" Version="1.0.26" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="rda.SocketsForPCL" Version="2.0.2" />
     <PackageReference Include="shortid" Version="2.0.0" />
     <PackageReference Include="System.CodeDom" Version="4.5.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
-    <PackageReference Include="yGuiXamarin" Version="1.0.3" />
     <PackageReference Include="YSE.NET.PCL" Version="1.0.42" />
   </ItemGroup>
 
@@ -50,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\OSCGui\OSCGui_Forms\OSCGui_Forms.csproj" />
+    <ProjectReference Include="..\..\..\..\OscTree\OscTree\OscTree.csproj" />
+    <ProjectReference Include="..\..\..\..\yGui\yGuiStandard\yGui.csproj" />
     <ProjectReference Include="..\..\..\InteractServer\InteractServer\ScriptInterface\ScriptInterface.csproj" />
   </ItemGroup>
 

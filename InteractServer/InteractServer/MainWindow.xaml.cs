@@ -212,7 +212,8 @@ namespace InteractServer
 
 		private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			Project.Project.Current?.Save();
+			if (Project.Project.Current != null && Project.Project.Current.NeedsSaving())
+				Project.Project.Current.Save();
 			Application.Current.Shutdown();
 		}
 
@@ -283,7 +284,8 @@ namespace InteractServer
 
 		private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-
+			if (Project.Project.Current != null && Project.Project.Current.NeedsSaving())
+				Project.Project.Current.Save();
 		}
 
 		#region View Management

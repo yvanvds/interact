@@ -5,6 +5,7 @@ using ActiproSoftware.Text.Languages.DotNet.Reflection;
 using ActiproSoftware.Text.Parsing;
 using ActiproSoftware.Text.Parsing.LLParser;
 using ActiproSoftware.Windows.Controls.SyntaxEditor;
+using ActiproSoftware.Windows.Controls.SyntaxEditor.Highlighting.Implementation;
 using InteractServer.Dialogs;
 using InteractServer.Utils;
 using System;
@@ -61,6 +62,7 @@ namespace InteractServer.CodeEditor
 		public void SetLanguage(ISyntaxLanguage language)
 		{
 			codeEditor.Document.Language = language;
+			
 		}
 
 		public void Save(string path)

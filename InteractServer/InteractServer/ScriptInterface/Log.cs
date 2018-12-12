@@ -8,7 +8,7 @@ namespace Scripts
 	{
 		public static void AddEntry(string message)
 		{
-			ServerBase.Com.AddLogEntry(message);
+			Base.Com.AddLogEntry(message);
 		}
 	}
 }

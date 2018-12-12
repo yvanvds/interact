@@ -35,7 +35,7 @@ namespace InteractServer.Project
 		private string id = string.Empty;
 		public string ID => id;
 
-		private string icon = @"/InteractServer;component/Resources/Icons/arduino_16.png";
+		private string icon = "";
 		public string Icon => icon;
 
 		private int version = 0;
@@ -55,7 +55,7 @@ namespace InteractServer.Project
 
 			Name = name;
 			this.id = shortid.ShortId.Generate(false, false);
-			this.folderPath = System.IO.Path.Combine(folderPath, "Arduino");
+			this.folderPath = folderPath;
 
 			type = ContentType.ClientArduino;
 			content = ArduinoGUI.ToJSON();
@@ -80,7 +80,7 @@ namespace InteractServer.Project
 
 			try
 			{
-				content = File.ReadAllText(System.IO.Path.Combine(folderPath, "Arduino", ID + "_arduinoConf.json"));
+				content = File.ReadAllText(Path.Combine(folderPath, Name));
 				ArduinoGUI.LoadJSON(content);
 			} catch(Exception)
 			{
@@ -103,7 +103,7 @@ namespace InteractServer.Project
 
 		public void DeleteOnDisk()
 		{
-			File.Delete(System.IO.Path.Combine(folderPath, ID + "_arduinoConf.json"));
+			File.Delete(Path.Combine(folderPath, Name));
 		}
 
 		public bool LoadFromJson(JObject obj)
@@ -133,7 +133,7 @@ namespace InteractServer.Project
 			try
 			{
 				content = ArduinoGUI.ToJSON();
-				File.WriteAllText(Path.Combine(folderPath, ID + "_arduinoConf.json"), content);
+				File.WriteAllText(Path.Combine(folderPath, Name), content);
 				return true;
 			}
 			catch (Exception e)

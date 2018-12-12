@@ -61,6 +61,7 @@ namespace InteractServer.Network
 
 			// remove / from path
 			path = path.Remove(0, 1);
+			string fileName = string.Empty;
 			string answer = string.Empty;
 			byte[] data = null;
 
@@ -69,15 +70,18 @@ namespace InteractServer.Network
 				if (path.Equals(Project.Project.Current.ID))
 				{
 					answer = Project.Project.Current.SerializeForClient();
+					fileName = "ProjectConfig";
 				}
 				else if (path.Equals("ClientScript.dll"))
 				{
 					data = Project.Project.Current.ClientModules.GetCompiledScript();
+					fileName = path;
 					answer = "data";
 				}
 				else
 				{
 					answer = Project.Project.Current.SerializeResource(path);
+					fileName = Project.Project.Current.ResourceName(path);
 				}
 			});
 
@@ -108,7 +112,7 @@ namespace InteractServer.Network
 					}	
 					
 					context.Response.OutputStream.Flush();
-					Log.Log.Handle?.AddEntry("Fileserver: Sending resource " + path + " to " + context.Request.RemoteEndPoint.Address.ToString());
+					Log.Log.Handle?.AddEntry("Fileserver: Sending resource " + fileName + " to " + context.Request.RemoteEndPoint.Address.ToString());
 				}
 				catch (Exception e)
 				{

@@ -60,8 +60,8 @@ namespace InteractServer.CodeEditor
 				icon = @"/InteractServer;component/Resources/Icons/StatusCriticalError_16x.png";
 			}
 
-			var name = System.IO.Path.GetFileNameWithoutExtension(fileName);
-			readableFilename = Project.Project.Current?.ResourceName(name);
+			readableFilename = System.IO.Path.GetFileName(fileName);
+			//readableFilename = Project.Project.Current?.ResourceName(name);
 		}
 	}
 
@@ -95,6 +95,11 @@ namespace InteractServer.CodeEditor
 			{
 				MainWindow.Handle.FocusOnErrorList();
 			}
+		}
+
+		public bool ContainsErrors()
+		{
+			return Errors.Count > 0;
 		}
 
 		private void ErrorListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

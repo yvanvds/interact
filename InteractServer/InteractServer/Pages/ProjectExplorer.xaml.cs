@@ -48,8 +48,8 @@ namespace InteractServer.Pages
 
 		private void AddResource_Click(object sender, RoutedEventArgs e)
 		{
-			Project.IFolder folder = ((MenuItem)sender).DataContext as Project.IFolder;
-			Project.Project.Current.CreateResourceInFolder(folder);
+			Project.FileGroup group = ((MenuItem)sender).DataContext as Project.FileGroup;
+			Project.Project.Current.CreateResourceInGroup(group);
 		}
 
 		private void PlayButton_Click(object sender, RoutedEventArgs e)

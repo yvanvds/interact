@@ -36,6 +36,7 @@ namespace InteractClient
 
 			Global.OscServer.DataTag = Global.deviceID;
 			Global.OscAllClients.DataTag = Global.deviceID;
+			Global.OscLocal.Add(Global.ClientScripts);
 
 			if(Global.Yse != null)
 			{

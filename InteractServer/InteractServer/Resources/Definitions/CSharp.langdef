@@ -12,12 +12,12 @@ Actipro Syntax Language Definition (.langdef)
 <LanguageDefinition LanguageKey="CSharp" LanguageDescription="C#" Creator="Actipro Software LLC" Copyright="Copyright (c) 2001-2018 Actipro Software LLC.  All rights reserved." xmlns="http://schemas.actiprosoftware.com/langdef/1.0">
 	<!-- Classification types -->
 	<LanguageDefinition.ClassificationTypes>
-		<ClassificationType Key="Comment" DefaultStyle="#FF008000" />
+		<ClassificationType Key="Comment" DefaultStyle="#FF00FF00" />
 		<ClassificationType Key="CSharpVerbatimString" Description="String (C# @ Verbatim)" DefaultStyle="#FF800000" />
-		<ClassificationType Key="Identifier" />
+		<ClassificationType Key="Identifier" DefaultStyle="#FF42f49b"/>
 		<ClassificationType Key="Keyword" DefaultStyle="#FF0000FF" />
 		<ClassificationType Key="Number" />
-		<ClassificationType Key="Operator" />
+		<ClassificationType Key="Operator" DefaultStyle="#FFFF0000"/>
 		<ClassificationType Key="PreprocessorKeyword" Description="Preprocessor Keyword" DefaultStyle="#FF0000FF" />
 		<ClassificationType Key="String" DefaultStyle="#FF800000" />
 		<ClassificationType Key="XmlDocumentationComment" Description="XML Doc Comment" DefaultStyle="#FF008000" />

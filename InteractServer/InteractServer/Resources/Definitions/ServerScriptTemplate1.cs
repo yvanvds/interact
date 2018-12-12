@@ -3,7 +3,7 @@
 namespace Scripts
 {
 
-	public class Main : ServerBase
+	public class Main : Base
 	{
 
 		public override void OnCreate()

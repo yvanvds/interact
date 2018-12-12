@@ -1,5 +1,5 @@
-MainPackage=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.5.0_ARM.appx
-ResourcePack=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.5.0_scale-100.appx
-ResourcePack=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.5.0_scale-125.appx
-ResourcePack=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.5.0_scale-150.appx
-ResourcePack=C:\Users\yvan\Source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.5.0_scale-400.appx
+MainPackage=C:\Users\yvan\source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_ARM.appx
+ResourcePack=C:\Users\yvan\source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-100.appx
+ResourcePack=C:\Users\yvan\source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-125.appx
+ResourcePack=C:\Users\yvan\source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-150.appx
+ResourcePack=C:\Users\yvan\source\repos\interact\InteractClient\InteractClient\InteractClient.UWP\bin\ARM\Release\InteractClient.UWP_1.0.7.0_scale-400.appx

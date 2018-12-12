@@ -296,27 +296,21 @@ namespace InteractServer.Project
 			ServerModules = new ServerModuleFolder("Server Modules", Path.Combine(projectPath, "Server"), @"/InteractServer;component/Resources/Icons/screen.png");
 			if (!ServerModules.Load(obj)) return false;
 			Folders.Add(ServerModules);
-			foreach (var resource in ServerModules.Resources)
+			foreach (var resource in ServerModules.ScriptGroup.Resources)
 			{
-				if (resource is Script)
-				{
 #if (WithSyntaxEditor)
 					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Intellisense.ServerLanguage);
 #endif
-				}
 			}
 
 			ClientModules = new ClientModuleFolder("Client Modules", Path.Combine(projectPath, "Client"), @"/InteractServer;component/Resources/Icons/Phone_16x.png");
 			if (!ClientModules.Load(obj)) return false;
 			Folders.Add(ClientModules);
-			foreach (var resource in ClientModules.Resources)
+			foreach (var resource in ClientModules.ScriptGroup.Resources)
 			{
-				if (resource is Script)
-				{
 #if (WithSyntaxEditor)
 					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Intellisense.ClientLanguage);
 #endif
-				}
 			}
 
 			needsSaving = false;
@@ -326,19 +320,13 @@ namespace InteractServer.Project
 		bool SaveFolders(JObject obj)
 		{
 			bool recompileNeeded = false;
-			foreach (var resource in ServerModules.Resources)
+			foreach (var resource in ServerModules.ScriptGroup.Resources)
 			{
-				if (resource is Script)
+				if (resource.NeedsSaving()) recompileNeeded = true;
+			}
+			if (!recompileNeeded) foreach (var resource in ClientModules.ScriptGroup.Resources)
 				{
 					if (resource.NeedsSaving()) recompileNeeded = true;
-				}
-			}
-			if (!recompileNeeded) foreach (var resource in ClientModules.Resources)
-				{
-					if (resource is Script)
-					{
-						if (resource.NeedsSaving()) recompileNeeded = true;
-					}
 				}
 			foreach (var folder in Folders)
 			{
@@ -371,32 +359,23 @@ namespace InteractServer.Project
 
 		public void RecompileScripts()
 		{
-			RecompileServerScripts();
-			RecompileClientScripts();
-
-			foreach (var module in ClientModules.Resources)
+			if(RecompileServerScripts())
 			{
-				if (module is SensorConfig)
-				{
-					(module as SensorConfig).UpdateRouteNames();
-				} else if (module is ArduinoConfig)
-				{
-					(module as ArduinoConfig).UpdateRouteNames();
-				}
+				RecompileClientScripts();
 			}
+			
+
+			ClientModules.UpdateRouteNames();
 		}
 
-		public void RecompileServerScripts()
+		public bool RecompileServerScripts()
 		{
 			ServerCompiler.StopAssembly();
 
 			List<string> scripts = new List<string>();
-			foreach (var resource in ServerModules.Resources)
+			foreach (var resource in ServerModules.ScriptGroup.Resources)
 			{
-				if (resource is Script)
-				{
-					scripts.Add(Path.Combine((resource as Script).FolderPath, resource.ID));
-				}
+				scripts.Add(Path.Combine((resource as Script).FolderPath, resource.Name));
 			}
 
 			scripts.Add(Path.Combine(projectPath, "Server", "EndpointWriter.cs"));
@@ -404,7 +383,11 @@ namespace InteractServer.Project
 			if (scripts.Count > 0)
 			{
 				Log.Log.Handle.AddEntry("Recompiling Server Scripts...");
-				ServerCompiler.Compile(scripts.ToArray());
+				if(!ServerCompiler.Compile(scripts.ToArray()))
+				{
+					return false;
+				}
+
 				if(ServerCompiler.HasScriptInterface())
 				{
 					ServerCompiler.Run();
@@ -412,28 +395,29 @@ namespace InteractServer.Project
 				{
 					Log.Log.Handle.AddEntry("No Server Scripts found");
 				}
-				
 			}
+			return true;
 		}
 
-		public void RecompileClientScripts()
+		public bool RecompileClientScripts()
 		{
 			ClientCompiler.StopAssembly();
 
 			List<string> clientScripts = new List<string>();
-			foreach (var resource in ClientModules.Resources)
+			foreach (var resource in ClientModules.ScriptGroup.Resources)
 			{
-				if (resource is Script)
-				{
-					clientScripts.Add(Path.Combine((resource as Script).FolderPath, resource.ID));
-				}
+				clientScripts.Add(Path.Combine((resource as Script).FolderPath, resource.Name));
 			}
 
 			clientScripts.Add(Path.Combine(projectPath, "Client", "EndpointWriter.cs"));
 			if (clientScripts.Count > 0)
 			{
 				Log.Log.Handle.AddEntry("Recompiling Client Scripts...");
-				ClientCompiler.Compile(clientScripts.ToArray());
+
+				if(!ClientCompiler.Compile(clientScripts.ToArray()))
+				{
+					return false;
+				}
 
 				if(ClientCompiler.HasScriptInterface())
 				{
@@ -449,31 +433,31 @@ namespace InteractServer.Project
 				{
 					Log.Log.Handle.AddEntry("No client scripts found.");
 				}
-				
 			}
+			return true;
 		}
 
-		public void CreateResourceInFolder(IFolder folder)
+		public void CreateResourceInGroup(FileGroup group)
 		{
-			if (folder == ServerModules)
+			if (ServerModules.Contains(group))
 			{
 				var dialog = new Dialogs.NewServerModule();
-				dialog.ShowDialog();
+				dialog.ShowDialog(group.ContentType);
 				if (dialog.DialogResult == true)
 				{
 					ServerModules.CreateResource(dialog.ModuleName, dialog.Type);
 				}
 			}
-			else if (folder == ClientModules)
+			else if (ClientModules.Contains(group))
 			{
 				var dialog = new Dialogs.NewClientModule();
-				dialog.ShowDialog();
+				dialog.ShowDialog(group.ContentType);
 				if (dialog.DialogResult == true)
 				{
 					ClientModules.CreateResource(dialog.ModuleName, dialog.Type);
 					if (firstClientGui == string.Empty && dialog.Type == ContentType.ClientGui)
 					{
-						var mod = ClientModules.GetByName(dialog.ModuleName);
+						var mod = ClientModules.GetByName(dialog.ModuleName + ".json");
 						firstClientGui = mod.ID;
 					}
 				}
@@ -503,7 +487,7 @@ namespace InteractServer.Project
 
 		public void RemoveResource(IResource resource)
 		{
-			if (ServerModules.Resources.Contains(resource))
+			if (ServerModules .Contains(resource))
 			{
 				ServerModules.RemoveResource(resource);
 			}

@@ -12,44 +12,40 @@ namespace InteractServer.Project
 {
 	public class ServerModuleFolder : AbstractFolder, IFolder
 	{
+		FileGroup GuiGroup;
+		FileGroup PatcherGroup;
+		FileGroup SoundGroup;
+		public FileGroup ScriptGroup;
+
 		public ServerModuleFolder(string name, string path, string icon)
 			: base(name, path, icon)
 		{
-			// create directories
-			if(!Directory.Exists(Path.Combine(path, "Gui"))) {
-				Directory.CreateDirectory(Path.Combine(path, "Gui"));
-			}
+			Groups.Add(new FileGroup("Guis", Path.Combine(path, "Gui"), @"/InteractServer;component/Resources/Icons/screen.png", ".json", typeof(Gui), ContentType.ServerGui));
+			GuiGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Patcher")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Patcher"));
-			}
+			Groups.Add(new FileGroup("Patchers", Path.Combine(path, "Patcher"), @"/InteractServer;component/Resources/Icons/Patcher_16x.png", ".yap", typeof(Patcher), ContentType.ServerPatcher));
+			PatcherGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Sound")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Sound"));
-			}
+			Groups.Add(new FileGroup("Sounds", Path.Combine(path, "Sound"), @"/InteractServer;component/Resources/Icons/SoundFile_16x.png", ".json", typeof(SoundPage), ContentType.ServerSounds));
+			SoundGroup = Groups.Last();
 
-			if (!Directory.Exists(Path.Combine(path, "Script")))
-			{
-				Directory.CreateDirectory(Path.Combine(path, "Script"));
-			}
+			Groups.Add(new FileGroup("Scripts", Path.Combine(path, "Script"), @"/InteractServer;component/Resources/Icons/Script_16x.png", ".cs", typeof(Script), ContentType.ServerScript));
+			ScriptGroup = Groups.Last();
 
 			if (!File.Exists(Path.Combine(path, "Script", "Main.cs")))
 			{
-				resources.Add(new Script("Main.cs", true, this.path));
+				var resource = ScriptGroup.CreateResource("Main", true);
 				using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("InteractServer.Resources.Definitions.ServerScriptTemplate1.cs"))
 				{
 					if (stream != null)
 					{
 						StreamReader reader = new StreamReader(stream);
-						(resources.Last() as Script).View.Text = reader.ReadToEnd();
-						(resources.Last() as Script).SaveContent();
+						(resource as Script).View.Text = reader.ReadToEnd();
+						(resource as Script).SaveContent();
 					}
 				}
 				needsSaving = true;
 			}
-
 		}
 
 		public override bool CreateResource(string name, ContentType type)
@@ -57,18 +53,18 @@ namespace InteractServer.Project
 			switch(type)
 			{
 				case ContentType.ServerGui:
-					resources.Add(new Gui(name + ".json", true, this.path));
+					GuiGroup.CreateResource(name, true);
 					break;
 				case ContentType.ServerPatcher:
-					resources.Add(new Patcher(name + ".yap", true, this.path));
+					PatcherGroup.CreateResource(name, true);
 					break;
 				case ContentType.ServerSounds:
-					resources.Add(new SoundPage(name + ".json", true, this.path));
+				  SoundGroup.CreateResource(name, true);
 					break;
 				case ContentType.ServerScript:
-					resources.Add(new Script(name + ".cs", true, this.path));
+					var resource = ScriptGroup.CreateResource(name, true);
 #if(WithSyntaxEditor)
-					((resources.Last() as Script).View as CodeEditor.CodeEditor).SetLanguage(Project.Current.Intellisense.ServerLanguage);
+					((resource as Script).View as CodeEditor.CodeEditor).SetLanguage(Project.Current.Intellisense.ServerLanguage);
 #endif
 					string path = "InteractServer.Resources.Definitions.ServerScriptTemplate2.cs";
 
@@ -77,8 +73,8 @@ namespace InteractServer.Project
 						if (stream != null)
 						{
 							StreamReader reader = new StreamReader(stream);
-							(resources.Last() as Script).View.Text = reader.ReadToEnd();
-							(resources.Last() as Script).SaveContent();
+							(resource as Script).View.Text = reader.ReadToEnd();
+							(resource as Script).SaveContent();
 						}
 					}
 					break;
@@ -102,16 +98,16 @@ namespace InteractServer.Project
 					switch(type)
 					{
 						case "ServerGui":
-							resources.Add(new Gui(elm, true, path));
+							GuiGroup.CreateResource(elm, true);
 							break;
 						case "ServerScript":
-							resources.Add(new Script(elm, true, path));
+							ScriptGroup.CreateResource(elm, true);
 							break;
 						case "ServerPatcher":
-							resources.Add(new Patcher(elm, true, path));
+							PatcherGroup.CreateResource(elm, true);
 							break;
 						case "ServerSounds":
-							resources.Add(new SoundPage(elm, true, path));
+							SoundGroup.CreateResource(elm, true);
 							break;
 					}
 				}
@@ -122,13 +118,10 @@ namespace InteractServer.Project
 
 		public override bool SaveToJson(JObject obj)
 		{
-			if(resources.Count > 0)
+			obj[Name] = new JObject();
+			foreach (var group in groups)
 			{
-				obj[Name] = new JObject();
-				foreach(var resource in resources)
-				{
-					obj[Name][resource.ID] = resource.SaveToJson();
-				}
+				group.SaveToJson(obj[Name] as JObject);
 			}
 			needsSaving = false;
 			return true;

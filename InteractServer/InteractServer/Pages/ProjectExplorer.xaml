@@ -17,7 +17,16 @@
 		<utils:ProjectExplorerTemplateSelector x:Key="ItemTemplateSelector">
 
 			<utils:ProjectExplorerTemplateSelector.FolderTemplate>
-				<HierarchicalDataTemplate DataType="{x:Type project:IFolder}" ItemsSource="{Binding Resources}">
+				<HierarchicalDataTemplate DataType="{x:Type project:IFolder}" ItemsSource="{Binding Groups}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="{Binding Icon}" Margin="0,0,5,0" Height="16" Width="16" Stretch="UniformToFill" SnapsToDevicePixels="True" />
+						<TextBlock Text="{Binding Name}" Foreground="White" />
+					</StackPanel>
+				</HierarchicalDataTemplate>
+			</utils:ProjectExplorerTemplateSelector.FolderTemplate>
+
+			<utils:ProjectExplorerTemplateSelector.GroupTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type project:FileGroup}" ItemsSource="{Binding Resources}">
 					<StackPanel Orientation="Horizontal">
 						<StackPanel.ContextMenu>
 							<ContextMenu StaysOpen="True">
@@ -30,8 +39,8 @@
 						<TextBlock Text="{Binding GuiCount}" Foreground="GreenYellow"/>
 					</StackPanel>
 				</HierarchicalDataTemplate>
-			</utils:ProjectExplorerTemplateSelector.FolderTemplate>
-
+			</utils:ProjectExplorerTemplateSelector.GroupTemplate>
+			
 			<utils:ProjectExplorerTemplateSelector.GuiTemplate>
 				<DataTemplate DataType="{x:Type project:IResource}">
 					<StackPanel Orientation="Horizontal">
@@ -171,7 +180,7 @@
 							</ContextMenu>
 						</StackPanel.ContextMenu>
 						<Image Source="{Binding Icon}" Margin="0,0,5,0" Height="16" Width="16" Stretch="UniformToFill" SnapsToDevicePixels="True" />
-						<TextBlock Text="{Binding Name}" Foreground="White">
+						<TextBlock Text="{Binding DisplayName}" Foreground="White">
 
 							<TextBlock.ToolTip>
 								<Image Source="{Binding ImageObj, Converter={StaticResource ImageConverter}}"

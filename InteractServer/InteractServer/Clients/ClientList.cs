@@ -145,6 +145,44 @@ namespace InteractServer.Clients
 			return null;
 		}
 
-		
+		public bool IDExists(string ID)
+		{
+			return List.ContainsKey(ID);
+		}
+
+		public bool NameExists(string Name)
+		{
+			foreach(var client in List)
+			{
+				if (client.Value.Name.Equals(Name)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public string GetName(string ID)
+		{
+			if (List.ContainsKey(ID)) return List[ID].Name;
+			return string.Empty;
+		}
+
+		public string GetID(string Name)
+		{
+			foreach(var client in List)
+			{
+				if(client.Value.Name.Equals(Name))
+				{
+					return client.Key;
+				}
+			}
+			return string.Empty;
+		}
+
+		public string GetIP(string ID)
+		{
+			if (List.ContainsKey(ID)) return List[ID].Name;
+			return string.Empty;
+		}
 	}
 }

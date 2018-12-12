@@ -14,6 +14,14 @@ namespace Scripts
 
 		// Log
 		void AddLogEntry(string message);
+
+		// Client
+		int ClientCount();
+		bool ClientIDExists(string ID);
+		bool ClientNameExists(string Name);
+		string ClientName(string ID);
+		string ClientID(string Name);
+		string ClientIP(string ID);
 	}
 
 }

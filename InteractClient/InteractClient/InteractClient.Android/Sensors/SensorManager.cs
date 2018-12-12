@@ -46,6 +46,10 @@ namespace InteractClient.Droid.Sensors
 		private float[] tiltGravity;
 		private float[] tiltMagnetic;
 
+        private float[] accGravity = new float[3] { 0, 0, 0 };
+        private float[] accLinear = new float[3] { 0, 0, 0 };
+        private float accAlpha = 0.8f;
+
 		public SensorManager() : base()
 		{
 			sensorManager = (Android.Hardware.SensorManager)Android.App.Application.Context.GetSystemService(Context.SensorService);
@@ -154,12 +158,25 @@ namespace InteractClient.Droid.Sensors
 				case Android.Hardware.SensorType.Accelerometer:
 					{
 						if (sensorStatus[InteractClient.Sensors.SensorType.AcceleroMeter])
-							SensorValueChanged(this, new SensorValueChangedEventArgs()
-							{
-								ValueType = InteractClient.Sensors.SensorValueType.Vector,
-								SensorType = InteractClient.Sensors.SensorType.AcceleroMeter,
-								Value = e.Values.ToArray(),
-							});
+                        {
+                            // calculate gravity with lowpass filter
+                            accGravity[0] = accAlpha * accGravity[0] + (1 - accAlpha) * e.Values[0];
+                            accGravity[1] = accAlpha * accGravity[1] + (1 - accAlpha) * e.Values[1];
+                            accGravity[2] = accAlpha * accGravity[2] + (1 - accAlpha) * e.Values[2];
+
+                            // substract gravity from sensor values
+                            accLinear[0] = e.Values[0] - accGravity[0];
+                            accLinear[1] = e.Values[1] - accGravity[1];
+                            accLinear[2] = e.Values[2] - accGravity[2];
+
+                            SensorValueChanged(this, new SensorValueChangedEventArgs()
+                            {
+                                ValueType = InteractClient.Sensors.SensorValueType.Vector,
+                                SensorType = InteractClient.Sensors.SensorType.AcceleroMeter,
+                                Value = accLinear,
+                            });
+                        }
+							
 						tiltGravity = e.Values.ToArray();
 						break;
 					}

@@ -14,7 +14,7 @@ namespace ScriptCompiler
 	public class Compiler
 	{
 		PluginHost host = null;
-		Scripts.ServerBase handle = null;
+		Scripts.Base handle = null;
 		Sponsor<Scripts.IScript> objectFromAssembly = null;
 
 		public string Errors()
@@ -54,7 +54,7 @@ namespace ScriptCompiler
 				objectFromAssembly = host.GetImplementation<Scripts.IScript>();
 				if (objectFromAssembly != null)
 				{
-					handle = objectFromAssembly.Instance as Scripts.ServerBase;
+					handle = objectFromAssembly.Instance as Scripts.Base;
 					if (handle == null)
 					{
 						return "Unable to create script object";
@@ -78,33 +78,7 @@ namespace ScriptCompiler
 			}
 		}
 
-		public string Run(Script.IClient client)
-		{
-			try
-			{
-					objectFromAssembly = host.GetImplementation<Scripts.IScript>();
-					if (objectFromAssembly != null)
-					{
-						//handle = objectFromAssembly.Instance as Script.Script;
-						if (handle == null)
-						{
-							return "Unable to create script object";
-						}
-						else
-						{
-							return string.Empty;
-						}
-					}
-					else
-					{
-						return "Unable to find Script interface";
-					}
-			}
-			catch (Exception e)
-			{
-				return e.Message;
-			}
-		}
+		
 
 		public void Stop()
 		{

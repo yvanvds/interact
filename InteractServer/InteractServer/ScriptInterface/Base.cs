@@ -11,14 +11,14 @@ namespace Scripts
 		void OnProjectStop();
 	}
 
-	public abstract class ServerBase : MarshalByRefObject, IScript
+	public abstract class Base : MarshalByRefObject, IScript
 	{
 		private static ICommunicator com;
 		public static ICommunicator Com => com;
 
 		public static void InjectCommunicator(ICommunicator com)
 		{
-			ServerBase.com = com;
+			Base.com = com;
 		}
 
 		public void OnOsc(string endpoint, object[] args)
