@@ -22,7 +22,37 @@ namespace InteractClient.UWP.Compiler
 			}, typeof(object[])));
 		}
 
-		public void SendOscByID(string address, object[] values, bool OnGuiThread)
+        public int ClientCount()
+        {
+            return 0;
+        }
+
+        public bool ClientIDExists(string ID)
+        {
+            return false;
+        }
+
+        public bool ClientNameExists(string Name)
+        {
+            return false;
+        }
+
+        public string ClientName(string ID)
+        {
+            return string.Empty;
+        }
+
+        public string ClientID(string Name)
+        {
+            return string.Empty;
+        }
+
+        public string ClientIP(string ID)
+        {
+            return string.Empty;
+        }
+
+        public void SendOscByID(string address, object[] values, bool OnGuiThread)
 		{
 			try
 			{

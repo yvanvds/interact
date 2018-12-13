@@ -34,6 +34,7 @@
 				Text="" 
 				VerticalAlignment="Top"
 				Width="275" 
+            KeyDown="TBModuleName_KeyDown"
 				TextChanged="TBModuleName_TextChanged"/>
 		<Button 
 			x:Name="BContinue" 

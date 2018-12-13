@@ -15,6 +15,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void LoadAssembly(byte[] array)
 		{
+            return;
 			if (domain != null)
 			{
 				AppDomain.Unload(domain);
@@ -28,6 +29,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void Run()
 		{
+            return;
 			if (domain == null) return;
 			if (proxy == null) return;
 
@@ -56,6 +58,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void InvokeOsc(string endpoint, object[] args)
 		{
+            return;
 			if (domain == null) return;
 			if (proxy == null) return;
 
@@ -76,6 +79,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void StopAssembly()
 		{
+            return;
 			proxy?.OnProjectStop();
 			if (domain != null)
 			{
@@ -102,6 +106,7 @@ namespace InteractClient.UWP.Compiler
 
 		public void LoadAssembly(byte[] array)
 		{
+            return;
 			assembly = null;
 			try
 			{
@@ -115,6 +120,7 @@ namespace InteractClient.UWP.Compiler
 
 		public string Run(Scripts.ICommunicator communicator)
 		{
+            return string.Empty;
 			try
 			{
 				Type type = assembly.GetType("Scripts.Main");
@@ -135,66 +141,66 @@ namespace InteractClient.UWP.Compiler
 
 		public string OnCreate()
 		{
-			try
+			/*try
 			{
 				handle?.OnCreate();
 			}
 			catch (Exception e)
 			{
 				return e.Message;
-			}
+			}*/
 			return string.Empty;
 		}
 
 		public string OnProjectStart()
 		{
-			try
+			/*try
 			{
 				handle?.OnProjectStart();
 			}
 			catch (Exception e)
 			{
 				return e.Message;
-			}
+			}*/
 			return string.Empty;
 		}
 
 		public string OnProjectStop()
 		{
-			try
+			/*try
 			{
 				handle?.OnProjectStop();
 			}
 			catch (Exception e)
 			{
 				return e.Message;
-			}
+			}*/
 			return string.Empty;
 		}
 
 		private bool InjectCommunicator(Scripts.ICommunicator communicator)
 		{
-			Type t = assembly.GetType("Scripts.Main");
+			/*Type t = assembly.GetType("Scripts.Main");
 			if (t != null)
 			{
 				Type b = t.BaseType;
 				MethodInfo info = b.GetMethod("InjectCommunicator");
 				info.Invoke(null, new object[] { communicator });
 				return true;
-			}
+			}*/
 			return false;
 		}
 
 		public string InvokeOsc(string endpoint, object[] args)
 		{
-			try
+			/*try
 			{
 				handle.OnOsc(endpoint, args);
 			}
 			catch (Exception e)
 			{
 				return e.Message;
-			}
+			}*/
 			return string.Empty;
 		}
 	}

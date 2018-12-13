@@ -191,6 +191,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\OSCGui\OSCGui_Forms\OSCGui_Forms.csproj">
+      <Project>{af3c2df5-5b46-4817-8d18-123f88d1a795}</Project>
+      <Name>OSCGui_Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\OscTree\OscTree\OscTree.csproj">
+      <Project>{9cc8fefe-0f10-4731-aa9c-d9bb6aad9891}</Project>
+      <Name>OscTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\yGui\yGuiStandard\yGui.csproj">
+      <Project>{ed55dbad-96ae-450b-949f-c5296eb04733}</Project>
+      <Name>yGui</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\InteractServer\InteractServer\ScriptInterface\ScriptInterface.csproj">
       <Project>{E0FABBE4-1D7D-4601-AD13-A68CC8F81645}</Project>
       <Name>ScriptInterface</Name>

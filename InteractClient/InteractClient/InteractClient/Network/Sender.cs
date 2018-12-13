@@ -56,7 +56,8 @@ namespace InteractClient.Network
 
 		public static void ToServer(OscTree.Route route, object[] parms)
 		{
-			sender.Send(new Osc.OscMessage("/route" + route.GetActualRoute(), parms));
+            string target = route.GetActualRoute();
+			sender.Send(new Osc.OscMessage("/route" + target, parms));
 		}
 	}
 }

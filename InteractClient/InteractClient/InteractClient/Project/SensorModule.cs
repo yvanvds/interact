@@ -131,7 +131,6 @@ namespace InteractClient.Project
 
 		public override void Activate()
 		{
-			
 			foreach(var sensor in sensors.Values)
 			{
 				if(sensor.Active)

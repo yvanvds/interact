@@ -49,7 +49,7 @@ namespace InteractServer.Project
 
 		private OscTree.Object OscObject;
 
-		public ArduinoConfig(string name, string folderPath)
+		public ArduinoConfig(string name, bool serverSide, string folderPath)
 		{
 			ArduinoGUI = new Controls.ArduinoControl();
 
@@ -67,7 +67,7 @@ namespace InteractServer.Project
 			setupDocument();
 		}
 
-		public ArduinoConfig(JObject obj, string folderPath)
+		public ArduinoConfig(JObject obj, bool serverSide, string folderPath)
 		{
 			ArduinoGUI = new Controls.ArduinoControl();
 

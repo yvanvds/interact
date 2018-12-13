@@ -35,6 +35,8 @@ namespace InteractClient
 
 		public static ICompiler Compiler;
 
+        public static bool GuiStarted = false;
+
 		public enum NetworkMessage
 		{
 			EndOfMessage, // sent by client and server to indicate end of message
@@ -110,7 +112,7 @@ namespace InteractClient
 			}
 		}
 
-		public static async Task RunOnGui(Action action)
+		public static void RunOnGui(Action action)
 		{
 			Device.BeginInvokeOnMainThread(action);
 		}

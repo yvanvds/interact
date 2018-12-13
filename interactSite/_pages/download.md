@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /download/
-last_modified_at: 2018-12-6
+last_modified_at: 2018-12-13
 title: Download
 ---
 
@@ -11,11 +11,11 @@ The Interact Server is available for Windows platforms (tested on Windows 10). B
 
 ### Current Version
 
-[Interact Server 0.7](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Server%2FInteract%20Server-0.7.msi?alt=media&token=e6725d5d-7bf1-4cac-98e7-3256247fd469) (Released on december 6, 2018)
+[Interact Server 0.8](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Server%2FInteract%20Server-0.8.msi?alt=media&token=564227ca-ae35-4d9a-8c6a-22d2837c0aaa) (Released on december 13, 2018)
 
 ### Previous Version
 
-[Interact Server 0.6](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Server%2FInteract%20Server-0.6.msi?alt=media&token=884c403b-8ec1-4153-88c9-bad473a4cd7f) (Released on november 27, 2018)
+[Interact Server 0.7](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Server%2FInteract%20Server-0.7.msi?alt=media&token=e6725d5d-7bf1-4cac-98e7-3256247fd469) (Released on december 6, 2018)
 
 ## Client
 

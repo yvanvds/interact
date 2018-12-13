@@ -115,5 +115,16 @@ namespace InteractServer.Dialogs
 			SetContentType(type);
 			ShowDialog();
 		}
-	}
+
+        private void TBModuleName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return && BContinue.IsEnabled)
+            {
+                if (!ValidModel()) return;
+                Type = GetContentType();
+                DialogResult = true;
+                Close();
+            }
+        }
+    }
 }

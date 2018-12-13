@@ -84,7 +84,13 @@ namespace InteractClient.Arduino
 
 			public void OnOsc(object[] args)
 			{
-				callback?.Invoke(Number, (bool)args[0] == true ? PinState.HIGH : PinState.LOW);
+                PinState state = PinState.HIGH;
+                try
+                {
+                    state = (bool)args[0] == true ? PinState.HIGH : PinState.LOW;
+                }
+                catch (Exception) { }
+				callback?.Invoke(Number, state);
 			}
 		}
 
@@ -228,7 +234,7 @@ namespace InteractClient.Arduino
 			byte id = Convert.ToByte(pin.Substring(1));
 			foreach (var current in Pins)
 			{
-				if (current.Number == id)
+				if (!current.Digital && current.Number == id)
 				{
 					if(current.Route != null)
 					{
@@ -236,11 +242,11 @@ namespace InteractClient.Arduino
 						
 						//Device.BeginInvokeOnMainThread(() =>
 						//{
-							OscObject.Send(current.Route, new object[] { output });
+							OscObject.Send(new OscTree.Route(current.Route.GetActualRoute(), OscTree.Route.RouteType.ID), new object[] { output });
 						//});
 					}
 					else {
-						Network.Sender.WriteLog("Arduino Pin " + current.Name + " has no route.");
+						//Network.Sender.WriteLog("Arduino Pin " + current.Name + " has no route.");
 					}
 					break;
 				}

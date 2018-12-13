@@ -13,7 +13,9 @@ namespace InteractClient.Project
 
 		public PatcherModule()
 		{
-			sound = Global.Yse.NewSound();
+            if (Global.Yse == null) return;
+
+            sound = Global.Yse.NewSound();
 			patcher = Global.Yse.NewPatcher();
 			patcher.Create(1);
 			sound.Create(patcher);
@@ -22,7 +24,9 @@ namespace InteractClient.Project
 
 		public override void LoadContent()
 		{
-			if(osc == null)
+            if (Global.Yse == null) return;
+
+            if (osc == null)
 			{
 				osc = new OscTree.Object(new OscTree.Address(Name, ID), typeof(object));
 				Global.OscLocal.Add(osc);
@@ -69,24 +73,28 @@ namespace InteractClient.Project
 
 		public void EnableAudio()
 		{
-			sound.Volume = 1.0f;
+            if (Global.Yse == null) return;
+            sound.Volume = 1.0f;
 			sound.Play();
 		}
 
 		public void DisableAudio()
 		{
-			sound.FadeAndStop(100);
+            if (Global.Yse == null) return;
+            sound.FadeAndStop(100);
 		}
 
 		public void Clear()
 		{
-			sound.Stop();
+            if (Global.Yse == null) return;
+            sound.Stop();
 			patcher.Clear();
 		}
 
 		public void Dispose()
 		{
-			sound.Stop();
+            if (Global.Yse == null) return;
+            sound.Stop();
 			patcher.Dispose();
 			sound.Dispose();
 			disposed = true;
@@ -99,7 +107,8 @@ namespace InteractClient.Project
 
 		~PatcherModule()
 		{
-			if(!disposed) Dispose();
+            if (Global.Yse == null) return;
+            if (!disposed) Dispose();
 		}
 	}
 }

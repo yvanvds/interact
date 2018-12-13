@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using InteractClient.IO;
+using Xamarin.Forms;
 
 namespace InteractClient.Project
 {
@@ -161,7 +162,7 @@ namespace InteractClient.Project
 								{
 									var m = new GuiModule();
 									m.Deserialize(data);
-									await Global.RunOnGui(() =>
+									Global.RunOnGui(() =>
 									{
 										m.LoadContent();
 									});
@@ -209,7 +210,7 @@ namespace InteractClient.Project
 					if(content != string.Empty)
 					{
 						clientModules[id].Deserialize(JObject.Parse(content));
-						await Global.RunOnGui(() =>
+						Global.RunOnGui(() =>
 						{
 							clientModules[id].LoadContent();
 						});
@@ -228,17 +229,21 @@ namespace InteractClient.Project
 				clientModules.Remove(item.Key);
 			}
 
-			//check for scripts
-			bool containsScripts = false;
-			foreach(var module in clientModules.Values)
-			{
-				if (module is ScriptModule) containsScripts = true;
-			}
-			if(containsScripts)
-			{
-				var file = File.ReadAllBytes(Path.Combine(projectFolder.Path, "ClientScript.dll"));
-				Global.Compiler.LoadAssembly(file);
-			}
+            //check for scripts
+            if (Device.RuntimePlatform != Device.UWP)
+            {
+                bool containsScripts = false;
+                foreach (var module in clientModules.Values)
+                {
+                    if (module is ScriptModule) containsScripts = true;
+                }
+                if (containsScripts)
+                {
+                    var file = File.ReadAllBytes(Path.Combine(projectFolder.Path, "ClientScript.dll"));
+                    Global.Compiler.LoadAssembly(file);
+                }
+            }
+                
 		}
 
 		public async Task<string> GetContentLocation(string id, bool reload = false)

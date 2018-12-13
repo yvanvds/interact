@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace InteractClient.Project
 {
@@ -111,12 +112,16 @@ namespace InteractClient.Project
 			{
 				if(module is SensorModule)
 				{
-					var mod = module as SensorModule;
-					if(mod.GroupID.Equals(GroupID))
-					{
-						currentSensorModule = mod;
-						currentSensorModule.Activate();
-					}
+                    if (Device.RuntimePlatform != Device.UWP)
+                    {
+                        var mod = module as SensorModule;
+                        if (mod.GroupID.Equals(GroupID))
+                        {
+                            currentSensorModule = mod;
+                            currentSensorModule.Activate();
+                        }
+                    }
+                        
 				} else if (module is ArduinoModule)
 				{
 					var mod = module as ArduinoModule;

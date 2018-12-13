@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Input;
 
 namespace InteractServer.Dialogs
 {
@@ -111,5 +111,16 @@ namespace InteractServer.Dialogs
 			SetContentType(type);
 			ShowDialog();
 		}
-	}
+
+        private void TBModuleName_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return && BContinue.IsEnabled)
+            {
+                if (!ValidModel()) return;
+                Type = GetContentType();
+                DialogResult = true;
+                Close();
+            }
+        }
+    }
 }

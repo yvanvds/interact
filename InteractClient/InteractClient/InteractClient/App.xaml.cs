@@ -26,6 +26,7 @@ namespace InteractClient
 			Global.OscAllClients = new OscTree.Tree(new OscTree.Address("AllClients", "AllClients"));
 			Global.OscRoot.Add(Global.OscLocal);
 			Global.OscRoot.Add(Global.OscServer);
+            Global.OscRoot.Add(Global.OscAllClients);
 			//Global.OscRoot.ErrorHandler += Network.Sender.WriteLog;
 			//Global.OscLocal.ErrorHandler += Network.Sender.WriteLog;
 			//Global.OscServer.ErrorHandler += Network.Sender.WriteLog;
@@ -52,7 +53,9 @@ namespace InteractClient
 			{
 				Global.Arduino = new Arduino.Arduino(Global.OscLocal);
 			}
-		}
+
+            Global.GuiStarted = true;
+        }
 
 		protected override void OnSleep ()
 		{
