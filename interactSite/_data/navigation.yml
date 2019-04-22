@@ -46,6 +46,14 @@ docs:
         url: /documentation/modules/soundpage/
       - title: "Audio Patcher"
         url: /documentation/modules/patcher/
+      - title: "Script"
+        url: /documentation/modules/script/
+  - title: Demos
+    children:
+      - title: "Info"
+        url: /documentation/demos/info/
+      - title: "Basics"
+        url: /documentation/demos/demo01/
   - title: Varia
     children:
       - title: "Raspberry PI"

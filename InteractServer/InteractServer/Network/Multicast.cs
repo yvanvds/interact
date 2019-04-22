@@ -44,7 +44,16 @@ namespace InteractServer.Network
 				}
 			};
 
-			await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
+            try
+            {
+                await receiver.JoinMulticastGroupAsync(Constants.MulticastAddress, Constants.MulticastPort);
+                Byte[] data = Encoding.ASCII.GetBytes("ANOUNCE SERVER");
+                await receiver.SendMulticastAsync(data);
+            } catch(Exception e)
+            {
+                Log.Log.Handle.AddEntry("Error: " + e.Message);
+            }
+			
 		}
 
 		public async void Stop()
