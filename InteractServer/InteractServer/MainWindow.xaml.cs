@@ -46,8 +46,11 @@ namespace InteractServer
 			{
 				if(Properties.Settings.Default.LastOpenProject.Length > 0)
 				{
-					Project.Project.OpenProject(Properties.Settings.Default.LastOpenProject);
-					Pages.ProjectExplorer.Handle.Refresh();
+                    if(System.IO.File.Exists(Properties.Settings.Default.LastOpenProject))
+                    {
+                        Project.Project.OpenProject(Properties.Settings.Default.LastOpenProject);
+                        Pages.ProjectExplorer.Handle.Refresh();
+                    }
 				}
 			}
 

@@ -60,7 +60,10 @@ namespace InteractServer.Controls
 			dialog.Filter = "Audio file (ogg, wav)|*.ogg;*.wav";
 			if(Properties.Settings.Default.LastAudioFolder.Length > 0)
 			{
-				dialog.InitialDirectory = Properties.Settings.Default.LastAudioFolder;
+                if(System.IO.Directory.Exists(Properties.Settings.Default.LastAudioFolder))
+                {
+                    dialog.InitialDirectory = Properties.Settings.Default.LastAudioFolder;
+                }
 			}
 
 			if(dialog.ShowDialog() == true)

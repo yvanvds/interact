@@ -42,7 +42,7 @@ This demonstrates how to control which screen is shown on the clients. The proje
 
 [Download](https://firebasestorage.googleapis.com/v0/b/mute-interact.appspot.com/o/Demos%2FDemo04.zip?alt=media&token=40d96cc6-7a8d-4650-b10e-57df03604c87)
 
-This demonstrates multiple client screen, without server control. All clients can switch back and forth between on their own.
+This demonstrates multiple client screen, without server control. All clients can switch back and forth between screens on their own.
 - This project does not have any server side content.
 - The target path for all buttons is left at the default value, which propagates changed to the local client only.
-- If you need to provide different screens to different groups, start with the previous demo. You should create different starting screens and trigger them from the controller. On the starting screen for each group, you can provide buttons to move to other screens.
+- If you need to provide different screens to different groups, start with the previous demo. You should create different starting screens and trigger them from a server gui. On the starting screen for each group, you can provide buttons to move to other screens.

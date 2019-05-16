@@ -52,7 +52,10 @@ namespace InteractServer.Dialogs
 				dialog.Description = "Choose a Folder for your Project";
 				if (Properties.Settings.Default.LastProjectFolder != string.Empty)
 				{
-					dialog.SelectedPath = Properties.Settings.Default.LastProjectFolder;
+                    if(System.IO.Directory.Exists(Properties.Settings.Default.LastProjectFolder))
+                    {
+                        dialog.SelectedPath = Properties.Settings.Default.LastProjectFolder;
+                    }
 				}
 
 				System.Windows.Forms.DialogResult result = dialog.ShowDialog();
