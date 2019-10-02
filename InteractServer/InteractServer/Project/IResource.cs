@@ -1,10 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using tainicom.WpfPropertyGrid;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Project
 {
-	public interface IResource
+    [BrowsableProperty(BrowsableCategoryAttribute.All, false)]
+    [BrowsableProperty("Name", true)]
+    [BrowsableProperty("ID", true)]
+    [BrowsableProperty("Version", true)]
+    public interface IResource
 	{
 		string DisplayName { get; }
 		string Name { get; }

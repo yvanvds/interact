@@ -9,18 +9,18 @@ using System.Windows.Media;
 
 namespace InteractServer.Groups
 {
-	public class GroupMember : INotifyPropertyChanged, OscGuiControl.IPropertyInterface
+	public class GroupMember : INotifyPropertyChanged
 	{
 		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static GroupMember()
-		{
-			properties = new PropertyCollection();
-			properties.Add("PropName", "Name");
-			properties.Add("PropID", "ID");
-		}
+		//static GroupMember()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("PropName", "Name");
+		//	properties.Add("PropID", "ID");
+		//}
 		#endregion PropertyInterface
 
 		public string Name { get; set; }

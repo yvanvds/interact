@@ -16,9 +16,11 @@ namespace InteractServer.Osc
 		public static OscTree.Tree AllClients = new OscTree.Tree(new OscTree.Address("AllClients", "AllClients"));
 		public static OscTree.Tree ServerPatchers = new OscTree.Tree(new OscTree.Address("Patchers", "Patchers"));
 		public static OscTree.Tree ServerSounds = new OscTree.Tree(new OscTree.Address("Sounds", "Sounds"));
-		public static OscTree.Object ServerScripts = new OscTree.Object(new OscTree.Address("ServerScripts", "ServerScripts"), typeof(Object));
-		public static OscTree.Object ClientScripts = new OscTree.Object(new OscTree.Address("ClientScripts", "ClientScripts"), typeof(Object));
+        public static OscTree.Tree ServerRouters = new OscTree.Tree(new OscTree.Address("Outputs", "Outputs"));
 
+        public static OscTree.Object ServerScripts = new OscTree.Object(new OscTree.Address("ServerScripts", "ServerScripts"), typeof(Object));
+		public static OscTree.Object ClientScripts = new OscTree.Object(new OscTree.Address("ClientScripts", "ClientScripts"), typeof(Object));
+        
 		public static void Init()
 		{
 			Root.Add(Server);
@@ -58,6 +60,7 @@ namespace InteractServer.Osc
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
 			Server.Add(ServerScripts);
+            Server.Add(ServerRouters);
 
 			Client.Add(ClientScripts);
 		}
@@ -77,12 +80,14 @@ namespace InteractServer.Osc
 			Client.Clear();
 			ServerPatchers.Clear();
 			ServerSounds.Clear();
+            ServerRouters.Clear();
 			ServerScripts.Endpoints.Clear();
 			ClientScripts.Endpoints.Clear();
 
 			Server.Add(ServerPatchers);
 			Server.Add(ServerSounds);
 			Server.Add(ServerScripts);
+            Server.Add(ServerRouters);
 
 			Client.Add(ClientScripts);
 		}

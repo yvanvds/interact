@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace InteractServer.Groups
 {
-	public class Group : OscGuiControl.IPropertyInterface
+	public class Group
 	{
 
 		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Group()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name", "Name");
-			properties.Add("FirstClientGui", "Gui on Startup");
-		}
+		//static Group()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("Name", "Name");
+		//	properties.Add("FirstClientGui", "Gui on Startup");
+		//}
 		#endregion PropertyInterface
 
 		public string name;

@@ -17,7 +17,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Project
 {
-	class Patcher : IResource, OscGuiControl.IPropertyInterface
+	class Patcher : IResource
 	{
 		public YapView.YapView View = null;
 		public Grid PageGrid = null;
@@ -32,16 +32,16 @@ namespace InteractServer.Project
 		public Yse.YseHandler handler;
 
 		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Patcher()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name");
-			properties.Add("ID");
-			properties.Add("Version");
-		}
+		//static Patcher()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("Name");
+		//	properties.Add("ID");
+		//	properties.Add("Version");
+		//}
 		#endregion PropertyInterface
 
 		private string name = string.Empty;

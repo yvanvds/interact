@@ -9,7 +9,7 @@ using OscGuiControl;
 
 namespace InteractServer.Clients
 {
-	public class Client : INotifyPropertyChanged, OscGuiControl.IPropertyInterface
+	public class Client : INotifyPropertyChanged
 	{
 		private string name;
 		public string Name { get => name; set => name = value; }
@@ -43,16 +43,16 @@ namespace InteractServer.Clients
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Client()
-		{
-			properties = new PropertyCollection();
-			properties.Add("ReadableName", "Name");
-			properties.Add("ReadableIP", "IP Address");
-			properties.Add("ID", "Identifier");
-		}
+		//static Client()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("ReadableName", "Name");
+		//	properties.Add("ReadableIP", "IP Address");
+		//	properties.Add("ID", "Identifier");
+		//}
 
 		public Client(string name, string ipAddress, string id)
 		{

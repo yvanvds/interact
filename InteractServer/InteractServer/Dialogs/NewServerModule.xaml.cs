@@ -38,6 +38,7 @@ namespace InteractServer.Dialogs
 			cbList.Add("Script File");
 			cbList.Add("Audio Patcher");
 			cbList.Add("Sound Page");
+            cbList.Add("Output");
 			CBType.ItemsSource = cbList;
 			CBType.SelectedIndex = 0;
 		}
@@ -62,6 +63,8 @@ namespace InteractServer.Dialogs
 					return ContentType.ServerPatcher;
 				case 3:
 					return ContentType.ServerSounds;
+                case 4:
+                    return ContentType.ServerOutput;
 				default:
 					return ContentType.Invalid;
 			}
@@ -84,6 +87,9 @@ namespace InteractServer.Dialogs
 				case ContentType.ServerSounds:
 					CBType.SelectedIndex = 3;
 					break;
+                case ContentType.ServerOutput:
+                    CBType.SelectedIndex = 4;
+                    break;
 			}
 		}
 
