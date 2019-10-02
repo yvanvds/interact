@@ -9,11 +9,16 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
 using OscGuiControl;
+using tainicom.WpfPropertyGrid;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Project
 {
-	public class SoundPage : IResource, OscGuiControl.IPropertyInterface
+    [BrowsableProperty(BrowsableCategoryAttribute.All, false)]
+    [BrowsableProperty("Name", true)]
+    [BrowsableProperty("ID", true)]
+    [BrowsableProperty("Version", true)]
+    public class SoundPage : IResource
 	{
 		public Controls.SoundGrid View = null;
 
@@ -38,19 +43,6 @@ namespace InteractServer.Project
 		private bool serverSide;
 
 		private string content = string.Empty;
-
-		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
-
-		static SoundPage()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name");
-			properties.Add("ID");
-			properties.Add("Version");
-		}
-		#endregion PropertyInterface
 
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace InteractServer.Project
 {
-	public class Project : OscGuiControl.IPropertyInterface
+	public class Project
 	{
 		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Project()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name", "Name");
-			properties.Add("FirstClientGui", "Gui on Startup");
-		}
+		//static Project()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("Name", "Name");
+		//	properties.Add("FirstClientGui", "Gui on Startup");
+		//}
 
 		#endregion PropertyInterface
 

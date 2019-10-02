@@ -14,7 +14,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource ColorLessDark}">
-			<Button Name="AddSoundButton" Content="Add Sound" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10" Click="AddSoundButton_Click"/>
+			<Button Name="AddSoundButton" Content="ADD SOUND" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10" Click="AddSoundButton_Click"/>
 		</StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <WrapPanel Name="Panel"></WrapPanel>

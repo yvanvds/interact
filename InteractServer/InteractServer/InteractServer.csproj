@@ -85,20 +85,20 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
+      <HintPath>packages\gong-wpf-dragdrop.2.0.6\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="shortid, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\shortid.2.0.0\lib\net45\shortid.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>packages\SkiaSharp.1.60.3\lib\net45\SkiaSharp.dll</HintPath>
+    <Reference Include="SkiaSharp, Version=1.68.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.1.68.0\lib\net45\SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Extended.Iconify, Version=1.60.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\SkiaSharp.Extended.Iconify.1.60.0\lib\netstandard2.0\SkiaSharp.Extended.Iconify.dll</HintPath>
@@ -106,14 +106,14 @@
     <Reference Include="SkiaSharp.Extended.Iconify.MaterialDesignIcons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\SkiaSharp.Extended.Iconify.MaterialDesignIcons.2.0.0\lib\netstandard2.0\SkiaSharp.Extended.Iconify.MaterialDesignIcons.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.Desktop, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>packages\SkiaSharp.Views.1.60.3\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.Desktop, Version=1.68.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.Views.1.68.0\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.Gtk, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>packages\SkiaSharp.Views.1.60.3\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.Gtk, Version=1.68.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.Views.1.68.0\lib\net45\SkiaSharp.Views.Gtk.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.WPF, Version=1.60.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>packages\SkiaSharp.Views.1.60.3\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
+    <Reference Include="SkiaSharp.Views.WPF, Version=1.68.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.Views.1.68.0\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\rda.SocketsForPCL.2.0.2\lib\net45\Sockets.Plugin.dll</HintPath>
@@ -137,6 +137,13 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="tainicom.WpfPropertyGrid, Version=2010.11.10.0, Culture=neutral, PublicKeyToken=be4b71144cd8a3e5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\WPF-PropertyGrid-Control\Assemblies\tainicom.WpfPropertyGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="tainicom.WpfPropertyGrid.Themes">
+      <HintPath>..\..\..\WPF-PropertyGrid-Control\Assemblies\tainicom.WpfPropertyGrid.Themes.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -159,11 +166,11 @@
     <Reference Include="YapView, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\YapView.1.0.11\lib\net461\YapView.dll</HintPath>
     </Reference>
-    <Reference Include="YSE.NET.PCL, Version=1.0.43.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\YSE.NET.PCL.1.0.43\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
+    <Reference Include="YSE.NET.PCL, Version=1.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\YSE.NET.PCL.1.0.45\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
     </Reference>
-    <Reference Include="Yse.NET.Standard, Version=1.0.77.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Yse.NET.Standard.1.0.77\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
+    <Reference Include="Yse.NET.Standard, Version=1.0.79.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Yse.NET.Standard.1.0.79\lib\netstandard2.0\Yse.NET.Standard.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +203,9 @@
     <Compile Include="Controls\GroupMemberList.xaml.cs">
       <DependentUpon>GroupMemberList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OutputList.xaml.cs">
+      <DependentUpon>OutputList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SensorControl.xaml.cs">
       <DependentUpon>SensorControl.xaml</DependentUpon>
     </Compile>
@@ -219,6 +229,9 @@
     </Compile>
     <Compile Include="Dialogs\NewClientModule.xaml.cs">
       <DependentUpon>NewClientModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewOutputDialog.xaml.cs">
+      <DependentUpon>NewOutputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\NewServerModule.xaml.cs">
       <DependentUpon>NewServerModule.xaml</DependentUpon>
@@ -266,6 +279,29 @@
     <Compile Include="Osc\Values\OscTimeTag.cs" />
     <Compile Include="Osc\Values\OscTrue.cs" />
     <Compile Include="Osc\Values\OscValue.cs" />
+    <Compile Include="Outputs\IOut.cs" />
+    <Compile Include="Outputs\MidiOut.cs" />
+    <Compile Include="Outputs\MidiOutGui.xaml.cs">
+      <DependentUpon>MidiOutGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\MidiOutputType.cs" />
+    <Compile Include="Outputs\MidiOutToBooleanConverter.cs" />
+    <Compile Include="Outputs\MidiStrategy\Factory.cs" />
+    <Compile Include="Outputs\MidiStrategy\IMidiStrategy.cs" />
+    <Compile Include="Outputs\MidiStrategy\MidiCtrlGui.xaml.cs">
+      <DependentUpon>MidiCtrlGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\MidiStrategy\MidiCtrlStrategy.cs" />
+    <Compile Include="Outputs\MidiStrategy\MidiNoteGui.xaml.cs">
+      <DependentUpon>MidiNoteGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\MidiStrategy\MidiNoteStrategy.cs" />
+    <Compile Include="Outputs\MidiStrategy\MidiProgramGui.xaml.cs">
+      <DependentUpon>MidiProgramGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\MidiStrategy\MidiProgramStrategy.cs" />
+    <Compile Include="Outputs\Output.cs" />
+    <Compile Include="Outputs\OutputType.cs" />
     <Compile Include="Pages\ClientExplorer.xaml.cs">
       <DependentUpon>ClientExplorer.xaml</DependentUpon>
     </Compile>
@@ -282,6 +318,7 @@
     <Compile Include="Project\ClientGroups.cs" />
     <Compile Include="Project\FileGroup.cs" />
     <Compile Include="Project\Patcher.cs" />
+    <Compile Include="Project\OutputPage.cs" />
     <Compile Include="Project\Script.cs" />
     <Compile Include="Project\SensorConfig.cs" />
     <Compile Include="Project\ServerModuleFolder.cs" />
@@ -328,6 +365,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\OutputList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SensorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -361,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\NewProjectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\NewOutputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -404,6 +449,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Outputs\MidiOutGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Outputs\MidiStrategy\MidiCtrlGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Outputs\MidiStrategy\MidiNoteGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Outputs\MidiStrategy\MidiProgramGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ClientExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -587,14 +648,15 @@
   <ItemGroup>
     <Content Include="libsndfile-1.dll" />
     <Content Include="portaudio_x86.dll" />
+    <Resource Include="Resources\Icons\route-16.png" />
     <Content Include="Yse.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets" Condition="Exists('packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" />
+  <Import Project="packages\SkiaSharp.1.68.0\build\net45\SkiaSharp.targets" Condition="Exists('packages\SkiaSharp.1.68.0\build\net45\SkiaSharp.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SkiaSharp.1.60.3\build\net45\SkiaSharp.targets'))" />
+    <Error Condition="!Exists('packages\SkiaSharp.1.68.0\build\net45\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SkiaSharp.1.68.0\build\net45\SkiaSharp.targets'))" />
   </Target>
 </Project>

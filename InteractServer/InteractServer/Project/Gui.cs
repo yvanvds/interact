@@ -8,21 +8,21 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Project
 {
-	class Gui : IResource, OscGuiControl.IPropertyInterface
+	class Gui : IResource
 	{
-		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//#region PropertyInterface
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Gui()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name");
-			properties.Add("ID");
-			properties.Add("Version");
-		}
+		//static Gui()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("Name");
+		//	properties.Add("ID");
+		//	properties.Add("Version");
+		//}
 
-		#endregion PropertyInterface
+		//#endregion PropertyInterface
 
 		private string name = string.Empty;
 		public string Name
@@ -40,7 +40,7 @@ namespace InteractServer.Project
 		private string id = string.Empty;
 		public string ID => id;
 
-		public string Path { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		//public string Path { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		private ContentType type = ContentType.Invalid;
 		public ContentType Type => type;
@@ -48,7 +48,7 @@ namespace InteractServer.Project
 		private string icon = "";
 		public string Icon => icon;
 
-		public string Data { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		//public string Data { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		private int version = 0;
 		public int Version => version;

@@ -13,25 +13,25 @@ using Xceed.Wpf.AvalonDock.Layout;
 
 namespace InteractServer.Project
 {
-	class Script : IResource, OscGuiControl.IPropertyInterface
+	class Script : IResource//, OscGuiControl.IPropertyInterface
 	{
 		public CodeEditor.ICodeEditor View = null;
 		private LayoutDocument document = null;
 		public LayoutDocument Document => document;
 
 		#region PropertyInterface
-		static private PropertyCollection properties = null;
-		public PropertyCollection Properties => properties;
+		//static private PropertyCollection properties = null;
+		//public PropertyCollection Properties => properties;
 
-		static Script()
-		{
-			properties = new PropertyCollection();
-			properties.Add("Name");
-			properties.Add("ID");
-			properties.Add("Version");
-			properties.Add("DoUpdate", "Active", "Update Method");
-			properties.Add("UpdateFrequency", "Frequency", "Update Method");
-		}
+		//static Script()
+		//{
+		//	properties = new PropertyCollection();
+		//	properties.Add("Name");
+		//	properties.Add("ID");
+		//	properties.Add("Version");
+		//	properties.Add("DoUpdate", "Active", "Update Method");
+		//	properties.Add("UpdateFrequency", "Frequency", "Update Method");
+		//}
 		#endregion PropertyInterface
 
 		private string name = string.Empty;

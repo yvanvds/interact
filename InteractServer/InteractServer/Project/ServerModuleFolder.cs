@@ -15,6 +15,7 @@ namespace InteractServer.Project
 		FileGroup GuiGroup;
 		FileGroup PatcherGroup;
 		FileGroup SoundGroup;
+        FileGroup OutputGroup;
 		public FileGroup ScriptGroup;
 
 		public ServerModuleFolder(string name, string path, string icon)
@@ -31,6 +32,9 @@ namespace InteractServer.Project
 
 			Groups.Add(new FileGroup("Scripts", Path.Combine(path, "Script"), @"/InteractServer;component/Resources/Icons/Script_16x.png", ".cs", typeof(Script), ContentType.ServerScript));
 			ScriptGroup = Groups.Last();
+
+            Groups.Add(new FileGroup("Outputs", Path.Combine(path, "Output"), @"/InteractServer;component/Resources/Icons/route-16.png", ".out", typeof(OutputPage), ContentType.ServerOutput));
+            OutputGroup = Groups.Last();
 
 			if (!File.Exists(Path.Combine(path, "Script", "Main.cs")))
 			{
@@ -61,6 +65,9 @@ namespace InteractServer.Project
 				case ContentType.ServerSounds:
 				  SoundGroup.CreateResource(name, true);
 					break;
+                case ContentType.ServerOutput:
+                    OutputGroup.CreateResource(name, true);
+                    break;
 				case ContentType.ServerScript:
 					var resource = ScriptGroup.CreateResource(name, true);
 #if(WithSyntaxEditor)
@@ -109,6 +116,9 @@ namespace InteractServer.Project
 						case "ServerSounds":
 							SoundGroup.CreateResource(elm, true);
 							break;
+                        case "ServerOutput":
+                            OutputGroup.CreateResource(elm, true);
+                            break;
 					}
 				}
 			}

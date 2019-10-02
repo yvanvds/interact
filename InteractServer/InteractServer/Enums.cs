@@ -21,12 +21,14 @@ namespace InteractServer
 		ServerScript,
 		ServerPatcher,
 		ServerSounds,
+        ServerOutput,
 		ClientGui,
 		ClientScript,
 		ClientPatcher,
 		ClientSounds,
 		ClientSensors,
 		ClientArduino,
+        ClientOutput,
 	}
 
 	public enum NetworkMessage

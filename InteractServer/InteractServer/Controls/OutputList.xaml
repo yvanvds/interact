@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="InteractServer.Controls.OutputList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InteractServer.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+			 Background="{DynamicResource ColorDark}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{DynamicResource ColorLessDark}">
+            <Button Name="AddOutputButton" Content="ADD OUTPUT" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10" Click="AddOutputButton_Click"/>
+        </StackPanel>
+
+        <ListView Name="Panel" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Expander Margin="5" Content="{Binding Gui}">
+                        
+                        <Expander.Header>
+                            <Grid Background="Black" Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="20, 5" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Grid.Column="1" Margin="20, 5" Text="{Binding Description}"></TextBlock>
+                                <TextBlock Grid.Column="2" Margin="20, 5" Text="{Binding Message}"></TextBlock>
+                            </Grid>
+                        </Expander.Header>
+                        
+                        
+                    </Expander>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

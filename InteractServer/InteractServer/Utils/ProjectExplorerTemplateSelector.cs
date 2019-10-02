@@ -1,4 +1,5 @@
-﻿using InteractServer.Project;
+﻿using InteractServer.Controls;
+using InteractServer.Project;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,6 +17,7 @@ namespace InteractServer.Utils
 		public DataTemplate PatcherTemplate { get; set; }
 		public DataTemplate SensorTemplate { get; set; }
 		public DataTemplate ArduinoTemplate { get; set; }
+        public DataTemplate RouterTemplate { get; set; }
 
 
 		public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -56,6 +58,10 @@ namespace InteractServer.Utils
 				{
 					return ArduinoTemplate;
 				}
+                else if (item is OutputPage)
+                {
+                    return RouterTemplate;
+                }
 			}
 
 			return null;
