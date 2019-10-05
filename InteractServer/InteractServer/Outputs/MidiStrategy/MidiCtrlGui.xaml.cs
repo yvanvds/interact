@@ -20,9 +20,20 @@ namespace InteractServer.Outputs.MidiStrategy
     /// </summary>
     public partial class MidiCtrlGui : UserControl
     {
-        public MidiCtrlGui()
+        MidiCtrlStrategy parent;
+
+        public MidiCtrlGui(MidiCtrlStrategy data)
         {
             InitializeComponent();
+            parent = data;
+            this.DataContext = data;
+            ControlSelector.ItemsSource = Utils.Midi.ControllerNames;
+            ControlSelector.SelectedIndex = data.SelectedController;
+        }
+
+        private void ControlSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            parent.SelectedController = ControlSelector.SelectedIndex;
         }
     }
 }

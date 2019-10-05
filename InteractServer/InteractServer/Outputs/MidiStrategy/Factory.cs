@@ -24,6 +24,11 @@ namespace InteractServer.Outputs.MidiStrategy
                         JObject content = details != null ? details : MidiProgramStrategy.CreateJObject();
                         return new MidiProgramStrategy(content);
                     }
+                case MidiOutputType.LIST:
+                    {
+                        JObject content = details != null ? details : MidiListStrategy.CreateJObject();
+                        return new MidiListStrategy(content);
+                    }
 
                 default:
                     {

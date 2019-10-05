@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace InteractServer.Outputs
+namespace InteractServer.Utils
 {
-    public class MidiOutToBooleanConverter : IValueConverter
+    public class EnumToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

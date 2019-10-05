@@ -11,5 +11,6 @@ namespace InteractServer.Outputs
         NOTE,
         PROGRAM,
         CTRL,
+        LIST,
     }
 }

@@ -164,7 +164,7 @@
       <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="YapView, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\YapView.1.0.11\lib\net461\YapView.dll</HintPath>
+      <HintPath>packages\YapView.1.0.16\lib\net461\YapView.dll</HintPath>
     </Reference>
     <Reference Include="YSE.NET.PCL, Version=1.0.45.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\YSE.NET.PCL.1.0.45\lib\netstandard2.0\YSE.NET.PCL.dll</HintPath>
@@ -285,7 +285,11 @@
       <DependentUpon>MidiOutGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="Outputs\MidiOutputType.cs" />
-    <Compile Include="Outputs\MidiOutToBooleanConverter.cs" />
+    <Compile Include="Outputs\MidiStrategy\MidiListGui.xaml.cs">
+      <DependentUpon>MidiListGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Outputs\MidiStrategy\MidiListStrategy.cs" />
+    <Compile Include="Utils\EnumToBooleanConverter.cs" />
     <Compile Include="Outputs\MidiStrategy\Factory.cs" />
     <Compile Include="Outputs\MidiStrategy\IMidiStrategy.cs" />
     <Compile Include="Outputs\MidiStrategy\MidiCtrlGui.xaml.cs">
@@ -340,6 +344,7 @@
     <Compile Include="Utils\ActionCommand.cs" />
     <Compile Include="Utils\Editor.cs" />
     <Compile Include="Utils\ImageToBitmapSourceConverter.cs" />
+    <Compile Include="Utils\Midi.cs" />
     <Compile Include="Utils\ProjectExplorerTemplateSelector.cs" />
     <Compile Include="Utils\String.cs" />
     <Compile Include="Utils\TrulyObservableCollection.cs" />
@@ -454,6 +459,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Outputs\MidiStrategy\MidiCtrlGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Outputs\MidiStrategy\MidiListGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -78,7 +78,7 @@ namespace InteractServer.Outputs.MidiStrategy
             {
                 noteOffs.Add(new NoteOff { note = adjusted, period = Duration, channel = channel });
             }
-            return value;
+            return adjusted;
         }
 
         private int adjustValue(int value)

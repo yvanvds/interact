@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InteractServer.Outputs.MidiStrategy"
+             xmlns:utils="clr-namespace:InteractServer.Utils"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <utils:EnumToBooleanConverter x:Key="EnumConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
-        <Label Content="Midi Program" Foreground="White"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+            <RadioButton Margin="10"
+                   IsChecked="{Binding Path=ProgramOptions, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter=INCOMING}">
+                <Label Content="Use Incoming Value" Width="150"/>
+            </RadioButton>
+            <RadioButton Margin="10"
+                   IsChecked="{Binding Path=ProgramOptions, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter=FIXED}">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Use Fixed Value:" Width="150"/>
+                    <Controls:NumericUpDown Minimum="0" Maximum="127" Width="100" Value="{Binding Path=FixedValue, Mode=TwoWay}"/>
+                </StackPanel>
+            </RadioButton>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace InteractServer.Outputs.MidiStrategy
 {
     /// <summary>
-    /// Interaction logic for MidiProgramGui.xaml
+    /// Interaction logic for MidiListGui.xaml
     /// </summary>
-    public partial class MidiProgramGui : UserControl
+    public partial class MidiListGui : UserControl
     {
-        public MidiProgramGui(MidiProgramStrategy data)
+        public MidiListGui(MidiListStrategy data)
         {
             InitializeComponent();
-            this.DataContext = data;
+            DataContext = data;
         }
     }
 }
