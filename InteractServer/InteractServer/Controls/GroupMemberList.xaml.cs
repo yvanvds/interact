@@ -56,6 +56,7 @@ namespace InteractServer.Controls
 		private void Label_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			var member = (sender as Label).DataContext as Groups.GroupMember;
+            Pages.Properties.Handle.SetClientGuis(Project.Project.Current.ClientModules.GuiGroup.GetFileNames());
 			Pages.Properties.Handle.SetSelected(member);
 		}
 	}

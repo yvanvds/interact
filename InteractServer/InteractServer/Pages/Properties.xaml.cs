@@ -37,6 +37,11 @@ namespace InteractServer.Pages
 			GuiInspector.Inspect(obj);
 		}
 
+        public void SetClientGuis(List<string> guis)
+        {
+            GuiInspector.setClientGuis(guis);
+        }
+
 		public OscGuiControl.OscInspectorGui GetInspector()
 		{
 			return GuiInspector;

@@ -98,7 +98,8 @@ namespace InteractServer.Pages
 		{
 			if(Project.Project.Current != null)
 			{
-				Properties.Handle.SetSelected(Project.Project.Current);
+                Pages.Properties.Handle.SetClientGuis(Project.Project.Current.ClientModules.GuiGroup.GetFileNames());
+                Properties.Handle.SetSelected(Project.Project.Current);
 			}
 		}
 

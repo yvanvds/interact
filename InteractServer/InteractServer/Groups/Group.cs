@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using OscGuiControl;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,20 +39,32 @@ namespace InteractServer.Groups
 		public string ID { get; }
 
 		private string firstClientGui = string.Empty;
+        [DisplayName("Gui on Startup")]
 		public string FirstClientGui
 		{
 			get
 			{
 				var module = Project.Project.Current.ClientModules.Get(firstClientGui);
 				if (module != null) return module.Name;
-				return string.Empty;
+				return "Not Set";
 			}
 			set
 			{
-				var module = Project.Project.Current.ClientModules.GetByName(value);
-				if (module != null) firstClientGui = module.ID;
-				else firstClientGui = string.Empty;
-				needsSaving = true;
+                if (value == null) return;
+                if (value.Equals("Not Set"))
+                {
+                    firstClientGui = string.Empty;
+                    needsSaving = true;
+                }
+                else
+                {
+                    var module = Project.Project.Current.ClientModules.GetByName(value);
+                    if (module != null)
+                    {
+                        firstClientGui = module.ID;
+                        needsSaving = true;
+                    }
+                }
 			}
 		}
 		public string FirstClientGuiID => firstClientGui;

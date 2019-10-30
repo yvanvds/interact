@@ -142,5 +142,15 @@ namespace InteractServer.Project
 				obj[resource.ID] = resource.Version;
 			}
 		}
+
+        public List<string> GetFileNames()
+        {
+            List<string> result = new List<string>();
+            foreach (var resource in resources)
+            {
+                result.Add(resource.Name);
+            }
+            return result;
+        }
 	}
 }

@@ -11,8 +11,8 @@ namespace InteractServer.Project
 {
 	public class ClientModuleFolder : AbstractFolder, IFolder
 	{
-		FileGroup GuiGroup;
-		FileGroup PatcherGroup;
+		public FileGroup GuiGroup;
+		public FileGroup PatcherGroup;
 		public FileGroup ScriptGroup;
 		public FileGroup SensorGroup;
 		public FileGroup ArduinoGroup;
